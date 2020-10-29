@@ -1,4 +1,4 @@
-project(Babel)
+project(RType)
 cmake_minimum_required(VERSION 3.17)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "./bin")
 
@@ -15,28 +15,32 @@ conan_basic_setup()
 include_directories(
         client/include
         server/include
+        engine/include/ecs
 )
+
+set(ENGINE_SOURCES
+        engine/src/ecs/System.cpp engine/src/ecs/Entity.cpp)
+
+set(ENGINE_INCLUDES
+        engine/include/ecs/Entity.hpp
+        engine/include/ecs/System.hpp
+        engine/include/ecs/Component.hpp)
 
 set(CLIENT_SOURCES
-        client/src/main.cpp
-)
+        client/src/main.cpp)
 
 set(CLIENT_INCLUDES
-        client/include/Client.hpp
-)
-
+        client/include/Client.hpp)
 
 set(SERVER_SOURCES
-        server/src/main.cpp
-)
+        server/src/main.cpp)
 
 set(SERVER_INCLUDES
-        server/include/Server.hpp
-)
+        server/include/Server.hpp)
 
-add_executable(r-type_client ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
+add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 
-add_executable(r-type_server ${SERVER_SOURCES} ${SERVER_INCLUDES})
+add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
 
 target_link_libraries(r-type_server ${CONAN_LIBS})
 target_link_libraries(r-type_client ${CONAN_LIBS})
