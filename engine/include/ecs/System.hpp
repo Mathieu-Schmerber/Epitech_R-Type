@@ -20,8 +20,7 @@ namespace Engine {
     public:
         explicit System() = default;
 
-        template<typename T>
-        void addDependency();
+        template<typename T> void addDependency();
 
         void addEntity(std::unique_ptr <Entity> &entity);
 

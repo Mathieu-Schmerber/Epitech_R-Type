@@ -4,8 +4,7 @@
 
 #include "System.hpp"
 
-template<typename T>
-void Engine::System::addDependency() {
+template<typename T> void Engine::System::addDependency() {
     this->_dependencies.push_back(std::make_unique<T>());
 }
 
