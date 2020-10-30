@@ -6,7 +6,7 @@
 
 template<typename T>
 void Engine::System::addDependency() {
-    this->_dependencies.push_back(std::make_unique<T>);
+    this->_dependencies.push_back(std::make_unique<T>());
 }
 
 void Engine::System::addEntity(std::unique_ptr<Engine::Entity> &entity)

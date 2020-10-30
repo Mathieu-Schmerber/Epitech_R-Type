@@ -1,7 +1,10 @@
 #include <iostream>
+#include <Core.hpp>
 
 int main()
 {
-    std::cout << "Hello World" << std::endl;
+    auto core = new Core();
+
+    core->start();
     return 0;
 }

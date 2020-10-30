@@ -15,22 +15,50 @@ conan_basic_setup()
 include_directories(
         client/include
         server/include
+        engine/include/
+        engine/include/components
+        engine/include/systems
         engine/include/ecs
 )
 
 set(ENGINE_SOURCES
-        engine/src/ecs/System.cpp engine/src/ecs/Entity.cpp)
+        engine/src/ecs/System.cpp
+        engine/src/ecs/Entity.cpp
+        engine/src/AServer.cpp
+        engine/src/SceneManager.cpp
+        engine/src/AWindow.cpp
+        engine/src/AScene.cpp
+        engine/src/components/TransformComponent.cpp
+        engine/src/components/SpriteComponent.cpp
+        engine/src/ASprite.cpp
+        engine/src/systems/DrawSystem.cpp)
 
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
         engine/include/ecs/System.hpp
-        engine/include/ecs/Component.hpp)
+        engine/include/ecs/Component.hpp
+        engine/include/AServer.hpp
+        engine/include/SceneManager.hpp
+        engine/include/AWindow.hpp
+        engine/include/AScene.hpp
+        engine/include/AUdpSocket.hpp
+        engine/include/ATcpSocket.hpp
+        engine/include/components/TransformComponent.hpp
+        engine/include/components/SpriteComponent.hpp
+        engine/include/ASprite.hpp
+        engine/include/systems/DrawSystem.hpp)
 
 set(CLIENT_SOURCES
-        client/src/main.cpp)
+        client/src/main.cpp
+        client/src/Core.cpp
+        client/src/scenes/MainMenu.cpp)
 
 set(CLIENT_INCLUDES
-        client/include/Client.hpp)
+        client/include/Client.hpp
+        client/include/Core.hpp
+        client/include/scenes/MainMenu.hpp
+        client/include/scenes/SceneType.hpp
+        client/include/entities/Button.hpp)
 
 set(SERVER_SOURCES
         server/src/main.cpp)

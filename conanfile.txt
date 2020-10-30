@@ -1,5 +1,5 @@
 [requires]
-sfml/2.5.1@bincrafters/stable
+#sfml/2.5.1@bincrafters/stable
 boost/1.71.0@conan/stable
 zlib/1.2.11@conan/stable
 bzip2/1.0.8@conan/stable
