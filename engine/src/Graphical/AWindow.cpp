@@ -2,24 +2,21 @@
 // Created by mathi on 29/10/2020.
 //
 
-#include "AWindow.hpp"
+#include "Graphical/AWindow.hpp"
 
 Engine::AWindow::AWindow(const std::string &title, const std::pair<int, int> &windowSize)
 : _title(title), _size(windowSize) {}
 
 void Engine::AWindow::open()
 {
-
 }
 
 void Engine::AWindow::display()
 {
-
 }
 
 void Engine::AWindow::close()
 {
-
 }
 
 void Engine::AWindow::setSize(const std::pair<int, int> &size)

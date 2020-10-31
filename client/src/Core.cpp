@@ -6,10 +6,11 @@
 #include "Core.hpp"
 #include "scenes/MainMenu.hpp"
 #include "entities/Button.hpp"
+#include "sfml/WindowSFML.hpp"
 
 Core::Core()
 {
-    this->_window = new Engine::AWindow("", {1920, 1080});
+    this->_window = new WindowSFML("", {1920, 1080});
     this->_server = new Engine::AServer("", 0);
     Engine::SceneManager::setWindow(this->_window);
     Engine::SceneManager::setServer(this->_server);
@@ -22,5 +23,8 @@ void Core::start()
 
     mainMenu->spawnEntity(std::move(btn));
     Engine::SceneManager::switchScene(SceneType::MAIN_MENU);
-    Engine::SceneManager::getCurrent()->update();
+    while (true) {
+        Engine::SceneManager::getCurrent()->update();
+
+    }
 }

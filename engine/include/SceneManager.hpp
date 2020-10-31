@@ -9,7 +9,7 @@
 #include <map>
 #include "AScene.hpp"
 #include "AServer.hpp"
-#include "AWindow.hpp"
+#include "Graphical/AWindow.hpp"
 
 namespace Engine {
 

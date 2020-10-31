@@ -16,13 +16,17 @@ conan_basic_setup()
 set(ENGINE_SOURCES
         engine/src/AServer.cpp
         engine/src/SceneManager.cpp
-        engine/src/AWindow.cpp
         engine/src/AScene.cpp
         engine/src/components/TransformComponent.cpp
         engine/src/components/SpriteComponent.cpp
         engine/src/ASprite.cpp
         engine/src/systems/DrawSystem.cpp
-        engine/src/SFML/WindowSFML.cpp)
+        engine/src/Graphical/AEvents.cpp
+        engine/src/Graphical/ASound.cpp
+        engine/src/Graphical/AGraphical.cpp
+        engine/src/Graphical/AWindow.cpp
+
+        )
 
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
@@ -30,7 +34,6 @@ set(ENGINE_INCLUDES
         engine/include/ecs/Component.hpp
         engine/include/AServer.hpp
         engine/include/SceneManager.hpp
-        engine/include/AWindow.hpp
         engine/include/AScene.hpp
         engine/include/AUdpSocket.hpp
         engine/include/ATcpSocket.hpp
@@ -38,18 +41,34 @@ set(ENGINE_INCLUDES
         engine/include/components/SpriteComponent.hpp
         engine/include/ASprite.hpp
         engine/include/systems/DrawSystem.hpp
-        engine/include/SFML/WindowSFML.hpp)
+        engine/include/Graphical/AGraphical.hpp
+        engine/include/Graphical/ASound.hpp
+        engine/include/Graphical/AEvents.hpp
+        engine/include/Graphical/AWindow.hpp
+
+        )
 
 set(CLIENT_SOURCES
         client/src/main.cpp
         client/src/Core.cpp
-        client/src/scenes/MainMenu.cpp)
+        client/src/scenes/MainMenu.cpp
+        client/src/sfml/WindowSFML.cpp
+        client/src/sfml/SoundSFML.cpp
+        client/src/sfml/EventsSFML.cpp
+        client/src/sfml/GraphicalSFML.cpp
+        )
 
 set(CLIENT_INCLUDES
         client/include/Core.hpp
         client/include/scenes/MainMenu.hpp
         client/include/scenes/SceneType.hpp
-        client/include/entities/Button.hpp)
+        client/include/entities/Button.hpp
+        client/include/sfml/GraphicalSFML.hpp
+        client/include/sfml/WindowSFML.hpp
+        client/include/sfml/EventsSFML.hpp
+        client/include/sfml/SoundSFML.hpp
+
+        )
 
 set(SERVER_SOURCES
         server/main.cpp
