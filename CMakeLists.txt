@@ -52,11 +52,15 @@ set(CLIENT_INCLUDES
 set(SERVER_SOURCES
         server/main.cpp
         server/Core/Core.cpp
-        server/Client/Client.cpp)
+        server/Client/Client.cpp
+        server/Lobby/LobbyManager/LobbyManager.cpp
+        server/Lobby/Lobby/Lobby.cpp)
 
 set(SERVER_INCLUDES
         server/Core/Core.hpp
-        server/Client/Client.hpp)
+        server/Client/Client.hpp
+        server/Lobby/LobbyManager/LobbyManager.hpp
+        server/Lobby/Lobby/Lobby.hpp)
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
@@ -64,7 +68,9 @@ add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURC
 target_include_directories(r-type_server PRIVATE
         server/Core
         engine/include
-        server/Client)
+        server/Client
+        server/Lobby/LobbyManager
+        server/Lobby/Lobby)
 target_include_directories(r-type_client PRIVATE
         client/include
         engine/include)

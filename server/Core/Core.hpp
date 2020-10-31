@@ -9,7 +9,9 @@
 #define RTYPE_CORE_HPP
 
 #include <vector>
+#include <memory>
 #include "Client.hpp"
+#include "LobbyManager.hpp"
 
 class Core {
 public:
@@ -17,6 +19,7 @@ public:
     void run();
 private:
     std::vector<Client> _connected{};
+    std::unique_ptr<LobbyManager> _lobbyManager;
 };
 
 #endif //RTYPE_CORE_HPP
