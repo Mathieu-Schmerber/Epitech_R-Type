@@ -33,7 +33,6 @@ namespace Engine {
                     }
                 }
             }
-            std::cout << "matching: " << match << std::endl;
             return (match >= components.size());
         }
     };
@@ -47,11 +46,18 @@ namespace Engine {
         this->_components.push_back(std::move(component));
     }
 
+    template<typename T, typename U>
+    bool typeITemplate(U v)
+    {
+        std::cout << typeid(v).name() << std::endl;
+        return std::is_same<T, U>();
+    }
+
     template<typename T>
     T *Engine::Entity::getComponent()
     {
         for (auto &component : this->_components) {
-            if (typeid(component) == typeid(T))
+            if (typeITemplate<T>(component.get()))
                 return static_cast<T *>(component.get());
         }
         return nullptr;

@@ -18,7 +18,6 @@ int Engine::AScene::getId() const
 
 void Engine::AScene::spawnEntity(std::unique_ptr<Entity> entity)
 {
-    std::cout << "systems" << std::endl;
     for (auto &sys : this->_systems) {
         if (entity->hasComponents(sys->getDependencies()))
             sys->addEntity(entity);
