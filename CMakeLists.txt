@@ -18,8 +18,6 @@ set(ENGINE_SOURCES
         engine/src/SceneManager.cpp
         engine/src/AWindow.cpp
         engine/src/AScene.cpp
-        engine/src/components/TransformComponent.cpp
-        engine/src/components/SpriteComponent.cpp
         engine/src/ASprite.cpp
         engine/src/systems/DrawSystem.cpp)
 
@@ -36,7 +34,15 @@ set(ENGINE_INCLUDES
         engine/include/components/TransformComponent.hpp
         engine/include/components/SpriteComponent.hpp
         engine/include/ASprite.hpp
-        engine/include/systems/DrawSystem.hpp)
+        engine/include/systems/DrawSystem.hpp
+        engine/include/entities/Button.hpp
+        engine/include/components/ClickableComponent.hpp
+        engine/include/components/NetworkComponent.hpp
+        engine/include/components/ControllerComponent.hpp
+        engine/include/enumerations/Input.hpp
+        engine/include/components/ColliderComponent.hpp
+        engine/include/components/ChildrenComponent.hpp
+        engine/include/components/VelocityComponent.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
@@ -47,7 +53,7 @@ set(CLIENT_INCLUDES
         client/include/Core.hpp
         client/include/scenes/MainMenu.hpp
         client/include/scenes/SceneType.hpp
-        client/include/entities/Button.hpp)
+        )
 
 set(SERVER_SOURCES
         server/main.cpp

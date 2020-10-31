@@ -18,7 +18,7 @@ Core::Core()
 void Core::start()
 {
     auto mainMenu = Engine::SceneManager::createScene(new MainMenu());
-    auto btn = std::make_unique<Button>(std::pair<int, int>{0, 0});
+    auto btn = std::make_unique<Engine::Button>(std::pair<int, int>{0, 0});
 
     mainMenu->spawnEntity(std::move(btn));
     Engine::SceneManager::switchScene(SceneType::MAIN_MENU);

@@ -6,28 +6,42 @@
 #define RTYPE_TRANSFORMCOMPONENT_HPP
 
 #include <utility>
-#include <math.h>
+#include <cmath>
 #include "ecs/Component.hpp"
 
-class TransformComponent : public Engine::Component {
-private:
-    std::pair<int, int> _pos;
-    double _rotation;
-    std::pair<double, double> _normal;
+namespace Engine {
 
-public:
-    explicit TransformComponent(const std::pair<int, int> &pos = {0, 0},
-                                double rotation = 0,
-                                const std::pair<double, double> &normal = {0, 1});
+    class TransformComponent : public Engine::Component {
+    private:
+        std::pair<int, int> _pos;
+        double _rotation;
+        std::pair<double, double> _normal;
 
-    std::pair<int, int> getPos() const;
-    void setPos(const std::pair<int, int> &pos);
+    public:
+        explicit TransformComponent(const std::pair<int, int> &pos,
+                                    double rotation,
+                                    const std::pair<double, double> &normal)
+                : _pos(pos), _rotation(rotation), _normal(normal), Component() {}
 
-    double getRotation() const;
-    void setRotation(double rotation);
+        std::pair<int, int> getPos() const { return this->_pos; }
+        void setPos(const std::pair<int, int> &pos) {this->_pos = pos;}
 
-    std::pair<double, double> getNormal() const;
+        double getRotation() const {return this->_rotation;}
+        void setRotation(double rotation) {this->_rotation = rotation;}
 
-};
+        std::pair<double, double> getNormal() const
+        {
+            const double PI = 3.141592653589793238463;
+            double angle = this->_rotation * (PI / 180);
+            std::pair<double, double> res = {
+                    _normal.first * cos(angle) - _normal.second * sin(angle),
+                    _normal.first * sin(angle) + _normal.second * cos(angle)};
+
+            return res;
+        }
+
+    };
+
+}
 
 #endif //RTYPE_TRANSFORMCOMPONENT_HPP

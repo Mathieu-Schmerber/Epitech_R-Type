@@ -9,17 +9,17 @@
 
 Engine::DrawSystem::DrawSystem(Engine::AWindow *window) : _window(window), Engine::System()
 {
-    this->addDependency<TransformComponent>();
-    this->addDependency<SpriteComponent>();
+    this->addDependency<Engine::TransformComponent>();
+    this->addDependency<Engine::SpriteComponent>();
 }
 
 void Engine::DrawSystem::update()
 {
-    TransformComponent *transform = nullptr;
+    Engine::TransformComponent *transform = nullptr;
 
     for (auto e : this->_entities) {
-        transform = e.get()->getComponent<TransformComponent>();
+        transform = e.get()->getComponent<Engine::TransformComponent>();
         std::cout << "Draw at " << transform->getPos().first << ":" << transform->getPos().second << std::endl;
-        //TODO: getComponent<SpriteComponent>()->draw()  ?
+        //TODO: this->_window->draw(position, sprite) ?
     }
 }
