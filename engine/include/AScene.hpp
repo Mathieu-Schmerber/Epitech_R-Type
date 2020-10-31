@@ -14,7 +14,7 @@ namespace Engine {
     protected:
         int _sceneId;
         std::vector<std::unique_ptr<Engine::System>> _systems;
-        std::vector<std::reference_wrapper<std::unique_ptr<Engine::Entity>>> _entities;
+        std::vector<std::unique_ptr<Engine::Entity>> _entities;
 
     public:
         explicit AScene(int id);
@@ -22,8 +22,7 @@ namespace Engine {
 
         int getId() const;
 
-        virtual void spawnEntity(std::unique_ptr<Entity> &entity);
-        virtual void init();  // push entities to systems
+        void spawnEntity(std::unique_ptr<Entity> entity);
         virtual void update(); // calls systems update( );
     };
 

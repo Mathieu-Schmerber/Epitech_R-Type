@@ -8,8 +8,9 @@
 namespace Engine {
 
     class Component {
-    protected:
-        explicit Component() = default;
+    public:
+        Component() = default;
+        ~Component() = default;
     };
 
 }

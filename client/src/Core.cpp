@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "scenes/MainMenu.hpp"
+#include "entities/Button.hpp"
 #include "Core.hpp"
 
 Core::Core()
@@ -16,9 +17,10 @@ Core::Core()
 
 void Core::start()
 {
-    Engine::SceneManager::createScene(new MainMenu());
-    Engine::SceneManager::switchScene(SceneType::MAIN_MENU);
+    auto mainMenu = Engine::SceneManager::createScene(new MainMenu());
+    auto btn = std::make_unique<Button>(std::pair<int, int>{0, 0});
 
-    Engine::SceneManager::getCurrent()->init();
+    mainMenu->spawnEntity(std::move(btn));
+    Engine::SceneManager::switchScene(SceneType::MAIN_MENU);
     Engine::SceneManager::getCurrent()->update();
 }

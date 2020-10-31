@@ -31,6 +31,25 @@ namespace Engine {
         virtual void update() = 0;
     };
 
+    template<typename T> void Engine::System::addDependency() {
+        this->_dependencies.push_back(std::move(std::make_unique<T>()));
+    }
+
+    void Engine::System::addEntity(std::unique_ptr<Engine::Entity> &entity)
+    {
+        this->_entities.push_back(std::reference_wrapper<std::unique_ptr<Engine::Entity>>(entity));
+    }
+
+    std::vector<std::unique_ptr<Engine::Component>> &Engine::System::getDependencies()
+    {
+        return this->_dependencies;
+    }
+
+    std::vector<std::reference_wrapper<std::unique_ptr<Engine::Entity>>> &Engine::System::getEntities()
+    {
+        return this->_entities;
+    }
+
 }
 
 #endif //RTYPE_SYSTEM_HPP

@@ -19,8 +19,6 @@ include_directories(
 )
 
 set(ENGINE_SOURCES
-        engine/src/ecs/Entity.cpp
-        engine/src/ecs/System.cpp
         engine/src/AServer.cpp
         engine/src/SceneManager.cpp
         engine/src/AWindow.cpp

@@ -16,18 +16,14 @@ int Engine::AScene::getId() const
     return this->_sceneId;
 }
 
-void Engine::AScene::spawnEntity(std::unique_ptr<Entity> &entity)
+void Engine::AScene::spawnEntity(std::unique_ptr<Entity> entity)
 {
+    std::cout << "systems" << std::endl;
     for (auto &sys : this->_systems) {
         if (entity->hasComponents(sys->getDependencies()))
             sys->addEntity(entity);
     }
-}
-
-void Engine::AScene::init()
-{
-    for (auto &entity : this->_entities)
-        this->spawnEntity(entity);
+    this->_entities.push_back(std::move(entity));
 }
 
 void Engine::AScene::update()

@@ -4,7 +4,10 @@
 
 #include "components/SpriteComponent.hpp"
 
-SpriteComponent::SpriteComponent(Engine::ASprite *sprite) : _sprite(sprite), Engine::Component() {}
+SpriteComponent::SpriteComponent(Engine::ASprite *sprite) : _sprite(sprite), Engine::Component()
+{
+
+}
 
 Engine::ASprite *SpriteComponent::getSprite() const
 {
