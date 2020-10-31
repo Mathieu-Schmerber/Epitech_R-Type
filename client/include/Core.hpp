@@ -6,11 +6,10 @@
 #define RTYPE_CORE_HPP
 
 #include <memory>
-#include <SceneManager.hpp>
+#include "SceneManager.hpp"
 
 class Core
 {
-
 private:
     Engine::AWindow *_window;
     Engine::AServer *_server;
@@ -18,7 +17,6 @@ private:
 public:
     Core();
     void start();
-
 };
 
 #endif //RTYPE_CORE_HPP
