@@ -10,6 +10,7 @@ if(WIN32)
 endif()
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+
 conan_basic_setup()
 
 set(ENGINE_SOURCES
@@ -50,17 +51,23 @@ set(CLIENT_INCLUDES
 
 set(SERVER_SOURCES
         server/main.cpp
-        server/Core/Core.cpp)
+        server/Core/Core.cpp
+        server/Client/Client.cpp)
 
 set(SERVER_INCLUDES
-        server/Core/Core.hpp)
+        server/Core/Core.hpp
+        server/Client/Client.hpp)
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
-
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
 
-target_include_directories(r-type_server PRIVATE server/Core engine/include)
-target_include_directories(r-type_client PRIVATE client/include engine/include)
+target_include_directories(r-type_server PRIVATE
+        server/Core
+        engine/include
+        server/Client)
+target_include_directories(r-type_client PRIVATE
+        client/include
+        engine/include)
 
 target_link_libraries(r-type_server ${CONAN_LIBS})
 target_link_libraries(r-type_client ${CONAN_LIBS})

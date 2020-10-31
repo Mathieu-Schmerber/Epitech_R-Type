@@ -5,14 +5,9 @@
 ** Created by Emilien
 */
 
-#include "Core.hpp"
+#include "Client.hpp"
 
-Core::Core()
-{
-
-}
-
-void Core::run()
+Client::Client()
 {
 
 }
