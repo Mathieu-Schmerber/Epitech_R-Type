@@ -8,6 +8,7 @@
 #include <memory>
 #include <vector>
 #include <iostream>
+#include <map>
 #include "ecs/Component.hpp"
 
 namespace Engine {
@@ -46,18 +47,11 @@ namespace Engine {
         this->_components.push_back(std::move(component));
     }
 
-    template<typename T, typename U>
-    bool typeITemplate(U v)
-    {
-        std::cout << typeid(v).name() << std::endl;
-        return std::is_same<T, U>();
-    }
-
     template<typename T>
     T *Engine::Entity::getComponent()
     {
         for (auto &component : this->_components) {
-            if (typeITemplate<T>(component.get()))
+            if (typeid(tmp) == typeid(component))
                 return static_cast<T *>(component.get());
         }
         return nullptr;

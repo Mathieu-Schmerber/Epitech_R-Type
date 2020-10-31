@@ -14,12 +14,10 @@ private:
     Engine::ASprite *_sprite;
 
 public:
-    explicit SpriteComponent(Engine::ASprite *sprite);
+    explicit SpriteComponent(Engine::ASprite *sprite = nullptr);
 
     Engine::ASprite *getSprite() const;
     void setSprite(Engine::ASprite *sprite);
-
-    SpriteComponent() = default;
 };
 
 #endif //RTYPE_SPRITECOMPONENT_HPP
