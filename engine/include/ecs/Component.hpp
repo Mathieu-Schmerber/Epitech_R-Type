@@ -7,6 +7,7 @@
 #define RTYPE_COMPONENT_HPP
 
 #include <string>
+#include <iostream>
 
 namespace Engine {
 

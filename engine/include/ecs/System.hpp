@@ -24,7 +24,7 @@ namespace Engine {
 
         void addEntity(std::unique_ptr<Engine::Entity> &entity)
         {
-            this->_entities.push_back(std::reference_wrapper<std::unique_ptr<Engine::Entity>>(entity));
+            this->_entities.emplace_back(entity);
         }
 
 
@@ -41,7 +41,10 @@ namespace Engine {
     };
 
     template<typename T> void Engine::System::addDependency() {
-        this->_dependencies.push_back(std::move(std::make_unique<T>()));
+        std::unique_ptr<Component> component = std::make_unique<T>();
+
+        component->setInfo(typeid(T).name());
+        this->_dependencies.push_back(std::move(component));
     }
 
 

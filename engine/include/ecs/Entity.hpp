@@ -23,12 +23,14 @@ namespace Engine {
 
         template<typename T, typename... TArgs> void addComponent(TArgs&&... args);
         template<typename T> T *getComponent();
-        bool hasComponents(std::vector<std::unique_ptr<Engine::Component>> &components) {
+
+        bool hasComponents(std::vector<std::unique_ptr<Engine::Component>> &components)
+        {
             size_t match = 0;
 
             for (auto &comp : components) {
                 for (auto &my : this->_components) {
-                    if (typeid(my) == typeid(comp)) {
+                    if (comp->getInfo() == my->getInfo()) {
                         match++;
                         break;
                     }
