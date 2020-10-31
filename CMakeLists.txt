@@ -21,7 +21,8 @@ set(ENGINE_SOURCES
         engine/src/components/TransformComponent.cpp
         engine/src/components/SpriteComponent.cpp
         engine/src/ASprite.cpp
-        engine/src/systems/DrawSystem.cpp)
+        engine/src/systems/DrawSystem.cpp
+        engine/src/SFML/WindowSFML.cpp)
 
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
@@ -36,7 +37,8 @@ set(ENGINE_INCLUDES
         engine/include/components/TransformComponent.hpp
         engine/include/components/SpriteComponent.hpp
         engine/include/ASprite.hpp
-        engine/include/systems/DrawSystem.hpp)
+        engine/include/systems/DrawSystem.hpp
+        engine/include/SFML/WindowSFML.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp

@@ -20,6 +20,6 @@ void Engine::DrawSystem::update()
     for (auto e : this->_entities) {
         transform = e.get()->getComponent<TransformComponent>();
         std::cout << "Draw at " << transform->getPos().first << ":" << transform->getPos().second << std::endl;
-        //TODO: getComponent<SpriteComponent>()->draw()  ?
+        //TODO: getComponent<SpriteComponent>()->draw() ?
     }
 }
