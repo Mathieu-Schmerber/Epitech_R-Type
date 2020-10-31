@@ -7,7 +7,7 @@
 
 #include <vector>
 #include <memory>
-#include "Entity.hpp"
+#include "ecs/Entity.hpp"
 
 namespace Engine {
 

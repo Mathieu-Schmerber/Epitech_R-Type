@@ -16,14 +16,11 @@ include_directories(
         client/include
         server/include
         engine/include/
-        engine/include/components
-        engine/include/systems
-        engine/include/ecs
 )
 
 set(ENGINE_SOURCES
-        engine/src/ecs/System.cpp
         engine/src/ecs/Entity.cpp
+        engine/src/ecs/System.cpp
         engine/src/AServer.cpp
         engine/src/SceneManager.cpp
         engine/src/AWindow.cpp
@@ -54,7 +51,6 @@ set(CLIENT_SOURCES
         client/src/scenes/MainMenu.cpp)
 
 set(CLIENT_INCLUDES
-        client/include/Client.hpp
         client/include/Core.hpp
         client/include/scenes/MainMenu.hpp
         client/include/scenes/SceneType.hpp

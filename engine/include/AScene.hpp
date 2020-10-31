@@ -5,8 +5,7 @@
 #ifndef RTYPE_ASCENE_HPP
 #define RTYPE_ASCENE_HPP
 
-#include "System.hpp"
-#include "Entity.hpp"
+#include "ecs/System.hpp"
 
 namespace Engine {
 

@@ -5,9 +5,9 @@
 #ifndef RTYPE_BUTTON_HPP
 #define RTYPE_BUTTON_HPP
 
-#include "TransformComponent.hpp"
-#include "SpriteComponent.hpp"
-#include "Entity.hpp"
+#include "ecs/Entity.hpp"
+#include "components/TransformComponent.hpp"
+#include "components/SpriteComponent.hpp"
 
 class Button : public Engine::Entity
 {

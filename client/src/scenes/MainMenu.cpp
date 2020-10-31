@@ -2,7 +2,7 @@
 // Created by mathi on 30/10/2020.
 //
 
-#include "DrawSystem.hpp"
+#include "systems/DrawSystem.hpp"
 #include "SceneManager.hpp"
 #include "scenes/MainMenu.hpp"
 

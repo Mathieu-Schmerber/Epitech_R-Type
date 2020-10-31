@@ -7,25 +7,21 @@
 
 #include <memory>
 #include <vector>
-#include "Component.hpp"
+#include "ecs/Component.hpp"
 
 namespace Engine {
 
     class Entity {
 
     protected:
-        std::vector <std::unique_ptr<Component>> _components;
+        std::vector<std::unique_ptr<Component>> _components;
 
     public:
         explicit Entity() = default;
 
-        template<typename T, typename... TArgs>
-        void addComponent(TArgs &&... args);
-
-        template<typename T>
-        T *getComponent();
-
-        bool hasComponents(std::vector <std::unique_ptr<Component>> &components);
+        template<typename T, typename... TArgs> void addComponent(TArgs&&... args);
+        template<typename T> T *getComponent();
+        bool hasComponents(std::vector<std::unique_ptr<Component>> &components);
     };
 }
 #endif //RTYPE_ENTITY_HPP

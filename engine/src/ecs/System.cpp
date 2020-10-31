@@ -2,7 +2,7 @@
 // Created by mathi on 29/10/2020.
 //
 
-#include "System.hpp"
+#include "ecs/System.hpp"
 
 template<typename T> void Engine::System::addDependency() {
     this->_dependencies.push_back(std::make_unique<T>());

@@ -2,7 +2,7 @@
 // Created by mathi on 30/10/2020.
 //
 
-#include "TransformComponent.hpp"
+#include "components/TransformComponent.hpp"
 
 TransformComponent::TransformComponent(const std::pair<int, int> &pos, double rotation, const std::pair<double, double> &normal)
 : _pos(pos), _rotation(rotation), _normal(normal), Component() {}

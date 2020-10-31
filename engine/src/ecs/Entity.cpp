@@ -2,7 +2,7 @@
 // Created by mathi on 29/10/2020.
 //
 
-#include "Entity.hpp"
+#include "ecs/Entity.hpp"
 
 template<typename T, typename... TArgs>
 void Engine::Entity::addComponent(TArgs &&... args)

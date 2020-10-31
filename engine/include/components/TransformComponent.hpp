@@ -7,7 +7,7 @@
 
 #include <utility>
 #include <math.h>
-#include "Component.hpp"
+#include "ecs/Component.hpp"
 
 class TransformComponent : public Engine::Component {
 private:

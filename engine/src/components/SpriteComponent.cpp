@@ -2,7 +2,7 @@
 // Created by mathi on 30/10/2020.
 //
 
-#include "SpriteComponent.hpp"
+#include "components/SpriteComponent.hpp"
 
 SpriteComponent::SpriteComponent(Engine::ASprite *sprite) : _sprite(sprite), Engine::Component() {}
 

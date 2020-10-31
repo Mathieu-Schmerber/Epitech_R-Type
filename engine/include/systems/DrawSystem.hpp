@@ -6,7 +6,7 @@
 #define RTYPE_DRAWSYSTEM_HPP
 
 #include "AWindow.hpp"
-#include "System.hpp"
+#include "ecs/System.hpp"
 
 namespace Engine {
 
@@ -16,7 +16,7 @@ namespace Engine {
         Engine::AWindow *_window;
 
     public:
-        DrawSystem(Engine::AWindow *window);
+        explicit DrawSystem(Engine::AWindow *window);
         void update() override;
     };
 

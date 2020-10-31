@@ -3,9 +3,9 @@
 //
 
 #include <iostream>
-#include "DrawSystem.hpp"
-#include "TransformComponent.hpp"
-#include "SpriteComponent.hpp"
+#include "systems/DrawSystem.hpp"
+#include "components/TransformComponent.hpp"
+#include "components/SpriteComponent.hpp"
 
 Engine::DrawSystem::DrawSystem(Engine::AWindow *window) : _window(window), Engine::System()
 {
