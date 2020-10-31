@@ -12,12 +12,6 @@ endif()
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-include_directories(
-        client/include
-        server/include
-        engine/include/
-)
-
 set(ENGINE_SOURCES
         engine/src/AServer.cpp
         engine/src/SceneManager.cpp
@@ -55,14 +49,18 @@ set(CLIENT_INCLUDES
         client/include/entities/Button.hpp)
 
 set(SERVER_SOURCES
-        server/src/main.cpp)
+        server/main.cpp
+        server/Core/Core.cpp)
 
 set(SERVER_INCLUDES
-        server/include/Server.hpp)
+        server/Core/Core.hpp)
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
+
+target_include_directories(r-type_server PRIVATE server/Core engine/include)
+target_include_directories(r-type_client PRIVATE client/include engine/include)
 
 target_link_libraries(r-type_server ${CONAN_LIBS})
 target_link_libraries(r-type_client ${CONAN_LIBS})
