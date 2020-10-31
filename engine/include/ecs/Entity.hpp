@@ -22,7 +22,20 @@ namespace Engine {
 
         template<typename T, typename... TArgs> void addComponent(TArgs&&... args);
         template<typename T> T *getComponent();
-        bool hasComponents(std::vector<std::unique_ptr<Component>> &components);
+        bool hasComponents(std::vector<std::unique_ptr<Engine::Component>> &components) {
+            size_t match = 0;
+
+            for (auto &comp : components) {
+                for (auto &my : this->_components) {
+                    if (typeid(my) == typeid(comp)) {
+                        match++;
+                        break;
+                    }
+                }
+            }
+            std::cout << "matching: " << match << std::endl;
+            return (match >= components.size());
+        }
     };
 
 
@@ -44,19 +57,6 @@ namespace Engine {
         return nullptr;
     }
 
-    bool Engine::Entity::hasComponents(std::vector<std::unique_ptr<Engine::Component>> &components) {
-        size_t match = 0;
 
-        for (auto &comp : components) {
-            for (auto &my : this->_components) {
-                if (typeid(my) == typeid(comp)) {
-                    match++;
-                    break;
-                }
-            }
-        }
-        std::cout << "matching: " << match << std::endl;
-        return (match >= components.size());
-    }
 }
 #endif //RTYPE_ENTITY_HPP

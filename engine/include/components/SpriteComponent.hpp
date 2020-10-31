@@ -19,7 +19,7 @@ public:
     Engine::ASprite *getSprite() const;
     void setSprite(Engine::ASprite *sprite);
 
-    SpriteComponent();
+    SpriteComponent() = default;
 };
 
 #endif //RTYPE_SPRITECOMPONENT_HPP

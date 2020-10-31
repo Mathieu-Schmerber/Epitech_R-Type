@@ -22,12 +22,21 @@ namespace Engine {
 
         template<typename T> void addDependency();
 
-        void addEntity(std::unique_ptr <Entity> &entity);
+        void addEntity(std::unique_ptr<Engine::Entity> &entity)
+        {
+            this->_entities.push_back(std::reference_wrapper<std::unique_ptr<Engine::Entity>>(entity));
+        }
 
-        std::vector <std::unique_ptr<Component>> &getDependencies();
 
-        std::vector<std::reference_wrapper<std::unique_ptr<Entity>>> &getEntities();
+        std::vector <std::unique_ptr<Component>> &getDependencies()
+        {
+            return this->_dependencies;
+        }
 
+        std::vector<std::reference_wrapper<std::unique_ptr<Entity>>> &getEntities()
+        {
+            return this->_entities;
+        }
         virtual void update() = 0;
     };
 
@@ -35,20 +44,7 @@ namespace Engine {
         this->_dependencies.push_back(std::move(std::make_unique<T>()));
     }
 
-    void Engine::System::addEntity(std::unique_ptr<Engine::Entity> &entity)
-    {
-        this->_entities.push_back(std::reference_wrapper<std::unique_ptr<Engine::Entity>>(entity));
-    }
 
-    std::vector<std::unique_ptr<Engine::Component>> &Engine::System::getDependencies()
-    {
-        return this->_dependencies;
-    }
-
-    std::vector<std::reference_wrapper<std::unique_ptr<Engine::Entity>>> &Engine::System::getEntities()
-    {
-        return this->_entities;
-    }
 
 }
 
