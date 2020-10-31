@@ -67,17 +67,17 @@ add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURC
 target_link_libraries(r-type_server ${CONAN_LIBS})
 target_link_libraries(r-type_client ${CONAN_LIBS})
 
-if(MSVC)
-    set(CMAKE_CXX_FLAGS_DEBUG "/DWIN32 /D_WINDOWS /EHsc /WX /wd4355 /wd4251 /wd4250 /wd4996" CACHE STRING "Debug compiler flags" FORCE)
-    set(Boost_USE_STATIC_LIBS        ON)  # only find static libs
-    set(Boost_USE_DEBUG_LIBS         OFF) # ignore debug libs and
-    set(Boost_USE_RELEASE_LIBS       ON)  # only find release libs
-    set(Boost_USE_MULTITHREADED      ON)
-    set(Boost_USE_STATIC_RUNTIME     OFF)
-    find_package(Boost 1.71.0 COMPONENTS serialization)
-    if(Boost_FOUND)
-        include_directories(${Boost_INCLUDE_DIRS})
-        target_link_libraries(r-type_client ${Boost_LIBRARIES})
-        target_link_libraries(r-type_server ${Boost_LIBRARIES})
-    endif()
-endif()
+#if(MSVC)
+#    set(CMAKE_CXX_FLAGS_DEBUG "/DWIN32 /D_WINDOWS /EHsc /WX /wd4355 /wd4251 /wd4250 /wd4996" CACHE STRING "Debug compiler flags" FORCE)
+#    set(Boost_USE_STATIC_LIBS        ON)  # only find static libs
+#    set(Boost_USE_DEBUG_LIBS         OFF) # ignore debug libs and
+#    set(Boost_USE_RELEASE_LIBS       ON)  # only find release libs
+#    set(Boost_USE_MULTITHREADED      ON)
+#    set(Boost_USE_STATIC_RUNTIME     OFF)
+#    find_package(Boost 1.71.0 COMPONENTS serialization)
+#    if(Boost_FOUND)
+#        include_directories(${Boost_INCLUDE_DIRS})
+#        target_link_libraries(r-type_client ${Boost_LIBRARIES})
+#        target_link_libraries(r-type_server ${Boost_LIBRARIES})
+#    endif()
+#endif()

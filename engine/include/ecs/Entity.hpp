@@ -42,8 +42,9 @@ namespace Engine {
     template<typename T, typename... TArgs>
     void Engine::Entity::addComponent(TArgs &&... args)
     {
-        auto component = std::make_unique<T>(std::forward<TArgs>(args)...);
+        std::unique_ptr<Component> component = std::make_unique<T>(std::forward<TArgs>(args)...);
 
+        component->setInfo(typeid(T).name());
         this->_components.push_back(std::move(component));
     }
 
@@ -51,7 +52,7 @@ namespace Engine {
     T *Engine::Entity::getComponent()
     {
         for (auto &component : this->_components) {
-            if (typeid(tmp) == typeid(component))
+            if (typeid(T).name() == component->getInfo())
                 return static_cast<T *>(component.get());
         }
         return nullptr;

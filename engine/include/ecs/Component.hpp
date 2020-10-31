@@ -6,12 +6,19 @@
 #ifndef RTYPE_COMPONENT_HPP
 #define RTYPE_COMPONENT_HPP
 
+#include <string>
+
 namespace Engine {
 
     class Component {
+    protected:
+        std::string _info;
     public:
         Component() = default;
-        virtual ~Component() = 0;
+        ~Component() = default;
+
+        void setInfo(const std::string &info) {this->_info = info;}
+        std::string getInfo() const {return this->_info;}
     };
 }
 
