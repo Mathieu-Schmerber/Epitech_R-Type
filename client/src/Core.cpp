@@ -3,9 +3,9 @@
 //
 
 #include <iostream>
+#include "Core.hpp"
 #include "scenes/MainMenu.hpp"
 #include "entities/Button.hpp"
-#include "Core.hpp"
 
 Core::Core()
 {
