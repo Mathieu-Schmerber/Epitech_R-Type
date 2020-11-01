@@ -17,13 +17,14 @@ Engine::MouseSystem::MouseSystem(std::shared_ptr<Engine::AEvents> &events) : _ev
 
 void Engine::MouseSystem::update()
 {
-    Point<int> mousePos = {0, 0}; // TODO: mousePos = this->_events->getMousePos()
+    Point<int> mousePos = this->_events->getMousePos();
     Box<int> box(0, 0, 0, 0);
     TransformComponent *transform = nullptr;
     SpriteComponent *sprite = nullptr;
     ClickableComponent *clickable = nullptr;
 
-    // TODO: if window's inputs contains Engine::Inputs::LeftClick
+    if (this->_events->getButtonsPressed().empty())
+        return;
     for (auto &e : this->_entities) {
         transform = e->getComponent<TransformComponent>();
         sprite = e->getComponent<SpriteComponent>();
