@@ -6,9 +6,9 @@
 #define RTYPE_ASPRITE_HPP
 
 #include <utility>
+#include <memory>
 #include "tools/Geometry.hpp"
 #include "AWindow.hpp"
-#include <memory>
 
 namespace Engine {
 
