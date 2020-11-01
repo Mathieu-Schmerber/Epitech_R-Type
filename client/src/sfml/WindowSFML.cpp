@@ -38,3 +38,8 @@ void WindowSFML::setTitle(const std::string &title)
     AWindow::setTitle(title);
     _titleSFML = sf::String(title.data());
 }
+
+void WindowSFML::draw(Engine::ASprite &)
+{
+
+}

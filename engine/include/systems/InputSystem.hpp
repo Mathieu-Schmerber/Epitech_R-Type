@@ -5,7 +5,7 @@
 #ifndef RTYPE_INPUTSYSTEM_HPP
 #define RTYPE_INPUTSYSTEM_HPP
 
-#include "AWindow.hpp"
+#include "Graphical/AWindow.hpp"
 #include "ecs/System.hpp"
 
 namespace Engine {

@@ -6,7 +6,7 @@
 #define RTYPE_MOUSESYSTEM_HPP
 
 #include "ecs/System.hpp"
-#include "AWindow.hpp"
+#include "Graphical/AWindow.hpp"
 
 namespace Engine {
 

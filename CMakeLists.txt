@@ -18,8 +18,6 @@ set(ENGINE_SOURCES
         engine/src/AServer.cpp
         engine/src/SceneManager.cpp
         engine/src/AScene.cpp
-        engine/src/components/TransformComponent.cpp
-        engine/src/components/SpriteComponent.cpp
         engine/src/Graphical/ASprite.cpp
         engine/src/Graphical/AEvents.cpp
         engine/src/Graphical/ASound.cpp
@@ -39,7 +37,6 @@ set(ENGINE_INCLUDES
         engine/include/ecs/Component.hpp
         engine/include/AServer.hpp
         engine/include/SceneManager.hpp
-        engine/include/AWindow.hpp
         engine/include/AScene.hpp
         engine/include/AUdpSocketIO.hpp
         engine/include/ATcpSocket.hpp
@@ -52,7 +49,6 @@ set(ENGINE_INCLUDES
         engine/include/Graphical/AEvents.hpp
         engine/include/Graphical/AWindow.hpp
 
-        engine/include/ASprite.hpp
         engine/include/systems/DrawSystem.hpp
         engine/include/entities/Button.hpp
         engine/include/components/ClickableComponent.hpp
@@ -83,7 +79,6 @@ set(CLIENT_INCLUDES
         client/include/Core.hpp
         client/include/scenes/MainMenu.hpp
         client/include/scenes/SceneType.hpp
-        client/include/entities/Button.hpp
 
         client/include/sfml/GraphicalSFML.hpp
         client/include/sfml/WindowSFML.hpp
