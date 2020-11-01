@@ -87,7 +87,7 @@ set(CLIENT_INCLUDES
         client/include/sfml/EventsSFML.hpp
         client/include/sfml/SoundSFML.hpp
 
-        engine/include/Graphical/SpriteSfml.cpp
+        engine/src/Graphical/SpriteSfml.cpp
         engine/include/Graphical/SpriteSfml.hpp
         client/include/scenes/SceneType.hpp
         )

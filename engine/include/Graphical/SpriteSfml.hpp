@@ -9,10 +9,35 @@
 #ifndef RTYPE_SPRITESFML_HPP
 #define RTYPE_SPRITESFML_HPP
 
+#include <string>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Transformable.hpp>
+#include "tools/Geometry.hpp"
 #include "ASprite.hpp"
 
 class SpriteSFML : public Engine::ASprite {
+public:
+    SpriteSFML() = default;
 
+    void loadFromFile(std::string filename);
+
+    void setPosition(Engine::Point<float> position);
+    Engine::Point<float> getPosition() const;
+    void setOrigin(Engine::Point<float> origin);
+    Engine::Point<float> getOrigin() const;
+    void setScale(Engine::Scale<float> scale);
+    Engine::Scale<float> getScale() const;
+    void setRotation(float angle);
+    float getRotation();
+    Engine::Size<int> getSize() override;
+
+    void draw(Engine::AWindow &window, Engine::Point<float> position, float angle) override;
+
+private:
+    sf::Sprite _sprite;
+    sf::Texture _texture;
 };
 
 

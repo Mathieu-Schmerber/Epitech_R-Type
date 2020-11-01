@@ -7,20 +7,17 @@
 
 #include <utility>
 #include "tools/Geometry.hpp"
+#include "AWindow.hpp"
 
 namespace Engine {
 
     class ASprite {
-    private:
-        Point<int> _size;
     public:
         explicit ASprite() = default;
-
         ~ASprite() = default;
 
-        Point<int> getSize();
-        //TODO: Write virtual functions to override
-        //TODO: example: Draw, createFromFile......
+        virtual Engine::Point<int> getSize() = 0;
+        virtual void draw(Engine::AWindow &window, Engine::Point<float> position, float angle) = 0;
     };
 
 }

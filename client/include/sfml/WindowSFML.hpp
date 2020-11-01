@@ -25,10 +25,13 @@ public:
     void display() override;
     void close() override;
 
-    void draw(Engine::ASprite&) override;
     void setTitle(const std::string &title) override;
 
+    friend class SpriteSFML;
+
 private:
+    std::unique_ptr<sf::RenderWindow> &getWindow();
+
     std::unique_ptr<sf::RenderWindow> _window = nullptr;
     sf::String _titleSFML;
 };

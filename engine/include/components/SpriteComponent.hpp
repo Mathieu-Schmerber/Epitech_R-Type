@@ -7,18 +7,19 @@
 
 #include "Graphical/ASprite.hpp"
 #include "ecs/Component.hpp"
+#include <memory>
 
 namespace Engine {
 
     class SpriteComponent : public Engine::Component {
     private:
-        Engine::ASprite *_sprite; // TODO: change to std::unique_ptr<Engine::ASprite>
+        std::unique_ptr<Engine::ASprite> _sprite;
 
     public:
-        explicit SpriteComponent(Engine::ASprite *sprite = nullptr) : _sprite(sprite) {};
+        explicit SpriteComponent(std::unique_ptr<Engine::ASprite> sprite = nullptr) : _sprite(std::move(sprite)) {};
 
-        Engine::ASprite *getSprite() const{return this->_sprite;}
-        void setSprite(Engine::ASprite *sprite){this->_sprite = sprite;}
+        std::unique_ptr<Engine::ASprite> &getDisplay() {return this->_sprite;}
+        void setDisplay(std::unique_ptr<Engine::ASprite> sprite) { this->_sprite = std::move(sprite);}
     };
 }
 

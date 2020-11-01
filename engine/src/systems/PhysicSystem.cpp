@@ -24,11 +24,11 @@ void Engine::PhysicSystem::update()
     for (auto &a : this->_entities) {
         colliderA = a.get()->getComponent<ColliderComponent>();
         boxA = Box<int>(a.get()->getComponent<TransformComponent>()->getPos(),
-                        a.get()->getComponent<SpriteComponent>()->getSprite()->getSize());
+                        a.get()->getComponent<SpriteComponent>()->getDisplay()->getSize());
         for (auto &b : this->_entities) {
             colliderB = b.get()->getComponent<ColliderComponent>();
             boxB = Box<int>(b.get()->getComponent<TransformComponent>()->getPos(),
-                            b.get()->getComponent<SpriteComponent>()->getSprite()->getSize());
+                            b.get()->getComponent<SpriteComponent>()->getDisplay()->getSize());
             colliderB->clearCollisions();
             if (Geometry::doOverlap(boxA, boxB))
                 colliderB->collide(a);

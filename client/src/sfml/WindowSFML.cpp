@@ -28,18 +28,18 @@ void WindowSFML::close()
     _window->close();
 }
 
-void draw(Engine::ASprite &sprite)
-{
-
-}
-
 void WindowSFML::setTitle(const std::string &title)
 {
     AWindow::setTitle(title);
     _titleSFML = sf::String(title.data());
 }
 
-void WindowSFML::draw(Engine::ASprite &)
+//void WindowSFML::draw(Engine::ASprite &)
+//{
+//
+//}
+//
+std::unique_ptr<sf::RenderWindow> &WindowSFML::getWindow()
 {
-
+    return _window;
 }
