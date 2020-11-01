@@ -28,6 +28,12 @@ namespace Engine {
     };
 
     template<typename T>
+    using Size = struct Point<T>;
+
+    template<typename T>
+    using Scale = struct Point<T>;
+
+    template<typename T>
     struct Box {
         T x1;
         T x2;

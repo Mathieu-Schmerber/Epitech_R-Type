@@ -6,7 +6,6 @@
 #define RTYPE_AWINDOW_HPP
 
 #include <string>
-#include "ASprite.hpp"
 
 namespace Engine {
 
@@ -24,7 +23,6 @@ namespace Engine {
         virtual bool isOpen() = 0;
         virtual void display() = 0;
         virtual void close() = 0;
-        virtual void draw(Engine::ASprite&) = 0;
 
         void setSize(const std::pair<int, int> &size);
         virtual void setTitle(const std::string &title);

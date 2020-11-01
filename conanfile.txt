@@ -9,6 +9,9 @@ cmake
 [options]
 sfml:graphics = True
 sfml:window = True
+sfml:shared = True
+sfml:fPIC = True
+sfml:network = True
 
 [imports]
 bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder

@@ -12,6 +12,7 @@
 #include "entities/Button.hpp"
 #include "sfml/GraphicalSFML.hpp"
 #include "sfml/WindowSFML.hpp"
+#include "sfml/SpriteSfml.hpp"
 
 Core::Core()
 {
