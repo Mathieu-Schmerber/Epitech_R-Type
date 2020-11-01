@@ -8,7 +8,8 @@
 
 #include "sfml/EventsSFML.hpp"
 
-void EventsSFML::update() {
+void EventsSFML::update()
+{
     _keyReleased.clear();
     _buttonsReleased.clear();
     _scroll.movement = 0;
@@ -78,4 +79,14 @@ void EventsSFML::manageEvents()
         default:
             break;
     }
+}
+
+Engine::Point<int> EventsSFML::getMousePos()
+{
+    return {sf::Mouse::getPosition().x, sf::Mouse::getPosition().y};
+}
+
+bool EventsSFML::isButtonPressed(Engine::Mouse button)
+{
+    return sf::Mouse::isButtonPressed(static_cast<sf::Mouse::Button>(_mouseRvLink.at(button)));
 }

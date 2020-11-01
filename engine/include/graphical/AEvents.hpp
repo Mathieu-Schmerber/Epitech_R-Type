@@ -25,6 +25,7 @@ namespace Engine {
         virtual std::vector<Engine::Inputs> getKeysPressed() {return _keyPressed;};
         virtual std::vector<Engine::Inputs> getKeysReleased() {return _keyReleased;};
 
+        virtual bool isButtonPressed(Engine::Mouse button) = 0;
         virtual std::vector<Engine::Mouse> getButtonsPressed() {return _buttonsPressed;};
         virtual std::vector<Engine::Mouse> getButtonsReleased() {return _buttonsReleased;};
         virtual Engine::Point<int> getMousePos() {return _mousePos;};
