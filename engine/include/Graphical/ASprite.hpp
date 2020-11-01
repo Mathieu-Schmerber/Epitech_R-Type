@@ -8,6 +8,7 @@
 #include <utility>
 #include "tools/Geometry.hpp"
 #include "AWindow.hpp"
+#include <memory>
 
 namespace Engine {
 
@@ -17,7 +18,7 @@ namespace Engine {
         ~ASprite() = default;
 
         virtual Engine::Point<int> getSize() = 0;
-        virtual void draw(Engine::AWindow &window, Engine::Point<float> position, float angle) = 0;
+        virtual void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) = 0;
     };
 
 }

@@ -15,9 +15,9 @@ namespace Engine {
 
     class Button : public Engine::Entity {
     public:
-        explicit Button(const Point<int> &pos, void (*onClick)() = nullptr) : Engine::Entity() {
+        explicit Button(const Point<int> &pos, std::unique_ptr<Engine::ASprite> sprite, void (*onClick)() = nullptr) : Engine::Entity() {
             this->addComponent<TransformComponent>(pos);
-            this->addComponent<SpriteComponent>();
+            this->addComponent<SpriteComponent>(std::move(sprite));
             this->addComponent<ClickableComponent>(onClick);
         }
     };

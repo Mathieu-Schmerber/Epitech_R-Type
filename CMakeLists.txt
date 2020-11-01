@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.14)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "./bin")
 
 if (UNIX)
+    add_definitions(-D_GLIBCXX_USE_CXX11_ABI=1)
     set(CMAKE_CXX_STANDARD 17)
     add_definitions("-fPIC")
 endif()
@@ -32,7 +33,6 @@ set(ENGINE_SOURCES
         engine/src/systems/PhysicSystem.cpp
         )
 
-
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
         engine/include/ecs/System.hpp
@@ -50,7 +50,6 @@ set(ENGINE_INCLUDES
         engine/include/Graphical/ASound.hpp
         engine/include/Graphical/AEvents.hpp
         engine/include/Graphical/AWindow.hpp
-
         engine/include/systems/DrawSystem.hpp
         engine/include/entities/Button.hpp
         engine/include/components/ClickableComponent.hpp
@@ -65,7 +64,6 @@ set(ENGINE_INCLUDES
         engine/include/systems/InputSystem.hpp
         engine/include/systems/PhysicSystem.hpp
         )
-
 
 set(CLIENT_SOURCES
         client/src/main.cpp
@@ -87,8 +85,8 @@ set(CLIENT_INCLUDES
         client/include/sfml/EventsSFML.hpp
         client/include/sfml/SoundSFML.hpp
 
-        engine/src/Graphical/SpriteSfml.cpp
-        engine/include/Graphical/SpriteSfml.hpp
+        client/src/sfml/SpriteSfml.cpp
+        client/include/sfml/SpriteSfml.hpp
         client/include/scenes/SceneType.hpp
         )
 
@@ -97,13 +95,15 @@ set(SERVER_SOURCES
         server/Core/Core.cpp
         server/Client/Client.cpp
         server/Lobby/LobbyManager/LobbyManager.cpp
-        server/Lobby/Lobby/Lobby.cpp)
+        server/Lobby/Lobby/Lobby.cpp
+        )
 
 set(SERVER_INCLUDES
         server/Core/Core.hpp
         server/Client/Client.hpp
         server/Lobby/LobbyManager/LobbyManager.hpp
-        server/Lobby/Lobby/Lobby.hpp)
+        server/Lobby/Lobby/Lobby.hpp
+        )
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
@@ -122,8 +122,8 @@ message("===========================================")
 message(${CONAN_LIBS})
 message("===========================================")
 
-target_link_libraries(r-type_server ${CONAN_LIBS})
 target_link_libraries(r-type_client ${CONAN_LIBS})
+target_link_libraries(r-type_server ${CONAN_LIBS})
 
 #if(MSVC)
 #    set(Boost_USE_STATIC_LIBS        ON)  # only find static libs

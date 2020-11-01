@@ -12,6 +12,7 @@
 #include "entities/Button.hpp"
 #include "sfml/GraphicalSFML.hpp"
 #include "sfml/WindowSFML.hpp"
+#include "sfml/SpriteSfml.hpp"
 
 Core::Core()
 {
@@ -26,7 +27,8 @@ Core::Core()
 void Core::start()
 {
     auto mainMenu = Engine::SceneManager::createScene(new MainMenu());
-    auto btn = std::make_unique<Engine::Button>(Engine::Point<int>{10, 5});
+    auto sprite = std::unique_ptr<SpriteSFML>(new SpriteSFML("../../client/assets/images/background/background_1.png"));
+    auto btn = std::make_unique<Engine::Button>(Engine::Point<int>{0, 0}, std::move(sprite), nullptr);
 
     mainMenu->spawnEntity(std::move(btn));
     Engine::SceneManager::switchScene(SceneType::MAIN_MENU);

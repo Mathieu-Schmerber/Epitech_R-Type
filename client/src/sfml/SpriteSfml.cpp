@@ -7,10 +7,10 @@
 
 
 #include <iostream>
-#include "Graphical/SpriteSfml.hpp"
+#include "sfml/SpriteSfml.hpp"
 #include "sfml/WindowSFML.hpp"
 
-void SpriteSFML::loadFromFile(std::string filename)
+void SpriteSFML::loadFromFile(const std::string filename)
 {
     if (_texture.loadFromFile(filename)) {
         _sprite.setTexture(_texture);
@@ -49,16 +49,13 @@ Engine::Point<float> SpriteSFML::getOrigin() const
     return {_sprite.getOrigin().x, _sprite.getOrigin().y};
 }
 
-void SpriteSFML::draw(Engine::AWindow &window, Engine::Point<float> position, float angle)
+void SpriteSFML::draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle)
 {
-    printf("Crash ?\n");
-    auto *windowSFML = reinterpret_cast<WindowSFML *>(&window);
+    std::shared_ptr<WindowSFML> windowSFML = std::dynamic_pointer_cast<WindowSFML>(window);
 
-    setPosition(position);
+    setPosition({static_cast<float>(position.x), static_cast<float>(position.y)});
     setRotation(angle);
-    printf("Crash ? v2\n");
     windowSFML->getWindow()->draw(_sprite);
-    printf("Ah non\n");
 }
 
 void SpriteSFML::setRotation(float angle)

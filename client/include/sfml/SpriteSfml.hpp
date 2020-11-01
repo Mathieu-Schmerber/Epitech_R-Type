@@ -15,13 +15,16 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include "tools/Geometry.hpp"
-#include "ASprite.hpp"
+#include "Graphical/ASprite.hpp"
 
 class SpriteSFML : public Engine::ASprite {
 public:
     SpriteSFML() = default;
+    SpriteSFML(const std::string filename) : Engine::ASprite() {
+        loadFromFile(filename);
+    }
 
-    void loadFromFile(std::string filename);
+    void loadFromFile(const std::string filename);
 
     void setPosition(Engine::Point<float> position);
     Engine::Point<float> getPosition() const;
@@ -33,7 +36,7 @@ public:
     float getRotation();
     Engine::Size<int> getSize() override;
 
-    void draw(Engine::AWindow &window, Engine::Point<float> position, float angle) override;
+    void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) override;
 
 private:
     sf::Sprite _sprite;

@@ -14,7 +14,7 @@ void WindowSFML::open()
 
 void WindowSFML::display()
 {
-    _window->clear(sf::Color::Black);
+    //_window->clear(sf::Color::Black);
     _window->display();
 }
 
@@ -34,11 +34,6 @@ void WindowSFML::setTitle(const std::string &title)
     _titleSFML = sf::String(title.data());
 }
 
-//void WindowSFML::draw(Engine::ASprite &)
-//{
-//
-//}
-//
 std::unique_ptr<sf::RenderWindow> &WindowSFML::getWindow()
 {
     return _window;

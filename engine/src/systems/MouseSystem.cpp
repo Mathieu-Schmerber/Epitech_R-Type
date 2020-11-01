@@ -24,7 +24,7 @@ void Engine::MouseSystem::update()
         auto transform = e.get()->getComponent<TransformComponent>();
         auto sprite = e.get()->getComponent<SpriteComponent>();
         auto clickable = e.get()->getComponent<ClickableComponent>();
-        Box<int> box = Box<int>(transform->getPos(), sprite->getDisplay()->getSize());
+        Box<int> box = Box<int>(transform->getPos(), sprite->getSprite()->getSize());
 
         if (Geometry::doOverlap(mousePos, box))
             clickable->onClick();

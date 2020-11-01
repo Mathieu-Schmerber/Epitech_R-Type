@@ -18,7 +18,7 @@ namespace Engine {
     public:
         explicit SpriteComponent(std::unique_ptr<Engine::ASprite> sprite = nullptr) : _sprite(std::move(sprite)) {};
 
-        std::unique_ptr<Engine::ASprite> &getDisplay() {return this->_sprite;}
+        std::unique_ptr<Engine::ASprite> &getSprite() {return this->_sprite;}
         void setDisplay(std::unique_ptr<Engine::ASprite> sprite) { this->_sprite = std::move(sprite);}
     };
 }
