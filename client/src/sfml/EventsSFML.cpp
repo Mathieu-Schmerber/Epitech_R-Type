@@ -42,14 +42,14 @@ void EventsSFML::manageEvents()
         case sf::Event::MouseButtonPressed:
             if (!isInVector(_buttonsPressed, _mouseLink.at(_event.mouseButton.button)))
                 _buttonsPressed.push_back(_mouseLink.at(_event.mouseButton.button));
-            _mousePos = {_event.mouseWheelScroll.x, _event.mouseWheelScroll.y};
+            _mousePos = {_event.mouseButton.x, _event.mouseButton.y};
             break;
 
         /** Mouse Button Released **/
         case sf::Event::MouseButtonReleased:
             _buttonsReleased.push_back(_mouseLink.at(_event.mouseButton.button));
             removeInVector(_buttonsPressed, _mouseLink.at(_event.mouseButton.button));
-            _mousePos = {_event.mouseWheelScroll.x, _event.mouseWheelScroll.y};
+            _mousePos = {_event.mouseButton.x, _event.mouseButton.y};
             break;
 
         /** Mouse Wheel Scrolled **/
@@ -65,7 +65,7 @@ void EventsSFML::manageEvents()
 
         /** Mouse Moved **/
         case sf::Event::MouseMoved:
-            _mousePos = {_event.mouseWheelScroll.x, _event.mouseWheelScroll.y};
+            _mousePos = {_event.mouseMove.x, _event.mouseMove.y};
 
         /** Mouse Entered In Window **/
         case sf::Event::MouseEntered:
