@@ -10,7 +10,7 @@
 #include <ostream>
 #include "AScene.hpp"
 #include "networking/AServer.hpp"
-#include "Graphical/AGraphical.hpp"
+#include "graphical/AGraphical.hpp"
 
 namespace Engine {
 

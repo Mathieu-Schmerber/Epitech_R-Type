@@ -6,7 +6,7 @@
 */
 
 
-#include "Graphical/AGraphical.hpp"
+#include "graphical/AGraphical.hpp"
 
 void Engine::AGraphical::setWindow(std::shared_ptr<Engine::AWindow> window)
 {

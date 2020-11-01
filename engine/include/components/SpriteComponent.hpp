@@ -5,7 +5,7 @@
 #ifndef RTYPE_SPRITECOMPONENT_HPP
 #define RTYPE_SPRITECOMPONENT_HPP
 
-#include "Graphical/ASprite.hpp"
+#include "graphical/ASprite.hpp"
 #include "ecs/Component.hpp"
 #include <memory>
 
