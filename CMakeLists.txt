@@ -8,6 +8,8 @@ if (UNIX)
 endif()
 if(WIN32)
     add_compile_options("/std:c++latest")
+    add_definitions(-D_ITERATOR_DEBUG_LEVEL=0)
+    set(CMAKE_CXX_FLAGS_DEBUG "/DWIN32 /D_WINDOWS /EHsc /WX /wd4355 /wd4251 /wd4250 /wd4996" CACHE STRING "Debug compiler flags" FORCE)
 endif()
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
@@ -124,7 +126,6 @@ target_link_libraries(r-type_server ${CONAN_LIBS})
 target_link_libraries(r-type_client ${CONAN_LIBS})
 
 #if(MSVC)
-#    set(CMAKE_CXX_FLAGS_DEBUG "/DWIN32 /D_WINDOWS /EHsc /WX /wd4355 /wd4251 /wd4250 /wd4996" CACHE STRING "Debug compiler flags" FORCE)
 #    set(Boost_USE_STATIC_LIBS        ON)  # only find static libs
 #    set(Boost_USE_DEBUG_LIBS         OFF) # ignore debug libs and
 #    set(Boost_USE_RELEASE_LIBS       ON)  # only find release libs
