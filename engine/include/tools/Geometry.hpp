@@ -6,6 +6,7 @@
 #define RTYPE_GEOMETRY_HPP
 
 #include <utility>
+#include <cmath>
 
 namespace Engine {
 
