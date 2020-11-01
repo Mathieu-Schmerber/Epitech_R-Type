@@ -9,7 +9,7 @@
 
 namespace Engine {
 
-    class ColliderComponent : Engine::Component {
+    class ColliderComponent : public Engine::Component {
     private:
         std::vector<std::reference_wrapper<std::unique_ptr<Engine::Entity>>> _collisions;
 

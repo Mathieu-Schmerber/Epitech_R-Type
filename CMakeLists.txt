@@ -20,7 +20,9 @@ set(ENGINE_SOURCES
         engine/src/AScene.cpp
         engine/src/ASprite.cpp
         engine/src/systems/DrawSystem.cpp
-        engine/include/systems/MouseSystem.cpp)
+        engine/src/systems/MouseSystem.cpp
+        engine/src/systems/InputSystem.cpp
+        engine/src/systems/PhysicSystem.cpp)
 
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
@@ -30,7 +32,7 @@ set(ENGINE_INCLUDES
         engine/include/SceneManager.hpp
         engine/include/AWindow.hpp
         engine/include/AScene.hpp
-        engine/include/AUdpSocket.hpp
+        engine/include/AUdpSocketIO.hpp
         engine/include/ATcpSocket.hpp
         engine/include/components/TransformComponent.hpp
         engine/include/components/SpriteComponent.hpp
@@ -45,7 +47,9 @@ set(ENGINE_INCLUDES
         engine/include/components/ChildrenComponent.hpp
         engine/include/components/VelocityComponent.hpp
         engine/include/systems/MouseSystem.hpp
-        engine/include/tools/Geometry.hpp)
+        engine/include/tools/Geometry.hpp
+        engine/include/systems/InputSystem.hpp
+        engine/include/systems/PhysicSystem.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp

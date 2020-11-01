@@ -12,7 +12,7 @@
 
 namespace Engine {
 
-    class ControllerComponent : Engine::Component {
+    class ControllerComponent : public Engine::Component {
     private:
         std::vector<Engine::Input> _pressed;
         std::vector<Engine::Input> _released;
@@ -25,7 +25,7 @@ namespace Engine {
         }
 
     public:
-        explicit ControllerComponent() : Component() {}
+        explicit ControllerComponent() : Engine::Component() {}
 
         void press(Engine::Input input) {
             removeFrom(this->_pressed, input);

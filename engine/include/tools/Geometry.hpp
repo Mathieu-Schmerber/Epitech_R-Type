@@ -30,6 +30,12 @@ namespace Engine {
     struct Box {
         T x1;
         T x2;
+        T y1;
+        T y2;
+        Point<T> size;
+
+        Box(T x1, T x2, T y1, T y2) : x1(x1), x2(x2), y1(y1), y2(y2), size({x2 - x1, y2 - y1}){}
+        Box(Point<T> pos, Point<T> size) : x1(pos.x), x2(pos.x + size.x), y1(pos.y), y2(pos.y + size.y), size(size) {}
 
         bool operator==(const Box &rhs) const {
             return x1 == rhs.x1 &&
@@ -41,9 +47,6 @@ namespace Engine {
         bool operator!=(const Box &rhs) const {
             return rhs != *this;
         }
-
-        T y1;
-        T y2;
     };
 
     class Geometry {
@@ -66,6 +69,11 @@ namespace Engine {
         static bool doOverlap(const Point<T> &point, const Box<T> &box) {
             return (point.x >= box.x1 && point.x <= box.x2 &&
                     point.y >= box.y1 && point.y <= box.y2);
+        }
+
+        template<typename T>
+        static bool doOverlap(const Box<T> &box1, const Box<T> &box2) {
+            return !((box1.x2 < box2.x1 || box1.x1 > box2.x2) || (box1.y2 < box2.y1 || box1.y1 > box2.y2));
         }
     };
 }

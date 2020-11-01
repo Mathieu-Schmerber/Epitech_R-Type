@@ -2,7 +2,7 @@
 // Created by mathi on 01/11/2020.
 //
 
-#include "MouseSystem.hpp"
+#include "systems/MouseSystem.hpp"
 #include "tools/Geometry.hpp"
 #include "components/TransformComponent.hpp"
 #include "components/SpriteComponent.hpp"
@@ -24,8 +24,7 @@ void Engine::MouseSystem::update()
         auto transform = e.get()->getComponent<TransformComponent>();
         auto sprite = e.get()->getComponent<SpriteComponent>();
         auto clickable = e.get()->getComponent<ClickableComponent>();
-        Box<int> box = {transform->getPos().x, transform->getPos().x + sprite->getSprite()->getSize().x,
-                        transform->getPos().y, transform->getPos().y + sprite->getSprite()->getSize().y};
+        Box<int> box = Box<int>(transform->getPos(), sprite->getSprite()->getSize());
 
         if (Geometry::doOverlap(mousePos, box))
             clickable->onClick();
