@@ -8,7 +8,7 @@
 #include <string>
 #include <memory>
 #include "ATcpSocket.hpp"
-#include "AUdpSocket.hpp"
+#include "AUdpSocketIO.hpp"
 
 namespace Engine {
 
@@ -18,7 +18,7 @@ namespace Engine {
         std::string _ip;
         int _port;
         std::unique_ptr<ATcpSocket> _tcpSocket;
-        std::unique_ptr<AUdpSocket> _udpSocket;
+        std::unique_ptr<AUdpSocketIO> _udpSocket;
 
     public:
         AServer(const std::string &ip, int port);

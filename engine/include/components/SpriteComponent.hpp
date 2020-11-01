@@ -8,16 +8,18 @@
 #include "Graphical/ASprite.hpp"
 #include "ecs/Component.hpp"
 
-class SpriteComponent : public Engine::Component
-{
-private:
-    Engine::ASprite *_sprite;
+namespace Engine {
 
-public:
-    explicit SpriteComponent(Engine::ASprite *sprite = nullptr);
+    class SpriteComponent : public Engine::Component {
+    private:
+        Engine::ASprite *_sprite; // TODO: change to std::unique_ptr<Engine::ASprite>
 
-    Engine::ASprite *getSprite() const;
-    void setSprite(Engine::ASprite *sprite);
-};
+    public:
+        explicit SpriteComponent(Engine::ASprite *sprite = nullptr) : _sprite(sprite) {};
+
+        Engine::ASprite *getSprite() const{return this->_sprite;}
+        void setSprite(Engine::ASprite *sprite){this->_sprite = sprite;}
+    };
+}
 
 #endif //RTYPE_SPRITECOMPONENT_HPP

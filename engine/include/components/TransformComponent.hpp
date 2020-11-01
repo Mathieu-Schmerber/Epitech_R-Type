@@ -6,28 +6,37 @@
 #define RTYPE_TRANSFORMCOMPONENT_HPP
 
 #include <utility>
-#include <math.h>
+#include <cmath>
+#include "tools/Geometry.hpp"
 #include "ecs/Component.hpp"
 
-class TransformComponent : public Engine::Component {
-private:
-    std::pair<int, int> _pos;
-    double _rotation;
-    std::pair<double, double> _normal;
+namespace Engine {
 
-public:
-    explicit TransformComponent(const std::pair<int, int> &pos = {0, 0},
-                                double rotation = 0,
-                                const std::pair<double, double> &normal = {0, 1});
+    class TransformComponent : public Engine::Component {
+    private:
+        Point<int> _pos;
+        double _rotation;
+        Point<double> _normal;
 
-    std::pair<int, int> getPos() const;
-    void setPos(const std::pair<int, int> &pos);
+    public:
+        explicit TransformComponent(const Point<int> &pos = {0, 0},
+                                    double rotation = 0,
+                                    const Point<double> &normal = {1, 0})
+                : _pos(pos), _rotation(rotation), _normal(normal), Component() {}
 
-    double getRotation() const;
-    void setRotation(double rotation);
+        Point<int> getPos() const { return this->_pos; }
+        void setPos(const Point<int> &pos) {this->_pos = pos;}
 
-    std::pair<double, double> getNormal() const;
+        double getRotation() const {return this->_rotation;}
+        void setRotation(double rotation) {this->_rotation = rotation;}
 
-};
+        Point<double> getNormal() const
+        {
+            return Geometry::rotateVector(this->_normal, this->_rotation);
+        }
+
+    };
+
+}
 
 #endif //RTYPE_TRANSFORMCOMPONENT_HPP

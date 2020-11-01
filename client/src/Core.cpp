@@ -5,6 +5,9 @@
 #include "Core.hpp"
 
 #include <memory>
+#include <iostream>
+
+#include "tools/Geometry.hpp"
 #include "scenes/MainMenu.hpp"
 #include "entities/Button.hpp"
 #include "sfml/GraphicalSFML.hpp"
@@ -23,7 +26,7 @@ Core::Core()
 void Core::start()
 {
     auto mainMenu = Engine::SceneManager::createScene(new MainMenu());
-    auto btn = std::make_unique<Button>(std::pair<int, int>{0, 0});
+    auto btn = std::make_unique<Engine::Button>(Engine::Point<int>{10, 5});
 
     mainMenu->spawnEntity(std::move(btn));
     Engine::SceneManager::switchScene(SceneType::MAIN_MENU);
