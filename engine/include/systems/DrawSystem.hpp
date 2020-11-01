@@ -5,7 +5,7 @@
 #ifndef RTYPE_DRAWSYSTEM_HPP
 #define RTYPE_DRAWSYSTEM_HPP
 
-#include "AWindow.hpp"
+#include "Graphical/AWindow.hpp"
 #include "ecs/System.hpp"
 
 namespace Engine {
@@ -13,10 +13,10 @@ namespace Engine {
     class DrawSystem : public Engine::System {
 
     private:
-        Engine::AWindow *_window;
+        std::shared_ptr<Engine::AWindow> _window;
 
     public:
-        explicit DrawSystem(Engine::AWindow *window);
+        explicit DrawSystem(std::shared_ptr<Engine::AWindow> &window);
         void update() override;
     };
 

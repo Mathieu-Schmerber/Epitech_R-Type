@@ -6,7 +6,7 @@
 
 Engine::SceneManager Engine::SceneManager::_instance = Engine::SceneManager();
 
-Engine::SceneManager::SceneManager() : _current(-1), _server(nullptr), _window(nullptr) {}
+Engine::SceneManager::SceneManager() : _current(-1), _server(nullptr), _graph{} {};
 
 Engine::SceneManager &Engine::SceneManager::get()
 {
@@ -34,9 +34,9 @@ Engine::AScene *Engine::SceneManager::createScene(Engine::AScene *scene)
     return scene;
 }
 
-void Engine::SceneManager::setWindow(Engine::AWindow *window)
+void Engine::SceneManager::setGraph(std::weak_ptr<Engine::AGraphical> graph)
 {
-    Engine::SceneManager::_instance._window = window;
+    Engine::SceneManager::_instance._graph = std::move(graph);
 }
 
 void Engine::SceneManager::setServer(Engine::AServer *server)
@@ -44,9 +44,11 @@ void Engine::SceneManager::setServer(Engine::AServer *server)
     Engine::SceneManager::_instance._server = server;
 }
 
-Engine::AWindow *Engine::SceneManager::getWindow()
+std::shared_ptr<Engine::AGraphical> Engine::SceneManager::getGraph()
 {
-    return Engine::SceneManager::_instance._window;
+    if (Engine::SceneManager::_instance._graph.lock())
+        return std::shared_ptr<Engine::AGraphical>(Engine::SceneManager::_instance._graph.lock());
+    throw std::exception();
 }
 
 Engine::AServer *Engine::SceneManager::getServer()

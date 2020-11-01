@@ -9,7 +9,7 @@
 #include <map>
 #include "AScene.hpp"
 #include "AServer.hpp"
-#include "AWindow.hpp"
+#include "Graphical/AGraphical.hpp"
 
 namespace Engine {
 
@@ -18,7 +18,7 @@ namespace Engine {
     private:
         std::map<int, Engine::AScene *> _scenes;
         int _current;
-        Engine::AWindow *_window;
+        std::weak_ptr<Engine::AGraphical> _graph;
         Engine::AServer *_server;
         static Engine::SceneManager _instance;
 
@@ -29,9 +29,9 @@ namespace Engine {
         static Engine::AScene *getCurrent();
         static void switchScene(int id);
         static Engine::AScene *createScene(Engine::AScene *scene);
-        static void setWindow(Engine::AWindow *window);
+        static void setGraph(std::weak_ptr<Engine::AGraphical> graph);
         static void setServer(Engine::AServer *server);
-        static Engine::AWindow *getWindow();
+        static std::shared_ptr<Engine::AGraphical> getGraph();
         static Engine::AServer *getServer();
 
     };

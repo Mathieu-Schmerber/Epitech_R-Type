@@ -6,13 +6,18 @@
 #define RTYPE_CORE_HPP
 
 #include <memory>
+#include <iostream>
+
+#include "Graphical/AGraphical.hpp"
 #include "SceneManager.hpp"
 
 class Core
 {
 private:
-    Engine::AWindow *_window;
+    std::shared_ptr<Engine::AGraphical> _graph;
     Engine::AServer *_server;
+
+    void run();
 
 public:
     Core();
