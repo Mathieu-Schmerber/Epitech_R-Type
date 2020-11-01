@@ -8,7 +8,8 @@
 
 #include "sfml/EventsSFML.hpp"
 
-void EventsSFML::update() {
+void EventsSFML::update()
+{
     _keyReleased.clear();
     _buttonsReleased.clear();
     _scroll.movement = 0;
