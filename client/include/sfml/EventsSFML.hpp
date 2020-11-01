@@ -9,8 +9,9 @@
 #ifndef RTYPE_EVENTSSFML_HPP
 #define RTYPE_EVENTSSFML_HPP
 
+#include <graphical/AEvents.hpp>
 
-class EventsSFML {
+class EventsSFML : public Engine::AEvents {
 
 };
 
