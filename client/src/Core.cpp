@@ -3,6 +3,8 @@
 //
 
 #include "Core.hpp"
+
+#include <memory>
 #include "scenes/MainMenu.hpp"
 #include "entities/Button.hpp"
 #include "sfml/GraphicalSFML.hpp"
@@ -10,11 +12,8 @@
 
 Core::Core()
 {
-    printf("Create core\n");
-    auto window = new WindowSFML("r-type", {1920, 1080});
-
     this->_graph = std::make_shared<GraphicalSFML>();
-    this->_graph->setWindow(std::unique_ptr<WindowSFML>(window));
+    this->_graph->setWindow(std::make_shared<WindowSFML>(std::string("r-type"), std::make_pair(1920, 1080)));
 
     this->_server = new Engine::AServer("", 0);
     Engine::SceneManager::setGraph(std::weak_ptr(_graph));

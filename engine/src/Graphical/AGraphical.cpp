@@ -11,7 +11,6 @@
 void Engine::AGraphical::setWindow(std::shared_ptr<Engine::AWindow> window)
 {
     _window = std::move(window);
-
 }
 
 void Engine::AGraphical::setSound(std::shared_ptr<Engine::ASound> sound)
