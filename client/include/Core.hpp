@@ -14,6 +14,8 @@ private:
     Engine::AWindow *_window;
     Engine::AServer *_server;
 
+    void run();
+
 public:
     Core();
     void start();

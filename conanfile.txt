@@ -6,7 +6,12 @@ bzip2/1.0.8@conan/stable
 [generators]
 cmake
 
+[options]
+sfml:graphics = True
+sfml:window = True
+
 [imports]
 bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder
 plugins/platforms, *.dll -> ./bin/plugins/platforms
 lib, .dylib -> ./bin # Copies all dylib files from packages lib folder to my "bin" folder
+

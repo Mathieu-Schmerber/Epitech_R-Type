@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.14)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "./bin")
 
 if (UNIX)
+    set(CMAKE_CXX_STANDARD 17)
     add_definitions("-fPIC")
 endif()
 if(WIN32)
@@ -95,6 +96,10 @@ target_include_directories(r-type_server PRIVATE
 target_include_directories(r-type_client PRIVATE
         client/include
         engine/include)
+
+message("===========================================")
+message(${CONAN_LIBS})
+message("===========================================")
 
 target_link_libraries(r-type_server ${CONAN_LIBS})
 target_link_libraries(r-type_client ${CONAN_LIBS})

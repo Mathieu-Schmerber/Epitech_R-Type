@@ -10,7 +10,8 @@
 
 Core::Core()
 {
-    this->_window = new WindowSFML("", {1920, 1080});
+    printf("Create core\n");
+    this->_window = new WindowSFML("r-type", {1920, 1080});
     this->_server = new Engine::AServer("", 0);
     Engine::SceneManager::setWindow(this->_window);
     Engine::SceneManager::setServer(this->_server);
@@ -23,8 +24,15 @@ void Core::start()
 
     mainMenu->spawnEntity(std::move(btn));
     Engine::SceneManager::switchScene(SceneType::MAIN_MENU);
-    while (true) {
-        Engine::SceneManager::getCurrent()->update();
 
+    _window->open();
+    while (_window->isOpen()) {
+        run();
     }
+}
+
+void Core::run()
+{
+    Engine::SceneManager::getCurrent()->update();
+    _window->display();
 }
