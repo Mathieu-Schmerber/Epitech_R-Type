@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <sfml/SpriteSfml.hpp>
 #include "SceneManager.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
@@ -23,7 +24,8 @@ MainMenu::MainMenu(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Eng
 
 void MainMenu::initEntities()
 {
-    auto playBtn = new Engine::Button({50, 10}, &playCallback,std::shared_ptr<Engine::AScene>(this));
+    auto sprite = std::make_unique<SpriteSFML>("../../client/assets/images/background/background_1.png");
+    auto playBtn = new Engine::Button({0, 0}, std::move(sprite), &playCallback,std::shared_ptr<Engine::AScene>(this));
 
     this->spawnEntity(std::shared_ptr<Engine::Button>(playBtn));
 }

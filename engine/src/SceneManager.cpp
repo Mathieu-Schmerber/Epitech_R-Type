@@ -29,7 +29,7 @@ std::unique_ptr<Engine::AScene> &Engine::SceneManager::getCurrent()
     if (it != this->_scenes.end())
         return it->second;
     // TODO: replace with a custom error exception
-    throw std::exception("SceneManager: No target scene");
+    throw std::exception(); //"SceneManager: No target scene"
 }
 
 void Engine::SceneManager::addScene(std::unique_ptr<Engine::AScene> scene)

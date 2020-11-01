@@ -14,7 +14,7 @@ namespace Engine {
 
     class ASprite {
     public:
-        explicit ASprite();
+        ASprite() = default;
         ~ASprite() = default;
 
         virtual Engine::Point<int> getSize() = 0;
