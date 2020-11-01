@@ -13,10 +13,10 @@ namespace Engine {
     class DrawSystem : public Engine::System {
 
     private:
-        Engine::AWindow *_window;
+        std::shared_ptr<Engine::AWindow> _window;
 
     public:
-        explicit DrawSystem(Engine::AWindow *window);
+        explicit DrawSystem(std::shared_ptr<Engine::AWindow> &window);
         void update() override;
     };
 

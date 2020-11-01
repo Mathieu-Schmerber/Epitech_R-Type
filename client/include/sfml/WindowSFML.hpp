@@ -16,7 +16,7 @@
 
 class WindowSFML : public Engine::AWindow {
 public:
-    WindowSFML(const std::string &title, const std::pair<int, int> &windowSize) : Engine::AWindow(title, windowSize),
+    WindowSFML(const std::string title, const std::pair<int, int> windowSize) : Engine::AWindow(title, windowSize),
     _titleSFML(title.data()) {}
     ~WindowSFML() = default;
 

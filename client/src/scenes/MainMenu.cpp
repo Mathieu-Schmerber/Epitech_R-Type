@@ -8,7 +8,7 @@
 
 MainMenu::MainMenu() : Engine::AScene(SceneType::MAIN_MENU)
 {
-    auto draw = std::make_unique<Engine::DrawSystem>(Engine::SceneManager::getWindow());
+    auto draw = std::make_unique<Engine::DrawSystem>(Engine::SceneManager::getGraph()->getWindow());
 
     this->_systems.push_back(std::move(draw));
 }

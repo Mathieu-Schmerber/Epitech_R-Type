@@ -2,18 +2,22 @@
 // Created by mathi on 29/10/2020.
 //
 
-#include <iostream>
 #include "Core.hpp"
 #include "scenes/MainMenu.hpp"
 #include "entities/Button.hpp"
+#include "sfml/GraphicalSFML.hpp"
 #include "sfml/WindowSFML.hpp"
 
 Core::Core()
 {
     printf("Create core\n");
-    this->_window = new WindowSFML("r-type", {1920, 1080});
+    auto window = new WindowSFML("r-type", {1920, 1080});
+
+    this->_graph = std::make_shared<GraphicalSFML>();
+    this->_graph->setWindow(std::unique_ptr<WindowSFML>(window));
+
     this->_server = new Engine::AServer("", 0);
-    Engine::SceneManager::setWindow(this->_window);
+    Engine::SceneManager::setGraph(std::weak_ptr(_graph));
     Engine::SceneManager::setServer(this->_server);
 }
 
@@ -25,8 +29,8 @@ void Core::start()
     mainMenu->spawnEntity(std::move(btn));
     Engine::SceneManager::switchScene(SceneType::MAIN_MENU);
 
-    _window->open();
-    while (_window->isOpen()) {
+    _graph->getWindow()->open();
+    while (_graph->getWindow()->isOpen()) {
         run();
     }
 }
@@ -34,5 +38,5 @@ void Core::start()
 void Core::run()
 {
     Engine::SceneManager::getCurrent()->update();
-    _window->display();
+    _graph->getWindow()->display();
 }

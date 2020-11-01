@@ -7,7 +7,7 @@
 #include "components/TransformComponent.hpp"
 #include "components/SpriteComponent.hpp"
 
-Engine::DrawSystem::DrawSystem(Engine::AWindow *window) : _window(window), Engine::System()
+Engine::DrawSystem::DrawSystem(std::shared_ptr<Engine::AWindow> &window) : _window(window), Engine::System()
 {
     this->addDependency<TransformComponent>();
     this->addDependency<SpriteComponent>();
