@@ -15,7 +15,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include "tools/Geometry.hpp"
-#include "Graphical/ASprite.hpp"
+#include "graphical/ASprite.hpp"
 
 class SpriteSFML : public Engine::ASprite {
 public:

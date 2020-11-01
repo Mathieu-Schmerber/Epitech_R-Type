@@ -7,8 +7,8 @@
 
 #include "SceneType.hpp"
 #include "AScene.hpp"
-#include "Graphical/AWindow.hpp"
-#include "Graphical/AEvents.hpp"
+#include "graphical/AWindow.hpp"
+#include "graphical/AEvents.hpp"
 
 class MainMenu : public Engine::AScene
 {

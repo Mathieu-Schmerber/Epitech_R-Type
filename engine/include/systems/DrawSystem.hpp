@@ -5,7 +5,7 @@
 #ifndef RTYPE_DRAWSYSTEM_HPP
 #define RTYPE_DRAWSYSTEM_HPP
 
-#include "Graphical/AWindow.hpp"
+#include "graphical/AWindow.hpp"
 #include "ecs/System.hpp"
 
 namespace Engine {

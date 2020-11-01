@@ -21,11 +21,11 @@ set(ENGINE_SOURCES
         engine/src/networking/AServer.cpp
         engine/src/SceneManager.cpp
         engine/src/AScene.cpp
-        engine/src/Graphical/ASprite.cpp
-        engine/src/Graphical/AEvents.cpp
-        engine/src/Graphical/ASound.cpp
-        engine/src/Graphical/AGraphical.cpp
-        engine/src/Graphical/AWindow.cpp
+        engine/src/graphical/ASprite.cpp
+        engine/src/graphical/AEvents.cpp
+        engine/src/graphical/ASound.cpp
+        engine/src/graphical/AGraphical.cpp
+        engine/src/graphical/AWindow.cpp
         engine/src/systems/DrawSystem.cpp
         engine/src/systems/DrawSystem.cpp
         engine/src/systems/MouseSystem.cpp
@@ -45,11 +45,11 @@ set(ENGINE_INCLUDES
         engine/include/components/TransformComponent.hpp
         engine/include/components/SpriteComponent.hpp
         engine/include/systems/DrawSystem.hpp
-        engine/include/Graphical/ASprite.hpp
-        engine/include/Graphical/AGraphical.hpp
-        engine/include/Graphical/ASound.hpp
-        engine/include/Graphical/AEvents.hpp
-        engine/include/Graphical/AWindow.hpp
+        engine/include/graphical/ASprite.hpp
+        engine/include/graphical/AGraphical.hpp
+        engine/include/graphical/ASound.hpp
+        engine/include/graphical/AEvents.hpp
+        engine/include/graphical/AWindow.hpp
         engine/include/systems/DrawSystem.hpp
         engine/include/entities/Button.hpp
         engine/include/components/ClickableComponent.hpp
@@ -92,28 +92,28 @@ set(CLIENT_INCLUDES
 
 set(SERVER_SOURCES
         server/main.cpp
-        server/Core/Core.cpp
-        server/Client/Client.cpp
-        server/Lobby/LobbyManager/LobbyManager.cpp
-        server/Lobby/Lobby/Lobby.cpp
+        server/core/Core.cpp
+        server/client/Client.cpp
+        server/lobby/lobbyManager/LobbyManager.cpp
+        server/lobby/lobby/Lobby.cpp
         )
 
 set(SERVER_INCLUDES
-        server/Core/Core.hpp
-        server/Client/Client.hpp
-        server/Lobby/LobbyManager/LobbyManager.hpp
-        server/Lobby/Lobby/Lobby.hpp
+        server/core/Core.hpp
+        server/client/Client.hpp
+        server/lobby/lobbyManager/LobbyManager.hpp
+        server/lobby/lobby/Lobby.hpp
         )
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
 
 target_include_directories(r-type_server PRIVATE
-        server/Core
+        server/core
         engine/include
-        server/Client
-        server/Lobby/LobbyManager
-        server/Lobby/Lobby)
+        server/client
+        server/lobby/lobbyManager
+        server/lobby/lobby)
 target_include_directories(r-type_client PRIVATE
         client/include
         engine/include)

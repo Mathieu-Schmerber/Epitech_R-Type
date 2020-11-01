@@ -8,7 +8,7 @@
 #include <memory>
 #include <iostream>
 
-#include "Graphical/AGraphical.hpp"
+#include "graphical/AGraphical.hpp"
 #include "SceneManager.hpp"
 
 class Core

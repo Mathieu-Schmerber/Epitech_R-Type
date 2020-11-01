@@ -9,7 +9,7 @@
 #ifndef RTYPE_WINDOWSFML_HPP
 #define RTYPE_WINDOWSFML_HPP
 
-#include <Graphical/AWindow.hpp>
+#include <graphical/AWindow.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Color.hpp>

@@ -14,8 +14,8 @@ void WindowSFML::open()
 
 void WindowSFML::display()
 {
-    //_window->clear(sf::Color::Black);
     _window->display();
+    _window->clear(sf::Color::Black);
 }
 
 bool WindowSFML::isOpen()
