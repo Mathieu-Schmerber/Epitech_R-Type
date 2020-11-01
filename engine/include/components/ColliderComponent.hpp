@@ -11,15 +11,15 @@ namespace Engine {
 
     class ColliderComponent : public Engine::Component {
     private:
-        std::vector<std::reference_wrapper<std::unique_ptr<Engine::Entity>>> _collisions;
+        std::vector<std::shared_ptr<Engine::Entity>> _collisions;
 
     public:
         explicit ColliderComponent() : Component() {}
 
         void clearCollisions() {this->_collisions.clear();};
-        void collide(std::unique_ptr<Entity> &entity) {_collisions.emplace_back(entity);}
+        void collide(std::shared_ptr<Entity> &entity) {_collisions.emplace_back(entity);}
 
-        std::vector<std::reference_wrapper<std::unique_ptr<Engine::Entity>>> getCollisions() const {
+        std::vector<std::shared_ptr<Engine::Entity>> getCollisions() const {
             return this->_collisions;
         }
     };

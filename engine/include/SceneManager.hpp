@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <map>
+#include <ostream>
 #include "AScene.hpp"
 #include "networking/AServer.hpp"
 #include "Graphical/AGraphical.hpp"
@@ -16,24 +17,17 @@ namespace Engine {
     class SceneManager {
 
     private:
-        std::map<int, Engine::AScene *> _scenes;
+        std::map<int, std::unique_ptr<Engine::AScene>> _scenes;
         int _current;
-        std::weak_ptr<Engine::AGraphical> _graph;
-        Engine::AServer *_server;
-        static Engine::SceneManager _instance;
-
-        SceneManager();
 
     public:
-        static Engine::SceneManager &get();
-        static Engine::AScene *getCurrent();
-        static void switchScene(int id);
-        static Engine::AScene *createScene(Engine::AScene *scene);
-        static void setGraph(std::weak_ptr<Engine::AGraphical> graph);
-        static void setServer(Engine::AServer *server);
-        static std::shared_ptr<Engine::AGraphical> getGraph();
-        static Engine::AServer *getServer();
+        explicit SceneManager() : _current(-1) {}
+        ~SceneManager();
 
+        void handleSwitchRequests();
+        std::unique_ptr<Engine::AScene> &getCurrent();
+        void switchScene(int id);
+        void addScene(std::unique_ptr<Engine::AScene> scene);
     };
 
 }

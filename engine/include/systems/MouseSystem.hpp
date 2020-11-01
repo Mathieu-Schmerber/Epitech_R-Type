@@ -6,16 +6,16 @@
 #define RTYPE_MOUSESYSTEM_HPP
 
 #include "ecs/System.hpp"
-#include "Graphical/AWindow.hpp"
+#include "Graphical/AEvents.hpp"
 
 namespace Engine {
 
     class MouseSystem : public Engine::System {
     private:
-        Engine::AWindow *_window;
+        std::shared_ptr<Engine::AEvents> _events;
 
     public:
-        explicit MouseSystem(Engine::AWindow *window);
+        explicit MouseSystem(std::shared_ptr<Engine::AEvents> &events);
 
         void update() override;
     };

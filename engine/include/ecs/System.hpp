@@ -15,14 +15,14 @@ namespace Engine {
 
     protected:
         std::vector<std::unique_ptr<Component>> _dependencies;
-        std::vector<std::reference_wrapper<std::unique_ptr<Entity>>> _entities;
+        std::vector<std::shared_ptr<Entity>> _entities;
 
     public:
         explicit System() = default;
 
         template<typename T> void addDependency();
 
-        void addEntity(std::unique_ptr<Engine::Entity> &entity)
+        void addEntity(std::shared_ptr<Engine::Entity> &entity)
         {
             this->_entities.emplace_back(entity);
         }
@@ -33,7 +33,7 @@ namespace Engine {
             return this->_dependencies;
         }
 
-        std::vector<std::reference_wrapper<std::unique_ptr<Entity>>> &getEntities()
+        std::vector<std::shared_ptr<Entity>> &getEntities()
         {
             return this->_entities;
         }

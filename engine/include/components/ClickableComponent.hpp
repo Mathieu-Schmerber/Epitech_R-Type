@@ -5,19 +5,29 @@
 #ifndef RTYPE_CLICKABLECOMPONENT_HPP
 #define RTYPE_CLICKABLECOMPONENT_HPP
 
+#include "AScene.hpp"
 #include "ecs/Component.hpp"
 
 namespace Engine {
 
     class ClickableComponent : public Engine::Component {
     private:
-        void (*_onclick)();
+        void (*_onclick)(std::shared_ptr<Engine::AScene> &);
+        std::shared_ptr<Engine::AScene> _arg;
 
     public:
-        explicit ClickableComponent(void (*onClick)() = nullptr) : _onclick(onClick), Component() {}
+        ClickableComponent() : _onclick(nullptr), Component() {}
 
-        void onClick() const {this->_onclick();}
-        void setOnClick(void (*onClick)()) {this->_onclick = onClick;};
+        ClickableComponent(void (*onClick)(std::shared_ptr<Engine::AScene> &),
+                           std::shared_ptr<Engine::AScene> &arg)
+                           : _onclick(onClick), _arg(arg), Component() {}
+
+        void onClick() {
+            (*_onclick)(_arg);
+        }
+
+        void setOnClick(void (*onClick)(std::shared_ptr<Engine::AScene> &)) {this->_onclick = onClick;};
+        void setArg(std::shared_ptr<Engine::AScene> &arg) {this->_arg = arg;}
     };
 
 }

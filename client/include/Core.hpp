@@ -14,10 +14,12 @@
 class Core
 {
 private:
-    std::shared_ptr<Engine::AGraphical> _graph;
-    Engine::AServer *_server;
+    std::unique_ptr<Engine::AGraphical> _graph;
+    std::unique_ptr<Engine::AServer> _server;
+    std::unique_ptr<Engine::SceneManager> _sceneManager;
 
     void run();
+    void initScenes();
 
 public:
     Core();

@@ -15,22 +15,21 @@
 
 Core::Core()
 {
-    this->_graph = std::make_shared<GraphicalSFML>();
+    this->_graph = std::make_unique<GraphicalSFML>();
     this->_graph->setWindow(std::make_shared<WindowSFML>(std::string("r-type"), std::make_pair(1920, 1080)));
+    this->_server = std::make_unique<Engine::AServer>("", 0);
+    this->_sceneManager = std::make_unique<Engine::SceneManager>();
+}
 
-    this->_server = new Engine::AServer("", 0);
-    Engine::SceneManager::setGraph(std::weak_ptr(_graph));
-    Engine::SceneManager::setServer(this->_server);
+void Core::initScenes()
+{
+    this->_sceneManager->addScene(std::move(std::make_unique<MainMenu>(this->_graph->getWindow(), this->_graph->getEvents())));
+    this->_sceneManager->switchScene(SceneType::MAIN_MENU);
 }
 
 void Core::start()
 {
-    auto mainMenu = Engine::SceneManager::createScene(new MainMenu());
-    auto btn = std::make_unique<Engine::Button>(Engine::Point<int>{10, 5});
-
-    mainMenu->spawnEntity(std::move(btn));
-    Engine::SceneManager::switchScene(SceneType::MAIN_MENU);
-
+    this->initScenes();
     _graph->getWindow()->open();
     while (_graph->getWindow()->isOpen()) {
         run();
@@ -39,6 +38,7 @@ void Core::start()
 
 void Core::run()
 {
-    Engine::SceneManager::getCurrent()->update();
+    this->_sceneManager->handleSwitchRequests();
+    this->_sceneManager->getCurrent()->update();
     _graph->getWindow()->display();
 }

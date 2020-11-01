@@ -4,54 +4,50 @@
 
 #include "SceneManager.hpp"
 
-Engine::SceneManager Engine::SceneManager::_instance = Engine::SceneManager();
-
-Engine::SceneManager::SceneManager() : _current(-1), _server(nullptr), _graph{} {};
-
-Engine::SceneManager &Engine::SceneManager::get()
+Engine::SceneManager::~SceneManager()
 {
-    return Engine::SceneManager::_instance;
+    this->_scenes.clear();
 }
 
-Engine::AScene *Engine::SceneManager::getCurrent()
+void Engine::SceneManager::handleSwitchRequests()
 {
-    auto res = Engine::SceneManager::_instance._scenes.find(Engine::SceneManager::_instance._current);
+    int request;
 
-    if (res == Engine::SceneManager::_instance._scenes.end())
-        return nullptr;
-    return res->second;
+    for (auto &entry : this->_scenes) {
+        request = entry.second->getSwitchRequest();
+        if (request != -1) {
+            this->switchScene(request);
+            entry.second->requestSwitch(-1);
+        }
+    }
+}
+
+std::unique_ptr<Engine::AScene> &Engine::SceneManager::getCurrent()
+{
+    auto it = this->_scenes.find(this->_current);
+
+    if (it != this->_scenes.end())
+        return it->second;
+    // TODO: replace with a custom error exception
+    throw std::exception("SceneManager: No target scene");
+}
+
+void Engine::SceneManager::addScene(std::unique_ptr<Engine::AScene> scene)
+{
+    auto it = this->_scenes.find(scene->getId());
+
+    if (it == this->_scenes.end())
+        this->_scenes[scene->getId()] = std::move(scene);
+    //TODO: else
+    //TODO:     throw Error("A scene of id: " + id + " already exists");
 }
 
 void Engine::SceneManager::switchScene(int id)
 {
-    if (Engine::SceneManager::_instance._scenes.find(id) != Engine::SceneManager::_instance._scenes.end())
-        Engine::SceneManager::_instance._current = id;
-}
+    auto it = this->_scenes.find(id);
 
-Engine::AScene *Engine::SceneManager::createScene(Engine::AScene *scene)
-{
-    Engine::SceneManager::_instance._scenes.insert(std::pair<int, Engine::AScene *>(scene->getId(), scene));
-    return scene;
-}
-
-void Engine::SceneManager::setGraph(std::weak_ptr<Engine::AGraphical> graph)
-{
-    Engine::SceneManager::_instance._graph = std::move(graph);
-}
-
-void Engine::SceneManager::setServer(Engine::AServer *server)
-{
-    Engine::SceneManager::_instance._server = server;
-}
-
-std::shared_ptr<Engine::AGraphical> Engine::SceneManager::getGraph()
-{
-    if (Engine::SceneManager::_instance._graph.lock())
-        return std::shared_ptr<Engine::AGraphical>(Engine::SceneManager::_instance._graph.lock());
-    throw std::exception();
-}
-
-Engine::AServer *Engine::SceneManager::getServer()
-{
-    return Engine::SceneManager::_instance._server;
+    if (it != this->_scenes.end())
+        this->_current = id;
+    //TODO: else
+    //TODO:     throw Error("No such scene of id: " + id);
 }

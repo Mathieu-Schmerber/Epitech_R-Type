@@ -8,7 +8,7 @@
 #include "components/SpriteComponent.hpp"
 #include "components/ClickableComponent.hpp"
 
-Engine::MouseSystem::MouseSystem(Engine::AWindow *window) : _window(window), Engine::System()
+Engine::MouseSystem::MouseSystem(std::shared_ptr<Engine::AEvents> &events) : _events(events), Engine::System()
 {
     this->addDependency<TransformComponent>();
     this->addDependency<SpriteComponent>();
@@ -17,13 +17,13 @@ Engine::MouseSystem::MouseSystem(Engine::AWindow *window) : _window(window), Eng
 
 void Engine::MouseSystem::update()
 {
-    Point<int> mousePos; // TODO: mousePos = this->_window->getMousePos()
+    Point<int> mousePos = {0, 0}; // TODO: mousePos = this->_events->getMousePos()
 
     // TODO: if window's inputs contains Engine::Key::LeftClick
     for (auto &e : this->_entities) {
-        auto transform = e.get()->getComponent<TransformComponent>();
-        auto sprite = e.get()->getComponent<SpriteComponent>();
-        auto clickable = e.get()->getComponent<ClickableComponent>();
+        auto transform = e->getComponent<TransformComponent>();
+        auto sprite = e->getComponent<SpriteComponent>();
+        auto clickable = e->getComponent<ClickableComponent>();
         Box<int> box = Box<int>(transform->getPos(), sprite->getSprite()->getSize());
 
         if (Geometry::doOverlap(mousePos, box))

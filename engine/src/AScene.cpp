@@ -4,11 +4,12 @@
 
 #include "AScene.hpp"
 
-Engine::AScene::AScene(int id) : _sceneId(id) {}
+Engine::AScene::AScene(int id) : _sceneId(id), _sceneSwitchRequest(-1) {}
 
 Engine::AScene::~AScene()
 {
-    // Dtor
+    this->_entities.clear();
+    this->_systems.clear();
 }
 
 int Engine::AScene::getId() const
@@ -16,7 +17,7 @@ int Engine::AScene::getId() const
     return this->_sceneId;
 }
 
-void Engine::AScene::spawnEntity(std::unique_ptr<Entity> entity)
+void Engine::AScene::spawnEntity(std::shared_ptr<Entity> entity)
 {
     this->_entities.push_back(std::move(entity));
     for (auto &sys : this->_systems) {
@@ -25,8 +26,19 @@ void Engine::AScene::spawnEntity(std::unique_ptr<Entity> entity)
     }
 }
 
+int Engine::AScene::getSwitchRequest() const
+{
+    return this->_sceneSwitchRequest;
+}
+
+void Engine::AScene::requestSwitch(int scene)
+{
+    this->_sceneSwitchRequest = scene;
+}
+
 void Engine::AScene::update()
 {
     for (auto &sys : this->_systems)
         sys->update();
 }
+

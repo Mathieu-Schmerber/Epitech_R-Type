@@ -14,7 +14,7 @@ namespace Engine {
     private:
         Point<int> _size;
     public:
-        explicit ASprite() = default;
+        explicit ASprite();
 
         ~ASprite() = default;
 
