@@ -34,6 +34,7 @@ void Core::start()
 {
     this->initScenes();
     _graph->getWindow()->open();
+    this->_graph->getWindow()->setFrameRate(60);
     while (_graph->getWindow()->isOpen()) {
         run();
     }

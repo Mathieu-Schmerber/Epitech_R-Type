@@ -25,6 +25,7 @@ namespace Engine {
         virtual void display() = 0;
         virtual void close() = 0;
 
+        virtual void setFrameRate(int frameRate) = 0;
         void setSize(const std::pair<int, int> &size);
         virtual void setTitle(const std::string &title);
         std::pair<int, int> getSize() const;

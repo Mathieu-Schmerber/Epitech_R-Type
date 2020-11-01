@@ -26,6 +26,7 @@ public:
     void close() override;
 
     void setTitle(const std::string &title) override;
+    void setFrameRate(int frameRate) override;
 
     friend class SpriteSFML;
     friend class EventsSFML;

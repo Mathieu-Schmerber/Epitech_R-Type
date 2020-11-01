@@ -38,3 +38,8 @@ std::unique_ptr<sf::RenderWindow> &WindowSFML::getWindow()
 {
     return _window;
 }
+
+void WindowSFML::setFrameRate(int frameRate)
+{
+    _window->setFramerateLimit(60);
+}
