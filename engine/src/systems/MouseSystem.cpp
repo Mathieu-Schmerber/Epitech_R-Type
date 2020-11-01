@@ -18,14 +18,17 @@ Engine::MouseSystem::MouseSystem(std::shared_ptr<Engine::AEvents> &events) : _ev
 void Engine::MouseSystem::update()
 {
     Point<int> mousePos = {0, 0}; // TODO: mousePos = this->_events->getMousePos()
+    Box<int> box(0, 0, 0, 0);
+    TransformComponent *transform = nullptr;
+    SpriteComponent *sprite = nullptr;
+    ClickableComponent *clickable = nullptr;
 
     // TODO: if window's inputs contains Engine::Key::LeftClick
     for (auto &e : this->_entities) {
-        auto transform = e->getComponent<TransformComponent>();
-        auto sprite = e->getComponent<SpriteComponent>();
-        auto clickable = e->getComponent<ClickableComponent>();
-        Box<int> box = Box<int>(transform->getPos(), sprite->getSprite()->getSize());
-
+        transform = e->getComponent<TransformComponent>();
+        sprite = e->getComponent<SpriteComponent>();
+        clickable = e->getComponent<ClickableComponent>();
+        box = Box<int>(transform->getPos(), sprite->getSprite()->getSize());
         if (Geometry::doOverlap(mousePos, box))
             clickable->onClick();
     }

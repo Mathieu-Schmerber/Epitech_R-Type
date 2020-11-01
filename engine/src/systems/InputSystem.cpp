@@ -12,9 +12,10 @@ Engine::InputSystem::InputSystem(Engine::AWindow *window) : _window(window), Eng
 
 void Engine::InputSystem::update()
 {
-    for (auto &e : this->_entities) {
-        auto controller = e.get()->getComponent<ControllerComponent>();
+    ControllerComponent *controller = nullptr;
 
+    for (auto &e : this->_entities) {
+        controller = e->getComponent<ControllerComponent>();
         /*
         TODO:
             controller->releaseAll();
