@@ -31,6 +31,8 @@ private:
             {sf::Mouse::XButton1, Engine::Mouse::extra1},
             {sf::Mouse::XButton2, Engine::Mouse::extra2}
     };
+
+    void manageEvents();
 };
 
 template<typename T>
