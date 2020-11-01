@@ -16,11 +16,12 @@ Engine::DrawSystem::DrawSystem(std::shared_ptr<Engine::AWindow> &window) : _wind
 void Engine::DrawSystem::update()
 {
     Engine::TransformComponent *transform = nullptr;
+    Engine::SpriteComponent *sprite = nullptr;
 
     for (auto &e : this->_entities) {
         transform = e->getComponent<Engine::TransformComponent>();
+        sprite = e->getComponent<Engine::SpriteComponent>();
         std::cout << "Draw at " << transform->getPos().x << ":" << transform->getPos().y << std::endl;
-        e.get()->getComponent<Engine::SpriteComponent>()->getSprite()->draw(_window, e.get()->getComponent<Engine::TransformComponent>()->getPos(), e.get()->getComponent<Engine::TransformComponent>()->getRotation());
-        //TODO: this->_window->draw(position, sprite) ?
+        sprite->getSprite()->draw(_window, transform->getPos(), static_cast<float>(transform->getRotation()));
     }
 }

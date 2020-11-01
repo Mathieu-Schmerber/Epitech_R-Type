@@ -22,7 +22,6 @@ namespace Engine {
             this->addComponent<TransformComponent>(pos);
             this->addComponent<SpriteComponent>(std::move(sprite));
             this->addComponent<ClickableComponent>(onClick, arg);
-            this->addComponent<SpriteComponent>(std::move(sprite));
         }
     };
 
