@@ -12,7 +12,7 @@ namespace Engine {
 
     class SpriteComponent : public Engine::Component {
     private:
-        Engine::ASprite *_sprite;
+        Engine::ASprite *_sprite; // TODO: change to std::unique_ptr<Engine::ASprite>
 
     public:
         explicit SpriteComponent(Engine::ASprite *sprite = nullptr) : _sprite(sprite) {};
