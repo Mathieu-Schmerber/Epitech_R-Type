@@ -8,16 +8,16 @@
 #include <vector>
 #include <algorithm>
 #include "ecs/Component.hpp"
-#include "enumerations/Input.hpp"
+#include "enumerations/Key.hpp"
 
 namespace Engine {
 
     class ControllerComponent : public Engine::Component {
     private:
-        std::vector<Engine::Input> _pressed;
-        std::vector<Engine::Input> _released;
+        std::vector<Engine::Key> _pressed;
+        std::vector<Engine::Key> _released;
 
-        static void removeFrom(std::vector<Engine::Input> &list, Engine::Input input) {
+        static void removeFrom(std::vector<Engine::Key> &list, Engine::Key input) {
             auto it = std::find(list.begin(), list.end(), input);
 
             if (it != list.end())
@@ -27,7 +27,7 @@ namespace Engine {
     public:
         explicit ControllerComponent() : Engine::Component() {}
 
-        void press(Engine::Input input) {
+        void press(Engine::Key input) {
             removeFrom(this->_pressed, input);
             removeFrom(this->_released, input);
             this->_pressed.push_back(input);
@@ -38,8 +38,8 @@ namespace Engine {
             this->_pressed.clear();
         }
 
-        std::vector<Engine::Input> getPressed() const {return this->_pressed;}
-        std::vector<Engine::Input> getReleased() const {return this->_released;}
+        std::vector<Engine::Key> getPressed() const {return this->_pressed;}
+        std::vector<Engine::Key> getReleased() const {return this->_released;}
     };
 
 }

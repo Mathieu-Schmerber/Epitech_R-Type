@@ -19,7 +19,7 @@ void Engine::MouseSystem::update()
 {
     Point<int> mousePos; // TODO: mousePos = this->_window->getMousePos()
 
-    // TODO: if window's inputs contains Engine::Input::LeftClick
+    // TODO: if window's inputs contains Engine::Key::LeftClick
     for (auto &e : this->_entities) {
         auto transform = e.get()->getComponent<TransformComponent>();
         auto sprite = e.get()->getComponent<SpriteComponent>();

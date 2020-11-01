@@ -2,11 +2,11 @@
 // Created by mathi on 31/10/2020.
 //
 
-#ifndef RTYPE_INPUT_HPP
-#define RTYPE_INPUT_HPP
+#ifndef RTYPE_KEY_HPP
+#define RTYPE_KEY_HPP
 
 namespace Engine {
-    enum Input {
+    enum Key {
         Unknown = -1,
         A = 0, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
         Num0, Num1, Num2, Num3, Num4, Num5, Num6, Num7, Num8, Num9,
@@ -26,4 +26,4 @@ namespace Engine {
     };
 }
 
-#endif //RTYPE_INPUT_HPP
+#endif //RTYPE_KEY_HPP

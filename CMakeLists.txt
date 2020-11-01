@@ -42,7 +42,7 @@ set(ENGINE_INCLUDES
         engine/include/components/ClickableComponent.hpp
         engine/include/components/NetworkComponent.hpp
         engine/include/components/ControllerComponent.hpp
-        engine/include/enumerations/Input.hpp
+        engine/include/enumerations/Key.hpp
         engine/include/components/ColliderComponent.hpp
         engine/include/components/ChildrenComponent.hpp
         engine/include/components/VelocityComponent.hpp
