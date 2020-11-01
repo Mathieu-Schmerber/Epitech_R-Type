@@ -59,8 +59,7 @@ set(CLIENT_SOURCES
 set(CLIENT_INCLUDES
         client/include/Core.hpp
         client/include/scenes/MainMenu.hpp
-        client/include/scenes/SceneType.hpp
-        )
+        client/include/scenes/SceneType.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp
