@@ -8,7 +8,7 @@
 #include <memory>
 #include <map>
 #include "AScene.hpp"
-#include "AServer.hpp"
+#include "networking/AServer.hpp"
 #include "Graphical/AGraphical.hpp"
 
 namespace Engine {

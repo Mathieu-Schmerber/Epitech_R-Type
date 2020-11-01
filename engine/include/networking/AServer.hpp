@@ -7,8 +7,8 @@
 
 #include <string>
 #include <memory>
-#include "ATcpSocket.hpp"
-#include "AUdpSocketIO.hpp"
+#include "networking/ATcpSocket.hpp"
+#include "networking/AUdpSocketIO.hpp"
 
 namespace Engine {
 

@@ -15,7 +15,7 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
 set(ENGINE_SOURCES
-        engine/src/AServer.cpp
+        engine/src/networking/AServer.cpp
         engine/src/SceneManager.cpp
         engine/src/AScene.cpp
         engine/src/Graphical/ASprite.cpp
@@ -35,11 +35,11 @@ set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
         engine/include/ecs/System.hpp
         engine/include/ecs/Component.hpp
-        engine/include/AServer.hpp
+        engine/include/networking/AServer.hpp
         engine/include/SceneManager.hpp
         engine/include/AScene.hpp
-        engine/include/AUdpSocketIO.hpp
-        engine/include/ATcpSocket.hpp
+        engine/include/networking/AUdpSocketIO.hpp
+        engine/include/networking/ATcpSocket.hpp
         engine/include/components/TransformComponent.hpp
         engine/include/components/SpriteComponent.hpp
         engine/include/systems/DrawSystem.hpp
