@@ -13,11 +13,13 @@
 #include "sfml/GraphicalSFML.hpp"
 #include "sfml/WindowSFML.hpp"
 #include "sfml/SpriteSfml.hpp"
+#include "sfml/EventsSFML.hpp"
 
 Core::Core()
 {
     this->_graph = std::make_unique<GraphicalSFML>();
     this->_graph->setWindow(std::make_shared<WindowSFML>(std::string("r-type"), std::make_pair(1920, 1080)));
+    this->_graph->setEvents(std::make_shared<EventsSFML>(_graph->getWindow()));
     this->_server = std::make_unique<Engine::AServer>("", 0);
     this->_sceneManager = std::make_unique<Engine::SceneManager>();
 }
@@ -41,5 +43,8 @@ void Core::run()
 {
     this->_sceneManager->handleSwitchRequests();
     this->_sceneManager->getCurrent()->update();
+    _graph->getEvents()->update();
     _graph->getWindow()->display();
+    std::cout << "pressed " << _graph->getEvents()->getKeysPressed() << std::endl;
+    std::cout << "released " << _graph->getEvents()->getKeysReleased() << std::endl;
 }

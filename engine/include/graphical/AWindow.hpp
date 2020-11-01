@@ -6,6 +6,7 @@
 #define RTYPE_AWINDOW_HPP
 
 #include <string>
+#include <vector>
 
 namespace Engine {
 

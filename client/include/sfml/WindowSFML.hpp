@@ -28,6 +28,7 @@ public:
     void setTitle(const std::string &title) override;
 
     friend class SpriteSFML;
+    friend class EventsSFML;
 
 private:
     std::unique_ptr<sf::RenderWindow> &getWindow();

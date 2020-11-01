@@ -12,7 +12,7 @@
 
 void playCallback(std::shared_ptr<Engine::AScene> &menu)
 {
-    std::cout << "Play" << std::endl;
+    //std::cout << "Play" << std::endl;
 }
 
 MainMenu::MainMenu(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events)
