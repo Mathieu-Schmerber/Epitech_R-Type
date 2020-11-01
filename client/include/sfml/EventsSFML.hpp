@@ -13,6 +13,7 @@
 #include "sfml/WindowSFML.hpp"
 #include <SFML/Window/Event.hpp>
 #include <memory>
+#include <map>
 
 class EventsSFML : public Engine::AEvents {
 public:
@@ -22,6 +23,14 @@ public:
 private:
     std::shared_ptr<WindowSFML> _window;
     sf::Event _event;
+
+    std::map<int, Engine::Mouse> _mouseLink = {
+            {sf::Mouse::Right, Engine::Mouse::right},
+            {sf::Mouse::Left, Engine::Mouse::left},
+            {sf::Mouse::Middle, Engine::Mouse::middle},
+            {sf::Mouse::XButton1, Engine::Mouse::extra1},
+            {sf::Mouse::XButton2, Engine::Mouse::extra2}
+    };
 };
 
 template<typename T>

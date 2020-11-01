@@ -23,7 +23,7 @@ void Engine::MouseSystem::update()
     SpriteComponent *sprite = nullptr;
     ClickableComponent *clickable = nullptr;
 
-    // TODO: if window's inputs contains Engine::Key::LeftClick
+    // TODO: if window's inputs contains Engine::Inputs::LeftClick
     for (auto &e : this->_entities) {
         transform = e->getComponent<TransformComponent>();
         sprite = e->getComponent<SpriteComponent>();

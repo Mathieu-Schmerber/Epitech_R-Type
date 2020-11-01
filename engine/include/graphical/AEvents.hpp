@@ -11,8 +11,9 @@
 
 #include <algorithm>
 #include "graphical/AWindow.hpp"
-#include "enumerations/Key.hpp"
+#include "enumerations/Inputs.hpp"
 #include <iostream>
+#include <tools/Geometry.hpp>
 
 namespace Engine {
 
@@ -21,13 +22,26 @@ namespace Engine {
         AEvents() = default;
         virtual void update() = 0;
 
-        virtual std::vector<Engine::Key> getKeysPressed() {return _pressed;};
-        virtual std::vector<Engine::Key> getKeysReleased() {return _released;};
+        virtual std::vector<Engine::Inputs> getKeysPressed() {return _keyPressed;};
+        virtual std::vector<Engine::Inputs> getKeysReleased() {return _keyReleased;};
 
+        virtual std::vector<Engine::Mouse> getButtonsPressed() {return _buttonsPressed;};
+        virtual std::vector<Engine::Mouse> getButtonsReleased() {return _buttonsReleased;};
+        virtual Engine::Point<int> getMousePos() {return _mousePos;};
+        virtual bool isMouseInWindow() {return _mouseInWindow;};
+
+        virtual Engine::Scroll getScrollState() {return _scroll;};
 
     protected:
-        std::vector<Engine::Key> _pressed;
-        std::vector<Engine::Key> _released;
+        std::vector<Engine::Inputs> _keyPressed;
+        std::vector<Engine::Inputs> _keyReleased;
+
+        std::vector<Engine::Mouse> _buttonsPressed;
+        std::vector<Engine::Mouse> _buttonsReleased;
+
+        Engine::Scroll _scroll;
+        Engine::Point<int> _mousePos;
+        bool _mouseInWindow = true;
     };
 }
 
