@@ -19,7 +19,7 @@ void Engine::DrawSystem::update()
 
     for (auto e : this->_entities) {
         transform = e.get()->getComponent<Engine::TransformComponent>();
-        std::cout << "Draw at " << transform->getPos().first << ":" << transform->getPos().second << std::endl;
+        std::cout << "Draw at " << transform->getPos().x << ":" << transform->getPos().y << std::endl;
         //TODO: this->_window->draw(position, sprite) ?
     }
 }

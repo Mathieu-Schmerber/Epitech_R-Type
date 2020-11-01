@@ -15,7 +15,7 @@ namespace Engine {
         Engine::ASprite *_sprite;
 
     public:
-        explicit SpriteComponent(Engine::ASprite *sprite = nullptr);
+        explicit SpriteComponent(Engine::ASprite *sprite = nullptr) : _sprite(sprite) {};
 
         Engine::ASprite *getSprite() const{return this->_sprite;}
         void setSprite(Engine::ASprite *sprite){this->_sprite = sprite;}

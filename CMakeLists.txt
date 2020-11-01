@@ -19,7 +19,8 @@ set(ENGINE_SOURCES
         engine/src/AWindow.cpp
         engine/src/AScene.cpp
         engine/src/ASprite.cpp
-        engine/src/systems/DrawSystem.cpp)
+        engine/src/systems/DrawSystem.cpp
+        engine/include/systems/MouseSystem.cpp)
 
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
@@ -42,7 +43,9 @@ set(ENGINE_INCLUDES
         engine/include/enumerations/Input.hpp
         engine/include/components/ColliderComponent.hpp
         engine/include/components/ChildrenComponent.hpp
-        engine/include/components/VelocityComponent.hpp)
+        engine/include/components/VelocityComponent.hpp
+        engine/include/systems/MouseSystem.hpp
+        engine/include/tools/Geometry.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
