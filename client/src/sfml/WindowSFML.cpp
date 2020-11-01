@@ -28,6 +28,11 @@ void WindowSFML::close()
     _window->close();
 }
 
+void draw(Engine::ASprite &sprite)
+{
+
+}
+
 void WindowSFML::setTitle(const std::string &title)
 {
     AWindow::setTitle(title);

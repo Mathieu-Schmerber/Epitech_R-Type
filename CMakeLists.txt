@@ -20,7 +20,7 @@ set(ENGINE_SOURCES
         engine/src/AScene.cpp
         engine/src/components/TransformComponent.cpp
         engine/src/components/SpriteComponent.cpp
-        engine/src/ASprite.cpp
+        engine/src/Graphical/ASprite.cpp
         engine/src/systems/DrawSystem.cpp
         engine/src/Graphical/AEvents.cpp
         engine/src/Graphical/ASound.cpp
@@ -40,7 +40,7 @@ set(ENGINE_INCLUDES
         engine/include/ATcpSocket.hpp
         engine/include/components/TransformComponent.hpp
         engine/include/components/SpriteComponent.hpp
-        engine/include/ASprite.hpp
+        engine/include/Graphical/ASprite.hpp
         engine/include/systems/DrawSystem.hpp
         engine/include/Graphical/AGraphical.hpp
         engine/include/Graphical/ASound.hpp
@@ -69,7 +69,7 @@ set(CLIENT_INCLUDES
         client/include/sfml/EventsSFML.hpp
         client/include/sfml/SoundSFML.hpp
 
-        )
+        engine/include/Graphical/SpriteSfml.cpp engine/include/Graphical/SpriteSfml.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp

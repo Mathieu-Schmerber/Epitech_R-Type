@@ -5,7 +5,7 @@
 #ifndef RTYPE_SPRITECOMPONENT_HPP
 #define RTYPE_SPRITECOMPONENT_HPP
 
-#include "ASprite.hpp"
+#include "Graphical/ASprite.hpp"
 #include "ecs/Component.hpp"
 
 class SpriteComponent : public Engine::Component

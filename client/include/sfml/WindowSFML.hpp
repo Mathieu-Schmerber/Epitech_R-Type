@@ -25,6 +25,7 @@ public:
     void display() override;
     void close() override;
 
+    void draw(Engine::ASprite&) override;
     void setTitle(const std::string &title) override;
 
 private:
