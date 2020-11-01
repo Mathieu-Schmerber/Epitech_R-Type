@@ -79,3 +79,13 @@ void EventsSFML::manageEvents()
             break;
     }
 }
+
+Engine::Point<int> EventsSFML::getMousePos()
+{
+    return {sf::Mouse::getPosition().x, sf::Mouse::getPosition().y};
+}
+
+bool EventsSFML::isButtonPressed(Engine::Mouse button)
+{
+    return sf::Mouse::isButtonPressed(static_cast<sf::Mouse::Button>(_mouseRvLink.at(button)));
+}
