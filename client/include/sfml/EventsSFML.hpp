@@ -22,7 +22,6 @@ public:
 private:
     std::shared_ptr<WindowSFML> _window;
     sf::Event _event;
-    bool _windowClosed = false;
 };
 
 template<typename T>

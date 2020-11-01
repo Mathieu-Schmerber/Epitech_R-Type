@@ -15,7 +15,7 @@ void EventsSFML::update() {
     while (_window->getWindow()->pollEvent(_event)) {
         switch (_event.type) {
             case sf::Event::Closed:
-                _windowClosed = true;
+                _window->getWindow()->close(); // FIXME On le laisse là ?
                 break;
 
             case sf::Event::KeyPressed:

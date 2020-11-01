@@ -46,6 +46,6 @@ void Core::run()
     this->_sceneManager->getCurrent()->update();
     _graph->getEvents()->update();
     _graph->getWindow()->display();
-    std::cout << "pressed " << _graph->getEvents()->getKeysPressed() << std::endl;
-    std::cout << "released " << _graph->getEvents()->getKeysReleased() << std::endl;
+    //std::cout << "pressed " << _graph->getEvents()->getKeysPressed() << std::endl;
+    //std::cout << "released " << _graph->getEvents()->getKeysReleased() << std::endl;
 }
