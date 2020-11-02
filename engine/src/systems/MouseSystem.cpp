@@ -7,6 +7,7 @@
 #include "components/TransformComponent.hpp"
 #include "components/SpriteComponent.hpp"
 #include "components/ClickableComponent.hpp"
+#include "components/AnimationComponent.hpp"
 
 Engine::MouseSystem::MouseSystem(std::shared_ptr<Engine::AEvents> &events) : _events(events), Engine::System()
 {
@@ -17,20 +18,30 @@ Engine::MouseSystem::MouseSystem(std::shared_ptr<Engine::AEvents> &events) : _ev
 
 void Engine::MouseSystem::update()
 {
+    bool released = !this->_events->getButtonsReleased().empty();
+    bool pressed = !this->_events->getButtonsPressed().empty();
     Point<int> mousePos = this->_events->getMousePosWindowRelative();
     Box<int> box(0, 0, 0, 0);
     TransformComponent *transform = nullptr;
     SpriteComponent *sprite = nullptr;
     ClickableComponent *clickable = nullptr;
+    AnimationComponent *animation = nullptr;
 
-    if (this->_events->getButtonsPressed().empty())
-        return;
     for (auto &e : this->_entities) {
         transform = e->getComponent<TransformComponent>();
         sprite = e->getComponent<SpriteComponent>();
         clickable = e->getComponent<ClickableComponent>();
+        animation = e->getComponent<AnimationComponent>();
         box = Box<int>(transform->getPos(), sprite->getSprite()->getSize());
-        if (Geometry::doOverlap(mousePos, box))
+        if (released && Geometry::doOverlap(mousePos, box))
             clickable->onClick();
+        if (animation) {
+            if (pressed && Geometry::doOverlap(mousePos, box))
+                animation->setAnimation("clicked");
+            else if (Geometry::doOverlap(mousePos, box))
+                animation->setAnimation("hover");
+            else
+                animation->setAnimation("idle");
+        }
     }
 }
