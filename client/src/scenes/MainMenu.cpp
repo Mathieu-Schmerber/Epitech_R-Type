@@ -7,12 +7,34 @@
 #include "SceneManager.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
+#include "systems/ParallaxSystem.hpp"
+#include "systems/AnimationSystem.hpp"
 #include "scenes/MainMenu.hpp"
 #include "entities/Button.hpp"
+#include "entities/Drawable.hpp"
+#include "entities/ParallaxSlide.hpp"
+#include "components/AnimationComponent.hpp"
+#include "tools/Geometry.hpp"
 
-void playCallback(std::shared_ptr<Engine::AScene> &menu)
+void goToSettingsScene(std::shared_ptr<Engine::AScene> &menu)
 {
     menu->requestSwitch(SceneType::SETTINGS);
+}
+
+void goToHowToPlayScene(std::shared_ptr<Engine::AScene> &menu)
+{
+    menu->requestSwitch(SceneType::HOW_TO_PLAY);
+}
+
+void quitGame(std::shared_ptr<Engine::AScene> &menu)
+{
+    auto mainMenu = std::dynamic_pointer_cast<MainMenu>(menu);
+    mainMenu->getWindow()->close();
+}
+
+void emptyCallback(std::shared_ptr<Engine::AScene> &menu)
+{
+
 }
 
 MainMenu::MainMenu(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events)
@@ -24,17 +46,61 @@ MainMenu::MainMenu(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Eng
 
 void MainMenu::initEntities()
 {
-    auto sprite = std::make_unique<SpriteSFML>("../../client/assets/images/buttons/start/start_button_idle_228x57.png");
-    auto playBtn = new Engine::Button({1200, 600}, std::move(sprite), &playCallback, std::shared_ptr<Engine::AScene>(this));
+    auto menuParralaxA = std::make_unique<SpriteSFML>(MENU_PARALLAX_PATH);
+    auto menuParralaxB = std::make_unique<SpriteSFML>(MENU_PARALLAX_PATH);
+    auto slideA = new Engine::ParallaxSlide({0, 0}, {-1920, 0}, {-10, 0}, std::move(menuParralaxA));
+    auto slideB = new Engine::ParallaxSlide({1920, 0}, {0, 0}, {-10, 0}, std::move(menuParralaxB));
 
-    this->spawnEntity(std::shared_ptr<Engine::Button>(playBtn));
+    auto rtypeLogoSprite = std::make_unique<SpriteSFML>(RTYPE_LOGO_PATH);
+    auto rTypeLogoEngine = new Engine::Drawable({RTYPE_LOGO_POSITION_X, RTYPE_LOGO_POSITION_Y}, std::move(rtypeLogoSprite));
+
+    auto startButtonSprite = std::make_unique<SpriteSFML>(START_BUTTON_PATH);
+    auto startButtonEngine = new Engine::Button({START_BUTTON_POSITION_X, START_BUTTON_POSITION_Y}, std::move(startButtonSprite), &emptyCallback, std::shared_ptr<Engine::AScene>(this));
+    startButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("idle", {Engine::Box<int>({START_BUTTON_X_IDLE, START_BUTTON_Y}, {START_BUTTON_WIDTH, START_BUTTON_HEIGHT})});
+    startButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("hover", {Engine::Box<int>({START_BUTTON_X_HOVER, START_BUTTON_Y}, {START_BUTTON_WIDTH, START_BUTTON_HEIGHT})});
+    startButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("clicked", {Engine::Box<int>({START_BUTTON_X_CLICKED, START_BUTTON_Y}, {START_BUTTON_WIDTH, START_BUTTON_HEIGHT})});
+
+    auto settingsButtonSprite = std::make_unique<SpriteSFML>(SETTINGS_BUTTON_PATH);
+    auto settingsButtonEngine = new Engine::Button({SETTINGS_BUTTON_POSITION_X, SETTINGS_BUTTON_POSITION_Y}, std::move(settingsButtonSprite), &goToSettingsScene, std::shared_ptr<Engine::AScene>(this));
+    settingsButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("idle", {Engine::Box<int>({SETTINGS_BUTTON_X_IDLE, SETTINGS_BUTTON_Y}, {SETTINGS_BUTTON_WIDTH, SETTINGS_BUTTON_HEIGHT})});
+    settingsButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("hover", {Engine::Box<int>({SETTINGS_BUTTON_X_HOVER, SETTINGS_BUTTON_Y}, {SETTINGS_BUTTON_WIDTH, SETTINGS_BUTTON_HEIGHT})});
+    settingsButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("clicked", {Engine::Box<int>({SETTINGS_BUTTON_X_CLICKED, SETTINGS_BUTTON_Y}, {SETTINGS_BUTTON_WIDTH, SETTINGS_BUTTON_HEIGHT})});
+
+    auto howToPlayButtonSprite = std::make_unique<SpriteSFML>(HOW_TO_PLAY_BUTTON_PATH);
+    auto howToPlayButtonEngine = new Engine::Button({HOW_TO_PLAY_BUTTON_POSITION_X, HOW_TO_PLAY_BUTTON_POSITION_Y}, std::move(howToPlayButtonSprite), &goToHowToPlayScene, std::shared_ptr<Engine::AScene>(this));
+    howToPlayButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("idle", {Engine::Box<int>({HOW_TO_PLAY_BUTTON_X_IDLE, HOW_TO_PLAY_BUTTON_Y}, {HOW_TO_PLAY_BUTTON_WIDTH, HOW_TO_PLAY_BUTTON_HEIGHT})});
+    howToPlayButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("hover", {Engine::Box<int>({HOW_TO_PLAY_BUTTON_X_HOVER, HOW_TO_PLAY_BUTTON_Y}, {HOW_TO_PLAY_BUTTON_WIDTH, HOW_TO_PLAY_BUTTON_HEIGHT})});
+    howToPlayButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("clicked", {Engine::Box<int>({HOW_TO_PLAY_BUTTON_X_CLICKED, HOW_TO_PLAY_BUTTON_Y}, {HOW_TO_PLAY_BUTTON_WIDTH, HOW_TO_PLAY_BUTTON_HEIGHT})});
+
+    auto quitButtonSprite = std::make_unique<SpriteSFML>(QUIT_BUTTON_PATH);
+    auto quitButtonEngine = new Engine::Button({QUIT_BUTTON_POSITION_X, QUIT_BUTTON_POSITION_Y}, std::move(quitButtonSprite), &quitGame, std::shared_ptr<Engine::AScene>(this));
+    quitButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("idle", {Engine::Box<int>({QUIT_BUTTON_X_IDLE, QUIT_BUTTON_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT})});
+    quitButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("hover", {Engine::Box<int>({QUIT_BUTTON_X_HOVER, QUIT_BUTTON_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT})});
+    quitButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("clicked", {Engine::Box<int>({QUIT_BUTTON_X_CLICKED, QUIT_BUTTON_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT})});
+    
+    this->spawnEntity(std::shared_ptr<Engine::ParallaxSlide>(slideA));
+    this->spawnEntity(std::shared_ptr<Engine::ParallaxSlide>(slideB));
+    this->spawnEntity(std::shared_ptr<Engine::Button>(startButtonEngine));
+    this->spawnEntity(std::shared_ptr<Engine::Button>(settingsButtonEngine));
+    this->spawnEntity(std::shared_ptr<Engine::Button>(howToPlayButtonEngine));
+    this->spawnEntity(std::shared_ptr<Engine::Button>(quitButtonEngine));
+    this->spawnEntity(std::shared_ptr<Engine::Drawable>(rTypeLogoEngine));
 }
 
 void MainMenu::initSystems()
 {
     auto draw = std::make_unique<Engine::DrawSystem>(this->_window);
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
+    auto parallax = std::make_unique<Engine::ParallaxSystem>();
+    auto animation = std::make_unique<Engine::AnimationSystem>();
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
+    this->_systems.push_back(std::move(parallax));
+    this->_systems.push_back(std::move(animation));
+}
+
+std::shared_ptr<Engine::AWindow> MainMenu::getWindow() const
+{
+    return _window;
 }

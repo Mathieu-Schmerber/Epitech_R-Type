@@ -13,10 +13,10 @@ namespace Engine {
 
 class Drawable : public Engine::Entity {
 public:
-    explicit Drawable(const Point<int> &pos) : Engine::Entity()
+    explicit Drawable(const Point<int> &pos, std::unique_ptr<Engine::ASprite> spr) : Engine::Entity()
     {
         this->addComponent<TransformComponent>(pos);
-        this->addComponent<SpriteComponent>();
+        this->addComponent<SpriteComponent>(std::move(spr));
     }
 };
 }

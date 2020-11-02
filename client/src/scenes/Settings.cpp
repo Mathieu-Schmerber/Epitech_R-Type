@@ -9,6 +9,7 @@
 #include "systems/ParallaxSystem.hpp"
 #include "scenes/Settings.hpp"
 #include "entities/ParallaxSlide.hpp"
+#include "entities/Drawable.hpp"
 
 Settings::Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events)
         : _window(window), _events(events), Engine::AScene(SceneType::SETTINGS)
@@ -19,13 +20,10 @@ Settings::Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Eng
 
 void Settings::initEntities()
 {
-    auto spriteA = std::make_unique<SpriteSFML>("../../client/assets/images/background/background_1.png");
-    auto spriteB = std::make_unique<SpriteSFML>("../../client/assets/images/background/background_1.png");
-    auto slideA = new Engine::ParallaxSlide({0, 0}, {-1920, 0}, {-10, 0}, std::move(spriteA));
-    auto slideB = new Engine::ParallaxSlide({1920, 0}, {0, 0}, {-10, 0}, std::move(spriteB));
+    auto settingsBackgroundSprite = std::make_unique<SpriteSFML>(SETTINGS_BACKGROUND_PATH);
+    auto settingsBackgroundEngine = new Engine::Drawable({SETTINGS_BACKGROUND_POSITION_X, SETTINGS_BACKGROUND_POSITION_Y}, std::move(settingsBackgroundSprite));
 
-    this->spawnEntity(std::shared_ptr<Engine::ParallaxSlide>(slideA));
-    this->spawnEntity(std::shared_ptr<Engine::ParallaxSlide>(slideB));
+    this->spawnEntity(std::shared_ptr<Engine::Drawable>(settingsBackgroundEngine));
 }
 
 void Settings::initSystems()

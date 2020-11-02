@@ -10,6 +10,12 @@
 #include "graphical/AWindow.hpp"
 #include "graphical/AEvents.hpp"
 
+#define SETTINGS_BACKGROUND_PATH "../../client/assets/images/background/background_2.png"
+#define SETTINGS_BACKGROUND_WIDTH 1920
+#define SETTINGS_BACKGROUND_HEIGHT 1080
+#define SETTINGS_BACKGROUND_POSITION_X 0
+#define SETTINGS_BACKGROUND_POSITION_Y 0
+
 class Settings : public Engine::AScene
 {
 private:

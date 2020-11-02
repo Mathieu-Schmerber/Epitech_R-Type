@@ -33,6 +33,8 @@ set(ENGINE_SOURCES
         engine/src/systems/PhysicSystem.cpp
         engine/src/systems/ParallaxSystem.cpp
         engine/src/Timer.cpp)
+        engine/src/systems/AnimationSystem.cpp)
+
 
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
@@ -70,6 +72,8 @@ set(ENGINE_INCLUDES
         engine/include/systems/ParallaxSystem.hpp
         engine/include/entities/ParallaxSlide.hpp
         engine/include/Timer.hpp)
+        engine/include/components/AnimationComponent.hpp
+        engine/include/systems/AnimationSystem.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
