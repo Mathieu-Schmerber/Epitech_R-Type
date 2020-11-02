@@ -6,18 +6,15 @@
 */
 
 #include "Core.hpp"
-#include "TcpSocket.hpp"
 
-Core::Core()
+Core::Core() : server(4242, this)
 {
 
 }
 
 void Core::run()
 {
-    Server server(4242);
-
     server.start();
-    Sleep(5000);
+    while (true);
     server.stop();
 }
