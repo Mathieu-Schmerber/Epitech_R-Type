@@ -10,6 +10,7 @@
 #include "systems/ParallaxSystem.hpp"
 #include "scenes/Settings.hpp"
 #include "entities/ParallaxSlide.hpp"
+#include "entities/Drawable.hpp"
 
 Settings::Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events)
         : _window(window), _events(events), Engine::AScene(SceneType::SETTINGS)
@@ -20,7 +21,10 @@ Settings::Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Eng
 
 void Settings::initEntities()
 {
+    auto settingsBackgroundSprite = std::make_unique<SpriteSFML>(SETTINGS_BACKGROUND_PATH);
+    auto settingsBackgroundEngine = new Engine::Drawable({SETTINGS_BACKGROUND_POSITION_X, SETTINGS_BACKGROUND_POSITION_Y}, std::move(settingsBackgroundSprite));
 
+    this->spawnEntity(std::shared_ptr<Engine::Drawable>(settingsBackgroundEngine));
 }
 
 void Settings::initSystems()

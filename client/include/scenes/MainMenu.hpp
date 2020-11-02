@@ -34,7 +34,7 @@
 #define SETTINGS_BUTTON_HEIGHT 57
 #define SETTINGS_BUTTON_WIDTH 368
 #define SETTINGS_BUTTON_POSITION_X (1920 / 2 - SETTINGS_BUTTON_WIDTH / 2) //TODO make a window size macro instead of hardcoded 1920 ?
-#define SETTINGS_BUTTON_POSITION_Y 300
+#define SETTINGS_BUTTON_POSITION_Y 500
 
 #define HOW_TO_PLAY_BUTTON_PATH "../../client/assets/images/buttons/how_to_play/how_to_play_button_full_1344x57.png"
 #define HOW_TO_PLAY_BUTTON_Y 0
@@ -44,7 +44,7 @@
 #define HOW_TO_PLAY_BUTTON_HEIGHT 57
 #define HOW_TO_PLAY_BUTTON_WIDTH 448
 #define HOW_TO_PLAY_BUTTON_POSITION_X (1920 / 2 - HOW_TO_PLAY_BUTTON_WIDTH / 2) //TODO make a window size macro instead of hardcoded 1920 ?
-#define HOW_TO_PLAY_BUTTON_POSITION_Y 300
+#define HOW_TO_PLAY_BUTTON_POSITION_Y 700
 
 #define QUIT_BUTTON_PATH "../../client/assets/images/buttons/quit/quit_button_full_558x57.png"
 #define QUIT_BUTTON_Y 0
@@ -54,7 +54,7 @@
 #define QUIT_BUTTON_HEIGHT 57
 #define QUIT_BUTTON_WIDTH 186
 #define QUIT_BUTTON_POSITION_X (1920 / 2 - QUIT_BUTTON_WIDTH / 2) //TODO make a window size macro instead of hardcoded 1920 ?
-#define QUIT_BUTTON_POSITION_Y 300
+#define QUIT_BUTTON_POSITION_Y 900
 
 #define MENU_PARALLAX_PATH "../../client/assets/images/parallax/parallax_3_3840x1080.png"
 
@@ -70,8 +70,12 @@ private:
 public:
 
     MainMenu(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events);
+    std::shared_ptr<Engine::AWindow> getWindow() const;
 };
 
-void playCallback(std::shared_ptr<MainMenu> menu);
+void emptyCallback(std::shared_ptr<MainMenu> menu);
+void goToSettingsScene(std::shared_ptr<MainMenu> menu);
+void goToHowToPlayScene(std::shared_ptr<MainMenu> menu);
+void quitGame(std::shared_ptr<MainMenu> menu);
 
 #endif //RTYPE_MAINMENU_HPP
