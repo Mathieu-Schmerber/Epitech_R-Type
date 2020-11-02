@@ -29,19 +29,19 @@ void EventsSFML::manageEvents()
 
         /** Key Pressed **/
         case sf::Event::KeyPressed:
-            if (!isInVector(_keyPressed, static_cast<Engine::Inputs>(_event.key.code)))
+            if (!Engine::Utils::isInVector(_keyPressed, static_cast<Engine::Inputs>(_event.key.code)))
                 _keyPressed.push_back(static_cast<Engine::Inputs>(_event.key.code));
             break;
 
         /** Key Released **/
         case sf::Event::KeyReleased:
             _keyReleased.push_back(static_cast<Engine::Inputs>(_event.key.code));
-            removeInVector(_keyPressed, static_cast<Engine::Inputs>(_event.key.code));
+            Engine::Utils::removeInVector(_keyPressed, static_cast<Engine::Inputs>(_event.key.code));
             break;
 
         /** Mouse Button Pressed **/
         case sf::Event::MouseButtonPressed:
-            if (!isInVector(_buttonsPressed, _mouseLink.at(_event.mouseButton.button)))
+            if (!Engine::Utils::isInVector(_buttonsPressed, _mouseLink.at(_event.mouseButton.button)))
                 _buttonsPressed.push_back(_mouseLink.at(_event.mouseButton.button));
             _mousePos = {_event.mouseButton.x, _event.mouseButton.y};
             break;
@@ -49,7 +49,7 @@ void EventsSFML::manageEvents()
         /** Mouse Button Released **/
         case sf::Event::MouseButtonReleased:
             _buttonsReleased.push_back(_mouseLink.at(_event.mouseButton.button));
-            removeInVector(_buttonsPressed, _mouseLink.at(_event.mouseButton.button));
+            Engine::Utils::removeInVector(_buttonsPressed, _mouseLink.at(_event.mouseButton.button));
             _mousePos = {_event.mouseButton.x, _event.mouseButton.y};
             break;
 
@@ -81,10 +81,10 @@ void EventsSFML::manageEvents()
     }
 }
 
-Engine::Point<int> EventsSFML::getMousePos()
-{
-    return {sf::Mouse::getPosition().x, sf::Mouse::getPosition().y};
-}
+//Engine::Point<int> EventsSFML::getMousePos()
+//{
+//    return {sf::Mouse::getPosition().x, sf::Mouse::getPosition().y};
+//}
 
 bool EventsSFML::isButtonPressed(Engine::Mouse button)
 {

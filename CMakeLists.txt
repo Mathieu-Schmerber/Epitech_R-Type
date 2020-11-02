@@ -63,7 +63,7 @@ set(ENGINE_INCLUDES
         engine/include/tools/Geometry.hpp
         engine/include/systems/InputSystem.hpp
         engine/include/systems/PhysicSystem.hpp
-        engine/include/entities/Drawable.hpp)
+        engine/include/entities/Drawable.hpp engine/include/tools/Utils.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp

@@ -10,6 +10,7 @@
 
 namespace Engine {
 
+
     static const double PI = 3.141592653589793238463;
 
     template<typename T>
@@ -25,6 +26,7 @@ namespace Engine {
         bool operator!=(const Point &rhs) const {
             return rhs != *this;
         }
+
     };
 
     template<typename T>
@@ -54,6 +56,10 @@ namespace Engine {
         bool operator!=(const Box &rhs) const {
             return rhs != *this;
         }
+
+        bool doOverlap(const Box &rhs) const;
+        bool doOverlap(const Point<T> &point) const;
+
     };
 
     class Geometry {
@@ -83,6 +89,17 @@ namespace Engine {
             return !((box1.x2 < box2.x1 || box1.x1 > box2.x2) || (box1.y2 < box2.y1 || box1.y1 > box2.y2));
         }
     };
+}
+
+template<typename T>
+bool Engine::Box<T>::doOverlap(const Box<T> &rhs) const {
+    return Geometry::doOverlap(rhs, this);
+}
+
+template<typename T>
+bool Engine::Box<T>::doOverlap(const Engine::Point<T> &point) const
+{
+    return Geometry::doOverlap(point, this);
 }
 
 #endif //RTYPE_GEOMETRY_HPP
