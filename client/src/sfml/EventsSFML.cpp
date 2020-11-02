@@ -36,7 +36,7 @@ void EventsSFML::manageEvents()
         /** Key Released **/
         case sf::Event::KeyReleased:
             _keyReleased.push_back(static_cast<Engine::Inputs>(_event.key.code));
-            Engine::Utils::removeInVector(_keyPressed, static_cast<Engine::Inputs>(_event.key.code));
+            Engine::Utils::removeFromVector(_keyPressed, static_cast<Engine::Inputs>(_event.key.code));
             break;
 
         /** Mouse Button Pressed **/
@@ -49,7 +49,7 @@ void EventsSFML::manageEvents()
         /** Mouse Button Released **/
         case sf::Event::MouseButtonReleased:
             _buttonsReleased.push_back(_mouseLink.at(_event.mouseButton.button));
-            Engine::Utils::removeInVector(_buttonsPressed, _mouseLink.at(_event.mouseButton.button));
+            Engine::Utils::removeFromVector(_buttonsPressed, _mouseLink.at(_event.mouseButton.button));
             _mousePos = {_event.mouseButton.x, _event.mouseButton.y};
             break;
 
@@ -81,6 +81,7 @@ void EventsSFML::manageEvents()
     }
 }
 
+/// Not window relative
 //Engine::Point<int> EventsSFML::getMousePos()
 //{
 //    return {sf::Mouse::getPosition().x, sf::Mouse::getPosition().y};

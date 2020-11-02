@@ -18,7 +18,7 @@ namespace Engine {
     class Utils {
     public:
         template<typename T>
-        static void removeInVector(std::vector<T> &vector, T item)
+        static void removeFromVector(std::vector<T> &vector, T item)
         {
             vector.erase(std::remove_if(vector.begin(), vector.end(), [item](T x){return x == item;}));
         }
