@@ -20,7 +20,7 @@
 class SpriteSFML : public Engine::ASprite {
 public:
     SpriteSFML() = default;
-    SpriteSFML(const std::string filename) : Engine::ASprite() {
+    explicit SpriteSFML(const std::string& filename) : Engine::ASprite() {
         loadFromFile(filename);
     }
 
@@ -34,6 +34,8 @@ public:
     Engine::Point<float> getOrigin() const;
     void setScale(Engine::Scale<float> scale) override;
     Engine::Scale<float> getScale() const;
+    void setRect(Engine::Box<int> rect) override;
+    Engine::Box<int> getRect() const;
 
     Engine::Size<int> getSize() override;
 

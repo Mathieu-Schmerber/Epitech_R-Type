@@ -20,6 +20,7 @@ namespace Engine {
         virtual Engine::Point<int> getSize() = 0;
         virtual void setScale(Engine::Scale<float> scale) = 0;
         virtual void setOrigin(Engine::Point<float> origin) = 0;
+        virtual void setRect(Engine::Box<int> rect) = 0;
         virtual void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) = 0;
     };
 

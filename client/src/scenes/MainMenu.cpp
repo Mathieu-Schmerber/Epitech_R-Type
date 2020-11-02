@@ -35,15 +35,19 @@ void MainMenu::initEntities()
     auto rTypeLogoEngine = new Engine::Button({610, 50}, std::move(rtypeLogoSprite), &playCallback, std::shared_ptr<Engine::AScene>(this));
 
     auto startButtonSprite = std::make_unique<SpriteSFML>(START_BUTTON_PATH);
-    auto startButtonEngine = new Engine::Button({846, 300}, std::move(startButtonSprite), &playCallback, std::shared_ptr<Engine::AScene>(this));
+    startButtonSprite->setRect(Engine::Box<int>{START_BUTTON_X_IDLE, START_BUTTON_Y,  START_BUTTON_WIDTH, START_BUTTON_HEIGHT});
+    auto startButtonEngine = new Engine::Button({START_BUTTON_POSITION_X, START_BUTTON_POSITION_Y}, std::move(startButtonSprite), &playCallback, std::shared_ptr<Engine::AScene>(this));
 
     auto settingsButtonSprite = std::make_unique<SpriteSFML>(SETTINGS_BUTTON_PATH);
+    settingsButtonSprite->setRect(Engine::Box<int>{SETTINGS_BUTTON_X_IDLE, SETTINGS_BUTTON_Y, SETTINGS_BUTTON_WIDTH, SETTINGS_BUTTON_HEIGHT});
     auto settingsButtonEngine = new Engine::Button({776, 500}, std::move(settingsButtonSprite), &playCallback, std::shared_ptr<Engine::AScene>(this));
 
     auto howToPlayButtonSprite = std::make_unique<SpriteSFML>(HOW_TO_PLAY_BUTTON_PATH);
+    howToPlayButtonSprite->setRect(Engine::Box<int>{HOW_TO_PLAY_BUTTON_X_IDLE, HOW_TO_PLAY_BUTTON_Y, HOW_TO_PLAY_BUTTON_WIDTH, HOW_TO_PLAY_BUTTON_HEIGHT});
     auto howToPlayButtonEngine = new Engine::Button({736, 700}, std::move(howToPlayButtonSprite), &playCallback, std::shared_ptr<Engine::AScene>(this));
 
     auto quitButtonSprite = std::make_unique<SpriteSFML>(QUIT_BUTTON_PATH);
+    quitButtonSprite->setRect(Engine::Box<int>{QUIT_BUTTON_X_IDLE, QUIT_BUTTON_Y, QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT});
     auto quitButtonEngine = new Engine::Button({867, 900}, std::move(quitButtonSprite), &playCallback, std::shared_ptr<Engine::AScene>(this));
 
     this->spawnEntity(std::shared_ptr<Engine::ParallaxSlide>(slideA));

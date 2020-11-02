@@ -29,6 +29,18 @@ Engine::Scale<float> SpriteSFML::getScale() const
     return {_sprite.getScale().x, _sprite.getScale().y};
 }
 
+void SpriteSFML::setRect(Engine::Box<int> rect)
+{
+    _sprite.setTextureRect(sf::IntRect(rect.x1, rect.x2, rect.y1, rect.y2));
+}
+
+Engine::Box<int> SpriteSFML::getRect() const
+{
+    auto rect = _sprite.getTextureRect();
+
+    return {rect.left, rect.top, rect.width, rect.height};
+}
+
 void SpriteSFML::setPosition(Engine::Point<float> position)
 {
     _sprite.setPosition(position.x, position.y);
