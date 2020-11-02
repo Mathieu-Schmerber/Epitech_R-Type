@@ -6,8 +6,10 @@
 */
 
 #include "TcpSocket.hpp"
+#include "CoreServer.hpp"
+#include "Client.hpp"
 
-Session::Session(boost::asio::io_service &io_service, Core *core) : socket(io_service), _core(core) {}
+Session::Session(boost::asio::io_service &io_service, CoreServer *core) : socket(io_service), _core(core) {}
 
 tcp::socket &Session::get_socket()
 {
@@ -31,7 +33,7 @@ void Session::handle_read(std::shared_ptr<Session> &s, const boost::system::erro
 
 /*===========================================================*/
 
-Server::Server(short port, Core *core) : _io_service(), _acceptor(_io_service, tcp::endpoint(tcp::v4(), port)), _core(core)
+Server::Server(short port, CoreServer *core) : _io_service(), _acceptor(_io_service, tcp::endpoint(tcp::v4(), port)), _core(core)
 {
     std::shared_ptr<Session> session = std::make_shared<Session>(_io_service, _core);
     _acceptor.async_accept(session->get_socket(), boost::bind(&Server::handle_accept, this, session, boost::asio::placeholders::error));
@@ -43,6 +45,9 @@ void Server::handle_accept(std::shared_ptr<Session> session, const boost::system
         std::cout << "New client connected" << std::endl;
         session->start();
         session = std::make_shared<Session>(_io_service, _core);
+        auto client = std::make_shared<Client>(session);
+        if (this->_core)
+            this->_core->setNewClient(client);
         _acceptor.async_accept(session->get_socket(), boost::bind(&Server::handle_accept, this, session, boost::asio::placeholders::error));
     } else {
         std::cerr << "err: " + err.message() << std::endl;

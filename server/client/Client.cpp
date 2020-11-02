@@ -7,7 +7,4 @@
 
 #include "Client.hpp"
 
-Client::Client()
-{
-
-}
+Client::Client(std::shared_ptr<Session> &session) : _session(session) {}

@@ -5,8 +5,8 @@
 ** Created by Emilien
 */
 
-#ifndef RTYPE_CORE_HPP
-#define RTYPE_CORE_HPP
+#ifndef RTYPE_CORESERVER_HPP
+#define RTYPE_CORESERVER_HPP
 
 #ifdef _WIN32
     #define _WIN32_WINNT  0x0601
@@ -14,18 +14,20 @@
 
 #include <vector>
 #include <memory>
-#include "Client.hpp"
 #include "LobbyManager.hpp"
-#include "TcpSocket.hpp"
 
-class Core {
+class Session;
+
+class CoreServer {
 public:
-    explicit Core();
+    explicit CoreServer();
     [[noreturn]] void run();
+    void setNewClient(std::shared_ptr<Client>& session);
 private:
     Server server;
-    std::vector<Client> _connected{};
+    std::vector<std::shared_ptr<Client>> _connected{};
     std::unique_ptr<LobbyManager> _lobbyManager;
 };
 
-#endif //RTYPE_CORE_HPP
+
+#endif //RTYPE_CORESERVER_HPP

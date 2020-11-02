@@ -1,9 +1,9 @@
 #include <iostream>
-#include "Core.hpp"
+#include "CoreServer.hpp"
 
 int main()
 {
-    Core core;
+    CoreServer core;
 
     core.run();
     return 0;

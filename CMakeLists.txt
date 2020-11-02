@@ -91,14 +91,14 @@ set(CLIENT_INCLUDES
 
 set(SERVER_SOURCES
         server/main.cpp
-        server/core/Core.cpp
+        server/core/CoreServer.cpp
         server/client/Client.cpp
         server/lobby/lobbyManager/LobbyManager.cpp
         server/lobby/lobby/Lobby.cpp
         server/client/TCP/TcpSocket.cpp)
 
 set(SERVER_INCLUDES
-        server/core/Core.hpp
+        server/core/CoreServer.hpp
         server/client/Client.hpp
         server/lobby/lobbyManager/LobbyManager.hpp
         server/lobby/lobby/Lobby.hpp
