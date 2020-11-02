@@ -28,7 +28,8 @@ namespace Engine {
         virtual bool isButtonPressed(Engine::Mouse button) = 0;
         virtual std::vector<Engine::Mouse> getButtonsPressed() {return _buttonsPressed;};
         virtual std::vector<Engine::Mouse> getButtonsReleased() {return _buttonsReleased;};
-        virtual Engine::Point<int> getMousePos() {return _mousePos;};
+        virtual Engine::Point<int> getMousePosWindowRelative() {return _mousePos;};
+        virtual Engine::Point<int> getMousePosDesktopRelative() = 0;
         virtual bool isMouseInWindow() {return _mouseInWindow;};
 
         virtual Engine::Scroll getScrollState() {return _scroll;};

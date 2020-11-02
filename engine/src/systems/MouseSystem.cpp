@@ -17,7 +17,7 @@ Engine::MouseSystem::MouseSystem(std::shared_ptr<Engine::AEvents> &events) : _ev
 
 void Engine::MouseSystem::update()
 {
-    Point<int> mousePos = this->_events->getMousePos();
+    Point<int> mousePos = this->_events->getMousePosWindowRelative();
     Box<int> box(0, 0, 0, 0);
     TransformComponent *transform = nullptr;
     SpriteComponent *sprite = nullptr;

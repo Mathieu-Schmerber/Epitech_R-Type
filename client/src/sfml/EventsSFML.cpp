@@ -81,11 +81,10 @@ void EventsSFML::manageEvents()
     }
 }
 
-/// Not window relative
-//Engine::Point<int> EventsSFML::getMousePos()
-//{
-//    return {sf::Mouse::getPosition().x, sf::Mouse::getPosition().y};
-//}
+Engine::Point<int> EventsSFML::getMousePosDesktopRelative()
+{
+    return {sf::Mouse::getPosition().x, sf::Mouse::getPosition().y};
+}
 
 bool EventsSFML::isButtonPressed(Engine::Mouse button)
 {
