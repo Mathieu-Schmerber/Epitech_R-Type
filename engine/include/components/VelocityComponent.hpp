@@ -5,24 +5,25 @@
 #ifndef RTYPE_VELOCITYCOMPONENT_HPP
 #define RTYPE_VELOCITYCOMPONENT_HPP
 
+#include "tools/Geometry.hpp"
 #include "ecs/Component.hpp"
 
 namespace Engine {
 
-    class VelocityComponent : Engine::Component {
+    class VelocityComponent : public Engine::Component {
     private:
-        std::pair<double, double> _speed;
-        std::pair<double, double> _acceleration;
+        Vector<double> _speed;
+        Vector<double> _acceleration;
 
     public:
-        explicit VelocityComponent(const std::pair<double, double> &speed = {0, 0},
-                                   const std::pair<double, double> &acceleration = {0, 0})
+        explicit VelocityComponent(const Vector<double> &speed = {0, 0},
+                                   const Vector<double> &acceleration = {0, 0})
                                    : _speed(speed), _acceleration(acceleration), Component() {}
 
-        const std::pair<double, double> getSpeed() const {return _speed;}
-        const std::pair<double, double> getAcceleration() const {return _acceleration;}
-        void setSpeed(const std::pair<double, double> &speed) {_speed = speed;}
-        void setAcceleration(const std::pair<double, double> &acceleration) {_acceleration = acceleration;}
+        Vector<double> getSpeed() const {return _speed;}
+        Vector<double> getAcceleration() const {return _acceleration;}
+        void setSpeed(const Vector<double> &speed) {_speed = speed;}
+        void setAcceleration(const Vector<double> &acceleration) {_acceleration = acceleration;}
     };
 
 }

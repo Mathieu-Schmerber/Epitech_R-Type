@@ -26,6 +26,10 @@ namespace Engine {
 
         Point<int> getPos() const { return this->_pos; }
         void setPos(const Point<int> &pos) {this->_pos = pos;}
+        void movePos(const Vector<int> &increment) {
+            this->_pos.x += increment.x;
+            this->_pos.y += increment.y;
+        }
 
         double getRotation() const {return this->_rotation;}
         void setRotation(double rotation) {this->_rotation = rotation;}

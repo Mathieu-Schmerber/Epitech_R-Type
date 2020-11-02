@@ -38,6 +38,12 @@ namespace Engine {
                 rv[e.second] = e.first;
             return rv;
         }
+
+        template<class T>
+        static std::unique_ptr<T> copyUnique(const std::unique_ptr<T> &source)
+        {
+            return (source ? std::make_unique<T>(*source) : nullptr);
+        }
     };
 }
 

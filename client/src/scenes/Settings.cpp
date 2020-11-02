@@ -7,13 +7,9 @@
 #include "SceneManager.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
+#include "systems/ParallaxSystem.hpp"
 #include "scenes/Settings.hpp"
-#include "entities/Button.hpp"
-
-void testCallback(std::shared_ptr<Engine::AScene> &settings)
-{
-    std::cout << "Test" << std::endl;
-}
+#include "entities/ParallaxSlide.hpp"
 
 Settings::Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events)
         : _window(window), _events(events), Engine::AScene(SceneType::SETTINGS)
@@ -24,17 +20,22 @@ Settings::Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Eng
 
 void Settings::initEntities()
 {
-    auto sprite = std::make_unique<SpriteSFML>("../../client/assets/images/buttons/start/start_button_idle_228x57.png");
-    auto playBtn = new Engine::Button({50, 900}, std::move(sprite), &testCallback, std::shared_ptr<Engine::AScene>(this));
+    auto spriteA = std::make_unique<SpriteSFML>("../../client/assets/images/background/background_1.png");
+    auto spriteB = std::make_unique<SpriteSFML>("../../client/assets/images/background/background_1.png");
+    auto slideA = new Engine::ParallaxSlide({0, 0}, {-1920, 0}, {-10, 0}, std::move(spriteA));
+    auto slideB = new Engine::ParallaxSlide({1920, 0}, {0, 0}, {-10, 0}, std::move(spriteB));
 
-    this->spawnEntity(std::shared_ptr<Engine::Button>(playBtn));
+    this->spawnEntity(std::shared_ptr<Engine::ParallaxSlide>(slideA));
+    this->spawnEntity(std::shared_ptr<Engine::ParallaxSlide>(slideB));
 }
 
 void Settings::initSystems()
 {
     auto draw = std::make_unique<Engine::DrawSystem>(this->_window);
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
+    auto parallax = std::make_unique<Engine::ParallaxSystem>();
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
+    this->_systems.push_back(std::move(parallax));
 }
