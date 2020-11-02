@@ -3,6 +3,7 @@
 //
 
 #include "SceneManager.hpp"
+#include "tools/Utils.hpp"
 
 Engine::SceneManager::~SceneManager()
 {
@@ -24,29 +25,22 @@ void Engine::SceneManager::handleSwitchRequests()
 
 std::unique_ptr<Engine::AScene> &Engine::SceneManager::getCurrent()
 {
-    auto it = this->_scenes.find(this->_current);
-
-    if (it != this->_scenes.end())
-        return it->second;
+    if (Utils::isInMap(this->_scenes, this->_current))
+        return this->_scenes[this->_current];
     // TODO: replace with a custom error exception
     throw std::exception(); //"SceneManager: No target scene"
 }
 
 void Engine::SceneManager::addScene(std::unique_ptr<Engine::AScene> scene)
 {
-    auto it = this->_scenes.find(scene->getId());
-
-    if (it == this->_scenes.end())
-        this->_scenes[scene->getId()] = std::move(scene);
-    //TODO: else
-    //TODO:     throw Error("A scene of id: " + id + " already exists");
+    if (Utils::isInMap(this->_scenes, scene->getId()))
+        std::cerr << "\033[33mScene WARNING : adding an already existing scene id, will overwrite its data (" << scene->getId() <<")\033[0m" << std::endl;
+    this->_scenes[scene->getId()] = std::move(scene);
 }
 
 void Engine::SceneManager::switchScene(int id)
 {
-    auto it = this->_scenes.find(id);
-
-    if (it != this->_scenes.end())
+    if (Utils::isInMap(this->_scenes, id))
         this->_current = id;
     //TODO: else
     //TODO:     throw Error("No such scene of id: " + id);
