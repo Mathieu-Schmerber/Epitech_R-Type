@@ -12,27 +12,18 @@
 #include "graphical/AEvents.hpp"
 #include "sfml/WindowSFML.hpp"
 #include <SFML/Window/Event.hpp>
-#include <memory>
+#include "tools/Utils.hpp"
 #include <map>
 
-template<typename T, typename U>
-std::map<U, T> reverseMap(std::map<T, U> map)
-{
-    std::map<U, T> rv;
-
-    for (auto &e : map)
-        rv[e.second] = e.first;
-    return rv;
-}
 
 class EventsSFML : public Engine::AEvents {
 public:
     EventsSFML(std::shared_ptr<Engine::AWindow> &window) : Engine::AEvents(), _window(std::dynamic_pointer_cast<WindowSFML>(window)),
-    _mouseRvLink(reverseMap(_mouseLink)) {}
+    _mouseRvLink(Engine::Utils::reverseMap(_mouseLink)) {}
     void update();
 
     bool isButtonPressed(Engine::Mouse button) override;
-    Engine::Point<int> getMousePos() override;
+    //Engine::Point<int> getMousePos() override;
 
 
 private:
@@ -51,12 +42,6 @@ private:
     void manageEvents();
 };
 
-template<typename T>
-std::basic_ostream<char> &operator<<(std::basic_ostream<char> &c, std::vector<T> vector)
-{
-    for (auto &i : vector)
-        c << i << " ";
-    return c;
-}
+
 
 #endif //RTYPE_EVENTSSFML_HPP
