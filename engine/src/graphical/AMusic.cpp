@@ -7,3 +7,8 @@
 
 
 #include "graphical/AMusic.hpp"
+
+void Engine::AMusic::setVolume(float volume)
+{
+    _volume = volume;
+}

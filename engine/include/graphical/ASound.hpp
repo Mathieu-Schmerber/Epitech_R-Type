@@ -14,9 +14,10 @@
 
 namespace Engine {
 
-class ASound : public Engine::IAudio {
+    class ASound : public Engine::IAudio {
     public:
         ASound() = default;
+        virtual void setVolume(float volume) override;
 
     protected:
         float _volume = 100;

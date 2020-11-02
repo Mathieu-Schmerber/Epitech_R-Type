@@ -35,5 +35,6 @@ void SoundSFML::stop()
 
 void SoundSFML::setVolume(float volume)
 {
+    ASound::setVolume(volume);
     _sound.setVolume(volume);
 }

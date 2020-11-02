@@ -15,7 +15,7 @@
 
 namespace Engine {
 
-class SoundComponent : public Engine::Component {
+    class SoundComponent : public Engine::Component {
     private:
         std::unique_ptr<Engine::ASound> _sound;
 

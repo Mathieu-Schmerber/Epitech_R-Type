@@ -10,8 +10,7 @@
 #define RTYPE_IAUDIO_HPP
 
 #include <type_traits>
-#include <graphical/ASound.hpp>
-#include <graphical/AMusic.hpp>
+#include <iostream>
 
 namespace Engine {
 

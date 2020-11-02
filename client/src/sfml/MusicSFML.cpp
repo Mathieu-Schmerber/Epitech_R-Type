@@ -33,5 +33,6 @@ void MusicSFML::stop()
 
 void MusicSFML::setVolume(float volume)
 {
+    AMusic::setVolume(volume);
     _music.setVolume(volume);
 }

@@ -35,7 +35,7 @@ set(ENGINE_SOURCES
         engine/src/Timer.cpp
         engine/src/systems/AnimationSystem.cpp
         engine/src/graphical/AMusic.cpp
-        engine/include/graphical/AMusic.hpp)
+        )
 
 
 set(ENGINE_INCLUDES
@@ -79,7 +79,8 @@ set(ENGINE_INCLUDES
         engine/include/components/AnimationComponent.hpp
         engine/include/systems/AnimationSystem.hpp
         engine/include/graphical/AMusic.hpp
-        engine/include/graphical/IAudio.hpp engine/include/components/AudioComponent.hpp)
+        engine/include/graphical/IAudio.hpp
+        engine/include/components/AudioComponent.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
