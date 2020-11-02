@@ -20,13 +20,7 @@ Settings::Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Eng
 
 void Settings::initEntities()
 {
-    auto spriteA = std::make_unique<SpriteSFML>("../../client/assets/images/background/background_1.png");
-    auto spriteB = std::make_unique<SpriteSFML>("../../client/assets/images/background/background_1.png");
-    auto slideA = new Engine::ParallaxSlide({0, 0}, {-1920, 0}, {-10, 0}, std::move(spriteA));
-    auto slideB = new Engine::ParallaxSlide({1920, 0}, {0, 0}, {-10, 0}, std::move(spriteB));
 
-    this->spawnEntity(std::shared_ptr<Engine::ParallaxSlide>(slideA));
-    this->spawnEntity(std::shared_ptr<Engine::ParallaxSlide>(slideB));
 }
 
 void Settings::initSystems()

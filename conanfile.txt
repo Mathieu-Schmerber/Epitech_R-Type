@@ -10,7 +10,6 @@ cmake
 sfml:graphics = True
 sfml:window = True
 sfml:shared = True
-sfml:fPIC = True
 sfml:network = True
 
 [imports]
