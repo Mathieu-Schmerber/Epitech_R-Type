@@ -23,7 +23,7 @@ public:
     void update();
 
     bool isButtonPressed(Engine::Mouse button) override;
-    //Engine::Point<int> getMousePos() override;
+    Engine::Point<int> getMousePosDesktopRelative() override;
 
 
 private:
