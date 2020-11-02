@@ -32,8 +32,9 @@ set(ENGINE_SOURCES
         engine/src/systems/InputSystem.cpp
         engine/src/systems/PhysicSystem.cpp
         engine/src/systems/ParallaxSystem.cpp
-        engine/src/Timer.cpp)
-        engine/src/systems/AnimationSystem.cpp)
+        engine/src/Timer.cpp
+        engine/src/systems/AnimationSystem.cpp
+)
 
 
 set(ENGINE_INCLUDES
@@ -71,9 +72,10 @@ set(ENGINE_INCLUDES
         engine/include/components/ParallaxComponent.hpp
         engine/include/systems/ParallaxSystem.hpp
         engine/include/entities/ParallaxSlide.hpp
-        engine/include/Timer.hpp)
+        engine/include/Timer.hpp
         engine/include/components/AnimationComponent.hpp
-        engine/include/systems/AnimationSystem.hpp)
+        engine/include/systems/AnimationSystem.hpp
+)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
@@ -83,7 +85,8 @@ set(CLIENT_SOURCES
         client/src/sfml/SoundSFML.cpp
         client/src/sfml/EventsSFML.cpp
         client/src/sfml/GraphicalSFML.cpp
-        client/src/scenes/Settings.cpp)
+        client/src/scenes/Settings.cpp
+)
 
 set(CLIENT_INCLUDES
         client/include/Core.hpp
@@ -98,7 +101,8 @@ set(CLIENT_INCLUDES
         client/src/sfml/SpriteSfml.cpp
         client/include/sfml/SpriteSfml.hpp
         client/include/scenes/SceneType.hpp
-        client/include/scenes/Settings.hpp)
+        client/include/scenes/Settings.hpp
+)
 
 set(SERVER_SOURCES
         server/main.cpp
