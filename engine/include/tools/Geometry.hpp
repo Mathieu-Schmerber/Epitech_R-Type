@@ -26,6 +26,10 @@ namespace Engine {
             return rhs != *this;
         }
 
+        Point operator * (double c) const {
+            return Point(x * c, y * c);
+        }
+
     };
 
     template<typename T>

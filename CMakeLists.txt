@@ -31,7 +31,8 @@ set(ENGINE_SOURCES
         engine/src/systems/MouseSystem.cpp
         engine/src/systems/InputSystem.cpp
         engine/src/systems/PhysicSystem.cpp
-        engine/src/systems/ParallaxSystem.cpp)
+        engine/src/systems/ParallaxSystem.cpp
+        engine/src/Timer.cpp)
 
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
@@ -66,7 +67,9 @@ set(ENGINE_INCLUDES
         engine/include/entities/Drawable.hpp
         engine/include/tools/Utils.hpp
         engine/include/components/ParallaxComponent.hpp
-        engine/include/systems/ParallaxSystem.hpp engine/include/entities/ParallaxSlide.hpp)
+        engine/include/systems/ParallaxSystem.hpp
+        engine/include/entities/ParallaxSlide.hpp
+        engine/include/Timer.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp

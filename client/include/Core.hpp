@@ -10,6 +10,7 @@
 
 #include "graphical/AGraphical.hpp"
 #include "SceneManager.hpp"
+#include "Timer.hpp"
 
 class Core
 {
@@ -17,6 +18,7 @@ private:
     std::unique_ptr<Engine::AGraphical> _graph;
     std::unique_ptr<Engine::AServer> _server;
     std::unique_ptr<Engine::SceneManager> _sceneManager;
+    std::unique_ptr<Engine::Timer> _timer;
 
     void run();
     void initScenes();

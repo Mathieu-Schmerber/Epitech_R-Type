@@ -25,6 +25,7 @@ namespace Engine {
         explicit AScene(int id);
         ~AScene();
 
+        void updateDeltatime(double delta);
         int getId() const;
         void spawnEntity(std::shared_ptr<Entity> entity);
         int getSwitchRequest() const;
