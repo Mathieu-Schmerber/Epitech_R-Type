@@ -13,6 +13,10 @@
 class Client {
 public:
     explicit Client(std::shared_ptr<Session> &session);
+    void test() {
+
+    }
+    [[nodiscard]] int getId() const;
 private:
     std::shared_ptr<Session> _session;
 };

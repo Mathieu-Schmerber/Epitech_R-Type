@@ -5,19 +5,18 @@
 ** Created by Emilien
 */
 
+#include <vector>
 #include "CoreServer.hpp"
 
-CoreServer::CoreServer() : server(4242, this)
+CoreServer::CoreServer() : _currentId(2), server(4242, this)
 {
-
+    std::cout << "Core init" << std::endl;
 }
 
 void CoreServer::run()
 {
     server.start();
     while (true) {
-        std::cout << this->_connected.size() << std::endl;
-        Sleep(1000);
     };
     server.stop();
 }
@@ -25,4 +24,28 @@ void CoreServer::run()
 void CoreServer::setNewClient(std::shared_ptr<Client>& client)
 {
     this->_connected.push_back(client);
+}
+
+void CoreServer::removeClient(int id)
+{
+    if (_connected.begin() == _connected.end()) {
+        std::cout << "=================" << std::endl;
+        Sleep(5000);
+        return;
+    }
+    std::cout << "id first " << _connected.begin()->get()->getId() << " && " << id << std::endl;
+    for (auto i = _connected.begin(); i != _connected.end(); i++) {
+        if (i->get()->getId() == id) {
+            _connected.erase(i);
+            std::cout << "ID : " << id << " delted" << std::endl;
+            return;
+        }
+    }
+}
+
+int CoreServer::getNewId()
+{
+    std::cout << "Current ID value : " << _currentId << std::endl;
+    ++_currentId;
+    return (_currentId);
 }

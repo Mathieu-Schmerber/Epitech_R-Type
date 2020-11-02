@@ -23,10 +23,13 @@ public:
     explicit CoreServer();
     [[noreturn]] void run();
     void setNewClient(std::shared_ptr<Client>& session);
+    void removeClient(int id);
+    int getNewId();
 private:
     Server server;
     std::vector<std::shared_ptr<Client>> _connected{};
     std::unique_ptr<LobbyManager> _lobbyManager;
+    int _currentId = 2;
 };
 
 

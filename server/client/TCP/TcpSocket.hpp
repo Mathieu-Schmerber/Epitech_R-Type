@@ -30,11 +30,13 @@ public:
     tcp::socket& get_socket();
     void start();
     void handle_read(std::shared_ptr<Session>& s, const boost::system::error_code& err, size_t bytes_transferred);
+    int getId() const;
 private:
     tcp::socket socket;
     enum { max_length = 1024 };
     char data[max_length]{};
     CoreServer *_core = nullptr;
+    int _id = 499;
 };
 
 class Server {
