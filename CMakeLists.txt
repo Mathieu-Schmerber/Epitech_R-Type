@@ -64,6 +64,8 @@ set(ENGINE_INCLUDES
         engine/include/components/ColliderComponent.hpp
         engine/include/components/ChildrenComponent.hpp
         engine/include/components/VelocityComponent.hpp
+        engine/include/components/MusicComponent.hpp
+        engine/include/components/SoundComponent.hpp
         engine/include/systems/MouseSystem.hpp
         engine/include/tools/Geometry.hpp
         engine/include/systems/InputSystem.hpp
@@ -77,7 +79,7 @@ set(ENGINE_INCLUDES
         engine/include/components/AnimationComponent.hpp
         engine/include/systems/AnimationSystem.hpp
         engine/include/graphical/AMusic.hpp
-        engine/src/graphical/Audio.hpp)
+        engine/include/graphical/IAudio.hpp engine/include/components/AudioComponent.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
@@ -88,7 +90,8 @@ set(CLIENT_SOURCES
         client/src/sfml/EventsSFML.cpp
         client/src/sfml/GraphicalSFML.cpp
         client/src/scenes/Settings.cpp
-        client/src/sfml/MusicSFML.cpp client/include/sfml/MusicSFML.hpp)
+        client/src/sfml/MusicSFML.cpp
+        client/include/sfml/MusicSFML.hpp)
 
 set(CLIENT_INCLUDES
         client/include/Core.hpp
@@ -105,7 +108,8 @@ set(CLIENT_INCLUDES
         client/include/scenes/SceneType.hpp
         client/include/scenes/Settings.hpp
         client/src/sfml/MusicSFML.cpp
-        client/include/sfml/MusicSFML.hpp)
+        client/include/sfml/MusicSFML.hpp
+        )
 
 set(SERVER_SOURCES
         server/main.cpp

@@ -16,11 +16,11 @@ class MusicSFML : public Engine::AMusic {
 public:
     MusicSFML() = default;
 
-    void loadFromFile(const std::string filename) override;
-    void play() override;
-    void pause() override;
-    void stop() override;
-    void setVolume(float volume) override;
+    void loadFromFile(const std::string filename) final;
+    void play() final;
+    void pause() final;
+    void stop() final;
+    void setVolume(float volume) final;
 
 private:
     sf::Music _music;

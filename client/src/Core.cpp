@@ -15,6 +15,7 @@
 #include "sfml/WindowSFML.hpp"
 #include "sfml/SpriteSfml.hpp"
 #include "sfml/EventsSFML.hpp"
+#include "sfml/SoundSFML.hpp"
 
 Core::Core()
 {

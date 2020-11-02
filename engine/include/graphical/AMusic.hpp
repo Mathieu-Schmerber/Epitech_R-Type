@@ -10,17 +10,13 @@
 #define RTYPE_AMUSIC_HPP
 
 #include <iostream>
+#include "IAudio.hpp"
 
 namespace Engine {
 
-    class AMusic {
+class AMusic : public Engine::IAudio {
     public:
         AMusic() = default;
-        virtual void loadFromFile(const std::string filename) = 0;
-        virtual void play() = 0;
-        virtual void pause() = 0;
-        virtual void stop() = 0;
-        virtual void setVolume(float volume) = 0;
 
     protected:
         float _volume = 100;
