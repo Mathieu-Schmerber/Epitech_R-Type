@@ -12,13 +12,12 @@
 
 class MainMenu : public Engine::AScene
 {
-
 private:
     std::shared_ptr<Engine::AWindow> _window;
     std::shared_ptr<Engine::AEvents> _events;
 
-    void initEntities();
-    void initSystems();
+    void initEntities() final;
+    void initSystems() final;
 
 public:
 

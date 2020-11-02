@@ -18,6 +18,9 @@ namespace Engine {
         std::vector<std::unique_ptr<Engine::System>> _systems;
         std::vector<std::shared_ptr<Engine::Entity>> _entities;
 
+        virtual void initEntities();
+        virtual void initSystems();
+
     public:
         explicit AScene(int id);
         ~AScene();

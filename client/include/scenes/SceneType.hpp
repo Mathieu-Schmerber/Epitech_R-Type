@@ -7,6 +7,7 @@
 
 enum SceneType {
     MAIN_MENU,
+    SETTINGS,
     GAME
 };
 

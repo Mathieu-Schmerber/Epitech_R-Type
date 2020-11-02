@@ -63,7 +63,8 @@ set(ENGINE_INCLUDES
         engine/include/tools/Geometry.hpp
         engine/include/systems/InputSystem.hpp
         engine/include/systems/PhysicSystem.hpp
-        engine/include/entities/Drawable.hpp engine/include/tools/Utils.hpp)
+        engine/include/entities/Drawable.hpp
+        engine/include/tools/Utils.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
@@ -73,7 +74,7 @@ set(CLIENT_SOURCES
         client/src/sfml/SoundSFML.cpp
         client/src/sfml/EventsSFML.cpp
         client/src/sfml/GraphicalSFML.cpp
-        )
+        client/src/scenes/Settings.cpp)
 
 set(CLIENT_INCLUDES
         client/include/Core.hpp
@@ -88,7 +89,7 @@ set(CLIENT_INCLUDES
         client/src/sfml/SpriteSfml.cpp
         client/include/sfml/SpriteSfml.hpp
         client/include/scenes/SceneType.hpp
-        )
+        client/include/scenes/Settings.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp

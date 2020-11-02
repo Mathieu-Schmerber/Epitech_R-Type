@@ -9,6 +9,7 @@
 
 #include "tools/Geometry.hpp"
 #include "scenes/MainMenu.hpp"
+#include "scenes/Settings.hpp"
 #include "entities/Button.hpp"
 #include "sfml/GraphicalSFML.hpp"
 #include "sfml/WindowSFML.hpp"
@@ -27,6 +28,7 @@ Core::Core()
 void Core::initScenes()
 {
     this->_sceneManager->addScene(std::move(std::make_unique<MainMenu>(this->_graph->getWindow(), this->_graph->getEvents())));
+    this->_sceneManager->addScene(std::move(std::make_unique<Settings>(this->_graph->getWindow(), this->_graph->getEvents())));
     this->_sceneManager->switchScene(SceneType::MAIN_MENU);
 }
 
@@ -35,9 +37,8 @@ void Core::start()
     this->initScenes();
     _graph->getWindow()->open();
     this->_graph->getWindow()->setFrameRate(60);
-    while (_graph->getWindow()->isOpen()) {
+    while (_graph->getWindow()->isOpen())
         run();
-    }
 }
 
 void Core::run()

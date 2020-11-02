@@ -42,3 +42,10 @@ void Engine::AScene::update()
         sys->update();
 }
 
+void Engine::AScene::initSystems() {
+
+}
+
+void Engine::AScene::initEntities() {
+
+}

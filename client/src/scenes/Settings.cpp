@@ -1,5 +1,5 @@
 //
-// Created by mathi on 30/10/2020.
+// Created by mathi on 02/11/2020.
 //
 
 #include <iostream>
@@ -7,30 +7,30 @@
 #include "SceneManager.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
-#include "scenes/MainMenu.hpp"
+#include "scenes/Settings.hpp"
 #include "entities/Button.hpp"
 
-void playCallback(std::shared_ptr<Engine::AScene> &menu)
+void testCallback(std::shared_ptr<Engine::AScene> &settings)
 {
-    menu->requestSwitch(SceneType::SETTINGS);
+    std::cout << "Test" << std::endl;
 }
 
-MainMenu::MainMenu(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events)
-: _window(window), _events(events), Engine::AScene(SceneType::MAIN_MENU)
+Settings::Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events)
+        : _window(window), _events(events), Engine::AScene(SceneType::SETTINGS)
 {
     this->initSystems();
     this->initEntities();
 }
 
-void MainMenu::initEntities()
+void Settings::initEntities()
 {
     auto sprite = std::make_unique<SpriteSFML>("../../client/assets/images/buttons/start/start_button_idle_228x57.png");
-    auto playBtn = new Engine::Button({1200, 600}, std::move(sprite), &playCallback, std::shared_ptr<Engine::AScene>(this));
+    auto playBtn = new Engine::Button({50, 900}, std::move(sprite), &testCallback, std::shared_ptr<Engine::AScene>(this));
 
     this->spawnEntity(std::shared_ptr<Engine::Button>(playBtn));
 }
 
-void MainMenu::initSystems()
+void Settings::initSystems()
 {
     auto draw = std::make_unique<Engine::DrawSystem>(this->_window);
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
