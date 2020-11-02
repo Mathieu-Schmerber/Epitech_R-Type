@@ -5,17 +5,17 @@
 #ifndef RTYPE_INPUTSYSTEM_HPP
 #define RTYPE_INPUTSYSTEM_HPP
 
-#include "graphical/AWindow.hpp"
+#include "graphical/AEvents.hpp"
 #include "ecs/System.hpp"
 
 namespace Engine {
 
     class InputSystem : public Engine::System {
     private:
-        Engine::AWindow *_window;
+        Engine::AEvents *_events;
 
     public:
-        explicit InputSystem(Engine::AWindow *window);
+        explicit InputSystem(Engine::AEvents *events);
 
         void update() override;
     };

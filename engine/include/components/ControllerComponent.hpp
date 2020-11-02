@@ -17,27 +17,11 @@ namespace Engine {
         std::vector<Engine::Inputs> _pressed;
         std::vector<Engine::Inputs> _released;
 
-        static void removeFrom(std::vector<Engine::Inputs> &list, Engine::Inputs input) {
-            auto it = std::find(list.begin(), list.end(), input);
-
-            if (it != list.end())
-                list.erase(it);
-        }
-
     public:
         explicit ControllerComponent() : Engine::Component() {}
 
-        void press(Engine::Inputs input) {
-            removeFrom(this->_pressed, input);
-            removeFrom(this->_released, input);
-            this->_pressed.push_back(input);
-        }
-
-        void releaseAll() {
-            this->_released = this->_pressed;
-            this->_pressed.clear();
-        }
-
+        void setPressed(const std::vector<Engine::Inputs> &list) {this->_pressed = list;}
+        void setReleased(const std::vector<Engine::Inputs> &list) {this->_released = list;}
         std::vector<Engine::Inputs> getPressed() const {return this->_pressed;}
         std::vector<Engine::Inputs> getReleased() const {return this->_released;}
     };

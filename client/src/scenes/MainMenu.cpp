@@ -25,7 +25,7 @@ MainMenu::MainMenu(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Eng
 void MainMenu::initEntities()
 {
     auto sprite = std::make_unique<SpriteSFML>("../../client/assets/images/buttons/start/start_button_idle_228x57.png");
-    auto playBtn = new Engine::Button({0, 0}, std::move(sprite), &playCallback,std::shared_ptr<Engine::AScene>(this));
+    auto playBtn = new Engine::Button({1200, 600}, std::move(sprite), &playCallback,std::shared_ptr<Engine::AScene>(this));
 
     this->spawnEntity(std::shared_ptr<Engine::Button>(playBtn));
 }
