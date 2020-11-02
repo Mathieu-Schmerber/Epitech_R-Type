@@ -6,16 +6,16 @@
 */
 
 
-#ifndef RTYPE_ASOUND_HPP
-#define RTYPE_ASOUND_HPP
+#ifndef RTYPE_AMUSIC_HPP
+#define RTYPE_AMUSIC_HPP
 
 #include <iostream>
 
 namespace Engine {
 
-    class ASound {
+    class AMusic {
     public:
-        ASound() = default;
+        AMusic() = default;
         virtual void loadFromFile(const std::string filename) = 0;
         virtual void play() = 0;
         virtual void pause() = 0;
@@ -28,4 +28,4 @@ namespace Engine {
 
 }
 
-#endif //RTYPE_ASOUND_HPP
+#endif //RTYPE_AMUSIC_HPP

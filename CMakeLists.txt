@@ -34,7 +34,8 @@ set(ENGINE_SOURCES
         engine/src/systems/ParallaxSystem.cpp
         engine/src/Timer.cpp
         engine/src/systems/AnimationSystem.cpp
-)
+        engine/src/graphical/AMusic.cpp
+        engine/include/graphical/AMusic.hpp)
 
 
 set(ENGINE_INCLUDES
@@ -75,7 +76,8 @@ set(ENGINE_INCLUDES
         engine/include/Timer.hpp
         engine/include/components/AnimationComponent.hpp
         engine/include/systems/AnimationSystem.hpp
-)
+        engine/include/graphical/AMusic.hpp
+        engine/src/graphical/Audio.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
@@ -86,7 +88,7 @@ set(CLIENT_SOURCES
         client/src/sfml/EventsSFML.cpp
         client/src/sfml/GraphicalSFML.cpp
         client/src/scenes/Settings.cpp
-)
+        client/src/sfml/MusicSFML.cpp client/include/sfml/MusicSFML.hpp)
 
 set(CLIENT_INCLUDES
         client/include/Core.hpp
@@ -102,7 +104,8 @@ set(CLIENT_INCLUDES
         client/include/sfml/SpriteSfml.hpp
         client/include/scenes/SceneType.hpp
         client/include/scenes/Settings.hpp
-)
+        client/src/sfml/MusicSFML.cpp
+        client/include/sfml/MusicSFML.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp
