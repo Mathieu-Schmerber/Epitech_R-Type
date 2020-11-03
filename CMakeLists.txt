@@ -89,7 +89,8 @@ set(ENGINE_INCLUDES
         engine/include/entities/Music.hpp
         engine/include/tools/ATime.hpp
         engine/include/tools/TimeUnits.hpp 
-		engine/include/systems/MusicSystem.hpp)
+		engine/include/systems/MusicSystem.hpp
+        engine/include/enumerations/ButtonState.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp

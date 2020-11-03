@@ -8,6 +8,7 @@
 #include "components/SpriteComponent.hpp"
 #include "components/ClickableComponent.hpp"
 #include "components/AnimationComponent.hpp"
+#include "enumerations/ButtonState.hpp"
 
 Engine::MouseSystem::MouseSystem(std::shared_ptr<Engine::AEvents> &events) : _events(events), Engine::System()
 {
@@ -37,11 +38,11 @@ void Engine::MouseSystem::update()
             clickable->onClick();
         if (animation) {
             if (pressed && Geometry::doOverlap(mousePos, box))
-                animation->setAnimation("clicked");
+                animation->setAnimation(ButtonState::CLICKED);
             else if (Geometry::doOverlap(mousePos, box))
-                animation->setAnimation("hover");
+                animation->setAnimation(ButtonState::HOVER);
             else
-                animation->setAnimation("idle");
+                animation->setAnimation(ButtonState::IDLE);
         }
     }
 }
