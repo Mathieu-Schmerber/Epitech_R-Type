@@ -9,15 +9,10 @@ Engine::Timer::Timer() :_startPoint(std::chrono::high_resolution_clock::now()) {
 double Engine::Timer::deltatime()
 {
     auto now = std::chrono::high_resolution_clock::now();
-    auto res = (double)(((now - this->_startPoint) / std::chrono::milliseconds(1)) / 100.0);
+    auto res = (double)(((now - this->_lastPoint) / std::chrono::milliseconds(1)) / 100.0);
 
-    this->restart();
+    this->_lastPoint = std::chrono::high_resolution_clock::now();
     return res;
-}
-
-bool Engine::Timer::hasElapsed(float seconds)
-{
-    return (this->deltatime() >= seconds * 1000);
 }
 
 void Engine::Timer::restart()

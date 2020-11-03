@@ -19,7 +19,6 @@ namespace Engine {
         ~Timer() = default;
 
         double deltatime();
-        bool hasElapsed(float seconds);
         void restart();
     };
 
