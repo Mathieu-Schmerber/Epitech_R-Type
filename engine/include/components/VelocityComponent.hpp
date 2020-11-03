@@ -20,8 +20,8 @@ namespace Engine {
                                    const Vector<double> &acceleration = {0, 0})
                                    : _speed(speed), _acceleration(acceleration), Component() {}
 
-        Vector<double> getSpeed() const {return _speed;}
-        Vector<double> getAcceleration() const {return _acceleration;}
+        [[nodiscard]] Vector<double> getSpeed() const {return _speed;}
+        [[nodiscard]] Vector<double> getAcceleration() const {return _acceleration;}
         void setSpeed(const Vector<double> &speed) {_speed = speed;}
         void setAcceleration(const Vector<double> &acceleration) {_acceleration = acceleration;}
     };

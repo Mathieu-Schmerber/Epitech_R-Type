@@ -22,7 +22,7 @@ class MusicComponent : public Engine::Component {
     public:
         explicit MusicComponent(std::unique_ptr<Engine::AMusic> music = nullptr) : Engine::Component(), _music(std::move(music)) {}
 
-        std::unique_ptr<Engine::AMusic> &getMusic() {return this->_music;}
+    [[nodiscard]] std::unique_ptr<Engine::AMusic> &getMusic() {return this->_music;}
         void setMusic(std::unique_ptr<Engine::AMusic> music) { this->_music = std::move(music);}
     };
 

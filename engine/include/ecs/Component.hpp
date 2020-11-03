@@ -19,7 +19,7 @@ namespace Engine {
         ~Component() = default;
 
         void setInfo(const std::string &info) {this->_info = info;}
-        std::string getInfo() const {return this->_info;}
+        [[nodiscard]] std::string getInfo() const {return this->_info;}
     };
 }
 

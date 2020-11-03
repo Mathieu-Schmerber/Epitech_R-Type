@@ -24,7 +24,7 @@ namespace Engine {
         explicit System() : _deltatime(0) {}
 
         void setDeltatime(double delta) {this->_deltatime = delta;}
-        double deltatime() const {return this->_deltatime;}
+        [[nodiscard]] double deltatime() const {return this->_deltatime;}
 
         template<typename T> void addDependency();
 

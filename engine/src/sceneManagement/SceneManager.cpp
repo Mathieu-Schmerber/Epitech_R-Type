@@ -86,6 +86,14 @@ void Engine::SceneManager::setAccessGroup(int scene, int group)
         this->_scenes[scene]->addGroupAccess(this->_groups[group]);
 }
 
+void Engine::SceneManager::setAccessGroup(int scene, const std::vector<int> &groups)
+{
+    for (int group : groups) {
+        if (Utils::isInMap(this->_scenes, scene) && Utils::isInMap(this->_groups, group))
+            this->_scenes[scene]->addGroupAccess(this->_groups[group]);
+    }
+}
+
 // Scenes
 
 std::unique_ptr<Engine::AScene> &Engine::SceneManager::getCurrent()

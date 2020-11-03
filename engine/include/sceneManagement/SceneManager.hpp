@@ -36,9 +36,10 @@ namespace Engine {
         void addToGroup(int id, std::shared_ptr<Engine::Entity> entity);
         void addToGroup(int id, std::vector<std::shared_ptr<Engine::Entity>> &entities);
         void setAccessGroup(int scene, int group);
+        void setAccessGroup(int scene, const std::vector<int> &groups);
 
         // Scenes
-        std::unique_ptr<Engine::AScene> &getCurrent();
+        [[nodiscard]] std::unique_ptr<Engine::AScene> &getCurrent();
         void switchScene(int id);
         void addScene(std::unique_ptr<Engine::AScene> scene);
     };

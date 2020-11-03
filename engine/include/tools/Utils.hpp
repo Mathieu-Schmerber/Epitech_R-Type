@@ -24,19 +24,19 @@ namespace Engine {
         }
 
         template<typename T>
-        static bool isInVector(std::vector<T> &vector, T item)
+        [[nodiscard]] static bool isInVector(std::vector<T> &vector, T item)
         {
             return (std::find_if(vector.begin(), vector.end(), [item](T x){return x == item;}) != vector.end());
         }
 
         template<typename T, typename U>
-        static bool isInMap(std::map<T, U> &map, T item)
+        [[nodiscard]] static bool isInMap(std::map<T, U> &map, T item)
         {
             return (map.find(item) != map.end());
         }
 
         template<typename T, typename U>
-        static std::map<U, T> reverseMap(std::map<T, U> map)
+        [[nodiscard]] static std::map<U, T> reverseMap(std::map<T, U> map)
         {
             std::map<U, T> rv;
 
@@ -46,7 +46,7 @@ namespace Engine {
         }
 
         template<class T>
-        static std::unique_ptr<T> copyUnique(const std::unique_ptr<T> &source)
+        [[nodiscard]] static std::unique_ptr<T> copyUnique(const std::unique_ptr<T> &source)
         {
             return (source ? std::make_unique<T>(*source) : nullptr);
         }

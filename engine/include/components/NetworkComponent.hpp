@@ -17,7 +17,7 @@ namespace Engine {
         explicit NetworkComponent(int id = 0) : _networkIdentity(id), Component() {}
         ~NetworkComponent() = default;
 
-        int getNetworkId() const {return this->_networkIdentity;}
+        [[nodiscard]] int getNetworkId() const {return this->_networkIdentity;}
     };
 
 }

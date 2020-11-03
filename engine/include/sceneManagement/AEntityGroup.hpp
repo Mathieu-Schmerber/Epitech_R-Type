@@ -11,7 +11,7 @@ namespace Engine {
 
     class AEntityGroup
     {
-    private:
+    protected:
         std::vector<std::shared_ptr<Engine::Entity>> _entities;
 
     public:
@@ -22,7 +22,7 @@ namespace Engine {
         virtual void unFreeze();
         void addEntity(std::shared_ptr<Engine::Entity> &entity);
         void addEntities(const std::vector<std::shared_ptr<Engine::Entity>> &entities);
-        std::vector<std::shared_ptr<Engine::Entity>> getEntities() const;
+        [[nodiscard]] std::vector<std::shared_ptr<Engine::Entity>> getEntities() const;
     };
 
 }

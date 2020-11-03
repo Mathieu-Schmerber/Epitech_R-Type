@@ -22,15 +22,15 @@ namespace Engine {
         explicit ParallaxComponent(const Point<int> &start,const Point<int> &limit) : _start(start), _limit(limit),
         Engine::Component() {}
 
-        bool isLimitReached(const Point<int> &pos, const Vector<double> &direction) const {
+        [[nodiscard]] bool isLimitReached(const Point<int> &pos, const Vector<double> &direction) const {
             return (
                     (direction.x >= 0 && pos.x >= _limit.x) && (direction.y >= 0 && pos.y >= _limit.y) ||
                     (direction.x <= 0 && pos.x <= _limit.x) && (direction.y <= 0 && pos.y <= _limit.y)
             );
         }
 
-        const Point<int> getStart() const {return this->_start;}
-        const Point<int> getLimit() const {return this->_limit;}
+        [[nodiscard]] Point<int> getStart() const {return this->_start;}
+        [[nodiscard]] Point<int> getLimit() const {return this->_limit;}
         void setStart(const Point<int> &start) {this->_start = start;}
         void setLimit(const Point<int> &limit) {this->_limit = limit;}
     };

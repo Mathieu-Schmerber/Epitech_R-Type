@@ -37,7 +37,9 @@ set(ENGINE_SOURCES
         engine/src/Timer.cpp
         engine/src/systems/AnimationSystem.cpp
         engine/src/graphical/AMusic.cpp
-        engine/src/systems/MusicSystem.cpp)
+        engine/src/systems/MusicSystem.cpp
+        engine/src/graphical/ATexture.cpp
+        engine/include/graphical/ATexture.hpp)
 
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
@@ -89,7 +91,10 @@ set(ENGINE_INCLUDES
         engine/include/entities/Music.hpp
         engine/include/tools/ATime.hpp
         engine/include/tools/TimeUnits.hpp 
-		engine/include/systems/MusicSystem.hpp)
+		engine/include/systems/MusicSystem.hpp
+        engine/include/graphical/ATexture.hpp
+		engine/include/systems/MusicSystem.hpp
+        engine/include/enumerations/ButtonState.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
@@ -101,7 +106,11 @@ set(CLIENT_SOURCES
         client/src/sfml/GraphicalSFML.cpp
         client/src/scenes/Settings.cpp
         client/src/sfml/MusicSFML.cpp
-)
+        client/src/sfml/TextureSFML.cpp
+        client/src/sfml/TextureSFML.cpp
+        client/src/scenes/HowToPlay.cpp
+
+        )
 
 set(CLIENT_INCLUDES
         client/include/Core.hpp
@@ -122,8 +131,10 @@ set(CLIENT_INCLUDES
 		client/include/Layer.hpp
         client/include/scenes/Settings.hpp
         client/include/sfml/MusicSFML.hpp
-        client/src/scenes/HowToPlay.cpp
-        client/include/scenes/HowToPlay.hpp)
+        client/include/sfml/TextureSFML.hpp
+        client/include/sfml/TextureSFML.hpp
+        client/include/scenes/HowToPlay.hpp
+        )
 
 set(SERVER_SOURCES
         server/main.cpp
@@ -131,6 +142,7 @@ set(SERVER_SOURCES
         server/client/Client.cpp
         server/lobby/lobbyManager/LobbyManager.cpp
         server/lobby/lobby/Lobby.cpp
+
         )
 
 set(SERVER_INCLUDES
