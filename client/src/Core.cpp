@@ -10,6 +10,7 @@
 #include "tools/Geometry.hpp"
 #include "scenes/MainMenu.hpp"
 #include "scenes/Settings.hpp"
+#include "scenes/HowToPlay.hpp"
 #include "entities/Button.hpp"
 #include "sfml/GraphicalSFML.hpp"
 #include "sfml/WindowSFML.hpp"
@@ -31,6 +32,7 @@ void Core::initScenes()
 {
     this->_sceneManager->addScene(std::move(std::make_unique<MainMenu>(this->_graph->getWindow(), this->_graph->getEvents())));
     this->_sceneManager->addScene(std::move(std::make_unique<Settings>(this->_graph->getWindow(), this->_graph->getEvents())));
+    this->_sceneManager->addScene(std::move(std::make_unique<HowToPlay>(this->_graph->getWindow(), this->_graph->getEvents())));
     this->_sceneManager->switchScene(SceneType::MAIN_MENU);
 }
 

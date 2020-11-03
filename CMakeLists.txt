@@ -114,7 +114,8 @@ set(CLIENT_INCLUDES
         client/include/scenes/Settings.hpp
         client/src/sfml/MusicSFML.cpp
         client/include/sfml/MusicSFML.hpp
-        )
+        client/src/scenes/HowToPlay.cpp
+        client/include/scenes/HowToPlay.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp

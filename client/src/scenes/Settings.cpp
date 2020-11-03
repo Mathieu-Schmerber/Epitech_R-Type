@@ -11,6 +11,7 @@
 #include "entities/ParallaxSlide.hpp"
 #include "entities/Drawable.hpp"
 #include "entities/Button.hpp"
+#include "systems/AnimationSystem.hpp"
 
 void goToMenuScene(std::shared_ptr<Engine::AScene> &menu)
 {
@@ -64,8 +65,10 @@ void Settings::initSystems()
     auto draw = std::make_unique<Engine::DrawSystem>(this->_window);
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
+    auto animation = std::make_unique<Engine::AnimationSystem>();
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
+    this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(parallax));
 }
