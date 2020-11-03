@@ -14,11 +14,11 @@
 #include "systems/AnimationSystem.hpp"
 #include "enumerations/ButtonState.hpp"
 
-void goToMenuScene(std::shared_ptr<Engine::AScene> &menu)
+void goToMenuScene(std::shared_ptr<Engine::AScene> &settings)
 {
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::MAIN_MENU);
 
-    menu->pushRequest(request);
+    settings->pushRequest(request);
 }
 
 Settings::Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events)
