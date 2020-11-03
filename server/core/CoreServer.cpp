@@ -5,7 +5,6 @@
 ** Created by Emilien
 */
 
-#include <vector>
 #include "CoreServer.hpp"
 
 CoreServer::CoreServer() : _currentId(2), server(4242, this)
@@ -17,7 +16,12 @@ void CoreServer::run()
 {
     server.start();
     while (true) {
-    };
+        for (auto &a : _connected) {
+            auto pouet = a->getNextMessage();
+            if (pouet)
+                std::cout << "New message : " << pouet << std::endl;
+        }
+    }
     server.stop();
 }
 
@@ -37,7 +41,7 @@ void CoreServer::removeClient(int id)
     for (auto i = _connected.begin(); i != _connected.end(); i++) {
         if (i->get()->getId() == id) {
             _connected.erase(i);
-            std::cout << "ID : " << id << " delted" << std::endl;
+            std::cout << "ID : " << id << " deleted" << std::endl;
             return;
         }
     }
@@ -45,7 +49,7 @@ void CoreServer::removeClient(int id)
 
 int CoreServer::getNewId()
 {
-    std::cout << "Current ID value : " << _currentId << std::endl;
     ++_currentId;
+    std::cout << "New client ID : " << _currentId << std::endl;
     return (_currentId);
 }
