@@ -32,7 +32,15 @@ void goToNextHowToPlayScreen(std::shared_ptr<Engine::AScene> &howToPlay)
     auto enginesDrawable = howToPlayObject->getEnginesDrawable();
     auto index = howToPlayObject->getEnginesDrawableIndex();
 
-    if ( enginesDrawable[index] != enginesDrawable.back()) {
+    if (index == HowToPlayContext::BONUS - 1) {
+        for (auto &engines : howToPlayObject->getEnginesDrawableBonus())
+            engines->getComponent<Engine::SpriteComponent>()->hasToBeDraw(true);
+    } else {
+        for (auto &engines : howToPlayObject->getEnginesDrawableBonus())
+            engines->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
+    }
+
+    if (enginesDrawable[index] != enginesDrawable.back()) {
         enginesDrawable[index]->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
         enginesDrawable[index + 1]->getComponent<Engine::SpriteComponent>()->hasToBeDraw(true);
         howToPlayObject->setEnginesDrawableIndex(index + 1);
@@ -41,6 +49,7 @@ void goToNextHowToPlayScreen(std::shared_ptr<Engine::AScene> &howToPlay)
         for (auto it = enginesDrawable.begin() + 1; it != enginesDrawable.end(); it++ ) {
             (*it)->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
         }
+        howToPlayObject->setEnginesDrawableIndex(0);
         fromHowToPlayToMenu(howToPlay);
     }
 }
@@ -68,29 +77,68 @@ void HowToPlay::initEntities()
 
     auto howToPlaySprite1 = std::make_unique<SpriteSFML>(HOW_TO_PLAY_1_PATH);
     auto howToPlayEngine1 = new Engine::Drawable({HOW_TO_PLAY_1_POSITION_X, HOW_TO_PLAY_1_POSITION_Y}, std::move(howToPlaySprite1));
-    _enginesDrawable.push_back(howToPlayEngine1);
+    _enginesDrawableHowToPlayScreen.push_back(howToPlayEngine1);
 
     auto howToPlaySprite2 = std::make_unique<SpriteSFML>(HOW_TO_PLAY_2_PATH);
     auto howToPlayEngine2 = new Engine::Drawable({HOW_TO_PLAY_2_POSITION_X, HOW_TO_PLAY_2_POSITION_Y}, std::move(howToPlaySprite2));
     howToPlayEngine2->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
-    _enginesDrawable.push_back(howToPlayEngine2);
+    _enginesDrawableHowToPlayScreen.push_back(howToPlayEngine2);
 
     auto howToPlaySprite3 = std::make_unique<SpriteSFML>(HOW_TO_PLAY_3_PATH);
     auto howToPlayEngine3 = new Engine::Drawable({HOW_TO_PLAY_3_POSITION_X, HOW_TO_PLAY_3_POSITION_Y}, std::move(howToPlaySprite3));
     howToPlayEngine3->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
-    _enginesDrawable.push_back(howToPlayEngine3);
+    _enginesDrawableHowToPlayScreen.push_back(howToPlayEngine3);
 
     auto howToPlaySprite4 = std::make_unique<SpriteSFML>(HOW_TO_PLAY_4_PATH);
     auto howToPlayEngine4 = new Engine::Drawable({HOW_TO_PLAY_4_POSITION_X, HOW_TO_PLAY_4_POSITION_Y}, std::move(howToPlaySprite4));
     howToPlayEngine4->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
-    _enginesDrawable.push_back(howToPlayEngine4);
+    _enginesDrawableHowToPlayScreen.push_back(howToPlayEngine4);
 
+    auto bonusSprite1 = std::make_unique<SpriteSFML>(BONUS_1_PATH);
+    auto bonusEngine1 = new Engine::Drawable({BONUS_1_POSITION_X, BONUS_1_POSITION_Y}, std::move(bonusSprite1));
+    bonusEngine1->addComponent<Engine::AnimationComponent>();
+    bonusEngine1->getComponent<Engine::AnimationComponent>()->addAnimation(0, {
+        {{0, 0}, {BONUS_1_WIDTH, BONUS_1_HEIGHT}},
+        {{BONUS_1_WIDTH, 0}, {BONUS_1_WIDTH, BONUS_1_HEIGHT}},
+        {{BONUS_1_WIDTH * 2, 0},{BONUS_1_WIDTH, BONUS_1_HEIGHT}}
+    });
+    bonusEngine1->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
+    bonusEngine1->getComponent<Engine::AnimationComponent>()->setAnimation(0);
+    _enginesDrawableHowToPlayBonus.push_back(bonusEngine1);
+
+    auto bonusSprite2 = std::make_unique<SpriteSFML>(BONUS_2_PATH);
+    auto bonusEngine2 = new Engine::Drawable({BONUS_2_POSITION_X, BONUS_2_POSITION_Y}, std::move(bonusSprite2));
+    bonusEngine2->addComponent<Engine::AnimationComponent>();
+    bonusEngine2->getComponent<Engine::AnimationComponent>()->addAnimation(1, {
+        {{0, 0}, {BONUS_2_WIDTH, BONUS_2_HEIGHT}},
+        {{BONUS_2_WIDTH, 0}, {BONUS_2_WIDTH, BONUS_2_HEIGHT}},
+        {{BONUS_2_WIDTH * 2, 0},{BONUS_2_WIDTH, BONUS_2_HEIGHT}}
+    });
+    bonusEngine2->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
+    bonusEngine2->getComponent<Engine::AnimationComponent>()->setAnimation(1);
+    _enginesDrawableHowToPlayBonus.push_back(bonusEngine2);
+
+    auto bonusSprite3 = std::make_unique<SpriteSFML>(BONUS_3_PATH);
+    auto bonusEngine3 = new Engine::Drawable({BONUS_3_POSITION_X, BONUS_3_POSITION_Y}, std::move(bonusSprite3));
+    bonusEngine3->addComponent<Engine::AnimationComponent>();
+    bonusEngine3->getComponent<Engine::AnimationComponent>()->addAnimation(2, {
+        {{0, 0}, {BONUS_3_WIDTH, BONUS_3_HEIGHT}},
+        {{BONUS_3_WIDTH, 0}, {BONUS_3_WIDTH, BONUS_3_HEIGHT}},
+        {{BONUS_3_WIDTH * 2, 0},{BONUS_3_WIDTH, BONUS_3_HEIGHT}}
+    });
+    bonusEngine3->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
+    bonusEngine3->getComponent<Engine::AnimationComponent>()->setAnimation(2);
+    _enginesDrawableHowToPlayBonus.push_back(bonusEngine3);
+    
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(howToPlayEngine1));
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(howToPlayEngine2));
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(howToPlayEngine3));
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(howToPlayEngine4));
     this->spawnEntity(std::shared_ptr<Engine::Button>(goBackButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Button>(nextHowToPlayButtonEngine));
+    this->spawnEntity(std::shared_ptr<Engine::Drawable>(bonusEngine1));
+    this->spawnEntity(std::shared_ptr<Engine::Drawable>(bonusEngine2));
+    this->spawnEntity(std::shared_ptr<Engine::Drawable>(bonusEngine3));
 }
 
 void HowToPlay::initSystems()
@@ -115,15 +163,20 @@ std::shared_ptr<Engine::AWindow> HowToPlay::getWindow() const
 
 std::vector<Engine::Drawable *> HowToPlay::getEnginesDrawable() const
 {
-    return _enginesDrawable;
+    return _enginesDrawableHowToPlayScreen;
 }
 
-unsigned char HowToPlay::getEnginesDrawableIndex() const
+int HowToPlay::getEnginesDrawableIndex() const
 {
-    return _enginesDrawableIndex;
+    return _enginesDrawableHowToPlayScreenIndex;
 }
 
 void HowToPlay::setEnginesDrawableIndex(unsigned char index)
 {
-    _enginesDrawableIndex = index;
+    _enginesDrawableHowToPlayScreenIndex = index;
+}
+
+std::vector<Engine::Drawable *> HowToPlay::getEnginesDrawableBonus() const
+{
+    return _enginesDrawableHowToPlayBonus;
 }

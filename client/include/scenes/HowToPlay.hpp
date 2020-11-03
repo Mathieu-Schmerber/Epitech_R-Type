@@ -47,22 +47,48 @@
 #define HOW_TO_PLAY_4_POSITION_X 0
 #define HOW_TO_PLAY_4_POSITION_Y 0
 
+#define BONUS_1_PATH "../../client/assets/images/bonus/bonus_1_160x36_40x36.png"
+#define BONUS_1_POSITION_X 860
+#define BONUS_1_POSITION_Y 480
+#define BONUS_1_WIDTH 40
+#define BONUS_1_HEIGHT 36
+
+#define BONUS_2_PATH "../../client/assets/images/bonus/bonus_2_160x36_40x36.png"
+#define BONUS_2_POSITION_X 960
+#define BONUS_2_POSITION_Y 480
+#define BONUS_2_WIDTH 40
+#define BONUS_2_HEIGHT 36
+
+#define BONUS_3_PATH "../../client/assets/images/bonus/bonus_3_160x36_40x36.png"
+#define BONUS_3_POSITION_X 1060
+#define BONUS_3_POSITION_Y 480
+#define BONUS_3_WIDTH 40
+#define BONUS_3_HEIGHT 36
+
+enum HowToPlayContext {
+    PRELUDE,
+    WEAPONS,
+    HEALTH,
+    BONUS
+};
 
 class HowToPlay : public Engine::AScene
 {
     private:
     std::shared_ptr<Engine::AWindow> _window;
     std::shared_ptr<Engine::AEvents> _events;
-    std::vector<Engine::Drawable *> _enginesDrawable;
-    unsigned char _enginesDrawableIndex = 0;
+    std::vector<Engine::Drawable *> _enginesDrawableHowToPlayScreen;
+    int _enginesDrawableHowToPlayScreenIndex = 0;
+    std::vector<Engine::Drawable *> _enginesDrawableHowToPlayBonus;
 
     void initEntities() final;
     void initSystems() final;
 
     public:
     std::vector<Engine::Drawable *> getEnginesDrawable() const;
-    unsigned char getEnginesDrawableIndex() const;
+    int getEnginesDrawableIndex() const;
     void setEnginesDrawableIndex(unsigned char index);
+    std::vector<Engine::Drawable *> getEnginesDrawableBonus() const;
     HowToPlay(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events);
     std::shared_ptr<Engine::AWindow> getWindow() const;
 };
