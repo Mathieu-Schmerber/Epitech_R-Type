@@ -34,6 +34,20 @@
 #define SOUND_EFFECTS_TEXT_POSITION_X 387
 #define SOUND_EFFECTS_TEXT_POSITION_Y 850
 
+#define SOUND_EFFECTS_TEXT_PATH "../../client/assets/texts/sound_effects_text_573x51.png"
+#define SOUND_EFFECTS_TEXT_POSITION_X 387
+#define SOUND_EFFECTS_TEXT_POSITION_Y 850
+
+#define GO_BACK_BUTTON_PATH "../../client/assets/images/buttons/left_arrow/left_arrow_full_192x64.png"
+#define GO_BACK_BUTTON_POSITION_X 30
+#define GO_BACK_BUTTON_POSITION_Y 30
+#define GO_BACK_BUTTON_Y 0
+#define GO_BACK_BUTTON_HEIGHT 64
+#define GO_BACK_BUTTON_WIDTH 64
+#define GO_BACK_BUTTON_X_IDLE 0
+#define GO_BACK_BUTTON_X_HOVER 64
+#define GO_BACK_BUTTON_X_CLICKED 128
+
 
 class Settings : public Engine::AScene
 {
@@ -49,6 +63,6 @@ public:
     Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events);
 };
 
-void testCallback(std::shared_ptr<Settings> menu);
+void goToMenuScene(std::shared_ptr<Engine::AScene> &menu);
 
 #endif //RTYPE_SETTINGS_HPP
