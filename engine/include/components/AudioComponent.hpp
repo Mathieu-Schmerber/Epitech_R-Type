@@ -23,7 +23,7 @@ namespace Engine {
         explicit AudioComponent(std::unique_ptr<Engine::IAudio> audio = nullptr) : Engine::Component(), _audio(std::move(audio)) {}
 
         std::unique_ptr<Engine::IAudio> &getAudio() {return this->_audio;}
-        void setAudio(std::unique_ptr<Engine::IAudio> audio) { this->_audio = std::move(audio);}
+        void setAudio(std::unique_ptr<Engine::IAudio> audio) {this->_audio = std::move(audio);}
     };
 
 }
