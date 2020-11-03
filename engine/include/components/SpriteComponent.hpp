@@ -14,14 +14,17 @@ namespace Engine {
     class SpriteComponent : public Engine::Component {
     private:
         std::unique_ptr<Engine::ASprite> _sprite;
+        std::shared_ptr<Engine::ATexture> _texture;
         bool _hasToBeDraw = true;
         int _layer;
 
     public:
         explicit SpriteComponent() : _layer(0), Engine::Component() {};
-        explicit SpriteComponent(int layer, std::unique_ptr<Engine::ASprite> sprite) : _layer(layer), _sprite(std::move(sprite)), Engine::Component() {};
+        explicit SpriteComponent(int layer, std::unique_ptr<Engine::ASprite> sprite) : _layer(layer),
+        _sprite(std::move(sprite)), _texture(_sprite->getTexture()), Engine::Component() {};
 
         [[nodiscard]] std::unique_ptr<Engine::ASprite> &getSprite() {return this->_sprite;}
+        [[nodiscard]] std::shared_ptr<Engine::ATexture> &getTexture() {return this->_texture;}
         void setDisplay(std::unique_ptr<Engine::ASprite> sprite) { this->_sprite = std::move(sprite);}
         void hasToBeDraw(bool draw) {_hasToBeDraw = draw;};
         void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) {
