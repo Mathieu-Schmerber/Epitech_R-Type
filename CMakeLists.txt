@@ -19,8 +19,8 @@ conan_basic_setup()
 
 set(ENGINE_SOURCES
         engine/src/networking/AServer.cpp
-        engine/src/SceneManager.cpp
-        engine/src/AScene.cpp
+        engine/src/sceneManagement/SceneManager.cpp
+        engine/src/sceneManagement/AScene.cpp
         engine/src/graphical/ASprite.cpp
         engine/src/graphical/AEvents.cpp
         engine/src/graphical/ASound.cpp
@@ -32,19 +32,20 @@ set(ENGINE_SOURCES
         engine/src/systems/InputSystem.cpp
         engine/src/systems/PhysicSystem.cpp
         engine/src/systems/ParallaxSystem.cpp
+        engine/src/systems/AnimationSystem.cpp
+        engine/src/sceneManagement/AEntityGroup.cpp
         engine/src/Timer.cpp
         engine/src/systems/AnimationSystem.cpp
         engine/src/graphical/AMusic.cpp
-        engine/src/systems/MusicSystem.cpp engine/include/systems/MusicSystem.hpp)
-
+        engine/src/systems/MusicSystem.cpp)
 
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
         engine/include/ecs/System.hpp
         engine/include/ecs/Component.hpp
         engine/include/networking/AServer.hpp
-        engine/include/SceneManager.hpp
-        engine/include/AScene.hpp
+        engine/include/sceneManagement/SceneManager.hpp
+        engine/include/sceneManagement/AScene.hpp
         engine/include/networking/AUdpSocketIO.hpp
         engine/include/networking/ATcpSocket.hpp
         engine/include/components/TransformComponent.hpp
@@ -78,13 +79,17 @@ set(ENGINE_INCLUDES
         engine/include/Timer.hpp
         engine/include/components/AnimationComponent.hpp
         engine/include/systems/AnimationSystem.hpp
+        engine/include/sceneManagement/AEntityGroup.hpp
+        engine/include/sceneManagement/SceneRequest.hpp
+        engine/include/enumerations/QueryType.hpp
         engine/include/graphical/AMusic.hpp
         engine/include/graphical/IAudio.hpp
         engine/include/components/AudioComponent.hpp
         engine/include/tools/Time.hpp
         engine/include/entities/Music.hpp
         engine/include/tools/ATime.hpp
-        engine/include/tools/TimeUnits.hpp engine/src/systems/MusicSystem.cpp engine/include/systems/MusicSystem.hpp)
+        engine/include/tools/TimeUnits.hpp 
+		engine/include/systems/MusicSystem.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
@@ -96,7 +101,7 @@ set(CLIENT_SOURCES
         client/src/sfml/GraphicalSFML.cpp
         client/src/scenes/Settings.cpp
         client/src/sfml/MusicSFML.cpp
-        client/include/sfml/MusicSFML.hpp)
+)
 
 set(CLIENT_INCLUDES
         client/include/Core.hpp
@@ -111,8 +116,11 @@ set(CLIENT_INCLUDES
         client/src/sfml/SpriteSfml.cpp
         client/include/sfml/SpriteSfml.hpp
         client/include/scenes/SceneType.hpp
+        client/include/scenes/Settings.hpp 
+		client/include/scenes/GroupId.hpp 
+		client/include/scenes/Groups.hpp 
+		client/include/Layer.hpp
         client/include/scenes/Settings.hpp
-        client/src/sfml/MusicSFML.cpp
         client/include/sfml/MusicSFML.hpp
         client/src/scenes/HowToPlay.cpp
         client/include/scenes/HowToPlay.hpp)

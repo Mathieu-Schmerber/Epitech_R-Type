@@ -3,7 +3,7 @@
 //
 
 #include <sfml/SpriteSfml.hpp>
-#include "SceneManager.hpp"
+#include "sceneManagement/SceneManager.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
 #include "systems/ParallaxSystem.hpp"

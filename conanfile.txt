@@ -1,5 +1,4 @@
 [requires]
-libalsa/1.1.9@conan/stable
 openal/1.18.2@bincrafters/stable
 sfml/2.5.1@bincrafters/stable
 zlib/1.2.11@conan/stable

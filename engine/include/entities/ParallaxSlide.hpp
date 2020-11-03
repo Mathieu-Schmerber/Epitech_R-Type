@@ -16,10 +16,10 @@ namespace Engine {
 
     class ParallaxSlide : public Engine::Entity {
     public:
-        ParallaxSlide(const Point<int> &pos, const Point<int> &limit, const Vector<double> &speed, std::unique_ptr<ASprite> sprite)
+        ParallaxSlide(const Point<int> &pos, const Point<int> &limit, const Vector<double> &speed, std::unique_ptr<ASprite> sprite, int layer = -1)
         : Engine::Entity() {
             this->addComponent<TransformComponent>(pos);
-            this->addComponent<SpriteComponent>(std::move(sprite));
+            this->addComponent<SpriteComponent>(layer, std::move(sprite));
             this->addComponent<ParallaxComponent>(pos, limit);
             this->addComponent<VelocityComponent>(speed);
         }

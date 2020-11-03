@@ -20,12 +20,12 @@ namespace Engine {
               std::unique_ptr<Engine::ASprite> sprite,
               void (*onClick)(std::shared_ptr<Engine::AScene> &),
                std::shared_ptr<Engine::AScene> arg,
-               const std::map<std::string, std::vector<Box<int>>> &anim = {}) : Engine::Entity()
+               int layer = 1) : Engine::Entity()
         {
             this->addComponent<TransformComponent>(pos);
-            this->addComponent<SpriteComponent>(std::move(sprite));
+            this->addComponent<SpriteComponent>(layer, std::move(sprite));
             this->addComponent<ClickableComponent>(onClick, arg);
-            this->addComponent<AnimationComponent>(anim);
+            this->addComponent<AnimationComponent>();
         }
     };
 
