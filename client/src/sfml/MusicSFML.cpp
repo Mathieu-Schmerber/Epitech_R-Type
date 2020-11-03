@@ -5,7 +5,6 @@
 ** Created by Cyprien
 */
 
-
 #include "sfml/MusicSFML.hpp"
 
 void MusicSFML::loadFromFile(const std::string filename)

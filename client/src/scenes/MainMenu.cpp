@@ -9,12 +9,15 @@
 #include "systems/MouseSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
 #include "systems/AnimationSystem.hpp"
+#include "systems/MusicSystem.hpp"
 #include "scenes/MainMenu.hpp"
 #include "entities/Button.hpp"
 #include "entities/Drawable.hpp"
 #include "entities/ParallaxSlide.hpp"
 #include "components/AnimationComponent.hpp"
 #include "tools/Geometry.hpp"
+#include "sfml/MusicSFML.hpp"
+#include "entities/Music.hpp"
 
 void goToSettingsScene(std::shared_ptr<Engine::AScene> &menu)
 {
@@ -77,7 +80,13 @@ void MainMenu::initEntities()
     quitButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("idle", {Engine::Box<int>({QUIT_BUTTON_X_IDLE, QUIT_BUTTON_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT})});
     quitButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("hover", {Engine::Box<int>({QUIT_BUTTON_X_HOVER, QUIT_BUTTON_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT})});
     quitButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("clicked", {Engine::Box<int>({QUIT_BUTTON_X_CLICKED, QUIT_BUTTON_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT})});
-    
+
+    /** test **/ // FIXME
+    auto music = std::make_unique<MusicSFML>("../../client/assets/ogg/themes/menu_theme.ogg");
+    auto musicE = new Engine::Music(std::move(music));
+
+    /** ==== **/
+
     this->spawnEntity(std::shared_ptr<Engine::ParallaxSlide>(slideA));
     this->spawnEntity(std::shared_ptr<Engine::ParallaxSlide>(slideB));
     this->spawnEntity(std::shared_ptr<Engine::Button>(startButtonEngine));
@@ -85,6 +94,7 @@ void MainMenu::initEntities()
     this->spawnEntity(std::shared_ptr<Engine::Button>(howToPlayButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Button>(quitButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(rTypeLogoEngine));
+    this->spawnEntity(std::shared_ptr<Engine::Music>(musicE));
 }
 
 void MainMenu::initSystems()
@@ -93,11 +103,13 @@ void MainMenu::initSystems()
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
     auto animation = std::make_unique<Engine::AnimationSystem>();
+    auto music = std::make_unique<Engine::MusicSystem>();
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(animation));
+    this->_systems.push_back(std::move(music));
 }
 
 std::shared_ptr<Engine::AWindow> MainMenu::getWindow() const

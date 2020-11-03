@@ -11,6 +11,8 @@
 
 #include <cstdint>
 
+/*** DEPRECATED ***/
+
 class Time;
 
 namespace Engine {

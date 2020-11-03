@@ -14,6 +14,8 @@
 #include "tools/TimeUnits.hpp"
 #include "tools/ATime.hpp"
 
+/*** DEPRECATED ***/
+
 namespace Engine {
 
     template<typename T, std::enable_if<

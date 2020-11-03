@@ -9,6 +9,8 @@
 #ifndef RTYPE_ATIME_HPP
 #define RTYPE_ATIME_HPP
 
+/*** DEPRECATED ***/
+
 class Time;
 
 namespace Engine {

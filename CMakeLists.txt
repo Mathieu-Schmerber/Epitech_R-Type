@@ -35,7 +35,7 @@ set(ENGINE_SOURCES
         engine/src/Timer.cpp
         engine/src/systems/AnimationSystem.cpp
         engine/src/graphical/AMusic.cpp
-        )
+        engine/src/systems/MusicSystem.cpp engine/include/systems/MusicSystem.hpp)
 
 
 set(ENGINE_INCLUDES
@@ -84,7 +84,7 @@ set(ENGINE_INCLUDES
         engine/include/tools/Time.hpp
         engine/include/entities/Music.hpp
         engine/include/tools/ATime.hpp
-        engine/include/tools/TimeUnits.hpp)
+        engine/include/tools/TimeUnits.hpp engine/src/systems/MusicSystem.cpp engine/include/systems/MusicSystem.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
