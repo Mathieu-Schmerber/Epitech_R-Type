@@ -83,7 +83,8 @@ set(ENGINE_INCLUDES
         engine/include/components/AudioComponent.hpp
         engine/include/tools/Time.hpp
         engine/include/entities/Music.hpp
-        )
+        engine/include/tools/ATime.hpp
+        engine/include/tools/TimeUnits.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
