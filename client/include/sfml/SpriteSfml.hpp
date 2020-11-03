@@ -35,7 +35,7 @@ public:
     void setScale(Engine::Scale<float> scale) override;
     Engine::Scale<float> getScale() const;
     void setRect(Engine::Box<int> rect) override;
-    Engine::Box<int> getRect() const;
+    Engine::Box<int> getRect() const override;
 
     Engine::Size<int> getSize() override;
 

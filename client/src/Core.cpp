@@ -15,6 +15,7 @@
 #include "sfml/WindowSFML.hpp"
 #include "sfml/SpriteSfml.hpp"
 #include "sfml/EventsSFML.hpp"
+#include "sfml/SoundSFML.hpp"
 
 Core::Core()
 {
@@ -23,6 +24,7 @@ Core::Core()
     this->_graph->setEvents(std::make_shared<EventsSFML>(_graph->getWindow()));
     this->_server = std::make_unique<Engine::AServer>("", 0);
     this->_sceneManager = std::make_unique<Engine::SceneManager>();
+    this->_timer = std::make_unique<Engine::Timer>();
 }
 
 void Core::initScenes()
@@ -43,6 +45,7 @@ void Core::start()
 
 void Core::run()
 {
+    this->_sceneManager->handleTime(this->_timer->deltatime());
     this->_sceneManager->handleSwitchRequests();
     this->_sceneManager->getCurrent()->update();
     _graph->getEvents()->update();

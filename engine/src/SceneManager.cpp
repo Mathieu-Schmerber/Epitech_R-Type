@@ -22,6 +22,12 @@ void Engine::SceneManager::handleSwitchRequests()
     }
 }
 
+void Engine::SceneManager::handleTime(double delta) const
+{
+    for (auto &entry : this->_scenes)
+        entry.second->updateDeltatime(delta);
+}
+
 std::unique_ptr<Engine::AScene> &Engine::SceneManager::getCurrent()
 {
     auto it = this->_scenes.find(this->_current);

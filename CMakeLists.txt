@@ -31,7 +31,12 @@ set(ENGINE_SOURCES
         engine/src/systems/MouseSystem.cpp
         engine/src/systems/InputSystem.cpp
         engine/src/systems/PhysicSystem.cpp
-        engine/src/systems/ParallaxSystem.cpp)
+        engine/src/systems/ParallaxSystem.cpp
+        engine/src/Timer.cpp
+        engine/src/systems/AnimationSystem.cpp
+        engine/src/graphical/AMusic.cpp
+        engine/src/systems/MusicSystem.cpp engine/include/systems/MusicSystem.hpp)
+
 
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
@@ -59,6 +64,8 @@ set(ENGINE_INCLUDES
         engine/include/components/ColliderComponent.hpp
         engine/include/components/ChildrenComponent.hpp
         engine/include/components/VelocityComponent.hpp
+        engine/include/components/MusicComponent.hpp
+        engine/include/components/SoundComponent.hpp
         engine/include/systems/MouseSystem.hpp
         engine/include/tools/Geometry.hpp
         engine/include/systems/InputSystem.hpp
@@ -66,7 +73,18 @@ set(ENGINE_INCLUDES
         engine/include/entities/Drawable.hpp
         engine/include/tools/Utils.hpp
         engine/include/components/ParallaxComponent.hpp
-        engine/include/systems/ParallaxSystem.hpp engine/include/entities/ParallaxSlide.hpp)
+        engine/include/systems/ParallaxSystem.hpp
+        engine/include/entities/ParallaxSlide.hpp
+        engine/include/Timer.hpp
+        engine/include/components/AnimationComponent.hpp
+        engine/include/systems/AnimationSystem.hpp
+        engine/include/graphical/AMusic.hpp
+        engine/include/graphical/IAudio.hpp
+        engine/include/components/AudioComponent.hpp
+        engine/include/tools/Time.hpp
+        engine/include/entities/Music.hpp
+        engine/include/tools/ATime.hpp
+        engine/include/tools/TimeUnits.hpp engine/src/systems/MusicSystem.cpp engine/include/systems/MusicSystem.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
@@ -76,7 +94,9 @@ set(CLIENT_SOURCES
         client/src/sfml/SoundSFML.cpp
         client/src/sfml/EventsSFML.cpp
         client/src/sfml/GraphicalSFML.cpp
-        client/src/scenes/Settings.cpp)
+        client/src/scenes/Settings.cpp
+        client/src/sfml/MusicSFML.cpp
+        client/include/sfml/MusicSFML.hpp)
 
 set(CLIENT_INCLUDES
         client/include/Core.hpp
@@ -91,7 +111,10 @@ set(CLIENT_INCLUDES
         client/src/sfml/SpriteSfml.cpp
         client/include/sfml/SpriteSfml.hpp
         client/include/scenes/SceneType.hpp
-        client/include/scenes/Settings.hpp)
+        client/include/scenes/Settings.hpp
+        client/src/sfml/MusicSFML.cpp
+        client/include/sfml/MusicSFML.hpp
+        )
 
 set(SERVER_SOURCES
         server/main.cpp

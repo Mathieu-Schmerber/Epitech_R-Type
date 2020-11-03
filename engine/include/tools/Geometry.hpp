@@ -7,6 +7,7 @@
 
 #include <utility>
 #include <cmath>
+#include <ostream>
 
 namespace Engine {
 
@@ -24,6 +25,10 @@ namespace Engine {
 
         bool operator!=(const Point &rhs) const {
             return rhs != *this;
+        }
+
+        Point operator * (double c) const {
+            return Point(x * c, y * c);
         }
 
     };
@@ -45,7 +50,20 @@ namespace Engine {
         T y2;
         Point<T> size;
 
+        /*!
+         * \brief Creates a box.
+         * \param x1 left
+         * \param x2 right
+         * \param y1 top
+         * \param y2 bottom
+        */
         Box(T x1, T x2, T y1, T y2) : x1(x1), x2(x2), y1(y1), y2(y2), size({x2 - x1, y2 - y1}){}
+
+        /*!
+         * \brief Creates a box.
+         * \param pos top-left corner
+         * \param size width-height
+        */
         Box(Point<T> pos, Point<T> size) : x1(pos.x), x2(pos.x + size.x), y1(pos.y), y2(pos.y + size.y), size(size) {}
 
         bool operator==(const Box &rhs) const {

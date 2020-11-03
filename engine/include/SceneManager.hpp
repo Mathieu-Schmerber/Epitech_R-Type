@@ -24,6 +24,7 @@ namespace Engine {
         explicit SceneManager() : _current(-1) {}
         ~SceneManager();
 
+        void handleTime(double delta) const;
         void handleSwitchRequests();
         std::unique_ptr<Engine::AScene> &getCurrent();
         void switchScene(int id);

@@ -30,6 +30,12 @@ namespace Engine {
         }
 
         template<typename T, typename U>
+        static bool isInMap(std::map<T, U> &map, T item)
+        {
+            return (map.find(item) != map.end());
+        }
+
+        template<typename T, typename U>
         static std::map<U, T> reverseMap(std::map<T, U> map)
         {
             std::map<U, T> rv;

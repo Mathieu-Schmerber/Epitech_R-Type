@@ -1,4 +1,6 @@
 [requires]
+libalsa/1.1.9@conan/stable
+openal/1.18.2@bincrafters/stable
 sfml/2.5.1@bincrafters/stable
 zlib/1.2.11@conan/stable
 bzip2/1.0.8@conan/stable
@@ -11,6 +13,7 @@ sfml:graphics = True
 sfml:window = True
 sfml:shared = True
 sfml:network = True
+sfml:audio = True
 
 [imports]
 bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder

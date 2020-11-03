@@ -31,7 +31,7 @@ Engine::Scale<float> SpriteSFML::getScale() const
 
 void SpriteSFML::setRect(Engine::Box<int> rect)
 {
-    _sprite.setTextureRect(sf::IntRect(rect.x1, rect.x2, rect.y1, rect.y2));
+    _sprite.setTextureRect(sf::IntRect(rect.x1, rect.y1, rect.size.x, rect.size.y));
 }
 
 Engine::Box<int> SpriteSFML::getRect() const

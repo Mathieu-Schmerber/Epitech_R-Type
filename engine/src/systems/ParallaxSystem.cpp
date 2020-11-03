@@ -24,7 +24,8 @@ void Engine::ParallaxSystem::update()
         parallax = e->getComponent<ParallaxComponent>();
         velocity = e->getComponent<VelocityComponent>();
         transform = e->getComponent<TransformComponent>();
-        transform->movePos({static_cast<int>(velocity->getSpeed().x), static_cast<int>(velocity->getSpeed().y)});
+        transform->movePos({static_cast<int>(velocity->getSpeed().x * this->deltatime()),
+                            static_cast<int>(velocity->getSpeed().y * this->deltatime())});
         if (parallax->isLimitReached(transform->getPos(), velocity->getSpeed()))
             transform->setPos(parallax->getStart());
     }

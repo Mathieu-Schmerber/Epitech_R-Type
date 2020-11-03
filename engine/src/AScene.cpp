@@ -17,6 +17,12 @@ int Engine::AScene::getId() const
     return this->_sceneId;
 }
 
+void Engine::AScene::updateDeltatime(double delta)
+{
+    for (auto &sys : this->_systems)
+        sys->setDeltatime(delta);
+}
+
 void Engine::AScene::spawnEntity(std::shared_ptr<Entity> entity)
 {
     this->_entities.push_back(std::move(entity));
