@@ -1,10 +1,9 @@
-#include <iostream>
-#include "CoreServer.hpp"
+#include "TcpSocket.hpp"
 
 int main()
 {
-    CoreServer core;
+    Server server(4242);
 
-    core.run();
+    server.run();
     return 0;
 }

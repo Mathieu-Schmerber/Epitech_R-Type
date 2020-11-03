@@ -6,16 +6,10 @@
 */
 
 #include "TcpSocket.hpp"
-#include "CoreServer.hpp"
 #include "Client.hpp"
 
-Session::Session(boost::asio::io_service &io_service, CoreServer *core) : socket(io_service), _core(core)
-{
-    if (_core)
-        _id = _core->getNewId();
-    else
-        _id = 0;
-}
+Session::Session(boost::asio::io_service &io_service) : socket(io_service)
+{}
 
 tcp::socket &Session::get_socket()
 {
@@ -34,8 +28,6 @@ void Session::handle_read(std::shared_ptr<Session> &s, const boost::system::erro
         socket.async_read_some(boost::asio::buffer(data, max_length), boost::bind(&Session::handle_read, this, shared_from_this(), boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
     } else {
         std::cout << "Client Disconnected id " << s->getId() << std::endl;
-        if (_core)
-            _core->removeClient(s->getId());
     }
 }
 
@@ -46,7 +38,7 @@ int Session::getId() const
 
 /*===========================================================*/
 
-Server::Server(short port, CoreServer *core) : _io_service(), _acceptor(_io_service, tcp::endpoint(tcp::v4(), port)), _core(core)
+Server::Server(short port) : _io_service(), _acceptor(_io_service, tcp::endpoint(tcp::v4(), port))
 {}
 
 void Server::handle_accept(std::shared_ptr<Session> session, const boost::system::error_code &err)
@@ -54,28 +46,27 @@ void Server::handle_accept(std::shared_ptr<Session> session, const boost::system
     if (!err) {
         std::cout << "New client connected" << std::endl;
         session->start();
-        session = std::make_shared<Session>(_io_service, _core);
+        session = std::make_shared<Session>(_io_service);
         _acceptor.async_accept(session->get_socket(), boost::bind(&Server::handle_accept, this, session, boost::asio::placeholders::error));
-        auto client = std::make_shared<Client>(session);
+        auto client = new (std::nothrow)Client(session);
+        if (!client)
+            return;
+        _connected.push_back(client);
         std::cout << "ID new client : " << client->getId() << std::endl;
-        if (this->_core)
-            this->_core->setNewClient(client);
     } else {
         std::cerr << "err: " + err.message() << std::endl;
         session.reset();
     }
 }
 
-void Server::start()
+void Server::run()
 {
-    std::shared_ptr<Session> session = std::make_shared<Session>(_io_service, _core);
-    std::cout << "First id " << session->getId() << std::endl;
+    std::shared_ptr<Session> session = std::make_shared<Session>(_io_service);
     _acceptor.async_accept(session->get_socket(), boost::bind(&Server::handle_accept, this, session, boost::asio::placeholders::error));
-    _thread = new (std::nothrow) std::thread([&] { this->_io_service.run(); });
+    this->_io_service.run();
 }
 
 void Server::stop()
 {
     this->_io_service.stop();
-    this->_thread->join();
 }

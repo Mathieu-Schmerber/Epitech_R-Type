@@ -20,12 +20,10 @@
 
 using boost::asio::ip::tcp;
 
-class CoreServer;
-
 class Session : public std::enable_shared_from_this<Session>
 {
 public:
-    Session(boost::asio::io_service& io_service, CoreServer *core);
+    Session(boost::asio::io_service& io_service);
 
     tcp::socket& get_socket();
     void start();
@@ -35,22 +33,22 @@ private:
     tcp::socket socket;
     enum { max_length = 1024 };
     char data[max_length]{};
-    CoreServer *_core = nullptr;
     int _id = 499;
 };
 
+class Client;
+
 class Server {
 public:
-    Server(short port, CoreServer *core);
+    explicit Server(short port);
 
     void handle_accept(std::shared_ptr<Session> session, const boost::system::error_code& err);
-    void start();
+    void run();
     void stop();
 private:
     boost::asio::io_service _io_service;
     tcp::acceptor _acceptor;
-    std::thread *_thread = nullptr;
-    CoreServer *_core;
+    std::vector<Client *> _connected{};
 };
 
 #endif //RTYPE_TCPSOCKET_HPP
