@@ -11,15 +11,14 @@ namespace Engine {
 
     class Timer {
     private:
-        std::chrono::high_resolution_clock::time_point _startPoint;
         std::chrono::high_resolution_clock::time_point _lastPoint;
 
     public:
         Timer();
         ~Timer() = default;
 
+        [[nodiscard]] static bool hasElapsed(std::chrono::high_resolution_clock::time_point time, double seconds);
         double deltatime();
-        void restart();
     };
 
 }

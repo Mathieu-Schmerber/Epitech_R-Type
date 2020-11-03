@@ -4,7 +4,7 @@
 
 #include "Timer.hpp"
 
-Engine::Timer::Timer() :_startPoint(std::chrono::high_resolution_clock::now()) {}
+Engine::Timer::Timer() {}
 
 double Engine::Timer::deltatime()
 {
@@ -15,9 +15,9 @@ double Engine::Timer::deltatime()
     return res;
 }
 
-void Engine::Timer::restart()
+bool Engine::Timer::hasElapsed(std::chrono::high_resolution_clock::time_point time, double seconds)
 {
-    this->_startPoint = std::chrono::high_resolution_clock::now();
-    this->_lastPoint = this->_startPoint;
-}
+    auto now = std::chrono::high_resolution_clock::now();
 
+    return (((now - time) / std::chrono::milliseconds(1)) >= seconds * 1000);
+}

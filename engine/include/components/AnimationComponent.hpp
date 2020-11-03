@@ -6,6 +6,7 @@
 #define RTYPE_ANIMATIONCOMPONENT_HPP
 
 #include <map>
+#include <chrono>
 #include "ecs/Component.hpp"
 #include "graphical/ASprite.hpp"
 #include "tools/Utils.hpp"
@@ -15,19 +16,31 @@ namespace Engine {
     class AnimationComponent : public Engine::Component
     {
     private:
+        std::chrono::high_resolution_clock::time_point _last;
         std::map<int, std::vector<Box<int>>> _animations;
         size_t _frame;
+        double _frameTime;
         int _current;
 
     public:
-        explicit AnimationComponent() : _animations({}), _frame(0), _current(0), Engine::Component() {}
-        explicit AnimationComponent(const std::map<int, std::vector<Box<int>>> &anim)
-        : _animations(anim), _frame(0), Engine::Component() {
+        explicit AnimationComponent() : _animations({}), _frame(0), _current(0), _frameTime(0),
+                                        _last(std::chrono::high_resolution_clock::now()), Engine::Component() {}
+        explicit AnimationComponent(double animationTime, const std::map<int, std::vector<Box<int>>> &anim = {})
+                                    : _animations(anim), _frame(0), _frameTime(animationTime),
+                                    _last(std::chrono::high_resolution_clock::now()), Engine::Component() {
             if (!anim.empty())
                 this->_current = anim.begin()->first;
         }
 
         [[nodiscard]] bool hasAnimations() const {return !(this->_animations.empty());}
+
+        [[nodiscard]] double getFrameTime() const {return this->_frameTime;}
+
+        [[nodiscard]]  std::chrono::high_resolution_clock::time_point getLastRefresh() {return this->_last;};
+
+        void refresh() {this->_last = std::chrono::high_resolution_clock::now();}
+
+        void setFrameTime(double frameTime) {this->_frameTime = frameTime;}
 
         void addAnimation(int name, const std::vector<Box<int>> &frames) {
             if (Utils::isInMap(this->_animations, name))
@@ -37,6 +50,7 @@ namespace Engine {
 
         void setAnimation(int name) {
             if (Utils::isInMap(this->_animations, name)) {
+                this->refresh();
                 this->_current = name;
                 this->_frame = 0;
             }

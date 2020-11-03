@@ -5,6 +5,7 @@
 #include "systems/AnimationSystem.hpp"
 #include "components/AnimationComponent.hpp"
 #include "components/SpriteComponent.hpp"
+#include "Timer.hpp"
 
 Engine::AnimationSystem::AnimationSystem() : Engine::System()
 {
@@ -20,7 +21,9 @@ void Engine::AnimationSystem::update()
     for (auto &e : this->_entities) {
         sprite = e->getComponent<SpriteComponent>();
         animation = e->getComponent<AnimationComponent>();
-        if (animation->hasAnimations())
+        if (animation->hasAnimations() && Engine::Timer::hasElapsed(animation->getLastRefresh(), animation->getFrameTime())) {
             sprite->getSprite()->setRect(animation->getNextFrame());
+            animation->refresh();
+        }
     }
 }
