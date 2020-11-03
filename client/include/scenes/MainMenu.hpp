@@ -6,7 +6,7 @@
 #define RTYPE_MAINMENU_HPP
 
 #include "SceneType.hpp"
-#include "AScene.hpp"
+#include "sceneManagement/AScene.hpp"
 #include "graphical/AWindow.hpp"
 #include "graphical/AEvents.hpp"
 
@@ -55,8 +55,6 @@
 #define QUIT_BUTTON_WIDTH 186
 #define QUIT_BUTTON_POSITION_X (1920 / 2 - QUIT_BUTTON_WIDTH / 2) //TODO make a window size macro instead of hardcoded 1920 ?
 #define QUIT_BUTTON_POSITION_Y 900
-
-#define MENU_PARALLAX_PATH "../../client/assets/images/parallax/parallax_3_3840x1080.png"
 
 class MainMenu : public Engine::AScene
 {

@@ -5,7 +5,7 @@
 #ifndef RTYPE_CLICKABLECOMPONENT_HPP
 #define RTYPE_CLICKABLECOMPONENT_HPP
 
-#include "AScene.hpp"
+#include "sceneManagement/AScene.hpp"
 #include "ecs/Component.hpp"
 
 namespace Engine {

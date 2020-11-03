@@ -9,7 +9,7 @@
 #include <iostream>
 
 #include "graphical/AGraphical.hpp"
-#include "SceneManager.hpp"
+#include "sceneManagement/SceneManager.hpp"
 
 class Core
 {
@@ -19,6 +19,7 @@ private:
     std::unique_ptr<Engine::SceneManager> _sceneManager;
 
     void run();
+    void setupGroups();
     void initScenes();
 
 public:

@@ -22,7 +22,7 @@ namespace Engine {
         explicit Entity() = default;
 
         template<typename T, typename... TArgs> void addComponent(TArgs&&... args);
-        template<typename T> T *getComponent();
+        template<typename T> T *getComponent() const;
 
         bool hasComponents(std::vector<std::unique_ptr<Engine::Component>> &components)
         {
@@ -51,7 +51,7 @@ namespace Engine {
     }
 
     template<typename T>
-    T *Engine::Entity::getComponent()
+    T *Engine::Entity::getComponent() const
     {
         for (auto &component : this->_components) {
             if (typeid(T).name() == component->getInfo())
