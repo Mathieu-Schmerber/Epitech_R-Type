@@ -6,7 +6,8 @@
 #define RTYPE_GROUPID_HPP
 
 enum GroupId {
-    MENU_PARALLAX = 0
+    MENU_PARALLAX = 0,
+    MENU_MUSIC = 1
 };
 
 #endif //RTYPE_GROUPID_HPP

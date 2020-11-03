@@ -14,6 +14,7 @@ namespace Engine {
     class SpriteComponent : public Engine::Component {
     private:
         std::unique_ptr<Engine::ASprite> _sprite;
+        bool _hasToBeDraw = true;
         int _layer;
 
     public:
@@ -22,6 +23,11 @@ namespace Engine {
 
         std::unique_ptr<Engine::ASprite> &getSprite() {return this->_sprite;}
         void setDisplay(std::unique_ptr<Engine::ASprite> sprite) { this->_sprite = std::move(sprite);}
+        void hasToBeDraw(bool draw) {_hasToBeDraw = draw;};
+        void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) {
+            if (_hasToBeDraw)
+                _sprite->draw(window, position, angle);
+        }
         void setLayer(int layer) {this->_layer = layer;}
         int getLayer() const {return this->_layer;}
     };

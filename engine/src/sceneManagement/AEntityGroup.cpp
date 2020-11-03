@@ -34,22 +34,10 @@ void Engine::AEntityGroup::addEntity(std::shared_ptr<Engine::Entity> &entity)
  * \brief Freezes some components
  * This function is called whenever a scene containing this EntityGroup is switched off
  */
-void Engine::AEntityGroup::freeze()
-{
-    // TODO: default action
-    //  for (auto &e : this->entities)                    ?
-    //      if (e->getComponent<AudioComponent>())        ?
-    //          e->getComponent<AudioComponent>().pause() ?
-}
+void Engine::AEntityGroup::freeze() {}
 
 /*!
  * \brief Unfreezes some components
  * This function is called whenever a scene containing this EntityGroup is switched on
  */
-void Engine::AEntityGroup::unFreeze()
-{
-    // TODO: default action
-    //  for (auto &e : this->entities)                    ?
-    //      if (e->getComponent<AudioComponent>())        ?
-    //          e->getComponent<AudioComponent>().play() ?
-}
+void Engine::AEntityGroup::unFreeze() {}

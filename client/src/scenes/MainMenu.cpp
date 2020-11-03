@@ -78,19 +78,11 @@ void MainMenu::initEntities()
     quitButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::HOVER, {Engine::Box<int>({QUIT_BUTTON_X_HOVER, QUIT_BUTTON_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT})});
     quitButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::CLICKED, {Engine::Box<int>({QUIT_BUTTON_X_CLICKED, QUIT_BUTTON_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT})});
 
-
-    /** test **/ // FIXME
-    auto music = std::make_unique<MusicSFML>("../../client/assets/ogg/themes/menu_theme.ogg");
-    auto musicE = new Engine::Music(std::move(music));
-
-    /** ==== **/
-
     this->spawnEntity(std::shared_ptr<Engine::Button>(startButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Button>(settingsButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Button>(howToPlayButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Button>(quitButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(rTypeLogoEngine));
-    this->spawnEntity(std::shared_ptr<Engine::Music>(musicE));
 }
 
 void MainMenu::initSystems()
