@@ -2,9 +2,8 @@
 // Created by mathi on 30/10/2020.
 //
 
-#include <iostream>
 #include <sfml/SpriteSfml.hpp>
-#include "SceneManager.hpp"
+#include "sceneManagement/SceneManager.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
@@ -13,25 +12,27 @@
 #include "scenes/MainMenu.hpp"
 #include "entities/Button.hpp"
 #include "entities/Drawable.hpp"
-#include "entities/ParallaxSlide.hpp"
-#include "components/AnimationComponent.hpp"
-#include "tools/Geometry.hpp"
 #include "sfml/MusicSFML.hpp"
 #include "entities/Music.hpp"
 
 void goToSettingsScene(std::shared_ptr<Engine::AScene> &menu)
 {
-    menu->requestSwitch(SceneType::SETTINGS);
+    Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::SETTINGS);
+
+    menu->pushRequest(request);
 }
 
 void goToHowToPlayScene(std::shared_ptr<Engine::AScene> &menu)
 {
-    menu->requestSwitch(SceneType::HOW_TO_PLAY);
+    Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::HOW_TO_PLAY);
+
+    menu->pushRequest(request);
 }
 
 void quitGame(std::shared_ptr<Engine::AScene> &menu)
 {
     auto mainMenu = std::dynamic_pointer_cast<MainMenu>(menu);
+
     mainMenu->getWindow()->close();
 }
 
@@ -49,11 +50,6 @@ MainMenu::MainMenu(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Eng
 
 void MainMenu::initEntities()
 {
-    auto menuParralaxA = std::make_unique<SpriteSFML>(MENU_PARALLAX_PATH);
-    auto menuParralaxB = std::make_unique<SpriteSFML>(MENU_PARALLAX_PATH);
-    auto slideA = new Engine::ParallaxSlide({0, 0}, {-1920, 0}, {-10, 0}, std::move(menuParralaxA));
-    auto slideB = new Engine::ParallaxSlide({1920, 0}, {0, 0}, {-10, 0}, std::move(menuParralaxB));
-
     auto rtypeLogoSprite = std::make_unique<SpriteSFML>(RTYPE_LOGO_PATH);
     auto rTypeLogoEngine = new Engine::Drawable({RTYPE_LOGO_POSITION_X, RTYPE_LOGO_POSITION_Y}, std::move(rtypeLogoSprite));
 
@@ -81,14 +77,13 @@ void MainMenu::initEntities()
     quitButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("hover", {Engine::Box<int>({QUIT_BUTTON_X_HOVER, QUIT_BUTTON_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT})});
     quitButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("clicked", {Engine::Box<int>({QUIT_BUTTON_X_CLICKED, QUIT_BUTTON_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT})});
 
+
     /** test **/ // FIXME
     auto music = std::make_unique<MusicSFML>("../../client/assets/ogg/themes/menu_theme.ogg");
     auto musicE = new Engine::Music(std::move(music));
 
     /** ==== **/
 
-    this->spawnEntity(std::shared_ptr<Engine::ParallaxSlide>(slideA));
-    this->spawnEntity(std::shared_ptr<Engine::ParallaxSlide>(slideB));
     this->spawnEntity(std::shared_ptr<Engine::Button>(startButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Button>(settingsButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Button>(howToPlayButtonEngine));

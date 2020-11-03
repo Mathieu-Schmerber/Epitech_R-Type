@@ -9,7 +9,7 @@
 #include <iostream>
 
 #include "graphical/AGraphical.hpp"
-#include "SceneManager.hpp"
+#include "sceneManagement/SceneManager.hpp"
 #include "Timer.hpp"
 
 class Core
@@ -21,6 +21,7 @@ private:
     std::unique_ptr<Engine::Timer> _timer;
 
     void run();
+    void setupGroups();
     void initScenes();
 
 public:

@@ -15,6 +15,7 @@ namespace Engine {
     private:
         std::shared_ptr<Engine::AWindow> _window;
 
+        static bool compare(const std::shared_ptr<Engine::Entity> &a, const std::shared_ptr<Engine::Entity> &b);
     public:
         explicit DrawSystem(std::shared_ptr<Engine::AWindow> &window);
         void update() override;
