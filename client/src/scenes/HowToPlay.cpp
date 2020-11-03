@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <sfml/SpriteSfml.hpp>
-#include "SceneManager.hpp"
+#include "sceneManagement/SceneManager.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
@@ -28,16 +28,12 @@ HowToPlay::HowToPlay(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<E
 
 void HowToPlay::initEntities()
 {
-    auto howToPlayBackgroundSprite = std::make_unique<SpriteSFML>(HOW_TO_PLAY_PATH);
-    auto howToPlayBackgroundEngine = new Engine::Drawable({HOW_TO_PLAY_POSITION_X, HOW_TO_PLAY_POSITION_Y}, std::move(howToPlayBackgroundSprite));
     auto goBackButtonSprite = std::make_unique<SpriteSFML>(GO_BACK_BUTTON_PATH);
     auto goBackButtonEngine = new Engine::Button({GO_BACK_BUTTON_POSITION_X, GO_BACK_BUTTON_POSITION_Y}, std::move(goBackButtonSprite), &goToMenuScene, std::shared_ptr<Engine::AScene>(this));
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("idle", {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("hover", {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("clicked", {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
 
-
-    this->spawnEntity(std::shared_ptr<Engine::Drawable>(howToPlayBackgroundEngine));
     this->spawnEntity(std::shared_ptr<Engine::Button>(goBackButtonEngine));
 }
 
@@ -46,11 +42,13 @@ void HowToPlay::initSystems()
     auto draw = std::make_unique<Engine::DrawSystem>(this->_window);
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
     auto animation = std::make_unique<Engine::AnimationSystem>();
+    auto parallax = std::make_unique<Engine::ParallaxSystem>();
     auto music = std::make_unique<Engine::MusicSystem>();
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
     this->_systems.push_back(std::move(animation));
+    this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(music));
 }
 

@@ -34,6 +34,7 @@ void Core::setupGroups()
     this->_sceneManager->addGroup(GroupId::MENU_PARALLAX, std::dynamic_pointer_cast<Engine::AEntityGroup>(p));
     this->_sceneManager->setAccessGroup(SceneType::MAIN_MENU, GroupId::MENU_PARALLAX);
     this->_sceneManager->setAccessGroup(SceneType::SETTINGS, GroupId::MENU_PARALLAX);
+    this->_sceneManager->setAccessGroup(SceneType::HOW_TO_PLAY, GroupId::MENU_PARALLAX);
 }
 
 void Core::initScenes()

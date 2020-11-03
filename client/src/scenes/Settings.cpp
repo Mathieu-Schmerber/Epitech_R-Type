@@ -15,7 +15,9 @@
 
 void goToMenuScene(std::shared_ptr<Engine::AScene> &menu)
 {
-    menu->requestSwitch(SceneType::MAIN_MENU);
+    Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::MAIN_MENU);
+
+    menu->pushRequest(request);
 }
 
 Settings::Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events)
@@ -33,9 +35,6 @@ void Settings::initEntities()
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("hover", {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation("clicked", {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
 
-    auto settingsBackgroundSprite = std::make_unique<SpriteSFML>(SETTINGS_BACKGROUND_PATH);
-    auto settingsBackgroundEngine = new Engine::Drawable({SETTINGS_BACKGROUND_POSITION_X, SETTINGS_BACKGROUND_POSITION_Y}, std::move(settingsBackgroundSprite));
-
     auto enableFullscreenText = std::make_unique<SpriteSFML>(FULLSCREEN_TEXT_PATH);
     auto enableFullscreenEngine = new Engine::Drawable({FULLSCREEN_TEXT_POSITION_X, FULLSCREEN_TEXT_POSITION_Y}, std::move(enableFullscreenText));
 
@@ -51,7 +50,6 @@ void Settings::initEntities()
     auto soundEffectsText = std::make_unique<SpriteSFML>(SOUND_EFFECTS_TEXT_PATH);
     auto soundEffectsEngine = new Engine::Drawable({SOUND_EFFECTS_TEXT_POSITION_X, SOUND_EFFECTS_TEXT_POSITION_Y}, std::move(soundEffectsText));
 
-    this->spawnEntity(std::shared_ptr<Engine::Drawable>(settingsBackgroundEngine));
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(enableFullscreenEngine));
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(framerateEngine));
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(vsyncEngine));

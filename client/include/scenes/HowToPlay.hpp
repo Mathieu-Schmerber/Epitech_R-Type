@@ -6,7 +6,7 @@
 #define RTYPE_HOW_TO_PLAY_HPP
 
 #include "SceneType.hpp"
-#include "AScene.hpp"
+#include "sceneManagement/AScene.hpp"
 #include "graphical/AWindow.hpp"
 #include "graphical/AEvents.hpp"
 
