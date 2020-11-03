@@ -96,7 +96,7 @@ void HowToPlay::initEntities()
 
     auto bonusSprite1 = std::make_unique<SpriteSFML>(BONUS_1_PATH);
     auto bonusEngine1 = new Engine::Drawable({BONUS_1_POSITION_X, BONUS_1_POSITION_Y}, std::move(bonusSprite1));
-    bonusEngine1->addComponent<Engine::AnimationComponent>();
+    bonusEngine1->addComponent<Engine::AnimationComponent>(0.4);
     bonusEngine1->getComponent<Engine::AnimationComponent>()->addAnimation(0, {
         {{0, 0}, {BONUS_1_WIDTH, BONUS_1_HEIGHT}},
         {{BONUS_1_WIDTH, 0}, {BONUS_1_WIDTH, BONUS_1_HEIGHT}},
@@ -108,7 +108,7 @@ void HowToPlay::initEntities()
 
     auto bonusSprite2 = std::make_unique<SpriteSFML>(BONUS_2_PATH);
     auto bonusEngine2 = new Engine::Drawable({BONUS_2_POSITION_X, BONUS_2_POSITION_Y}, std::move(bonusSprite2));
-    bonusEngine2->addComponent<Engine::AnimationComponent>();
+    bonusEngine2->addComponent<Engine::AnimationComponent>(0.4);
     bonusEngine2->getComponent<Engine::AnimationComponent>()->addAnimation(1, {
         {{0, 0}, {BONUS_2_WIDTH, BONUS_2_HEIGHT}},
         {{BONUS_2_WIDTH, 0}, {BONUS_2_WIDTH, BONUS_2_HEIGHT}},
@@ -120,7 +120,7 @@ void HowToPlay::initEntities()
 
     auto bonusSprite3 = std::make_unique<SpriteSFML>(BONUS_3_PATH);
     auto bonusEngine3 = new Engine::Drawable({BONUS_3_POSITION_X, BONUS_3_POSITION_Y}, std::move(bonusSprite3));
-    bonusEngine3->addComponent<Engine::AnimationComponent>();
+    bonusEngine3->addComponent<Engine::AnimationComponent>(0.4);
     bonusEngine3->getComponent<Engine::AnimationComponent>()->addAnimation(2, {
         {{0, 0}, {BONUS_3_WIDTH, BONUS_3_HEIGHT}},
         {{BONUS_3_WIDTH, 0}, {BONUS_3_WIDTH, BONUS_3_HEIGHT}},
