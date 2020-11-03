@@ -80,7 +80,10 @@ set(ENGINE_INCLUDES
         engine/include/systems/AnimationSystem.hpp
         engine/include/graphical/AMusic.hpp
         engine/include/graphical/IAudio.hpp
-        engine/include/components/AudioComponent.hpp)
+        engine/include/components/AudioComponent.hpp
+        engine/include/tools/Time.hpp
+        engine/include/entities/Music.hpp
+        )
 
 set(CLIENT_SOURCES
         client/src/main.cpp

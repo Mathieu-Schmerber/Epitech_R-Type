@@ -36,3 +36,28 @@ void MusicSFML::setVolume(float volume)
     AMusic::setVolume(volume);
     _music.setVolume(volume);
 }
+
+void MusicSFML::setLoop(bool loop)
+{
+    _music.setLoop(loop);
+}
+
+bool MusicSFML::isPaused() const
+{
+    return _music.getStatus() == sf::SoundSource::Paused;
+}
+
+bool MusicSFML::isStopped() const
+{
+    return _music.getStatus() == sf::SoundSource::Stopped;
+}
+
+bool MusicSFML::isPlaying() const
+{
+    return _music.getStatus() == sf::SoundSource::Playing;
+}
+
+bool MusicSFML::isLooping() const
+{
+    return _music.getLoop();
+}

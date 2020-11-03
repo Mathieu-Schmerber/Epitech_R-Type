@@ -21,6 +21,11 @@ public:
     void pause() final;
     void stop() final;
     void setVolume(float volume) final;
+    bool isPlaying() const;
+    bool isPaused() const;
+    bool isStopped() const;
+    void setLoop(bool loop=true);
+    bool isLooping() const;
 
 private:
     sf::Music _music;
