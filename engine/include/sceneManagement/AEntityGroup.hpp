@@ -11,7 +11,7 @@ namespace Engine {
 
     class AEntityGroup
     {
-    private:
+    protected:
         std::vector<std::shared_ptr<Engine::Entity>> _entities;
 
     public:
