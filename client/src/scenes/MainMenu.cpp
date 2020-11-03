@@ -12,9 +12,6 @@
 #include "scenes/MainMenu.hpp"
 #include "entities/Button.hpp"
 #include "entities/Drawable.hpp"
-#include "entities/ParallaxSlide.hpp"
-#include "components/AnimationComponent.hpp"
-#include "tools/Geometry.hpp"
 #include "sfml/MusicSFML.hpp"
 #include "entities/Music.hpp"
 
@@ -87,8 +84,6 @@ void MainMenu::initEntities()
 
     /** ==== **/
 
-    this->spawnEntity(std::shared_ptr<Engine::ParallaxSlide>(slideA));
-    this->spawnEntity(std::shared_ptr<Engine::ParallaxSlide>(slideB));
     this->spawnEntity(std::shared_ptr<Engine::Button>(startButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Button>(settingsButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Button>(howToPlayButtonEngine));

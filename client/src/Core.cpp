@@ -5,9 +5,7 @@
 #include "Core.hpp"
 
 #include <memory>
-#include <iostream>
 
-#include "tools/Geometry.hpp"
 #include "scenes/MainMenu.hpp"
 #include "scenes/Settings.hpp"
 #include "entities/Button.hpp"
@@ -24,6 +22,7 @@ Core::Core()
     this->_graph->setWindow(std::make_shared<WindowSFML>(std::string("r-type"), std::make_pair(1920, 1080)));
     this->_graph->setEvents(std::make_shared<EventsSFML>(_graph->getWindow()));
     this->_server = std::make_unique<Engine::AServer>("", 0);
+    this->_timer = std::make_unique<Engine::Timer>();
     this->_sceneManager = std::make_unique<Engine::SceneManager>();
 }
 
@@ -56,6 +55,7 @@ void Core::start()
 void Core::run()
 {
     this->_sceneManager->handleSceneRequests();
+    this->_sceneManager->handleTime(this->_timer->deltatime());
     this->_sceneManager->getCurrent()->update();
     _graph->getEvents()->update();
     _graph->getWindow()->display();

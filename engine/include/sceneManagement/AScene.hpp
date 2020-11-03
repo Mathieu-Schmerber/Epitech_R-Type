@@ -16,7 +16,6 @@ namespace Engine {
 
     protected:
         int _sceneId;
-        int _sceneSwitchRequest;
         std::vector<Engine::SceneRequest> _requests;
         std::vector<std::unique_ptr<Engine::System>> _systems;
         std::vector<std::shared_ptr<Engine::Entity>> _entities;

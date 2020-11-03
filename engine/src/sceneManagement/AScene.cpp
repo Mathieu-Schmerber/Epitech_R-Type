@@ -5,12 +5,18 @@
 #include "sceneManagement/AScene.hpp"
 #include "tools/Utils.hpp"
 
-Engine::AScene::AScene(int id) : _sceneId(id), _sceneSwitchRequest(-1) {}
+Engine::AScene::AScene(int id) : _sceneId(id) {}
 
 Engine::AScene::~AScene()
 {
     this->_entities.clear();
     this->_systems.clear();
+}
+
+void Engine::AScene::updateDeltatime(double delta)
+{
+    for (auto &sys : this->_systems)
+        sys->setDeltatime(delta);
 }
 
 void Engine::AScene::addGroupAccess(const std::shared_ptr<Engine::AEntityGroup> &group)

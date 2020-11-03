@@ -81,7 +81,7 @@ set(ENGINE_INCLUDES
         engine/include/systems/AnimationSystem.hpp
         engine/include/sceneManagement/AEntityGroup.hpp
         engine/include/sceneManagement/SceneRequest.hpp
-        engine/include/enumerations/QueryType.hpp)
+        engine/include/enumerations/QueryType.hpp
         engine/include/graphical/AMusic.hpp
         engine/include/graphical/IAudio.hpp
         engine/include/components/AudioComponent.hpp
@@ -119,7 +119,7 @@ set(CLIENT_INCLUDES
         client/include/scenes/Settings.hpp 
 		client/include/scenes/GroupId.hpp 
 		client/include/scenes/Groups.hpp 
-		client/include/Layer.hpp)
+		client/include/Layer.hpp
         client/include/scenes/Settings.hpp
         client/include/sfml/MusicSFML.hpp
         )

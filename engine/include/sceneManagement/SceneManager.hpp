@@ -28,6 +28,7 @@ namespace Engine {
         ~SceneManager();
 
         void handleSceneRequests();
+        void handleTime(double deltatime);
 
         // Group
         std::shared_ptr<Engine::AEntityGroup> addGroup(int id, const std::vector<std::shared_ptr<Engine::Entity>> &entities = {});
