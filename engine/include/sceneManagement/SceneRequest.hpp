@@ -17,8 +17,8 @@ namespace Engine {
     public:
         SceneRequest(QueryType type, int id, const std::shared_ptr<Engine::Entity> &entity = nullptr) : _query(type), _args({id, entity}) {}
 
-        QueryType type() const {return this->_query;}
-        std::pair<int, std::shared_ptr<Engine::Entity>> arguments() const {return this->_args;}
+        [[nodiscard]] QueryType type() const {return this->_query;}
+        [[nodiscard]] std::pair<int, std::shared_ptr<Engine::Entity>> arguments() const {return this->_args;}
     };
 
 }

@@ -21,7 +21,7 @@ namespace Engine {
         explicit SpriteComponent() : _layer(0), Engine::Component() {};
         explicit SpriteComponent(int layer, std::unique_ptr<Engine::ASprite> sprite) : _layer(layer), _sprite(std::move(sprite)), Engine::Component() {};
 
-        std::unique_ptr<Engine::ASprite> &getSprite() {return this->_sprite;}
+        [[nodiscard]] std::unique_ptr<Engine::ASprite> &getSprite() {return this->_sprite;}
         void setDisplay(std::unique_ptr<Engine::ASprite> sprite) { this->_sprite = std::move(sprite);}
         void hasToBeDraw(bool draw) {_hasToBeDraw = draw;};
         void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) {
@@ -29,7 +29,7 @@ namespace Engine {
                 _sprite->draw(window, position, angle);
         }
         void setLayer(int layer) {this->_layer = layer;}
-        int getLayer() const {return this->_layer;}
+        [[nodiscard]] int getLayer() const {return this->_layer;}
     };
 }
 

@@ -77,18 +77,18 @@ namespace Engine {
             return rhs != *this;
         }
 
-        bool doOverlap(const Box &rhs) const;
-        bool doOverlap(const Point<T> &point) const;
+        [[nodiscard]] bool doOverlap(const Box &rhs) const;
+        [[nodiscard]] bool doOverlap(const Point<T> &point) const;
 
     };
 
     class Geometry {
     public:
 
-        static double degreeToRadiant(double degree) {return degree * (PI / 180);}
+        [[nodiscard]] static double degreeToRadiant(double degree) {return degree * (PI / 180);}
 
         template<typename T>
-        static Point<T> rotateVector(Engine::Point<T> vector, double degree)
+        [[nodiscard]] static Point<T> rotateVector(Engine::Point<T> vector, double degree)
         {
             double angle = degreeToRadiant(degree);
             Point<T> res = {
@@ -99,13 +99,13 @@ namespace Engine {
         }
 
         template<typename T>
-        static bool doOverlap(const Point<T> &point, const Box<T> &box) {
+        [[nodiscard]] static bool doOverlap(const Point<T> &point, const Box<T> &box) {
             return (point.x >= box.x1 && point.x <= box.x2 &&
                     point.y >= box.y1 && point.y <= box.y2);
         }
 
         template<typename T>
-        static bool doOverlap(const Box<T> &box1, const Box<T> &box2) {
+        [[nodiscard]] static bool doOverlap(const Box<T> &box1, const Box<T> &box2) {
             return (doOverlap({box1.x1, box1.y1}, box2) ||
                     doOverlap({box1.x1, box1.y2}, box2) ||
                     doOverlap({box1.x2, box1.y1}, box2) ||
@@ -116,12 +116,12 @@ namespace Engine {
 }
 
 template<typename T>
-bool Engine::Box<T>::doOverlap(const Box<T> &rhs) const {
+[[nodiscard]] bool Engine::Box<T>::doOverlap(const Box<T> &rhs) const {
     return Geometry::doOverlap(rhs, this);
 }
 
 template<typename T>
-bool Engine::Box<T>::doOverlap(const Engine::Point<T> &point) const
+[[nodiscard]] bool Engine::Box<T>::doOverlap(const Engine::Point<T> &point) const
 {
     return Geometry::doOverlap(point, this);
 }

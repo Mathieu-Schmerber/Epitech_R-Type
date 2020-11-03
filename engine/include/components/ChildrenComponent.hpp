@@ -17,7 +17,7 @@ namespace Engine {
         explicit ChildrenComponent() : Component() {}
 
         void addChild(std::shared_ptr<Entity> &child) {this->_children.emplace_back(child);}
-        std::vector<std::shared_ptr<Entity>> getChildren() const {return this->_children;}
+        [[nodiscard]] std::vector<std::shared_ptr<Entity>> getChildren() const {return this->_children;}
     };
 
 }

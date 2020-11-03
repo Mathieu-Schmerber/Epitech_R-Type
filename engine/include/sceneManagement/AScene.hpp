@@ -29,13 +29,13 @@ namespace Engine {
         ~AScene();
 
         void updateDeltatime(double delta);
-        int getId() const;
+        [[nodiscard]] int getId() const;
         void spawnEntity(std::shared_ptr<Entity> entity);
-        std::vector<Engine::SceneRequest> getRequests() const;
+        [[nodiscard]] std::vector<Engine::SceneRequest> getRequests() const;
         void pushRequest(const SceneRequest &request);
         void clearRequests();
         void addGroupAccess(const std::shared_ptr<Engine::AEntityGroup> &group);
-        std::vector<std::shared_ptr<Engine::AEntityGroup>> getGroupAccess() const;
+        [[nodiscard]] std::vector<std::shared_ptr<Engine::AEntityGroup>> getGroupAccess() const;
         void onGroupUpdate(const std::shared_ptr<AEntityGroup> &group);
         virtual void update();
     };

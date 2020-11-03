@@ -22,8 +22,8 @@ namespace Engine {
 
         void setPressed(const std::vector<Engine::Inputs> &list) {this->_pressed = list;}
         void setReleased(const std::vector<Engine::Inputs> &list) {this->_released = list;}
-        std::vector<Engine::Inputs> getPressed() const {return this->_pressed;}
-        std::vector<Engine::Inputs> getReleased() const {return this->_released;}
+        [[nodiscard]] std::vector<Engine::Inputs> getPressed() const {return this->_pressed;}
+        [[nodiscard]] std::vector<Engine::Inputs> getReleased() const {return this->_released;}
     };
 
 }

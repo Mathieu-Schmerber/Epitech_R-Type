@@ -22,7 +22,7 @@ namespace Engine {
     public:
         explicit SoundComponent(std::unique_ptr<Engine::ASound> sound = nullptr) : Engine::Component(), _sound(std::move(sound)) {}
 
-        std::unique_ptr<Engine::ASound> &getSound() {return this->_sound;}
+        [[nodiscard]] std::unique_ptr<Engine::ASound> &getSound() {return this->_sound;}
         void setSound(std::unique_ptr<Engine::ASound> sound) { this->_sound = std::move(sound);}
     };
 

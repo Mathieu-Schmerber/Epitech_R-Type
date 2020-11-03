@@ -24,17 +24,17 @@ namespace Engine {
                                     const Point<double> &normal = {1, 0})
                 : _pos(pos), _rotation(rotation), _normal(normal), Component() {}
 
-        Point<int> getPos() const { return this->_pos; }
+        [[nodiscard]] Point<int> getPos() const { return this->_pos; }
         void setPos(const Point<int> &pos) {this->_pos = pos;}
         void movePos(const Vector<int> &increment) {
             this->_pos.x += increment.x;
             this->_pos.y += increment.y;
         }
 
-        double getRotation() const {return this->_rotation;}
+        [[nodiscard]] double getRotation() const {return this->_rotation;}
         void setRotation(double rotation) {this->_rotation = rotation;}
 
-        Point<double> getNormal() const
+        [[nodiscard]] Point<double> getNormal() const
         {
             return Geometry::rotateVector(this->_normal, this->_rotation);
         }

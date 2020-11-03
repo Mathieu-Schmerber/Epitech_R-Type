@@ -22,7 +22,7 @@ namespace Engine {
         explicit Entity() = default;
 
         template<typename T, typename... TArgs> void addComponent(TArgs&&... args);
-        template<typename T> T *getComponent() const;
+        template<typename T> [[nodiscard]] T *getComponent() const;
 
         bool hasComponents(std::vector<std::unique_ptr<Engine::Component>> &components)
         {

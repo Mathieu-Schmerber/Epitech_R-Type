@@ -27,7 +27,7 @@ namespace Engine {
                 this->_current = anim.begin()->first;
         }
 
-        bool hasAnimations() const {return !(this->_animations.empty());}
+        [[nodiscard]] bool hasAnimations() const {return !(this->_animations.empty());}
 
         void addAnimation(int name, const std::vector<Box<int>> &frames) {
             if (Utils::isInMap(this->_animations, name))

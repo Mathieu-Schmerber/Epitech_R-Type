@@ -39,7 +39,7 @@ namespace Engine {
         void setAccessGroup(int scene, const std::vector<int> &groups);
 
         // Scenes
-        std::unique_ptr<Engine::AScene> &getCurrent();
+        [[nodiscard]] std::unique_ptr<Engine::AScene> &getCurrent();
         void switchScene(int id);
         void addScene(std::unique_ptr<Engine::AScene> scene);
     };

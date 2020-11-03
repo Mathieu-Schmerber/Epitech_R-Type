@@ -19,7 +19,7 @@ namespace Engine {
         void clearCollisions() {this->_collisions.clear();};
         void collide(std::shared_ptr<Entity> &entity) {_collisions.emplace_back(entity);}
 
-        std::vector<std::shared_ptr<Engine::Entity>> getCollisions() const {
+        [[nodiscard]] std::vector<std::shared_ptr<Engine::Entity>> getCollisions() const {
             return this->_collisions;
         }
     };
