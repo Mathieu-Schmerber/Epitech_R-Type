@@ -2,7 +2,6 @@
 // Created by mathi on 02/11/2020.
 //
 
-#include <iostream>
 #include <sfml/SpriteSfml.hpp>
 #include "sceneManagement/SceneManager.hpp"
 #include "systems/DrawSystem.hpp"

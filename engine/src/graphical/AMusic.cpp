@@ -6,9 +6,9 @@
 */
 
 
-#include "graphical/ASound.hpp"
+#include "graphical/AMusic.hpp"
 
-void Engine::ASound::setVolume(float volume)
+void Engine::AMusic::setVolume(float volume)
 {
     _volume = volume;
 }
