@@ -113,8 +113,12 @@ void Engine::SceneManager::addScene(std::unique_ptr<Engine::AScene> scene)
 
 void Engine::SceneManager::switchScene(int id)
 {
-    if (Utils::isInMap(this->_scenes, id))
+    if (Utils::isInMap(this->_scenes, this->_current))
+        this->_scenes[_current]->onExit();
+    if (Utils::isInMap(this->_scenes, id)) {
         this->_current = id;
+        this->_scenes[id]->onFocus();
+    }
     //TODO: else
     //TODO:     throw Error("No such scene of id: " + id);
 }
