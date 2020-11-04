@@ -39,7 +39,9 @@ set(ENGINE_SOURCES
         engine/src/graphical/AMusic.cpp
         engine/src/systems/MusicSystem.cpp
         engine/src/graphical/ATexture.cpp
-        engine/include/graphical/ATexture.hpp engine/src/graphical/AText.cpp engine/include/graphical/AText.hpp engine/src/graphical/AFont.cpp engine/include/graphical/AFont.hpp)
+        engine/src/graphical/AText.cpp
+        engine/src/graphical/AFont.cpp
+        )
 
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
@@ -94,7 +96,11 @@ set(ENGINE_INCLUDES
 		engine/include/systems/MusicSystem.hpp
         engine/include/graphical/ATexture.hpp
 		engine/include/systems/MusicSystem.hpp
-        engine/include/enumerations/ButtonState.hpp engine/src/graphical/AText.cpp engine/include/graphical/AText.hpp engine/src/graphical/AFont.cpp engine/include/graphical/AFont.hpp engine/include/tools/Color.hpp)
+        engine/include/enumerations/ButtonState.hpp
+        engine/include/graphical/AText.hpp
+        engine/include/graphical/AFont.hpp
+        engine/include/tools/Color.hpp
+        )
 
 set(CLIENT_SOURCES
         client/src/main.cpp
@@ -109,8 +115,9 @@ set(CLIENT_SOURCES
         client/src/sfml/TextureSFML.cpp
         client/src/sfml/TextureSFML.cpp
         client/src/scenes/HowToPlay.cpp
-
-        client/src/sfml/TextSFML.cpp client/include/sfml/TextSFML.hpp client/src/sfml/FontSFML.cpp client/include/sfml/FontSFML.hpp)
+        client/src/sfml/TextSFML.cpp
+        client/src/sfml/FontSFML.cpp
+        )
 
 set(CLIENT_INCLUDES
         client/include/Core.hpp
@@ -134,7 +141,9 @@ set(CLIENT_INCLUDES
         client/include/sfml/TextureSFML.hpp
         client/include/sfml/TextureSFML.hpp
         client/include/scenes/HowToPlay.hpp
-        client/src/sfml/TextSFML.cpp client/include/sfml/TextSFML.hpp client/src/sfml/FontSFML.cpp client/include/sfml/FontSFML.hpp)
+        client/include/sfml/TextSFML.hpp
+        client/include/sfml/FontSFML.hpp
+        )
 
 set(SERVER_SOURCES
         server/main.cpp
@@ -142,7 +151,6 @@ set(SERVER_SOURCES
         server/client/Client.cpp
         server/lobby/lobbyManager/LobbyManager.cpp
         server/lobby/lobby/Lobby.cpp
-
         )
 
 set(SERVER_INCLUDES
