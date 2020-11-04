@@ -42,7 +42,7 @@ public:
 
         for (auto &e : this->getEntities()) {
             music = e->getComponent<Engine::MusicComponent>();
-            if (music)
+            if (music && !music->getMusic()->isStopped())
                 music->getMusic()->pause();
         }
     }
@@ -52,7 +52,7 @@ public:
 
         for (auto &e : this->getEntities()) {
             music = e->getComponent<Engine::MusicComponent>();
-            if (music)
+            if (music && !music->getMusic()->isStopped())
                 music->getMusic()->play();
         }
     }
