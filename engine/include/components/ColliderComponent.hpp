@@ -11,13 +11,25 @@ namespace Engine {
 
     class ColliderComponent : public Engine::Component {
     private:
+        int _collisionMask;
+        bool _isActive;
         std::vector<std::shared_ptr<Engine::Entity>> _collisions;
 
     public:
-        explicit ColliderComponent() : Component() {}
+        explicit ColliderComponent() : _collisionMask(0), _isActive(false), Engine::Component() {}
+        explicit ColliderComponent(int mask) : _collisionMask(mask), _isActive(true), Engine::Component() {}
 
         void clearCollisions() {this->_collisions.clear();};
-        void collide(std::shared_ptr<Entity> &entity) {_collisions.emplace_back(entity);}
+
+        void collide(std::shared_ptr<Entity> &entity) {
+            if (this->_isActive)
+                _collisions.emplace_back(entity);
+        }
+
+        void setActive(bool active) {this->_isActive = active;}
+        void setCollisionMask(int mask) {this->_collisionMask = mask;}
+
+        [[nodiscard]] int getCollisionMask() const {return this->_collisionMask;}
 
         [[nodiscard]] std::vector<std::shared_ptr<Engine::Entity>> getCollisions() const {
             return this->_collisions;
