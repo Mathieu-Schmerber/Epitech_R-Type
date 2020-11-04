@@ -23,7 +23,7 @@ using boost::asio::ip::tcp;
 class Session : public std::enable_shared_from_this<Session>
 {
 public:
-    Session(boost::asio::io_service& io_service);
+    Session(boost::asio::io_service& io_service, int id);
 
     tcp::socket& get_socket();
     void start();
@@ -33,7 +33,7 @@ private:
     tcp::socket socket;
     enum { max_length = 1024 };
     char data[max_length]{};
-    int _id = 499;
+    int _id;
 };
 
 class Client;
@@ -49,6 +49,7 @@ private:
     boost::asio::io_service _io_service;
     tcp::acceptor _acceptor;
     std::vector<Client *> _connected{};
+    int _id;
 };
 
 #endif //RTYPE_TCPSOCKET_HPP
