@@ -5,7 +5,7 @@
 #include "systems/AnimationSystem.hpp"
 #include "components/AnimationComponent.hpp"
 #include "components/SpriteComponent.hpp"
-#include "Timer.hpp"
+#include "tools/Timer.hpp"
 
 Engine::AnimationSystem::AnimationSystem() : Engine::System()
 {

@@ -29,6 +29,7 @@ public:
     void setFrameRate(int frameRate) override;
 
     friend class SpriteSFML;
+    friend class TextSFML;
     friend class EventsSFML;
 
 private:

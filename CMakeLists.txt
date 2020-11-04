@@ -39,7 +39,7 @@ set(ENGINE_SOURCES
         engine/src/graphical/AMusic.cpp
         engine/src/systems/MusicSystem.cpp
         engine/src/graphical/ATexture.cpp
-        engine/include/graphical/ATexture.hpp)
+        engine/include/graphical/ATexture.hpp engine/src/graphical/AText.cpp engine/include/graphical/AText.hpp engine/src/graphical/AFont.cpp engine/include/graphical/AFont.hpp)
 
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
@@ -78,7 +78,7 @@ set(ENGINE_INCLUDES
         engine/include/components/ParallaxComponent.hpp
         engine/include/systems/ParallaxSystem.hpp
         engine/include/entities/ParallaxSlide.hpp
-        engine/include/Timer.hpp
+        engine/include/tools/Timer.hpp
         engine/include/components/AnimationComponent.hpp
         engine/include/systems/AnimationSystem.hpp
         engine/include/sceneManagement/AEntityGroup.hpp
@@ -94,7 +94,7 @@ set(ENGINE_INCLUDES
 		engine/include/systems/MusicSystem.hpp
         engine/include/graphical/ATexture.hpp
 		engine/include/systems/MusicSystem.hpp
-        engine/include/enumerations/ButtonState.hpp)
+        engine/include/enumerations/ButtonState.hpp engine/src/graphical/AText.cpp engine/include/graphical/AText.hpp engine/src/graphical/AFont.cpp engine/include/graphical/AFont.hpp engine/include/tools/Color.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
@@ -110,7 +110,7 @@ set(CLIENT_SOURCES
         client/src/sfml/TextureSFML.cpp
         client/src/scenes/HowToPlay.cpp
 
-        )
+        client/src/sfml/TextSFML.cpp client/include/sfml/TextSFML.hpp client/src/sfml/FontSFML.cpp client/include/sfml/FontSFML.hpp)
 
 set(CLIENT_INCLUDES
         client/include/Core.hpp
@@ -134,7 +134,7 @@ set(CLIENT_INCLUDES
         client/include/sfml/TextureSFML.hpp
         client/include/sfml/TextureSFML.hpp
         client/include/scenes/HowToPlay.hpp
-        )
+        client/src/sfml/TextSFML.cpp client/include/sfml/TextSFML.hpp client/src/sfml/FontSFML.cpp client/include/sfml/FontSFML.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp

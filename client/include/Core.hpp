@@ -10,7 +10,7 @@
 
 #include "graphical/AGraphical.hpp"
 #include "sceneManagement/SceneManager.hpp"
-#include "Timer.hpp"
+#include "tools/Timer.hpp"
 
 class Core
 {
