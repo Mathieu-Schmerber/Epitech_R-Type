@@ -17,7 +17,8 @@ Engine::MusicSystem::MusicSystem()
 void Engine::MusicSystem::update()
 {
     for (auto &e : this->_entities) {
-        if (!e->getComponent<MusicComponent>()->getMusic()->isPlaying())
+        if (!e->getComponent<MusicComponent>()->getMusic()->isPlaying()
+        && !e->getComponent<MusicComponent>()->getMusic()->isPaused())
             e->getComponent<MusicComponent>()->getMusic()->play();
     }
 }

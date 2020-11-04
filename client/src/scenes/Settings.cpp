@@ -41,7 +41,7 @@ void changeAudioEnableMusic(std::shared_ptr<Engine::AScene> &settings)
 
     if (Engine::Utils::isInMap(group, static_cast<int>(GroupId::MENU_MUSIC))) {
 
-        group[GroupId::MENU_MUSIC]->getEntities()[0]->getComponent<Engine::MusicComponent>()->getMusic()->stop();
+        group[GroupId::MENU_MUSIC]->getEntities()[0]->getComponent<Engine::MusicComponent>()->getMusic()->pause();
     }
 }
 

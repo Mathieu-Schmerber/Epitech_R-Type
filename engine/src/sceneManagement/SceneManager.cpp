@@ -13,13 +13,21 @@ Engine::SceneManager::~SceneManager()
 
 void Engine::SceneManager::parseRequest(const Engine::SceneRequest &request)
 {
+    auto prev = this->getCurrent()->getGroupAccess();
+    std::map<int, std::shared_ptr<AEntityGroup>> now;
+
     switch (request.type()) {
         case QueryType::SWITCH_SCENE:
-            for (auto &grp : this->getCurrent()->getGroupAccess())
-                grp.second->freeze();
             this->switchScene(request.arguments().first);
-            for (auto &grp : this->getCurrent()->getGroupAccess())
-                grp.second->unFreeze();
+            now = this->getCurrent()->getGroupAccess();
+            for (auto &grp : now) {
+                if (!Utils::isInMap(prev, grp.first))
+                    grp.second->unFreeze();
+            }
+            for (auto &grp : prev) {
+                if (!Utils::isInMap(now, grp.first))
+                    grp.second->freeze();
+            }
             break;
         case QueryType::PUSH_TO_GROUP:
             this->addToGroup(request.arguments().first, request.arguments().second);
