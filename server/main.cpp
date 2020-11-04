@@ -1,9 +1,14 @@
 #include "TcpSocket.hpp"
 
-int main()
+void testServer()
 {
     Server server(4242);
 
     server.run();
+}
+
+int main()
+{
+    testServer();
     return 0;
 }
