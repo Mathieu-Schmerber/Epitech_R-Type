@@ -18,9 +18,21 @@
 #include "entities/Music.hpp"
 #include "enumerations/ButtonState.hpp"
 
+void resetHowToPlayScene(std::shared_ptr<Engine::AScene> &howToPlay)
+{
+    auto howToPlayObject = std::dynamic_pointer_cast<HowToPlay>(howToPlay);
+    auto enginesDrawable = howToPlayObject->getEnginesDrawable();
+
+    enginesDrawable[0]->getComponent<Engine::SpriteComponent>()->hasToBeDraw(true);
+    for (auto it = enginesDrawable.begin() + 1; it != enginesDrawable.end(); it++ ) {
+        (*it)->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
+    }
+    howToPlayObject->setEnginesDrawableIndex(0);
+}
+
 void fromHowToPlayToMenu(std::shared_ptr<Engine::AScene> &howToPlay)
 {
-    std::dynamic_pointer_cast<HowToPlay>(howToPlay)->setEnginesDrawableIndex(0);
+    resetHowToPlayScene(howToPlay);
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::MAIN_MENU);
 
     howToPlay->pushRequest(request);
@@ -31,6 +43,7 @@ void goToNextHowToPlayScreen(std::shared_ptr<Engine::AScene> &howToPlay)
     auto howToPlayObject = std::dynamic_pointer_cast<HowToPlay>(howToPlay);
     auto enginesDrawable = howToPlayObject->getEnginesDrawable();
     auto index = howToPlayObject->getEnginesDrawableIndex();
+    auto enginePowerUp = howToPlayObject->getPowerUpEngine();
 
     if (index == HowToPlayContext::BONUS - 1) {
         for (auto &engines : howToPlayObject->getEnginesDrawableBonus())
@@ -40,16 +53,47 @@ void goToNextHowToPlayScreen(std::shared_ptr<Engine::AScene> &howToPlay)
             engines->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
     }
 
+    if (index == HowToPlayContext::WEAPONS - 1) {
+        enginePowerUp->getComponent<Engine::SpriteComponent>()->hasToBeDraw(true);
+    } else {
+        enginePowerUp->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
+    }
+
     if (enginesDrawable[index] != enginesDrawable.back()) {
         enginesDrawable[index]->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
         enginesDrawable[index + 1]->getComponent<Engine::SpriteComponent>()->hasToBeDraw(true);
         howToPlayObject->setEnginesDrawableIndex(index + 1);
     } else {
-        enginesDrawable[0]->getComponent<Engine::SpriteComponent>()->hasToBeDraw(true);
-        for (auto it = enginesDrawable.begin() + 1; it != enginesDrawable.end(); it++ ) {
-            (*it)->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
-        }
-        howToPlayObject->setEnginesDrawableIndex(0);
+        fromHowToPlayToMenu(howToPlay);
+    }
+}
+
+void goToPreviousHowToPlayScreen(std::shared_ptr<Engine::AScene> &howToPlay)
+{
+    auto howToPlayObject = std::dynamic_pointer_cast<HowToPlay>(howToPlay);
+    auto enginesDrawable = howToPlayObject->getEnginesDrawable();
+    auto index = howToPlayObject->getEnginesDrawableIndex();
+    auto enginePowerUp = howToPlayObject->getPowerUpEngine();
+
+    if (index == HowToPlayContext::BONUS + 1) {
+        for (auto &engines : howToPlayObject->getEnginesDrawableBonus())
+            engines->getComponent<Engine::SpriteComponent>()->hasToBeDraw(true);
+    } else {
+        for (auto &engines : howToPlayObject->getEnginesDrawableBonus())
+            engines->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
+    }
+
+    if (index == HowToPlayContext::WEAPONS + 1) {
+        enginePowerUp->getComponent<Engine::SpriteComponent>()->hasToBeDraw(true);
+    } else {
+        enginePowerUp->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
+    }
+
+    if (enginesDrawable[index] != enginesDrawable.front()) {
+        enginesDrawable[index]->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
+        enginesDrawable[index - 1]->getComponent<Engine::SpriteComponent>()->hasToBeDraw(true);
+        howToPlayObject->setEnginesDrawableIndex(index - 1);
+    } else {
         fromHowToPlayToMenu(howToPlay);
     }
 }
@@ -64,7 +108,7 @@ HowToPlay::HowToPlay(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<E
 void HowToPlay::initEntities()
 {
     auto goBackButtonSprite = std::make_unique<SpriteSFML>(GO_BACK_BUTTON_PATH);
-    auto goBackButtonEngine = new Engine::Button({GO_BACK_BUTTON_POSITION_X, GO_BACK_BUTTON_POSITION_Y}, std::move(goBackButtonSprite), &fromHowToPlayToMenu, std::shared_ptr<Engine::AScene>(this));
+    auto goBackButtonEngine = new Engine::Button({GO_BACK_BUTTON_POSITION_X, GO_BACK_BUTTON_POSITION_Y}, std::move(goBackButtonSprite), &goToPreviousHowToPlayScreen, std::shared_ptr<Engine::AScene>(this));
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
@@ -95,40 +139,59 @@ void HowToPlay::initEntities()
     _enginesDrawableHowToPlayScreen.push_back(howToPlayEngine4);
 
     auto bonusSprite1 = std::make_unique<SpriteSFML>(BONUS_1_PATH);
+    bonusSprite1->setScale({static_cast<float>(BONUS_SCALE_X), static_cast<float>(BONUS_SCALE_Y)});
     auto bonusEngine1 = new Engine::Drawable({BONUS_1_POSITION_X, BONUS_1_POSITION_Y}, std::move(bonusSprite1));
     bonusEngine1->addComponent<Engine::AnimationComponent>(0.4);
     bonusEngine1->getComponent<Engine::AnimationComponent>()->addAnimation(0, {
         {{0, 0}, {BONUS_1_WIDTH, BONUS_1_HEIGHT}},
         {{BONUS_1_WIDTH, 0}, {BONUS_1_WIDTH, BONUS_1_HEIGHT}},
-        {{BONUS_1_WIDTH * 2, 0},{BONUS_1_WIDTH, BONUS_1_HEIGHT}}
+        {{BONUS_1_WIDTH * 2, 0},{BONUS_1_WIDTH, BONUS_1_HEIGHT}},
+        {{BONUS_1_WIDTH * 3, 0},{BONUS_1_WIDTH, BONUS_1_HEIGHT}}
     });
     bonusEngine1->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
     bonusEngine1->getComponent<Engine::AnimationComponent>()->setAnimation(0);
     _enginesDrawableHowToPlayBonus.push_back(bonusEngine1);
 
     auto bonusSprite2 = std::make_unique<SpriteSFML>(BONUS_2_PATH);
+    bonusSprite2->setScale({static_cast<float>(BONUS_SCALE_X), static_cast<float>(BONUS_SCALE_Y)});
     auto bonusEngine2 = new Engine::Drawable({BONUS_2_POSITION_X, BONUS_2_POSITION_Y}, std::move(bonusSprite2));
     bonusEngine2->addComponent<Engine::AnimationComponent>(0.4);
     bonusEngine2->getComponent<Engine::AnimationComponent>()->addAnimation(1, {
         {{0, 0}, {BONUS_2_WIDTH, BONUS_2_HEIGHT}},
         {{BONUS_2_WIDTH, 0}, {BONUS_2_WIDTH, BONUS_2_HEIGHT}},
-        {{BONUS_2_WIDTH * 2, 0},{BONUS_2_WIDTH, BONUS_2_HEIGHT}}
+        {{BONUS_2_WIDTH * 2, 0},{BONUS_2_WIDTH, BONUS_2_HEIGHT}},
+        {{BONUS_2_WIDTH * 3, 0},{BONUS_2_WIDTH, BONUS_2_HEIGHT}}
     });
     bonusEngine2->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
     bonusEngine2->getComponent<Engine::AnimationComponent>()->setAnimation(1);
     _enginesDrawableHowToPlayBonus.push_back(bonusEngine2);
 
     auto bonusSprite3 = std::make_unique<SpriteSFML>(BONUS_3_PATH);
+    bonusSprite3->setScale({static_cast<float>(BONUS_SCALE_X), static_cast<float>(BONUS_SCALE_Y)});
     auto bonusEngine3 = new Engine::Drawable({BONUS_3_POSITION_X, BONUS_3_POSITION_Y}, std::move(bonusSprite3));
     bonusEngine3->addComponent<Engine::AnimationComponent>(0.4);
     bonusEngine3->getComponent<Engine::AnimationComponent>()->addAnimation(2, {
         {{0, 0}, {BONUS_3_WIDTH, BONUS_3_HEIGHT}},
         {{BONUS_3_WIDTH, 0}, {BONUS_3_WIDTH, BONUS_3_HEIGHT}},
-        {{BONUS_3_WIDTH * 2, 0},{BONUS_3_WIDTH, BONUS_3_HEIGHT}}
+        {{BONUS_3_WIDTH * 2, 0},{BONUS_3_WIDTH, BONUS_3_HEIGHT}},
+        {{BONUS_3_WIDTH * 3, 0},{BONUS_3_WIDTH, BONUS_3_HEIGHT}}
     });
     bonusEngine3->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
     bonusEngine3->getComponent<Engine::AnimationComponent>()->setAnimation(2);
     _enginesDrawableHowToPlayBonus.push_back(bonusEngine3);
+
+    auto powerUpSprite = std::make_unique<SpriteSFML>(POWER_UP_PATH);
+    powerUpSprite->setScale({static_cast<float>(POWER_UP_SCALE_X), static_cast<float>(POWER_UP_SCALE_Y)});
+    _enginesPowerUp = new Engine::Drawable({POWER_UP_POSITION_X, POWER_UP_POSITION_Y}, std::move(powerUpSprite));
+    _enginesPowerUp->addComponent<Engine::AnimationComponent>(0.4);
+    _enginesPowerUp->getComponent<Engine::AnimationComponent>()->addAnimation(3, {
+        {{0, 0}, {POWER_UP_WIDTH, POWER_UP_HEIGHT}},
+        {{POWER_UP_WIDTH, 0}, {POWER_UP_WIDTH, POWER_UP_HEIGHT}},
+        {{POWER_UP_WIDTH * 2, 0},{POWER_UP_WIDTH, POWER_UP_HEIGHT}},
+        {{POWER_UP_WIDTH * 3, 0},{POWER_UP_WIDTH, POWER_UP_HEIGHT}}
+    });
+    _enginesPowerUp->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
+    _enginesPowerUp->getComponent<Engine::AnimationComponent>()->setAnimation(3);
     
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(howToPlayEngine1));
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(howToPlayEngine2));
@@ -139,6 +202,7 @@ void HowToPlay::initEntities()
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(bonusEngine1));
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(bonusEngine2));
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(bonusEngine3));
+    this->spawnEntity(std::shared_ptr<Engine::Drawable>(_enginesPowerUp));
 }
 
 void HowToPlay::initSystems()
@@ -179,4 +243,9 @@ void HowToPlay::setEnginesDrawableIndex(unsigned char index)
 std::vector<Engine::Drawable *> HowToPlay::getEnginesDrawableBonus() const
 {
     return _enginesDrawableHowToPlayBonus;
+}
+
+Engine::Drawable *HowToPlay::getPowerUpEngine() const
+{
+    return _enginesPowerUp;
 }

@@ -49,21 +49,32 @@
 
 #define BONUS_1_PATH "../../client/assets/images/bonus/bonus_1_160x36_40x36.png"
 #define BONUS_1_POSITION_X 860
-#define BONUS_1_POSITION_Y 480
+#define BONUS_1_POSITION_Y 460
 #define BONUS_1_WIDTH 40
 #define BONUS_1_HEIGHT 36
 
 #define BONUS_2_PATH "../../client/assets/images/bonus/bonus_2_160x36_40x36.png"
 #define BONUS_2_POSITION_X 960
-#define BONUS_2_POSITION_Y 480
+#define BONUS_2_POSITION_Y 460
 #define BONUS_2_WIDTH 40
 #define BONUS_2_HEIGHT 36
 
 #define BONUS_3_PATH "../../client/assets/images/bonus/bonus_3_160x36_40x36.png"
 #define BONUS_3_POSITION_X 1060
-#define BONUS_3_POSITION_Y 480
+#define BONUS_3_POSITION_Y 460
 #define BONUS_3_WIDTH 40
 #define BONUS_3_HEIGHT 36
+
+#define BONUS_SCALE_X 1.75
+#define BONUS_SCALE_Y 1.75
+
+#define POWER_UP_PATH "../../client/assets/images/weapons/power_up_1_100x20_25x20.png"
+#define POWER_UP_POSITION_X 924
+#define POWER_UP_POSITION_Y 460
+#define POWER_UP_WIDTH 24
+#define POWER_UP_HEIGHT 20
+#define POWER_UP_SCALE_X 3
+#define POWER_UP_SCALE_Y 3
 
 enum HowToPlayContext {
     PRELUDE,
@@ -80,6 +91,7 @@ class HowToPlay : public Engine::AScene
     std::vector<Engine::Drawable *> _enginesDrawableHowToPlayScreen;
     int _enginesDrawableHowToPlayScreenIndex = 0;
     std::vector<Engine::Drawable *> _enginesDrawableHowToPlayBonus;
+    Engine::Drawable *_enginesPowerUp;
 
     void initEntities() final;
     void initSystems() final;
@@ -89,6 +101,7 @@ class HowToPlay : public Engine::AScene
     int getEnginesDrawableIndex() const;
     void setEnginesDrawableIndex(unsigned char index);
     std::vector<Engine::Drawable *> getEnginesDrawableBonus() const;
+    Engine::Drawable *getPowerUpEngine() const;
     HowToPlay(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events);
     std::shared_ptr<Engine::AWindow> getWindow() const;
 };
