@@ -19,9 +19,10 @@
 namespace Engine {
 
     class AText {
+    public:
         virtual void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) = 0;
 
-        virtual void setFont(std::shared_ptr<Engine::AFont> &font) = 0;
+        virtual void setFont(std::shared_ptr<Engine::AFont> &font);
         virtual void setScale(Engine::Size<float> scale) = 0;
         virtual void setOrigin(Engine::Point<float> origin) = 0;
         virtual void setFillColor(Engine::Color color) = 0;
@@ -35,6 +36,10 @@ namespace Engine {
         [[nodiscard]] virtual Engine::Point<float> getPosition() const = 0;
         [[nodiscard]] virtual Engine::Size<int> getSize() const = 0;
         [[nodiscard]] virtual float getRotation() const = 0;
+        [[nodiscard]] virtual std::shared_ptr<Engine::AFont> getFont() const;
+
+    protected:
+        std::shared_ptr<Engine::AFont> _font;
     };
 }
 

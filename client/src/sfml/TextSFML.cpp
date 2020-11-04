@@ -55,7 +55,7 @@ void TextSFML::setString(const std::string text)
 
 void TextSFML::setFont(std::shared_ptr<Engine::AFont> &font)
 {
-    _font = font;
+    AText::setFont(font);
     _text.setFont(std::dynamic_pointer_cast<FontSFML>(font)->getFont());
 }
 

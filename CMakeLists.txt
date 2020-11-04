@@ -100,7 +100,7 @@ set(ENGINE_INCLUDES
         engine/include/graphical/AText.hpp
         engine/include/graphical/AFont.hpp
         engine/include/tools/Color.hpp
-        )
+        engine/include/components/TextComponent.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp

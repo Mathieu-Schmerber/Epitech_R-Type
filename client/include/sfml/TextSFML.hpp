@@ -23,8 +23,6 @@ class TextSFML : public Engine::AText {
 private:
     sf::Text _text;
     sf::String _string;
-    std::shared_ptr<Engine::AFont> _font;
-
 
 public:
     TextSFML(const std::string text, std::shared_ptr<Engine::AFont> &font, unsigned int characterSize) : Engine::AText() {
