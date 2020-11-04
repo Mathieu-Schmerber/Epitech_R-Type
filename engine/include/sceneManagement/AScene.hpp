@@ -19,7 +19,7 @@ namespace Engine {
         std::vector<Engine::SceneRequest> _requests;
         std::vector<std::unique_ptr<Engine::System>> _systems;
         std::vector<std::shared_ptr<Engine::Entity>> _entities;
-        std::vector<std::shared_ptr<Engine::AEntityGroup>> _groups;
+        std::map<int, std::shared_ptr<Engine::AEntityGroup>> _groups;
 
         virtual void initEntities();
         virtual void initSystems();
@@ -37,9 +37,9 @@ namespace Engine {
         [[nodiscard]] std::vector<Engine::SceneRequest> getRequests() const;
         void pushRequest(const SceneRequest &request);
         void clearRequests();
-        void addGroupAccess(const std::shared_ptr<Engine::AEntityGroup> &group);
-        [[nodiscard]] std::vector<std::shared_ptr<Engine::AEntityGroup>> getGroupAccess() const;
-        void onGroupUpdate(const std::shared_ptr<AEntityGroup> &group);
+        void addGroupAccess(int id, const std::shared_ptr<Engine::AEntityGroup> &group);
+        [[nodiscard]] std::map<int, std::shared_ptr<Engine::AEntityGroup>> getGroupAccess() const;
+        void onGroupUpdate(int id);
         virtual void update();
     };
 

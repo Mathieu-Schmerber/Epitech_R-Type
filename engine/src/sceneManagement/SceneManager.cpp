@@ -16,15 +16,15 @@ void Engine::SceneManager::parseRequest(const Engine::SceneRequest &request)
     switch (request.type()) {
         case QueryType::SWITCH_SCENE:
             for (auto &grp : this->getCurrent()->getGroupAccess())
-                grp->freeze();
+                grp.second->freeze();
             this->switchScene(request.arguments().first);
             for (auto &grp : this->getCurrent()->getGroupAccess())
-                grp->unFreeze();
+                grp.second->unFreeze();
             break;
         case QueryType::PUSH_TO_GROUP:
             this->addToGroup(request.arguments().first, request.arguments().second);
             for (auto &s : this->_scenes)
-                s.second->onGroupUpdate(this->_groups[request.arguments().first]);
+                s.second->onGroupUpdate(request.arguments().first);
             break;
         default:
             break;
@@ -83,14 +83,14 @@ void Engine::SceneManager::addToGroup(int id, std::vector<std::shared_ptr<Engine
 void Engine::SceneManager::setAccessGroup(int scene, int group)
 {
     if (Utils::isInMap(this->_scenes, scene) && Utils::isInMap(this->_groups, group))
-        this->_scenes[scene]->addGroupAccess(this->_groups[group]);
+        this->_scenes[scene]->addGroupAccess(group, this->_groups[group]);
 }
 
 void Engine::SceneManager::setAccessGroup(int scene, const std::vector<int> &groups)
 {
     for (int group : groups) {
         if (Utils::isInMap(this->_scenes, scene) && Utils::isInMap(this->_groups, group))
-            this->_scenes[scene]->addGroupAccess(this->_groups[group]);
+            this->_scenes[scene]->addGroupAccess(group, this->_groups[group]);
     }
 }
 

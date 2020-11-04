@@ -19,22 +19,22 @@ void Engine::AScene::updateDeltatime(double delta)
         sys->setDeltatime(delta);
 }
 
-void Engine::AScene::addGroupAccess(const std::shared_ptr<Engine::AEntityGroup> &group)
+void Engine::AScene::addGroupAccess(int id, const std::shared_ptr<Engine::AEntityGroup> &group)
 {
-    this->_groups.push_back(group);
+    this->_groups[id] = group;
     for (auto &e : group->getEntities())
         this->spawnEntity(e);
 }
 
-std::vector<std::shared_ptr<Engine::AEntityGroup>> Engine::AScene::getGroupAccess() const
+std::map<int, std::shared_ptr<Engine::AEntityGroup>> Engine::AScene::getGroupAccess() const
 {
     return this->_groups;
 }
 
-void Engine::AScene::onGroupUpdate(const std::shared_ptr<AEntityGroup> &group)
+void Engine::AScene::onGroupUpdate(int id)
 {
-    if (Utils::isInVector(this->_groups, group)) {
-        for (auto &e : group->getEntities()) {
+    if (Utils::isInMap(this->_groups, id)) {
+        for (auto &e : this->_groups[id]->getEntities()) {
             if (!Utils::isInVector(this->_entities, e))
                 this->spawnEntity(e);
         }
