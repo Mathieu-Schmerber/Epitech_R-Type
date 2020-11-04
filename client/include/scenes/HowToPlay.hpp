@@ -10,6 +10,7 @@
 #include "graphical/AWindow.hpp"
 #include "graphical/AEvents.hpp"
 #include "entities/Drawable.hpp"
+#include "entities/Button.hpp"
 
 #define GO_BACK_BUTTON_PATH "../../client/assets/images/buttons/left_arrow/left_arrow_full_192x64.png"
 #define GO_BACK_BUTTON_POSITION_X 30
@@ -88,20 +89,21 @@ class HowToPlay : public Engine::AScene
     private:
     std::shared_ptr<Engine::AWindow> _window;
     std::shared_ptr<Engine::AEvents> _events;
-    std::vector<Engine::Drawable *> _enginesDrawableHowToPlayScreen;
+    std::vector<std::shared_ptr<Engine::Drawable>> _enginesDrawableHowToPlayScreen;
     int _enginesDrawableHowToPlayScreenIndex = 0;
-    std::vector<Engine::Drawable *> _enginesDrawableHowToPlayBonus;
-    Engine::Drawable *_enginesPowerUp;
+    std::vector<std::shared_ptr<Engine::Drawable>> _enginesDrawableHowToPlayBonus;
+    std::shared_ptr<Engine::Drawable> _enginesPowerUp;
+    std::vector<std::pair<std::shared_ptr<Engine::Button>, std::shared_ptr<Engine::Button>>> _selectorButtons;
 
     void initEntities() final;
     void initSystems() final;
 
     public:
-    std::vector<Engine::Drawable *> getEnginesDrawable() const;
+    std::vector<std::shared_ptr<Engine::Drawable>> getEnginesDrawable() const;
     int getEnginesDrawableIndex() const;
     void setEnginesDrawableIndex(unsigned char index);
-    std::vector<Engine::Drawable *> getEnginesDrawableBonus() const;
-    Engine::Drawable *getPowerUpEngine() const;
+    std::vector<std::shared_ptr<Engine::Drawable>> getEnginesDrawableBonus() const;
+    std::shared_ptr<Engine::Drawable> getPowerUpEngine() const;
     HowToPlay(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events);
     std::shared_ptr<Engine::AWindow> getWindow() const;
 };
