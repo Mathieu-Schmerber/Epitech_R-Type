@@ -143,7 +143,7 @@ set(CLIENT_INCLUDES
         client/include/scenes/HowToPlay.hpp
         client/include/sfml/TextSFML.hpp
         client/include/sfml/FontSFML.hpp
-        )
+        client/include/scenes/SceneEnum.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp

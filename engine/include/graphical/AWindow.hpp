@@ -28,8 +28,8 @@ namespace Engine {
         virtual void setFrameRate(int frameRate) = 0;
         void setSize(const std::pair<int, int> &size);
         virtual void setTitle(const std::string &title);
-        std::pair<int, int> getSize() const;
-        std::string getTitle() const;
+        [[nodiscard]] std::pair<int, int> getSize() const;
+        [[nodiscard]] std::string getTitle() const;
 
     };
 }

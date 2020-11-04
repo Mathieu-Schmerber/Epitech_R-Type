@@ -17,6 +17,7 @@
 #include "sfml/MusicSFML.hpp"
 #include "entities/Music.hpp"
 #include "enumerations/ButtonState.hpp"
+#include "entities/Button.hpp"
 
 void resetHowToPlayScene(std::shared_ptr<Engine::AScene> &howToPlay)
 {
@@ -192,7 +193,7 @@ void HowToPlay::initEntities()
     });
     _enginesPowerUp->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
     _enginesPowerUp->getComponent<Engine::AnimationComponent>()->setAnimation(3);
-    
+
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(howToPlayEngine1));
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(howToPlayEngine2));
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(howToPlayEngine3));

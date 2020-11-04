@@ -1,0 +1,132 @@
+//
+// Created by paul on 11/4/20.
+//
+
+#ifndef RTYPE_SCENEENUM_HPP
+#define RTYPE_SCENEENUM_HPP
+
+/* GLOBAL */
+
+#define GO_BACK_BUTTON_PATH "../../client/assets/images/buttons/left_arrow/left_arrow_full_192x64.png"
+#define GO_BACK_BUTTON_Y 0
+#define GO_BACK_BUTTON_HEIGHT 64
+#define GO_BACK_BUTTON_WIDTH 64
+#define GO_BACK_BUTTON_X_IDLE 0
+#define GO_BACK_BUTTON_X_HOVER 64
+#define GO_BACK_BUTTON_X_CLICKED 128
+
+#define GO_NEXT_BUTTON_PATH "../../client/assets/images/buttons/right_arrow/right_arrow_full_192x64.png"
+#define GO_NEXT_BUTTON_Y 0
+#define GO_NEXT_BUTTON_HEIGHT 64
+#define GO_NEXT_BUTTON_WIDTH 64
+#define GO_NEXT_BUTTON_X_IDLE 0
+#define GO_NEXT_BUTTON_X_HOVER 64
+#define GO_NEXT_BUTTON_X_CLICKED 128
+
+#define BONUS_1_PATH "../../client/assets/images/bonus/bonus_1_160x36_40x36.png"
+#define BONUS_1_WIDTH 40
+#define BONUS_1_HEIGHT 36
+
+#define BONUS_2_PATH "../../client/assets/images/bonus/bonus_2_160x36_40x36.png"
+#define BONUS_2_WIDTH 40
+#define BONUS_2_HEIGHT 36
+
+#define BONUS_3_PATH "../../client/assets/images/bonus/bonus_3_160x36_40x36.png"
+#define BONUS_3_WIDTH 40
+#define BONUS_3_HEIGHT 36
+
+#define POWER_UP_PATH "../../client/assets/images/weapons/power_up_1_100x20_25x20.png"
+#define POWER_UP_WIDTH 24
+#define POWER_UP_HEIGHT 20
+
+/* SETTINGS */
+
+#define FULLSCREEN_TEXT_PATH "../../client/assets/texts/fullscreen_text_462x51.png"
+#define FULLSCREEN_TEXT_POSITION_X 498
+#define FULLSCREEN_TEXT_POSITION_Y 250
+
+#define FRAMERATE_TEXT_PATH "../../client/assets/texts/framerate_text_415x51.png"
+#define FRAMERATE_TEXT_POSITION_X 545
+#define FRAMERATE_TEXT_POSITION_Y 400
+
+#define VSYNC_TEXT_PATH "../../client/assets/texts/vsync_text_228x51.png"
+#define VSYNC_TEXT_POSITION_X 732
+#define VSYNC_TEXT_POSITION_Y 550
+
+#define MUSIC_TEXT_PATH "../../client/assets/texts/music_text_228x51.png"
+#define MUSIC_TEXT_POSITION_X 732
+#define MUSIC_TEXT_POSITION_Y 700
+
+#define SOUND_EFFECTS_TEXT_PATH "../../client/assets/texts/sound_effects_text_573x51.png"
+#define SOUND_EFFECTS_TEXT_POSITION_X 387
+#define SOUND_EFFECTS_TEXT_POSITION_Y 850
+
+#define SOUND_EFFECTS_TEXT_PATH "../../client/assets/texts/sound_effects_text_573x51.png"
+#define SOUND_EFFECTS_TEXT_POSITION_X 387
+#define SOUND_EFFECTS_TEXT_POSITION_Y 850
+
+#define GO_BACK_BUTTON_POSITION_X 30
+#define GO_BACK_BUTTON_POSITION_Y 30
+
+
+#define LEFT_BUTTON_FULLSCREEN_POSITION_X 1200
+#define RIGHT_BUTTON_FULLSCREEN_POSITION_Y 240
+
+#define LEFT_BUTTON_FRAMERATE_POSITION_X 1200
+#define RIGHT_BUTTON_FRAMERATE_POSITION_Y 390
+
+#define LEFT_BUTTON_VSYNC_POSITION_X 1200
+#define RIGHT_BUTTON_VSYNC_POSITION_Y 540
+
+#define LEFT_BUTTON_MUSIC_POSITION_X 1200
+#define RIGHT_BUTTON_MUSIC_POSITION_Y 690
+
+#define LEFT_BUTTON_SOUND_EFFECTS_POSITION_X 1200
+#define RIGHT_BUTTON_SOUND_EFFECTS_POSITION_Y 840
+
+// END SETTINGS
+
+/* HOW TO PLAY */
+
+#define GO_BACK_BUTTON_POSITION_X 30
+#define GO_BACK_BUTTON_POSITION_Y 30
+#define GO_NEXT_BUTTON_POSITION_X 1826
+#define GO_NEXT_BUTTON_POSITION_Y 946
+
+#define HOW_TO_PLAY_1_PATH "../../client/assets/images/how_to_play/how_to_play_1.png"
+#define HOW_TO_PLAY_1_POSITION_X 0
+#define HOW_TO_PLAY_1_POSITION_Y 0
+
+#define HOW_TO_PLAY_2_PATH "../../client/assets/images/how_to_play/how_to_play_2.png"
+#define HOW_TO_PLAY_2_POSITION_X 0
+#define HOW_TO_PLAY_2_POSITION_Y 0
+
+#define HOW_TO_PLAY_3_PATH "../../client/assets/images/how_to_play/how_to_play_3.png"
+#define HOW_TO_PLAY_3_POSITION_X 0
+#define HOW_TO_PLAY_3_POSITION_Y 0
+
+#define HOW_TO_PLAY_4_PATH "../../client/assets/images/how_to_play/how_to_play_4.png"
+#define HOW_TO_PLAY_4_POSITION_X 0
+#define HOW_TO_PLAY_4_POSITION_Y 0
+
+#define BONUS_1_POSITION_X 860
+#define BONUS_1_POSITION_Y 460
+
+#define BONUS_2_POSITION_X 960
+#define BONUS_2_POSITION_Y 460
+
+#define BONUS_3_POSITION_X 1060
+#define BONUS_3_POSITION_Y 460
+
+#define BONUS_SCALE_X 1.75
+#define BONUS_SCALE_Y 1.75
+
+#define POWER_UP_POSITION_X 924
+#define POWER_UP_POSITION_Y 460
+
+#define POWER_UP_SCALE_X 3
+#define POWER_UP_SCALE_Y 3
+
+// END HOW_YO_PLAY
+
+#endif //RTYPE_SCENEENUM_HPP
