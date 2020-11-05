@@ -97,14 +97,14 @@ set(SERVER_SOURCES
         server/lobby/lobbyManager/LobbyManager.cpp
         server/lobby/lobby/Lobby.cpp
         server/client/TCP/TcpSocket.cpp
-        server/client/UDP/UdpSocketIO.cpp)
+        server/client/UDP/UdpSocketInput.cpp)
 
 set(SERVER_INCLUDES
         server/core/CoreServer.hpp
         server/client/Client.hpp
         server/lobby/lobbyManager/LobbyManager.hpp
         server/lobby/lobby/Lobby.hpp
-        server/Client/TCP/TcpSocket.hpp server/client/UDP/UdpSocketIO.hpp)
+        server/Client/TCP/TcpSocket.hpp server/client/UDP/UdpSocketInput.hpp)
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
