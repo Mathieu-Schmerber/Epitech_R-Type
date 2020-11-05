@@ -56,5 +56,6 @@ cmake-build-debug
 # IDE
 .idea
 /Babel.sln
-
 todo
+/.bash_history
+/docker.bat

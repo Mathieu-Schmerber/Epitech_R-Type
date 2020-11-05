@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.14)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "./bin")
 
 if (UNIX)
-    add_definitions(-D_GLIBCXX_USE_CXX11_ABI=1)
     set(CMAKE_CXX_STANDARD 17)
     add_definitions("-fPIC")
 endif()
@@ -41,6 +40,7 @@ set(ENGINE_SOURCES
         engine/src/graphical/ATexture.cpp
         engine/src/graphical/AText.cpp
         engine/src/graphical/AFont.cpp
+        engine/src/networking/AUdpSocketIO.cpp
         )
 
 set(ENGINE_INCLUDES
@@ -100,7 +100,9 @@ set(ENGINE_INCLUDES
         engine/include/graphical/AText.hpp
         engine/include/graphical/AFont.hpp
         engine/include/tools/Color.hpp
-        engine/include/components/TextComponent.hpp)
+        engine/include/components/TextComponent.hpp
+        engine/include/networking/AUdpSocketIO.hpp
+		)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
@@ -117,18 +119,17 @@ set(CLIENT_SOURCES
         client/src/scenes/HowToPlay.cpp
         client/src/sfml/TextSFML.cpp
         client/src/sfml/FontSFML.cpp
-        )
+        client/src/sfml/GraphicalSFML.cpp
+		)
 
 set(CLIENT_INCLUDES
         client/include/Core.hpp
         client/include/scenes/MainMenu.hpp
         client/include/scenes/SceneType.hpp
-
         client/include/sfml/GraphicalSFML.hpp
         client/include/sfml/WindowSFML.hpp
         client/include/sfml/EventsSFML.hpp
         client/include/sfml/SoundSFML.hpp
-
         client/src/sfml/SpriteSfml.cpp
         client/include/sfml/SpriteSfml.hpp
         client/include/scenes/SceneType.hpp
@@ -143,22 +144,24 @@ set(CLIENT_INCLUDES
         client/include/scenes/HowToPlay.hpp
         client/include/sfml/TextSFML.hpp
         client/include/sfml/FontSFML.hpp
-        client/include/scenes/SceneEnum.hpp)
+        client/include/scenes/SceneEnum.hpp
+		)
 
 set(SERVER_SOURCES
         server/main.cpp
-        server/core/Core.cpp
+        server/core/CoreServer.cpp
         server/client/Client.cpp
         server/lobby/lobbyManager/LobbyManager.cpp
         server/lobby/lobby/Lobby.cpp
-        )
+        server/client/TCP/TcpSocket.cpp
+        server/client/UDP/UdpSocketInput.cpp)
 
 set(SERVER_INCLUDES
-        server/core/Core.hpp
+        server/core/CoreServer.hpp
         server/client/Client.hpp
         server/lobby/lobbyManager/LobbyManager.hpp
         server/lobby/lobby/Lobby.hpp
-        )
+        server/Client/TCP/TcpSocket.hpp server/client/UDP/UdpSocketInput.hpp)
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
@@ -168,7 +171,9 @@ target_include_directories(r-type_server PRIVATE
         engine/include
         server/client
         server/lobby/lobbyManager
-        server/lobby/lobby)
+        server/lobby/lobby
+        server/Client/TCP
+        server/Client/UDP)
 target_include_directories(r-type_client PRIVATE
         client/include
         engine/include)
@@ -180,16 +185,15 @@ message("===========================================")
 target_link_libraries(r-type_client ${CONAN_LIBS})
 target_link_libraries(r-type_server ${CONAN_LIBS})
 
-#if(MSVC)
-#    set(Boost_USE_STATIC_LIBS        ON)  # only find static libs
-#    set(Boost_USE_DEBUG_LIBS         OFF) # ignore debug libs and
-#    set(Boost_USE_RELEASE_LIBS       ON)  # only find release libs
-#    set(Boost_USE_MULTITHREADED      ON)
-#    set(Boost_USE_STATIC_RUNTIME     OFF)
-#    find_package(Boost 1.71.0 COMPONENTS serialization)
-#    if(Boost_FOUND)
-#        include_directories(${Boost_INCLUDE_DIRS})
-#        target_link_libraries(r-type_client ${Boost_LIBRARIES})
-#        target_link_libraries(r-type_server ${Boost_LIBRARIES})
-#    endif()
-#endif()
+if(MSVC)
+    set(Boost_USE_STATIC_LIBS        ON)  # only find static libs
+    set(Boost_USE_DEBUG_LIBS         OFF) # ignore debug libs and
+    set(Boost_USE_RELEASE_LIBS       ON)  # only find release libs
+    set(Boost_USE_MULTITHREADED      ON)
+    set(Boost_USE_STATIC_RUNTIME     OFF)
+    if(Boost_FOUND)
+        include_directories(${Boost_INCLUDE_DIRS})
+        target_link_libraries(r-type_client ${Boost_LIBRARIES})
+        target_link_libraries(r-type_server ${Boost_LIBRARIES})
+    endif()
+endif()
