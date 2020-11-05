@@ -7,6 +7,11 @@
 
 /* GLOBAL */
 
+#define ON_OFF_PATH "../../client/assets/texts/on_off_text_270x51_135x51.png"
+#define ON_OFF_WIDTH_TOTAL 270
+#define ON_OFF_WIDTH 135
+#define ON_OFF_HEIGHT 51
+
 #define GO_BACK_BUTTON_PATH "../../client/assets/images/buttons/left_arrow/left_arrow_full_192x64.png"
 #define GO_BACK_BUTTON_Y 0
 #define GO_BACK_BUTTON_HEIGHT 64
@@ -41,6 +46,11 @@
 
 /* SETTINGS */
 
+#define FRAMERATE_VALUE_PATH "../../client/assets/texts/framerate_number_text_405x51_135x51.png"
+#define FRAMERATE_VALUE_WIDTH_TOTAL 405
+#define FRAMERATE_VALUE_WIDTH 135
+#define FRAMERATE_VALUE_HEIGHT 51
+
 #define FULLSCREEN_TEXT_PATH "../../client/assets/texts/fullscreen_text_462x51.png"
 #define FULLSCREEN_TEXT_POSITION_X 498
 #define FULLSCREEN_TEXT_POSITION_Y 250
@@ -61,13 +71,8 @@
 #define SOUND_EFFECTS_TEXT_POSITION_X 387
 #define SOUND_EFFECTS_TEXT_POSITION_Y 850
 
-#define SOUND_EFFECTS_TEXT_PATH "../../client/assets/texts/sound_effects_text_573x51.png"
-#define SOUND_EFFECTS_TEXT_POSITION_X 387
-#define SOUND_EFFECTS_TEXT_POSITION_Y 850
-
 #define GO_BACK_BUTTON_POSITION_X 30
 #define GO_BACK_BUTTON_POSITION_Y 30
-
 
 #define LEFT_BUTTON_FULLSCREEN_POSITION_X 1200
 #define RIGHT_BUTTON_FULLSCREEN_POSITION_Y 240
