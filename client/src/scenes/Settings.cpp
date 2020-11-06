@@ -6,6 +6,7 @@
 #include "sceneManagement/SceneManager.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
+#include "systems/MoveSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
 #include "scenes/Settings.hpp"
 #include "entities/ParallaxSlide.hpp"
@@ -128,12 +129,14 @@ void Settings::initSystems()
     auto draw = std::make_unique<Engine::DrawSystem>(this->_window);
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
+    auto move = std::make_unique<Engine::MoveSystem>();
     auto animation = std::make_unique<Engine::AnimationSystem>();
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(parallax));
+    this->_systems.push_back(std::move(move));
 }
 
 std::shared_ptr<Engine::AWindow> Settings::getWindow() const

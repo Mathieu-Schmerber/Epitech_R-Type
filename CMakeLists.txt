@@ -41,7 +41,7 @@ set(ENGINE_SOURCES
         engine/src/graphical/AText.cpp
         engine/src/graphical/AFont.cpp
         engine/src/networking/AUdpSocketIO.cpp
-        )
+        server/game/systems/ServerNetworkSystem.cpp server/game/systems/ServerNetworkSystem.hpp engine/src/systems/MoveSystem.cpp engine/include/systems/MoveSystem.hpp)
 
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
@@ -102,7 +102,7 @@ set(ENGINE_INCLUDES
         engine/include/tools/Color.hpp
         engine/include/components/TextComponent.hpp
         engine/include/networking/AUdpSocketIO.hpp
-		)
+        server/game/systems/ServerNetworkSystem.cpp server/game/systems/ServerNetworkSystem.hpp engine/src/systems/MoveSystem.cpp engine/include/systems/MoveSystem.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
