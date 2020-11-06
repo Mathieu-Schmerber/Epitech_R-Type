@@ -9,14 +9,15 @@
 #ifndef RTYPE_WINDOWSFML_HPP
 #define RTYPE_WINDOWSFML_HPP
 
-#include <graphical/AWindow.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Color.hpp>
+#include "tools/Geometry.hpp"
+#include "graphical/AWindow.hpp"
+#include "SFML/Window.hpp"
+#include "SFML/Graphics.hpp"
+#include "SFML/Graphics/Color.hpp"
 
 class WindowSFML : public Engine::AWindow {
 public:
-    WindowSFML(const std::string title, const std::pair<int, int> windowSize) : Engine::AWindow(title, windowSize),
+    WindowSFML(const std::string &title, const Engine::Size<int> windowSize) : Engine::AWindow(title, windowSize),
     _titleSFML(title.data()) {}
     ~WindowSFML() = default;
 

@@ -11,6 +11,7 @@
 #include "systems/MoveSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/MusicSystem.hpp"
+#include "systems/WindowResizeSystem.hpp"
 #include "scenes/MainMenu.hpp"
 #include "entities/Button.hpp"
 #include "entities/Drawable.hpp"
@@ -101,6 +102,7 @@ void MainMenu::initSystems()
     auto move = std::make_unique<Engine::MoveSystem>();
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto music = std::make_unique<Engine::MusicSystem>();
+    auto resize = std::make_unique<Engine::WindowResizeSystem>(this->_window);
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
@@ -108,6 +110,7 @@ void MainMenu::initSystems()
     this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(music));
+    this->_systems.push_back(std::move(resize));
 }
 
 std::shared_ptr<Engine::AWindow> MainMenu::getWindow() const
