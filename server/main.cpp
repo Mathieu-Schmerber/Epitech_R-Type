@@ -7,9 +7,8 @@ void testServer()
     server.run();
 }
 
-#include "networking/AUdpSocketIO.hpp"
-
 int main()
 {
+    testServer();
     return 0;
 }
