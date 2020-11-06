@@ -32,3 +32,12 @@ std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector
     // TODO: set texture thanks to the index: in.at(4)
     return std::shared_ptr<Engine::Entity>(entity);
 }
+
+void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in)
+{
+    auto *sprite = entity->getComponent<Engine::SpriteComponent>();
+
+    entity->getComponent<Engine::TransformComponent>()->setPos({in.at(1), in.at(2)});
+    entity->getComponent<Engine::TransformComponent>()->setRotation(in.at(3));
+    sprite->getSprite()->setRect({{in.at(5), in.at(6)}, {in.at(7), in.at(8)}});
+}

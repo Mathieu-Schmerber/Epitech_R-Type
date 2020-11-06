@@ -120,7 +120,8 @@ set(CLIENT_SOURCES
         client/src/sfml/TextSFML.cpp
         client/src/sfml/FontSFML.cpp
         client/src/sfml/GraphicalSFML.cpp
-        client/src/SocketParser.cpp)
+        client/src/SocketParser.cpp
+        client/src/systems/ClientNetworkSystem.cpp)
 
 set(CLIENT_INCLUDES
         client/include/Core.hpp
@@ -145,7 +146,8 @@ set(CLIENT_INCLUDES
         client/include/sfml/TextSFML.hpp
         client/include/sfml/FontSFML.hpp
         client/include/scenes/SceneEnum.hpp
-        client/include/SocketParser.hpp)
+        client/include/SocketParser.hpp
+        client/include/systems/ClientNetworkSystem.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp

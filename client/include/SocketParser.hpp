@@ -17,6 +17,7 @@ public:
                                                          const std::vector<Engine::Inputs> &released);
 
     [[nodiscard]] static std::shared_ptr<Engine::Entity> unparseUdpEntity(const std::vector<int> &in);
+    static void updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in);
 };
 
 

@@ -24,6 +24,8 @@ namespace Engine {
         AServer(const std::string &ip, int port);
         ~AServer();
 
+        [[nodiscard]] const std::unique_ptr<ATcpSocket> &getTcpSocket() const;
+        [[nodiscard]] const std::unique_ptr<AUdpSocketIO> &getUdpSocket() const;
     };
 
 }
