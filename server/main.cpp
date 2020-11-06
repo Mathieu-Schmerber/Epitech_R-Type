@@ -15,8 +15,8 @@ void testServer()
 
     while (true) {
         std::vector<int> c;
-        c.push_back(0);
-        c.push_back(1);
+        c.push_back(8974132);
+        c.push_back(785420);
         udp.sendDataToServer(c);
         /*for (auto &b : a) {
             std::cout << b << " ";
