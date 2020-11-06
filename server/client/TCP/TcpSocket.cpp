@@ -5,7 +5,7 @@
 ** Created by Emilien
 */
 
-#include "TcpSocket.hpp"
+#include "TCP/TcpSocket.hpp"
 #include "Client.hpp"
 
 Session::Session(boost::asio::io_service &io_service, int id) : socket(io_service), _id(id)
@@ -38,7 +38,8 @@ int Session::getId() const
 
 /*===========================================================*/
 
-Server::Server(short port) : _io_service(), _acceptor(_io_service, tcp::endpoint(tcp::v4(), port)), _id(1)
+Server::Server(short port) : _io_service(), _acceptor(_io_service, tcp::endpoint(tcp::v4(), port)), _id(1),
+    _lobbyManager()
 {}
 
 void Server::handle_accept(std::shared_ptr<Session> session, const boost::system::error_code &err)
@@ -61,9 +62,19 @@ void Server::handle_accept(std::shared_ptr<Session> session, const boost::system
 
 void Server::run()
 {
-    std::shared_ptr<Session> session = std::make_shared<Session>(_io_service, 0);
+    /*std::shared_ptr<Session> session = std::make_shared<Session>(_io_service, 0);
     _acceptor.async_accept(session->get_socket(), boost::bind(&Server::handle_accept, this, session, boost::asio::placeholders::error));
-    this->_io_service.run();
+    this->_io_service.run();*/
+    boost::asio::io_service io_serv;
+    auto pouet = std::make_shared<Session>(io_serv, 1);
+    Client cli(pouet);
+    auto a = _lobbyManager.getLobbyById(1);
+    if (a) {
+        a->join(cli);
+        a->run();
+    }
+    while (true) {
+    }
 }
 
 void Server::stop()

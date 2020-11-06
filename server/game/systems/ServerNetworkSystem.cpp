@@ -21,14 +21,15 @@ ServerNetworkSystem::ServerNetworkSystem(std::vector<Client> &players, std::uniq
 void ServerNetworkSystem::receiveClientInputs()
 {
     std::vector<int> data = this->_reception.get()->getDataFromServer();
-    auto inputs = SocketParser::unparseUdpInputs(data);
+    //TODO: Comment because crash
+    /*auto inputs = SocketParser::unparseUdpInputs(data);
     std::shared_ptr<Engine::Entity> affected;
 
     if (!data.empty()) {
         affected = this->_entities.at(data.at(0));
         affected->getComponent<Engine::ControllerComponent>()->setPressed(inputs.first);
         affected->getComponent<Engine::ControllerComponent>()->setReleased(inputs.second);
-    }
+    }*/
 }
 
 void ServerNetworkSystem::sendGameData()

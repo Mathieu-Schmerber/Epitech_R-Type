@@ -15,7 +15,8 @@ class LobbyManager {
 public:
     explicit LobbyManager();
     Lobby *addLobby(char nbSlots);
-    std::vector<Lobby *> getAvailableLobbies() const;
+    [[nodiscard]] std::vector<Lobby *> getAvailableLobbies() const;
+    Lobby *getLobbyById(int id);
 private:
     std::vector<Lobby *> _lobbys{};
     int _id = 1;

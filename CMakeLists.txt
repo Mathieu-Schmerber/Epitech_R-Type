@@ -200,6 +200,7 @@ target_include_directories(r-type_server PRIVATE
         server/lobby/lobbyManager
         server/lobby/lobby
         server/Client/TCP
+		server/game
         engine/src/networking/UDP)
 target_include_directories(r-type_client PRIVATE
         client/include
