@@ -33,7 +33,13 @@ void InGame::initSystems()
     this->_systems.push_back(std::move(network));
 }
 
-void InGame::onFocus() {}
+void InGame::onFocus()
+{
+    //TODO: remove the following temporary line
+    this->_server->setClientId(0);
+    //TODO: remove the following temporary line
+    this->_server->openSockets();
+}
 
 void InGame::onExit()
 {

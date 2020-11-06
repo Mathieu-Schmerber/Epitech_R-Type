@@ -30,7 +30,7 @@ std::vector<int> SocketParser::parseUdpEntity(const std::shared_ptr<Engine::Enti
     parsed.push_back(entity->getComponent<Engine::NetworkComponent>()->getNetworkId());
     parsed.push_back(transform->getPos().x);
     parsed.push_back(transform->getPos().y);
-    parsed.push_back(transform->getRotation());
+    parsed.push_back(static_cast<int>(transform->getRotation()));
     //TODO: push a texture index <here>
     parsed.push_back(sprite->getSprite()->getRect().x1);
     parsed.push_back(sprite->getSprite()->getRect().y1);

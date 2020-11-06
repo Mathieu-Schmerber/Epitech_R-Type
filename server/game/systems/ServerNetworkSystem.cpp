@@ -3,3 +3,7 @@
 //
 
 #include "ServerNetworkSystem.hpp"
+
+ServerNetworkSystem::ServerNetworkSystem() : Engine::System() {}
+
+void ServerNetworkSystem::update() {}

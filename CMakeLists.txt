@@ -176,7 +176,7 @@ set(SERVER_SOURCES
         server/client/SocketParser.cpp
         server/client/TCP/TcpSocket.cpp
 		server/game/systems/ServerNetworkSystem.cpp
-		)
+        server/game/Game.cpp)
 
 set(SERVER_INCLUDES
 		server/core/CoreServer.hpp
@@ -188,7 +188,7 @@ set(SERVER_INCLUDES
 		server/game/systems/ServerNetworkSystem.hpp
 		server/client/TCP/TcpSocket.hpp
 		server/game/systems/ServerNetworkSystem.hpp
-		)
+		server/game/Game.hpp)
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})

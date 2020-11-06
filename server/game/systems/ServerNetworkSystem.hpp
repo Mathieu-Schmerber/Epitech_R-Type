@@ -7,7 +7,7 @@
 
 #include "ecs/System.hpp"
 
-class ServerNetworkSystem : Engine::System {
+class ServerNetworkSystem : public Engine::System {
 private:
 public:
     ServerNetworkSystem();
