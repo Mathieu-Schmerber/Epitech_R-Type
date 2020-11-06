@@ -24,6 +24,7 @@ void ClientNetworkSystem::updateGameData()
 {
     auto &socket = this->_server->getUdpSocket();
     auto entry = socket->getDataFromServer();
+    std::shared_ptr<Engine::Entity> toSpawn;
 
     for (auto &e : this->_entities) {
         if (!entry.empty() && entry.at(0) == e->getComponent<Engine::NetworkComponent>()->getNetworkId()) {
@@ -31,7 +32,9 @@ void ClientNetworkSystem::updateGameData()
             return;
         }
     }
-    this->_scene->spawnEntity(SocketParser::unparseUdpEntity(entry));
+    toSpawn = SocketParser::unparseUdpEntity(entry);
+    if (toSpawn)
+        this->_scene->spawnEntity(toSpawn);
 }
 
 void ClientNetworkSystem::update()
