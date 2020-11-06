@@ -5,14 +5,7 @@
 ** Created by Emilien
 */
 
-#include "Core.hpp"
+#include "CoreServer.hpp"
 
-Core::Core()
-{
-
-}
-
-void Core::run()
-{
-
-}
+CoreServer::CoreServer()
+{}

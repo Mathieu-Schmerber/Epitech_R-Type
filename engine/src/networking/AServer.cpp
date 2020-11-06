@@ -10,3 +10,11 @@ Engine::AServer::~AServer()
 {
 
 }
+
+const std::unique_ptr<Engine::ATcpSocket> &Engine::AServer::getTcpSocket() const {
+    return _tcpSocket;
+}
+
+const std::unique_ptr<Engine::AUdpSocketIO> &Engine::AServer::getUdpSocket() const {
+    return _udpSocket;
+}
