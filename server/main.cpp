@@ -7,20 +7,8 @@ void testServer()
     server.run();
 }
 
-#include "networking/AUdpSocketIO.hpp"
-
-[[noreturn]] void testClientTcp()
-{
-    Engine::ATcpSocket tcp("127.0.0.1", 4242);
-
-    while (true) {
-        tcp.getDataFromServer();
-        Sleep(2000);
-    }
-}
-
 int main()
 {
-    testClientTcp();
+    testServer();
     return 0;
 }
