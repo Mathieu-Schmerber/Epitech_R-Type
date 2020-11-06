@@ -7,27 +7,20 @@ void testServer()
     server.run();
 }
 
-#include "networking/AUdpSocketIO.hpp"
+#include "networking/ATcpSocket.hpp"
 
-[[noreturn]] void testUdp()
+[[noreturn]] void testClientTcp()
 {
-    Engine::AUdpSocketIO udp("127.0.0.1", 4242, 4243);
+    Engine::ATcpSocket tcp("127.0.0.1", 4242);
 
     while (true) {
-        std::vector<int> c;
-        c.push_back(8974132);
-        c.push_back(785420);
-        udp.sendDataToServer(c);
-        /*for (auto &b : a) {
-            std::cout << b << " ";
-        }
-        std::cout << std::endl;*/
+        tcp.getDataFromServer();
         Sleep(2000);
     }
 }
 
 int main()
 {
-    testUdp();
+    testClientTcp();
     return 0;
 }
