@@ -11,12 +11,13 @@ namespace Engine {
 
     class NetworkComponent : public Engine::Component {
     private:
-        const int _networkIdentity;
+        int _networkIdentity;
 
     public:
         explicit NetworkComponent(int id = 0) : _networkIdentity(id), Component() {}
         ~NetworkComponent() = default;
 
+        void setNetworkId(int id) {this->_networkIdentity = id;}
         [[nodiscard]] int getNetworkId() const {return this->_networkIdentity;}
     };
 
