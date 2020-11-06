@@ -41,7 +41,12 @@ set(ENGINE_SOURCES
         engine/src/graphical/AText.cpp
         engine/src/graphical/AFont.cpp
         engine/src/networking/AUdpSocketIO.cpp
-        )
+		engine/src/systems/MoveSystem.cpp 
+        engine/src/systems/MoveSystem.cpp
+        engine/src/networking/ATcpSocket.cpp
+        engine/src/networking/UDP/UdpSocketInput.cpp
+		engine/src/networking/UDP/UdpSocketOutput.cpp
+		)
 
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
@@ -102,7 +107,11 @@ set(ENGINE_INCLUDES
         engine/include/tools/Color.hpp
         engine/include/components/TextComponent.hpp
         engine/include/networking/AUdpSocketIO.hpp
-		)
+        engine/include/systems/MoveSystem.hpp
+        engine/include/networking/AUdpSocketIO.hpp
+        engine/include/networking/UDP/UdpSocketInput.hpp 
+		engine/include/networking/UDP/UdpSocketOutput.hpp
+		engine/include/systems/MoveSystem.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
@@ -121,7 +130,9 @@ set(CLIENT_SOURCES
         client/src/sfml/FontSFML.cpp
         client/src/sfml/GraphicalSFML.cpp
         client/src/SocketParser.cpp
-        client/src/systems/ClientNetworkSystem.cpp)
+        client/src/systems/ClientNetworkSystem.cpp
+		client/src/sfml/SpriteSfml.cpp
+		)
 
 set(CLIENT_INCLUDES
         client/include/Core.hpp
@@ -131,7 +142,6 @@ set(CLIENT_INCLUDES
         client/include/sfml/WindowSFML.hpp
         client/include/sfml/EventsSFML.hpp
         client/include/sfml/SoundSFML.hpp
-        client/src/sfml/SpriteSfml.cpp
         client/include/sfml/SpriteSfml.hpp
         client/include/scenes/SceneType.hpp
         client/include/scenes/Settings.hpp 
@@ -156,8 +166,10 @@ set(SERVER_SOURCES
         server/lobby/lobbyManager/LobbyManager.cpp
         server/lobby/lobby/Lobby.cpp
         server/client/TCP/TcpSocket.cpp
-        server/client/UDP/UdpSocketInput.cpp
-        server/client/SocketParser.cpp)
+        server/client/SocketParser.cpp
+        server/client/TCP/TcpSocket.cpp
+		server/game/systems/ServerNetworkSystem.cpp
+		)
 
 set(SERVER_INCLUDES
         server/core/CoreServer.hpp
@@ -165,8 +177,11 @@ set(SERVER_INCLUDES
         server/lobby/lobbyManager/LobbyManager.hpp
         server/lobby/lobby/Lobby.hpp
         server/Client/TCP/TcpSocket.hpp
-        server/client/UDP/UdpSocketInput.hpp
-        server/client/SocketParser.hpp)
+        server/client/SocketParser.hpp
+		server/game/systems/ServerNetworkSystem.hpp
+        server/Client/TCP/TcpSocket.hpp
+		server/game/systems/ServerNetworkSystem.hpp
+		)
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
@@ -178,7 +193,7 @@ target_include_directories(r-type_server PRIVATE
         server/lobby/lobbyManager
         server/lobby/lobby
         server/Client/TCP
-        server/Client/UDP)
+        engine/src/networking/UDP)
 target_include_directories(r-type_client PRIVATE
         client/include
         engine/include)

@@ -8,6 +8,7 @@
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
+#include "systems/MoveSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/MusicSystem.hpp"
 #include "scenes/HowToPlay.hpp"
@@ -212,12 +213,14 @@ void HowToPlay::initSystems()
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
+    auto move = std::make_unique<Engine::MoveSystem>();
     auto music = std::make_unique<Engine::MusicSystem>();
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(parallax));
+    this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(music));
 }
 

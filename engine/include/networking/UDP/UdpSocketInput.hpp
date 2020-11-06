@@ -8,7 +8,6 @@
 #ifndef RTYPE_UDPSOCKETINPUT_HPP
 #define RTYPE_UDPSOCKETINPUT_HPP
 
-
 #ifdef _WIN32
     #define _WIN32_WINNT  0x0601
 #endif
@@ -22,7 +21,7 @@ using boost::asio::ip::address;
 
 class UdpSocketInput {
 public:
-    explicit UdpSocketInput(int port);
+    explicit UdpSocketInput(int portIn);
     [[nodiscard]] std::vector<int> getDataFromServer() const;
     ~UdpSocketInput();
 private:
