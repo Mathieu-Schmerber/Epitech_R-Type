@@ -20,7 +20,7 @@ ServerNetworkSystem::ServerNetworkSystem(std::vector<Client> &players, std::uniq
 
 void ServerNetworkSystem::receiveClientInputs()
 {
-    std::vector<int> data = this->_reception.get()->getDataFromServer();
+    //std::vector<int> data = this->_reception.get()->getDataFromServer();
     //TODO: Comment because crash
     /*auto inputs = SocketParser::unparseUdpInputs(data);
     std::shared_ptr<Engine::Entity> affected;
