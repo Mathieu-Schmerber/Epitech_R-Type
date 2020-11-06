@@ -133,7 +133,8 @@ set(CLIENT_SOURCES
 		client/src/SocketParser.cpp
 		client/src/systems/ClientNetworkSystem.cpp
 		client/src/sfml/SpriteSfml.cpp
-		)
+		client/src/scenes/InGame.cpp
+		client/src/scenes/InGame.cpp)
 
 set(CLIENT_INCLUDES
 		client/include/Core.hpp
@@ -159,17 +160,19 @@ set(CLIENT_INCLUDES
 		client/include/sfml/FontSFML.hpp
 		client/include/scenes/SceneEnum.hpp
 		client/include/SocketParser.hpp
-		client/include/systems/ClientNetworkSystem.hpp)
+		client/include/systems/ClientNetworkSystem.hpp
+		client/include/scenes/InGame.hpp
+		client/include/NetworkAccess.hpp)
 
 set(SERVER_SOURCES
-		server/main.cpp
-		server/core/CoreServer.cpp
-		server/client/Client.cpp
-		server/lobby/lobbyManager/LobbyManager.cpp
-		server/lobby/lobby/Lobby.cpp
-		server/client/TCP/TcpSocket.cpp
-		server/client/SocketParser.cpp
-		server/client/TCP/TcpSocket.cpp
+        server/main.cpp
+        server/core/CoreServer.cpp
+        server/client/Client.cpp
+        server/lobby/lobbyManager/LobbyManager.cpp
+        server/lobby/lobby/Lobby.cpp
+        server/client/TCP/TcpSocket.cpp
+        server/client/SocketParser.cpp
+        server/client/TCP/TcpSocket.cpp
 		server/game/systems/ServerNetworkSystem.cpp
 		)
 

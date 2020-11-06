@@ -25,6 +25,7 @@ namespace Engine {
 
         [[nodiscard]] std::unique_ptr<Engine::ASprite> &getSprite() {return this->_sprite;}
         [[nodiscard]] std::shared_ptr<Engine::ATexture> &getTexture() {return this->_texture;}
+        [[nodiscard]] bool isVisible() const {return this->_hasToBeDraw;}
         void setDisplay(std::unique_ptr<Engine::ASprite> sprite) { this->_sprite = std::move(sprite);}
         void hasToBeDraw(bool draw) {_hasToBeDraw = draw;};
         void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) {

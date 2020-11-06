@@ -6,8 +6,8 @@
 #include "components/NetworkComponent.hpp"
 #include "SocketParser.hpp"
 
-ClientNetworkSystem::ClientNetworkSystem(std::shared_ptr<Engine::AServer> &server, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<Engine::AScene> &scene)
-: _server(server), _events(events), _scene(scene), _clientId(-1)
+ClientNetworkSystem::ClientNetworkSystem(std::shared_ptr<NetworkAccess> &server, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<Engine::AScene> &scene)
+: _server(server), _events(events), _scene(scene)
 {
     this->addDependency<Engine::NetworkComponent>();
 }
@@ -15,7 +15,7 @@ ClientNetworkSystem::ClientNetworkSystem(std::shared_ptr<Engine::AServer> &serve
 void ClientNetworkSystem::sendRawInputs()
 {
     auto &socket = this->_server->getUdpSocket();
-    auto query = SocketParser::parseUdpInputs(this->_clientId, this->_events->getKeysPressed(), this->_events->getKeysReleased());
+    auto query = SocketParser::parseUdpInputs(this->_server->getClientId(), this->_events->getKeysPressed(), this->_events->getKeysReleased());
 
     socket->sendDataToServer(query);
 }
@@ -36,13 +36,8 @@ void ClientNetworkSystem::updateGameData()
 
 void ClientNetworkSystem::update()
 {
-    if (this->_clientId != -1) {
+    if (this->_server->getClientId() != -1) {
         this->sendRawInputs();
         this->updateGameData();
     }
-}
-
-void ClientNetworkSystem::setClientId(short clientId)
-{
-    _clientId = clientId;
 }
