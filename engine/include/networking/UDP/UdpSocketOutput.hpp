@@ -18,7 +18,7 @@ using boost::asio::ip::address;
 namespace Engine {
     class UdpSocketOutput {
     public:
-        explicit UdpSocketOutput(const std::string &ip, int port);
+        explicit UdpSocketOutput(const std::string &ipToConnect, int portOut);
         void sendDataToServer(const std::vector<int> &in);
         ~UdpSocketOutput();
     private:
