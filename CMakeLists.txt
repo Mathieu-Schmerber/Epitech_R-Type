@@ -176,10 +176,10 @@ set(SERVER_INCLUDES
         server/client/Client.hpp
         server/lobby/lobbyManager/LobbyManager.hpp
         server/lobby/lobby/Lobby.hpp
-        server/Client/TCP/TcpSocket.hpp
+        server/client/TCP/TcpSocket.hpp
         server/client/SocketParser.hpp
 		server/game/systems/ServerNetworkSystem.hpp
-        server/Client/TCP/TcpSocket.hpp
+        server/client/TCP/TcpSocket.hpp
 		server/game/systems/ServerNetworkSystem.hpp
 		)
 
