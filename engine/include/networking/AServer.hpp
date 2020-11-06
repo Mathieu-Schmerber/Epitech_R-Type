@@ -16,14 +16,19 @@ namespace Engine {
 
     protected:
         std::string _ip;
-        int _port;
+        short _port;
+        short _clientPort;
         std::unique_ptr<ATcpSocket> _tcpSocket;
         std::unique_ptr<AUdpSocketIO> _udpSocket;
 
     public:
-        AServer(const std::string &ip, int port);
-        ~AServer();
+        AServer(const std::string &ip, short serverPort, short clientPort);
+        ~AServer() = default;
 
+        [[nodiscard]] const std::unique_ptr<ATcpSocket> &getTcpSocket() const;
+        [[nodiscard]] const std::unique_ptr<AUdpSocketIO> &getUdpSocket() const;
+
+        virtual void openSockets();
     };
 
 }

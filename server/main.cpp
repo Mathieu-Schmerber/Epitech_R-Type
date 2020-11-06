@@ -1,4 +1,4 @@
-#include "TcpSocket.hpp"
+#include "TCP/TcpSocket.hpp"
 
 void testServer()
 {
@@ -7,7 +7,7 @@ void testServer()
     server.run();
 }
 
-#include "networking/ATcpSocket.hpp"
+#include "networking/AUdpSocketIO.hpp"
 
 [[noreturn]] void testClientTcp()
 {

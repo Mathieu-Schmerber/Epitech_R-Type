@@ -7,7 +7,10 @@
 
 enum SceneType {
     MAIN_MENU,
-    GAME
+    GAME,
+    SETTINGS,
+    HOW_TO_PLAY,
+    LOBBY,
 };
 
 #endif //RTYPE_SCENETYPE_HPP

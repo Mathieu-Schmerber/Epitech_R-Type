@@ -5,21 +5,18 @@
 #include "components/ControllerComponent.hpp"
 #include "systems/InputSystem.hpp"
 
-Engine::InputSystem::InputSystem(Engine::AWindow *window) : _window(window), Engine::System()
+Engine::InputSystem::InputSystem(Engine::AEvents *events) : _events(events), Engine::System()
 {
     this->addDependency<ControllerComponent>();
 }
 
 void Engine::InputSystem::update()
 {
-    for (auto &e : this->_entities) {
-        auto controller = e.get()->getComponent<ControllerComponent>();
+    ControllerComponent *controller = nullptr;
 
-        /*
-        TODO:
-            controller->releaseAll();
-            for (auto &input : this->_window->getKeyPressed())
-                controller->press(input);
-        */
+    for (auto &e : this->_entities) {
+        controller = e->getComponent<ControllerComponent>();
+        controller->setPressed(this->_events->getKeysPressed());
+        controller->setReleased(this->_events->getKeysReleased());
     }
 }

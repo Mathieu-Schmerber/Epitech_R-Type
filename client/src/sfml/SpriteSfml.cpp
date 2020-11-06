@@ -5,18 +5,14 @@
 ** Created by Cyprien
 */
 
-
-#include <iostream>
 #include "sfml/SpriteSfml.hpp"
 #include "sfml/WindowSFML.hpp"
+#include "sfml/TextureSFML.hpp"
 
-void SpriteSFML::loadFromFile(const std::string filename)
+void SpriteSFML::setTexture(std::shared_ptr<Engine::ATexture> &texture)
 {
-    if (_texture.loadFromFile(filename)) {
-        _sprite.setTexture(_texture);
-    } else {
-        std::cerr << "\033[33mTexture WARNING : Invalid load of texture " << filename << "\033[0m" << std::endl;
-    }
+    ASprite::setTexture(texture);
+    _sprite.setTexture(*(std::dynamic_pointer_cast<TextureSFML>(texture)->getTexture()));
 }
 
 void SpriteSFML::setScale(Engine::Scale<float> scale)
@@ -27,6 +23,18 @@ void SpriteSFML::setScale(Engine::Scale<float> scale)
 Engine::Scale<float> SpriteSFML::getScale() const
 {
     return {_sprite.getScale().x, _sprite.getScale().y};
+}
+
+void SpriteSFML::setRect(Engine::Box<int> rect)
+{
+    _sprite.setTextureRect(sf::IntRect(rect.x1, rect.y1, rect.size.x, rect.size.y));
+}
+
+Engine::Box<int> SpriteSFML::getRect() const
+{
+    auto rect = _sprite.getTextureRect();
+
+    return {rect.left, rect.top, rect.width, rect.height};
 }
 
 void SpriteSFML::setPosition(Engine::Point<float> position)
@@ -68,7 +76,7 @@ float SpriteSFML::getRotation()
     return _sprite.getRotation();
 }
 
-Engine::Size<int> SpriteSFML::getSize()
+Engine::Size<int> SpriteSFML::getSize() const
 {
     return {static_cast<int>(_sprite.getGlobalBounds().width), static_cast<int>(_sprite.getGlobalBounds().height)};
 }

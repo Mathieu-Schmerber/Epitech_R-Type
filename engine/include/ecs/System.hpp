@@ -13,12 +13,18 @@ namespace Engine {
 
     class System {
 
+    private:
+        double _deltatime;
+
     protected:
         std::vector<std::unique_ptr<Component>> _dependencies;
         std::vector<std::shared_ptr<Entity>> _entities;
 
     public:
-        explicit System() = default;
+        explicit System() : _deltatime(0) {}
+
+        void setDeltatime(double delta) {this->_deltatime = delta;}
+        [[nodiscard]] double deltatime() const {return this->_deltatime;}
 
         template<typename T> void addDependency();
 
@@ -26,7 +32,6 @@ namespace Engine {
         {
             this->_entities.emplace_back(entity);
         }
-
 
         std::vector <std::unique_ptr<Component>> &getDependencies()
         {
@@ -46,8 +51,6 @@ namespace Engine {
         component->setInfo(typeid(T).name());
         this->_dependencies.push_back(std::move(component));
     }
-
-
 
 }
 

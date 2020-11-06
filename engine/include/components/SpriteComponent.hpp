@@ -14,12 +14,26 @@ namespace Engine {
     class SpriteComponent : public Engine::Component {
     private:
         std::unique_ptr<Engine::ASprite> _sprite;
+        std::shared_ptr<Engine::ATexture> _texture;
+        bool _hasToBeDraw = true;
+        int _layer;
 
     public:
-        explicit SpriteComponent(std::unique_ptr<Engine::ASprite> sprite = nullptr) : _sprite(std::move(sprite)) {};
+        explicit SpriteComponent() : _layer(0), Engine::Component() {};
+        explicit SpriteComponent(int layer, std::unique_ptr<Engine::ASprite> sprite) : _layer(layer),
+        _sprite(std::move(sprite)), _texture(_sprite->getTexture()), Engine::Component() {};
 
-        std::unique_ptr<Engine::ASprite> &getSprite() {return this->_sprite;}
+        [[nodiscard]] std::unique_ptr<Engine::ASprite> &getSprite() {return this->_sprite;}
+        [[nodiscard]] std::shared_ptr<Engine::ATexture> &getTexture() {return this->_texture;}
+        [[nodiscard]] bool isVisible() const {return this->_hasToBeDraw;}
         void setDisplay(std::unique_ptr<Engine::ASprite> sprite) { this->_sprite = std::move(sprite);}
+        void hasToBeDraw(bool draw) {_hasToBeDraw = draw;};
+        void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) {
+            if (_hasToBeDraw)
+                _sprite->draw(window, position, angle);
+        }
+        void setLayer(int layer) {this->_layer = layer;}
+        [[nodiscard]] int getLayer() const {return this->_layer;}
     };
 }
 

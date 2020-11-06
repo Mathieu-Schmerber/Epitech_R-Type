@@ -38,3 +38,24 @@ std::unique_ptr<sf::RenderWindow> &WindowSFML::getWindow()
 {
     return _window;
 }
+
+void WindowSFML::setFrameRate(int frameRate)
+{
+    _frameRate = frameRate;
+    _window->setFramerateLimit(frameRate);
+}
+
+bool WindowSFML::getVsync() const
+{
+    return _vSyncEnabled;
+}
+
+void WindowSFML::setVsync(bool sync)
+{
+    _vSyncEnabled = sync;
+}
+
+int WindowSFML::getFrameRate() const
+{
+    return _frameRate;
+}

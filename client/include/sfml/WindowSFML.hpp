@@ -26,8 +26,15 @@ public:
     void close() override;
 
     void setTitle(const std::string &title) override;
+    void setFrameRate(int frameRate) override;
+    void setVsync(bool sync) override;
+
+    [[nodiscard]] int getFrameRate() const override;
+    [[nodiscard]] bool getVsync() const override;
 
     friend class SpriteSFML;
+    friend class TextSFML;
+    friend class EventsSFML;
 
 private:
     std::unique_ptr<sf::RenderWindow> &getWindow();

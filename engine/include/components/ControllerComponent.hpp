@@ -8,38 +8,22 @@
 #include <vector>
 #include <algorithm>
 #include "ecs/Component.hpp"
-#include "enumerations/Key.hpp"
+#include "enumerations/Inputs.hpp"
 
 namespace Engine {
 
     class ControllerComponent : public Engine::Component {
     private:
-        std::vector<Engine::Key> _pressed;
-        std::vector<Engine::Key> _released;
-
-        static void removeFrom(std::vector<Engine::Key> &list, Engine::Key input) {
-            auto it = std::find(list.begin(), list.end(), input);
-
-            if (it != list.end())
-                list.erase(it);
-        }
+        std::vector<Engine::Inputs> _pressed;
+        std::vector<Engine::Inputs> _released;
 
     public:
         explicit ControllerComponent() : Engine::Component() {}
 
-        void press(Engine::Key input) {
-            removeFrom(this->_pressed, input);
-            removeFrom(this->_released, input);
-            this->_pressed.push_back(input);
-        }
-
-        void releaseAll() {
-            this->_released = this->_pressed;
-            this->_pressed.clear();
-        }
-
-        std::vector<Engine::Key> getPressed() const {return this->_pressed;}
-        std::vector<Engine::Key> getReleased() const {return this->_released;}
+        void setPressed(const std::vector<Engine::Inputs> &list) {this->_pressed = list;}
+        void setReleased(const std::vector<Engine::Inputs> &list) {this->_released = list;}
+        [[nodiscard]] std::vector<Engine::Inputs> getPressed() const {return this->_pressed;}
+        [[nodiscard]] std::vector<Engine::Inputs> getReleased() const {return this->_released;}
     };
 
 }

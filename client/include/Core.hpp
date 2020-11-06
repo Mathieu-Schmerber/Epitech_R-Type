@@ -7,18 +7,21 @@
 
 #include <memory>
 #include <iostream>
-
 #include "graphical/AGraphical.hpp"
-#include "SceneManager.hpp"
+#include "sceneManagement/SceneManager.hpp"
+#include "tools/Timer.hpp"
+#include "NetworkAccess.hpp"
 
 class Core
 {
 private:
     std::unique_ptr<Engine::AGraphical> _graph;
-    std::unique_ptr<Engine::AServer> _server;
+    std::shared_ptr<NetworkAccess> _server;
     std::unique_ptr<Engine::SceneManager> _sceneManager;
+    std::unique_ptr<Engine::Timer> _timer;
 
     void run();
+    void setupGroups();
     void initScenes();
 
 public:

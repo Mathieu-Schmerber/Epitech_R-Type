@@ -1,4 +1,5 @@
 [requires]
+openal/1.18.2@bincrafters/stable
 sfml/2.5.1@bincrafters/stable
 boost/1.71.0@conan/stable
 zlib/1.2.11@conan/stable
@@ -12,6 +13,7 @@ sfml:graphics = True
 sfml:window = True
 sfml:shared = True
 sfml:network = True
+sfml:audio = True
 
 [imports]
 bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder
