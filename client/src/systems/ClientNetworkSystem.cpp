@@ -20,7 +20,7 @@ void ClientNetworkSystem::sendRawInputs()
     socket->sendDataToServer(query);
 }
 
-void ClientNetworkSystem::updateGameData()
+void ClientNetworkSystem::receiveGameData()
 {
     auto &socket = this->_server->getUdpSocket();
     auto entry = socket->getDataFromServer();
@@ -41,6 +41,6 @@ void ClientNetworkSystem::update()
 {
     if (this->_server->getClientId() != -1) {
         this->sendRawInputs();
-        this->updateGameData();
+        this->receiveGameData();
     }
 }

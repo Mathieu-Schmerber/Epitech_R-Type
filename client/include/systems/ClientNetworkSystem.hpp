@@ -18,7 +18,7 @@ private:
     std::shared_ptr<Engine::AScene> _scene;
 
     void sendRawInputs();
-    void updateGameData();
+    void receiveGameData();
 
 public:
     ClientNetworkSystem(std::shared_ptr<NetworkAccess> &server,
