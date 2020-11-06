@@ -120,7 +120,7 @@ set(CLIENT_SOURCES
         client/src/sfml/TextSFML.cpp
         client/src/sfml/FontSFML.cpp
         client/src/sfml/GraphicalSFML.cpp
-		)
+        client/src/SocketParser.cpp)
 
 set(CLIENT_INCLUDES
         client/include/Core.hpp
@@ -145,7 +145,7 @@ set(CLIENT_INCLUDES
         client/include/sfml/TextSFML.hpp
         client/include/sfml/FontSFML.hpp
         client/include/scenes/SceneEnum.hpp
-		)
+        client/include/SocketParser.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp
@@ -154,14 +154,17 @@ set(SERVER_SOURCES
         server/lobby/lobbyManager/LobbyManager.cpp
         server/lobby/lobby/Lobby.cpp
         server/client/TCP/TcpSocket.cpp
-        server/client/UDP/UdpSocketInput.cpp)
+        server/client/UDP/UdpSocketInput.cpp
+        server/client/SocketParser.cpp)
 
 set(SERVER_INCLUDES
         server/core/CoreServer.hpp
         server/client/Client.hpp
         server/lobby/lobbyManager/LobbyManager.hpp
         server/lobby/lobby/Lobby.hpp
-        server/Client/TCP/TcpSocket.hpp server/client/UDP/UdpSocketInput.hpp)
+        server/Client/TCP/TcpSocket.hpp
+        server/client/UDP/UdpSocketInput.hpp
+        server/client/SocketParser.hpp)
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
