@@ -11,7 +11,6 @@
 #include "scenes/InGame.hpp"
 #include "sfml/GraphicalSFML.hpp"
 #include "sfml/WindowSFML.hpp"
-#include "sfml/SpriteSfml.hpp"
 #include "sfml/EventsSFML.hpp"
 #include "scenes/GroupId.hpp"
 #include "scenes/Groups.hpp"
@@ -38,7 +37,6 @@ void Core::setupGroups()
     this->_sceneManager->setAccessGroup(SceneType::SETTINGS, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::HOW_TO_PLAY, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::LOBBY, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
-    this->_sceneManager->setAccessGroup(SceneType::GAME, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
 }
 
 void Core::initScenes()
@@ -70,11 +68,6 @@ void Core::run()
     _graph->getEvents()->update();
     _graph->getWindow()->display();
 }
-
-
-
-
-
 
 
 

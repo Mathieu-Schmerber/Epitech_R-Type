@@ -167,19 +167,19 @@ void Settings::initEntities()
 
     auto onOffFTextWindowEnableFullscreen = std::make_unique<SpriteSFML>(ON_OFF_PATH);
     onOffFTextWindowEnableFullscreen ->setRect({Engine::Box<int>({0, 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
-    createSelector({static_cast<int>(LEFT_BUTTON_FULLSCREEN_POSITION_X),static_cast<int>(RIGHT_BUTTON_FULLSCREEN_POSITION_Y)}, std::make_pair<void (*)(std::shared_ptr<Engine::AScene> &), void (*)(std::shared_ptr<Engine::AScene> &)>(changeWindowEnableFullscreen, changeWindowEnableFullscreen), ON_OFF_PATH, std::move(onOffFTextWindowEnableFullscreen ));
+    createSelector({static_cast<int>(LEFT_BUTTON_FULLSCREEN_POSITION_X),static_cast<int>(RIGHT_BUTTON_FULLSCREEN_POSITION_Y)}, {changeWindowEnableFullscreen, changeWindowEnableFullscreen}, ON_OFF_PATH, std::move(onOffFTextWindowEnableFullscreen ));
     auto framerateTextNumber = std::make_unique<SpriteSFML>(FRAMERATE_VALUE_PATH);
     framerateTextNumber->setRect({Engine::Box<int>({0, 0}, {FRAMERATE_VALUE_WIDTH, FRAMERATE_VALUE_HEIGHT})});
-    createSelector({static_cast<int>(LEFT_BUTTON_FRAMERATE_POSITION_X),static_cast<int>(RIGHT_BUTTON_FRAMERATE_POSITION_Y)} , std::make_pair<void (*)(std::shared_ptr<Engine::AScene> &), void (*)(std::shared_ptr<Engine::AScene> &)>(changeWindowFrameratePrev, changeWindowFramerateNext), FRAMERATE_VALUE_PATH, std::move(framerateTextNumber));
+    createSelector({static_cast<int>(LEFT_BUTTON_FRAMERATE_POSITION_X),static_cast<int>(RIGHT_BUTTON_FRAMERATE_POSITION_Y)}, {changeWindowFrameratePrev, changeWindowFramerateNext}, FRAMERATE_VALUE_PATH, std::move(framerateTextNumber));
     auto onOffFTextWindowVSync = std::make_unique<SpriteSFML>(ON_OFF_PATH);
     onOffFTextWindowVSync->setRect({Engine::Box<int>({0, 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
-    createSelector({static_cast<int>(LEFT_BUTTON_VSYNC_POSITION_X),static_cast<int>(RIGHT_BUTTON_VSYNC_POSITION_Y)} , std::make_pair<void (*)(std::shared_ptr<Engine::AScene> &), void (*)(std::shared_ptr<Engine::AScene> &)>(changeWindowVsync, changeWindowVsync), ON_OFF_PATH, std::move(onOffFTextWindowVSync));
+    createSelector({static_cast<int>(LEFT_BUTTON_VSYNC_POSITION_X),static_cast<int>(RIGHT_BUTTON_VSYNC_POSITION_Y)}, {changeWindowVsync, changeWindowVsync}, ON_OFF_PATH, std::move(onOffFTextWindowVSync));
     auto onOffFTextMusicEnabled = std::make_unique<SpriteSFML>(ON_OFF_PATH);
     onOffFTextMusicEnabled->setRect({Engine::Box<int>({0, 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
-    createSelector({static_cast<int>(LEFT_BUTTON_MUSIC_POSITION_X),static_cast<int>(RIGHT_BUTTON_MUSIC_POSITION_Y)} , std::make_pair<void (*)(std::shared_ptr<Engine::AScene> &), void (*)(std::shared_ptr<Engine::AScene> &)>(changeAudioEnableMusic, changeAudioEnableMusic), ON_OFF_PATH, std::move(onOffFTextMusicEnabled));
+    createSelector({static_cast<int>(LEFT_BUTTON_MUSIC_POSITION_X),static_cast<int>(RIGHT_BUTTON_MUSIC_POSITION_Y)}, {changeAudioEnableMusic, changeAudioEnableMusic}, ON_OFF_PATH, std::move(onOffFTextMusicEnabled));
     auto onOffFTextSoundEffectEnabled = std::make_unique<SpriteSFML>(ON_OFF_PATH);
     onOffFTextSoundEffectEnabled->setRect({Engine::Box<int>({0, 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
-    createSelector({static_cast<int>(LEFT_BUTTON_SOUND_EFFECTS_POSITION_X),static_cast<int>(RIGHT_BUTTON_SOUND_EFFECTS_POSITION_Y)} , std::make_pair<void (*)(std::shared_ptr<Engine::AScene> &), void (*)(std::shared_ptr<Engine::AScene> &)>(changeAudioEnableSoundEffects, changeAudioEnableSoundEffects), ON_OFF_PATH, std::move(onOffFTextSoundEffectEnabled));
+    createSelector({static_cast<int>(LEFT_BUTTON_SOUND_EFFECTS_POSITION_X),static_cast<int>(RIGHT_BUTTON_SOUND_EFFECTS_POSITION_Y)} , {changeAudioEnableSoundEffects, changeAudioEnableSoundEffects}, ON_OFF_PATH, std::move(onOffFTextSoundEffectEnabled));
 
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(enableFullscreenEngine));
     this->spawnEntity(std::shared_ptr<Engine::Drawable>(framerateEngine));
