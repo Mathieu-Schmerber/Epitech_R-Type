@@ -45,7 +45,8 @@ set(ENGINE_SOURCES
         engine/src/systems/MoveSystem.cpp
         engine/src/networking/ATcpSocket.cpp
         engine/src/networking/UDP/UdpSocketInput.cpp
-		engine/src/networking/UDP/UdpSocketOutput.cpp)
+		engine/src/networking/UDP/UdpSocketOutput.cpp
+		)
 
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
@@ -165,7 +166,6 @@ set(SERVER_SOURCES
         server/lobby/lobbyManager/LobbyManager.cpp
         server/lobby/lobby/Lobby.cpp
         server/client/TCP/TcpSocket.cpp
-        server/client/UDP/UdpSocketInput.cpp
         server/client/SocketParser.cpp
         server/client/TCP/TcpSocket.cpp
 		server/game/systems/ServerNetworkSystem.cpp
@@ -177,7 +177,6 @@ set(SERVER_INCLUDES
         server/lobby/lobbyManager/LobbyManager.hpp
         server/lobby/lobby/Lobby.hpp
         server/Client/TCP/TcpSocket.hpp
-        server/client/UDP/UdpSocketInput.hpp
         server/client/SocketParser.hpp
 		server/game/systems/ServerNetworkSystem.hpp
         server/Client/TCP/TcpSocket.hpp
