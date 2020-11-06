@@ -25,7 +25,7 @@ class Lobby : public Engine::AScene
     std::shared_ptr<Engine::AWindow> getWindow() const;
 };
 
-void emptyCallback(std::shared_ptr<Lobby> menu);
+void goToInGameScene(std::shared_ptr<Engine::AScene> &);
 void goToMenuScene(std::shared_ptr<Engine::AScene> &);
 
 #endif //RTYPE_LOBBY_HPP

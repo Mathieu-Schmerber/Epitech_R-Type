@@ -162,7 +162,9 @@ set(CLIENT_INCLUDES
 		client/include/SocketParser.hpp
 		client/include/systems/ClientNetworkSystem.hpp
 		client/include/scenes/InGame.hpp
-		client/include/NetworkAccess.hpp)
+		client/include/NetworkAccess.hpp
+		client/include/systems/ClientNetworkSystem.hpp
+		client/include/components/LobbyComponent.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp
