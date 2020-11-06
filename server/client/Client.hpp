@@ -8,7 +8,7 @@
 #ifndef RTYPE_CLIENT_HPP
 #define RTYPE_CLIENT_HPP
 
-#include "TcpSocket.hpp"
+#include "TCP/TcpSocket.hpp"
 
 class Client {
 public:

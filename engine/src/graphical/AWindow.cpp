@@ -26,3 +26,13 @@ std::string Engine::AWindow::getTitle() const
 {
     return this->_title;
 }
+
+int Engine::AWindow::getFrameRate() const
+{
+    return _frameRate;
+}
+
+bool Engine::AWindow::getVsync() const
+{
+    return _vSyncEnabled;
+}

@@ -28,8 +28,8 @@ namespace Engine {
         explicit AScene(int id);
         ~AScene();
 
-        virtual void onFocus() {}
-        virtual void onExit() {}
+        virtual void onFocus() {};
+        virtual void onExit() {};
 
         void updateDeltatime(double delta);
         [[nodiscard]] int getId() const;

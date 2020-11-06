@@ -16,6 +16,7 @@
 #include "sfml/EventsSFML.hpp"
 #include "scenes/GroupId.hpp"
 #include "scenes/Groups.hpp"
+#include "scenes/Lobby.hpp"
 
 Core::Core()
 {
@@ -37,6 +38,7 @@ void Core::setupGroups()
     this->_sceneManager->setAccessGroup(SceneType::MAIN_MENU, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::SETTINGS, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::HOW_TO_PLAY, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
+    this->_sceneManager->setAccessGroup(SceneType::LOBBY, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
 }
 
 void Core::initScenes()
@@ -44,6 +46,7 @@ void Core::initScenes()
     this->_sceneManager->addScene(std::move(std::make_unique<MainMenu>(this->_graph->getWindow(), this->_graph->getEvents())));
     this->_sceneManager->addScene(std::move(std::make_unique<Settings>(this->_graph->getWindow(), this->_graph->getEvents())));
     this->_sceneManager->addScene(std::move(std::make_unique<HowToPlay>(this->_graph->getWindow(), this->_graph->getEvents())));
+    this->_sceneManager->addScene(std::move(std::make_unique<Lobby>(this->_graph->getWindow(), this->_graph->getEvents())));
     this->setupGroups();
     this->_sceneManager->switchScene(SceneType::MAIN_MENU);
 }

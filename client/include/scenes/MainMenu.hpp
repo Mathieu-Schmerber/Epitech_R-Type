@@ -75,5 +75,6 @@ void emptyCallback(std::shared_ptr<MainMenu> menu);
 void goToSettingsScene(std::shared_ptr<MainMenu> menu);
 void goToHowToPlayScene(std::shared_ptr<MainMenu> menu);
 void quitGame(std::shared_ptr<MainMenu> menu);
+void goToLobbyScene(std::shared_ptr<Engine::AScene> &menu);
 
 #endif //RTYPE_MAINMENU_HPP

@@ -20,21 +20,8 @@
 #include "enumerations/ButtonState.hpp"
 #include "entities/Button.hpp"
 
-void resetHowToPlayScene(std::shared_ptr<Engine::AScene> &howToPlay)
-{
-    auto howToPlayObject = std::dynamic_pointer_cast<HowToPlay>(howToPlay);
-    auto enginesDrawable = howToPlayObject->getEnginesDrawable();
-
-    enginesDrawable[0]->getComponent<Engine::SpriteComponent>()->hasToBeDraw(true);
-    for (auto it = enginesDrawable.begin() + 1; it != enginesDrawable.end(); it++ ) {
-        (*it)->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
-    }
-    howToPlayObject->setEnginesDrawableIndex(0);
-}
-
 void fromHowToPlayToMenu(std::shared_ptr<Engine::AScene> &howToPlay)
 {
-    resetHowToPlayScene(howToPlay);
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::MAIN_MENU);
 
     howToPlay->pushRequest(request);
@@ -252,4 +239,15 @@ std::vector<std::shared_ptr<Engine::Drawable>> HowToPlay::getEnginesDrawableBonu
 std::shared_ptr<Engine::Drawable> HowToPlay::getPowerUpEngine() const
 {
     return _enginesPowerUp;
+}
+
+void HowToPlay::onFocus()
+{
+    auto enginesDrawable = getEnginesDrawable();
+
+    enginesDrawable[0]->getComponent<Engine::SpriteComponent>()->hasToBeDraw(true);
+    for (auto it = enginesDrawable.begin() + 1; it != enginesDrawable.end(); it++ ) {
+        (*it)->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
+    }
+    setEnginesDrawableIndex(0);
 }
