@@ -65,8 +65,8 @@ void Engine::AUdpSocketIO::sendDataToServer(const std::vector<int> &in)
 
 void Engine::AUdpSocketIO::_run()
 {
-    _threadSender = std::thread([&] {_ioServiceOutput.run(); });
-    _threadReceiver = std::thread([&] {_ioServiceInput.run(); });
+    _threadSender = std::thread([&] { _ioServiceOutput.run(); });
+    _threadReceiver = std::thread([&] { _ioServiceInput.run(); });
 }
 
 void Engine::AUdpSocketIO::_stop()

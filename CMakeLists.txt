@@ -31,7 +31,8 @@ set(ENGINE_SOURCES
         engine/src/systems/InputSystem.cpp
         engine/src/systems/PhysicSystem.cpp
         engine/src/networking/AUdpSocketIO.cpp
-        )
+        engine/src/networking/ATcpSocket.cpp
+        engine/src/networking/UDP/UdpSocketInput.cpp engine/src/networking/UDP/UdpSocketOutput.cpp)
 
 set(ENGINE_INCLUDES
         engine/include/ecs/Entity.hpp
@@ -64,7 +65,8 @@ set(ENGINE_INCLUDES
         engine/include/systems/InputSystem.hpp
         engine/include/systems/PhysicSystem.hpp
         engine/include/entities/Drawable.hpp
-        engine/include/networking/AUdpSocketIO.hpp)
+        engine/include/networking/AUdpSocketIO.hpp
+        engine/include/networking/UDP/UdpSocketInput.hpp engine/include/networking/UDP/UdpSocketOutput.hpp)
 
 set(CLIENT_SOURCES
         client/src/main.cpp
@@ -96,15 +98,14 @@ set(SERVER_SOURCES
         server/client/Client.cpp
         server/lobby/lobbyManager/LobbyManager.cpp
         server/lobby/lobby/Lobby.cpp
-        server/client/TCP/TcpSocket.cpp
-        server/client/UDP/UdpSocketInput.cpp)
+        server/client/TCP/TcpSocket.cpp)
 
 set(SERVER_INCLUDES
         server/core/CoreServer.hpp
         server/client/Client.hpp
         server/lobby/lobbyManager/LobbyManager.hpp
         server/lobby/lobby/Lobby.hpp
-        server/Client/TCP/TcpSocket.hpp server/client/UDP/UdpSocketInput.hpp)
+        server/Client/TCP/TcpSocket.hpp)
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
@@ -116,7 +117,7 @@ target_include_directories(r-type_server PRIVATE
         server/lobby/lobbyManager
         server/lobby/lobby
         server/Client/TCP
-        server/Client/UDP)
+        engine/src/networking/UDP)
 target_include_directories(r-type_client PRIVATE
         client/include
         engine/include)
