@@ -21,11 +21,11 @@ std::pair<std::vector<Engine::Inputs>, std::vector<Engine::Inputs>> SocketParser
     return {pressed, released};
 }
 
-std::vector<int> SocketParser::parseUdpEntity(const std::shared_ptr<Engine::Entity> &entity)
+std::vector<int> SocketParser::parseUdpEntity(const std::shared_ptr<Engine::Entity>& entity)
 {
     std::vector<int> parsed;
     auto transform = entity->getComponent<Engine::TransformComponent>();
-    auto sprite = entity->getComponent<Engine::SpriteComponent>();
+    //auto sprite = entity->getComponent<Engine::SpriteComponent>();
 
     parsed.push_back(entity->getComponent<Engine::NetworkComponent>()->getNetworkId());
     parsed.push_back(transform->getPos().x);
@@ -34,9 +34,13 @@ std::vector<int> SocketParser::parseUdpEntity(const std::shared_ptr<Engine::Enti
     //TODO: push a texture index <here>
     parsed.push_back(0);
     //TODO: ^^^ this is a temporary index ^^^
-    parsed.push_back(sprite->getSprite()->getRect().x1);
+    parsed.push_back(0);
+    parsed.push_back(0);
+    parsed.push_back(33);
+    parsed.push_back(17);
+    /*parsed.push_back(sprite->getSprite()->getRect().x1);
     parsed.push_back(sprite->getSprite()->getRect().y1);
     parsed.push_back(sprite->getSprite()->getRect().x2);
-    parsed.push_back(sprite->getSprite()->getRect().y2);
+    parsed.push_back(sprite->getSprite()->getRect().y2);*/
     return parsed;
 }

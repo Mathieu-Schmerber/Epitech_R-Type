@@ -18,7 +18,6 @@ Engine::UdpSocketOutput::UdpSocketOutput(const std::string &ipToConnect, int por
 void Engine::UdpSocketOutput::sendDataToServer(const std::vector<int> &in)
 {
     boost::system::error_code err;
-    std::cout << "SEND : " << in.size() << std::endl;
     _socketOutput.send(boost::asio::buffer(in, in.size() * sizeof(int)), 0, err);
     if (err)
         std::cerr << err << std::endl;

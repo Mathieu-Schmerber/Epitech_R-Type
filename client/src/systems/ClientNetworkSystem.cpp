@@ -23,16 +23,20 @@ void ClientNetworkSystem::sendRawInputs()
 void ClientNetworkSystem::receiveGameData()
 {
     auto &socket = this->_server->getUdpSocket();
-    auto entry = socket->getDataFromServer();
+    auto data = socket->getDataFromServer();
     std::shared_ptr<Engine::Entity> toSpawn;
 
+    std::cout << "Receiving " << data.size() << std::endl << "=> ";
+    for (auto &i : data)
+        std::cout << i << " ";
+    std::cout << std::endl;
     for (auto &e : this->_entities) {
-        if (!entry.empty() && entry.at(0) == e->getComponent<Engine::NetworkComponent>()->getNetworkId()) {
-            SocketParser::updateEntityFromUdp(e, entry);
+        if (!data.empty() && data.at(0) == e->getComponent<Engine::NetworkComponent>()->getNetworkId()) {
+            SocketParser::updateEntityFromUdp(e, data);
             return;
         }
     }
-    toSpawn = SocketParser::unparseUdpEntity(entry);
+    toSpawn = SocketParser::unparseUdpEntity(data);
     if (toSpawn)
         this->_scene->spawnEntity(toSpawn);
 }

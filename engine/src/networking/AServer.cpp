@@ -17,7 +17,7 @@ const std::unique_ptr<Engine::AUdpSocketIO> &Engine::AServer::getUdpSocket() con
 void Engine::AServer::openSockets()
 {
     try {
-        this->_tcpSocket = std::make_unique<Engine::ATcpSocket>(_ip, _port);
+        //this->_tcpSocket = std::make_unique<Engine::ATcpSocket>(_ip, _port);
         this->_udpSocket = std::make_unique<Engine::AUdpSocketIO>(_ip, _port, _clientPort);
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;

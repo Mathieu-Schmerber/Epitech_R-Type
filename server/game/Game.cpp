@@ -3,12 +3,15 @@
 //
 
 #include "Game.hpp"
+#include "tools/Geometry.hpp"
 #include "components/NetworkComponent.hpp"
+#include "components/TransformComponent.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
 #include "systems/PhysicSystem.hpp"
 #include "systems/MoveSystem.hpp"
 #include "systems/ServerNetworkSystem.hpp"
+#include "entities/ParallaxSlide.hpp"
 
 Game::Game(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception) : _players(players), _reception(reception), _idIncrement(0)
 {
@@ -27,6 +30,11 @@ Game::~Game()
 void Game::initGameEntities()
 {
     //TODO: spawn game basics (e.g.: Players, Parallax, ...)
+    auto test = std::make_shared<Engine::Entity>();
+
+    test->addComponent<Engine::TransformComponent>(Engine::Point<int>{50, 50});
+    test->addComponent<Engine::VelocityComponent>(Engine::Vector<double>{1, 0});
+    this->spawn(test, true);
 }
 
 void Game::initGameSystems()
@@ -36,7 +44,7 @@ void Game::initGameSystems()
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto physic = std::make_unique<Engine::PhysicSystem>();
 
-    this->_systems.push_back(std::move(move));
+    //this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(physic));
     this->_systems.push_back(std::move(network));
