@@ -11,17 +11,19 @@
 #include "components/SpriteComponent.hpp"
 #include "components/ClickableComponent.hpp"
 #include "components/AnimationComponent.hpp"
+#include "components/ColliderComponent.hpp"
 
 namespace Engine {
 
     class Button : public Engine::Entity {
     public:
-        Button(const Point<int> &pos,
+        Button(const Point<int> &pos, const Point<int> &size,
               std::unique_ptr<Engine::ASprite> sprite,
               void (*onClick)(std::shared_ptr<Engine::AScene> &),
                std::shared_ptr<Engine::AScene> arg,
                int layer = 1) : Engine::Entity()
         {
+            this->addComponent<ColliderComponent>(0, pos, size);
             this->addComponent<TransformComponent>(pos);
             this->addComponent<SpriteComponent>(layer, std::move(sprite));
             this->addComponent<ClickableComponent>(onClick, arg);

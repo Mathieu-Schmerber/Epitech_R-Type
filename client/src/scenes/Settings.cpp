@@ -124,13 +124,13 @@ void Settings::createSelector(Engine::Point<int> position,  const std::pair<void
     std::pair<std::shared_ptr<Engine::Button>, std::shared_ptr<Engine::Button>> fullScreenPairButton;
     std::pair<std::pair<std::shared_ptr<Engine::Button>, std::shared_ptr<Engine::Button>>, std::shared_ptr<Engine::Drawable>> fullScreenButtonAndText;
     auto fullScreenLeftButtonSprite = std::make_unique<SpriteSFML>(GO_BACK_BUTTON_PATH);
-    fullScreenPairButton.first = std::make_shared<Engine::Button>(Engine::Point<int>{position.x, position.y}, std::move(fullScreenLeftButtonSprite), callback.first, std::shared_ptr<AScene>(this));
+    fullScreenPairButton.first = std::make_shared<Engine::Button>(Engine::Point<int>{position.x, position.y}, Engine::Point<int>{GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT}, std::move(fullScreenLeftButtonSprite), callback.first, std::shared_ptr<AScene>(this));
     fullScreenPairButton.first->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     fullScreenPairButton.first->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     fullScreenPairButton.first->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
 
     auto fullScreenRightButtonSprite = std::make_unique<SpriteSFML>(GO_NEXT_BUTTON_PATH);
-    fullScreenPairButton.second = std::make_shared<Engine::Button>(Engine::Point<int>{position.x + 300, position.y}, std::move(fullScreenRightButtonSprite), callback.second, std::shared_ptr<AScene>(this));
+    fullScreenPairButton.second = std::make_shared<Engine::Button>(Engine::Point<int>{position.x + 300, position.y}, Engine::Point<int>{GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT}, std::move(fullScreenRightButtonSprite), callback.second, std::shared_ptr<AScene>(this));
     fullScreenPairButton.second->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     fullScreenPairButton.second->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     fullScreenPairButton.second->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
@@ -145,7 +145,7 @@ void Settings::createSelector(Engine::Point<int> position,  const std::pair<void
 void Settings::initEntities()
 {
     auto goBackButtonSprite = std::make_unique<SpriteSFML>(GO_BACK_BUTTON_PATH);
-    auto goBackButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{GO_BACK_BUTTON_POSITION_X, GO_BACK_BUTTON_POSITION_Y}, std::move(goBackButtonSprite), &goToMenuScene, std::shared_ptr<Engine::AScene>(this));
+    auto goBackButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{GO_BACK_BUTTON_POSITION_X, GO_BACK_BUTTON_POSITION_Y}, Engine::Point<int>{GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT}, std::move(goBackButtonSprite), &goToMenuScene, std::shared_ptr<Engine::AScene>(this));
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
