@@ -164,7 +164,7 @@ set(SERVER_INCLUDES
         server/client/Client.hpp
         server/lobby/lobbyManager/LobbyManager.hpp
         server/lobby/lobby/Lobby.hpp
-        server/Client/TCP/TcpSocket.hpp
+        server/client/TCP/TcpSocket.hpp
         server/client/UDP/UdpSocketInput.hpp
         server/client/SocketParser.hpp)
 
