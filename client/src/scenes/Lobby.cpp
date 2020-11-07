@@ -42,13 +42,13 @@ Lobby::Lobby(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::A
 void Lobby::initEntities()
 {
     auto goBackButtonSprite = std::make_unique<SpriteSFML>(GO_BACK_BUTTON_PATH);
-    auto goBackButtonEngine = new Engine::Button(Engine::Point<int>{GO_BACK_BUTTON_POSITION_X, GO_BACK_BUTTON_POSITION_Y}, std::move(goBackButtonSprite), &goToMenuScene, std::shared_ptr<Engine::AScene>(this));
+    auto goBackButtonEngine =  std::make_shared<Engine::Button>(Engine::Point<int>{GO_BACK_BUTTON_POSITION_X, GO_BACK_BUTTON_POSITION_Y}, std::move(goBackButtonSprite), &goToMenuScene, std::shared_ptr<Engine::AScene>(this));
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
 
     auto goNextButtonSprite = std::make_unique<SpriteSFML>(GO_NEXT_BUTTON_PATH);
-    auto goNextButtonEngine = new Engine::Button(Engine::Point<int>{GO_NEXT_BUTTON_POSITION_X, GO_NEXT_BUTTON_POSITION_Y}, std::move(goNextButtonSprite), &goToInGameScene, std::shared_ptr<Engine::AScene>(this));
+    auto goNextButtonEngine =  std::make_shared<Engine::Button>(Engine::Point<int>{GO_NEXT_BUTTON_POSITION_X, GO_NEXT_BUTTON_POSITION_Y}, std::move(goNextButtonSprite), &goToInGameScene, std::shared_ptr<Engine::AScene>(this));
     goNextButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::IDLE, {Engine::Box<int>({GO_NEXT_BUTTON_X_IDLE, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
     goNextButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::HOVER, {Engine::Box<int>({GO_NEXT_BUTTON_X_HOVER, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
     goNextButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::CLICKED, {Engine::Box<int>({GO_NEXT_BUTTON_X_CLICKED, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
@@ -65,27 +65,13 @@ void Lobby::initEntities()
     std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(PIXEBOY_FONT_PATH);
     auto backgroundLobbyCard = std::make_unique<SpriteSFML>(LOBBY_CARD_PATH);
 
-
-    std::vector<std::unique_ptr<Engine::ASprite>> starships;
-    for (int i = 0; i < 4; i++) {
-        auto starship = std::make_unique<SpriteSFML>(EMPTY_STARSHIP_PATH);
-        starships.push_back(std::move(starship));
-    }
-
-    std::vector<std::unique_ptr<Engine::AText>> texts(4);
-    for (int i = 0; i < 3; i++) {
-        auto text = std::make_unique<TextSFML>("Cyprien", font, 50);
-        texts.push_back(std::move(text));
-    }
-
     auto lobbyCardFirst = new Engine::LobbyCard(
         Engine::Point<int>{500, 500},
         std::move(backgroundLobbyCard),
-        starships,
-        texts,
+        font,
         &enterLobby,
         std::shared_ptr<Engine::AScene>(this),
-            1
+        1
     );
     this->spawnEntity(std::shared_ptr<Engine::Button>(goBackButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Button>(goNextButtonEngine));
