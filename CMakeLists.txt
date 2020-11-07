@@ -173,10 +173,12 @@ set(SERVER_SOURCES
         server/lobby/lobbyManager/LobbyManager.cpp
         server/lobby/lobby/Lobby.cpp
         server/client/TCP/TcpSocket.cpp
-        server/client/SocketParser.cpp
+		server/client/SocketParser.cpp
         server/client/TCP/TcpSocket.cpp
 		server/game/systems/ServerNetworkSystem.cpp
-        server/game/Game.cpp)
+        server/game/Game.cpp
+		server/game/dataHolders/DataSprite.cpp
+		server/game/dataHolders/DataTexture.cpp server/game/entities/Player.hpp server/game/systems/PlayerSystem.cpp server/game/systems/PlayerSystem.hpp)
 
 set(SERVER_INCLUDES
 		server/core/CoreServer.hpp
@@ -188,7 +190,9 @@ set(SERVER_INCLUDES
 		server/game/systems/ServerNetworkSystem.hpp
 		server/client/TCP/TcpSocket.hpp
 		server/game/systems/ServerNetworkSystem.hpp
-		server/game/Game.hpp)
+		server/game/Game.hpp
+		server/game/dataHolders/DataSprite.hpp
+		server/game/dataHolders/DataTexture.hpp server/game/entities/Player.hpp server/game/systems/PlayerSystem.cpp server/game/systems/PlayerSystem.hpp)
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})

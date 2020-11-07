@@ -20,7 +20,6 @@ void Engine::MoveSystem::update()
     for (auto &e : this->_entities) {
         velocity = e->getComponent<VelocityComponent>();
         transform = e->getComponent<TransformComponent>();
-        std::cout << transform->getPos().x << std::endl;
         transform->movePos({(int)(velocity->getSpeed().x * this->deltatime()),
                             (int)(velocity->getSpeed().y * this->deltatime())});}
 }

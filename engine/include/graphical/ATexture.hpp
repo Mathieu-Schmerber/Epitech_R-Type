@@ -14,7 +14,12 @@
 namespace Engine {
 
     class ATexture {
+    protected:
+        std::string _filename;
+    public:
+        explicit ATexture(const std::string &file = "") : _filename(file) {};
         virtual void loadFromFile(std::string filename) = 0;
+        [[nodiscard]] std::string getFilename() const {return this->_filename;}
     };
 
 }
