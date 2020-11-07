@@ -27,7 +27,7 @@ void Engine::DrawSystem::update()
     std::sort(this->_entities.begin(), this->_entities.end(), this->compare);
     for (auto &e : this->_entities) {
         transform = e->getComponent<Engine::TransformComponent>();
-        sprite = e->getComponent<Engine::SpriteComponent>();
-        sprite->draw(_window, transform->getPos(), static_cast<float>(transform->getRotation()));
+        for (auto &spr : e->getComponents<Engine::SpriteComponent>())
+            spr->draw(_window, transform->getPos(), static_cast<float>(transform->getRotation()));
     }
 }

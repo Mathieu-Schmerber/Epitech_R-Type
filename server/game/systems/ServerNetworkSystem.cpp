@@ -29,7 +29,6 @@ void ServerNetworkSystem::receiveClientInputs()
         affected = this->_entities.at(data.at(0));
         controller = affected->getComponent<Engine::ControllerComponent>();
         if (controller) {
-            Engine::Utils::printIntTab("received inputs", data);
             affected->getComponent<Engine::ControllerComponent>()->setPressed(inputs.first);
             affected->getComponent<Engine::ControllerComponent>()->setReleased(inputs.second);
         }
