@@ -15,6 +15,16 @@ PlayerSystem::PlayerSystem() : Engine::System()
     this->addDependency<Engine::ColliderComponent>();
 }
 
+void PlayerSystem::handleMoveAnimations(std::shared_ptr<Engine::Entity> &player, Engine::Vector<double> dir)
+{
+    if (dir.y > 0)
+        player->getComponent<Engine::AnimationComponent>()->setAnimation(Player::PlayerState::DOWN, false);
+    else if (dir.y < 0)
+        player->getComponent<Engine::AnimationComponent>()->setAnimation(Player::PlayerState::UP, false);
+    else
+        player->getComponent<Engine::AnimationComponent>()->setAnimation(Player::PlayerState::IDLE);
+}
+
 void PlayerSystem::handleMovements(std::shared_ptr<Engine::Entity> &player)
 {
     const double speed = 3;
@@ -26,6 +36,7 @@ void PlayerSystem::handleMovements(std::shared_ptr<Engine::Entity> &player)
     dir.y -= (Engine::Utils::isInVector(pressed, Engine::Inputs::Up));
     dir.y += (Engine::Utils::isInVector(pressed, Engine::Inputs::Down));
     dir = {dir.x * speed, dir.y * speed};
+    handleMoveAnimations(player, dir);
     player->getComponent<Engine::VelocityComponent>()->setSpeed(dir);
 }
 

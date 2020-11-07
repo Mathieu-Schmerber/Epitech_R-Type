@@ -11,6 +11,7 @@
 class PlayerSystem : public Engine::System
 {
 private:
+    static void handleMoveAnimations(std::shared_ptr<Engine::Entity> &player, Engine::Vector<double> dir);
     static void handleMovements(std::shared_ptr<Engine::Entity> &player);
     static void handleWeapon(std::shared_ptr<Engine::Entity> &player);
     static void handleCollisions(std::shared_ptr<Engine::Entity> &player);

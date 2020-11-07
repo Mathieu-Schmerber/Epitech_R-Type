@@ -52,7 +52,7 @@ namespace Engine {
         }
 
         void setAnimation(int name, bool loop = true) {
-            if (Utils::isInMap(this->_animations, name)) {
+            if (Utils::isInMap(this->_animations, name) && this->_current != name) {
                 this->refresh();
                 this->_current = name;
                 this->_looping = loop;
