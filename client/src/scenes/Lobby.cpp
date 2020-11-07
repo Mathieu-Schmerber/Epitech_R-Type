@@ -1,11 +1,12 @@
 //
-// Created by mathi on 30/10/2020.
+// Created by mathieu on 30/10/2020.
 //
 
 #include "systems/MoveSystem.hpp"
 #include "sfml/SpriteSfml.hpp"
 #include "sfml/MusicSFML.hpp"
-#include "sceneManagement/SceneManager.hpp"
+#include "sfml/TextSFML.hpp"
+#include "sfml/FontSFML.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
@@ -14,9 +15,14 @@
 #include "scenes/Lobby.hpp"
 #include "entities/Button.hpp"
 #include "entities/Drawable.hpp"
-#include "entities/Music.hpp"
 #include "enumerations/ButtonState.hpp"
 #include "scenes/SceneEnum.hpp"
+#include "entities/LobbyCard.hpp"
+
+void enterLobby(std::shared_ptr<Engine::AScene> &)
+{
+
+}
 
 void goToInGameScene(std::shared_ptr<Engine::AScene> &lobby)
 {
@@ -47,8 +53,45 @@ void Lobby::initEntities()
     goNextButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::HOVER, {Engine::Box<int>({GO_NEXT_BUTTON_X_HOVER, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
     goNextButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::CLICKED, {Engine::Box<int>({GO_NEXT_BUTTON_X_CLICKED, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
 
+
+
+
+
+
+
+
+
+
+    std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(PIXEBOY_FONT_PATH);
+    auto backgroundLobbyCard = std::make_unique<SpriteSFML>(LOBBY_CARD_PATH);
+
+
+    std::vector<std::unique_ptr<Engine::ASprite>> starships;
+    for (int i = 0; i < 4; i++) {
+        auto starship = std::make_unique<SpriteSFML>(EMPTY_STARSHIP_PATH);
+        starships.push_back(std::move(starship));
+    }
+
+    std::vector<std::unique_ptr<Engine::AText>> texts(4);
+    for (int i = 0; i < 3; i++) {
+        auto text = std::make_unique<TextSFML>("Cyprien", font, 50);
+        texts.push_back(std::move(text));
+    }
+
+
+
+    std::shared_ptr<Engine::LobbyCard> lobbyCardFirst = std::make_shared<Engine::LobbyCard>(
+        Engine::Point<int>{500, 500},
+        std::move(backgroundLobbyCard),
+        starships,
+        texts,
+        &enterLobby,
+        std::shared_ptr<Engine::AScene>(this),
+            1
+        );
     this->spawnEntity(std::shared_ptr<Engine::Button>(goBackButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Button>(goNextButtonEngine));
+    this->spawnEntity(std::shared_ptr<Engine::LobbyCard>(lobbyCardFirst));
 }
 
 void Lobby::initSystems()

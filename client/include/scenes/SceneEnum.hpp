@@ -7,6 +7,10 @@
 
 /* GLOBAL */
 
+#define PIXEBOY_FONT_PATH "../../client/assets/fonts/Pixeboy.ttf"
+#define LOBBY_CARD_PATH "../../client/assets/images/lobby/lobby_card_850x150.png"
+#define EMPTY_STARSHIP_PATH "../../client/assets/images/starships/empty_starship_33x17.png"
+
 #define ON_OFF_PATH "../../client/assets/texts/on_off_text_270x51_135x51.png"
 #define ON_OFF_WIDTH_TOTAL 270
 #define ON_OFF_WIDTH 135

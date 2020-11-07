@@ -25,6 +25,7 @@ class Lobby : public Engine::AScene
     std::shared_ptr<Engine::AWindow> getWindow() const;
 };
 
+void enterLobby(std::shared_ptr<Engine::AScene> &);
 void goToInGameScene(std::shared_ptr<Engine::AScene> &);
 void goToMenuScene(std::shared_ptr<Engine::AScene> &);
 

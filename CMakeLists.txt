@@ -164,7 +164,7 @@ set(CLIENT_INCLUDES
 		client/include/scenes/InGame.hpp
 		client/include/NetworkAccess.hpp
 		client/include/systems/ClientNetworkSystem.hpp
-		client/include/components/LobbyComponent.hpp)
+		client/include/components/LobbyComponent.hpp client/include/entities/LobbyCard.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp

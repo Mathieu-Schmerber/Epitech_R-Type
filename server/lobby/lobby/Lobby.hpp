@@ -23,7 +23,7 @@ public:
     void join(Client &cli);
     void leave(Client &cli);
 
-    int getId() const;
+    [[nodiscard]] int getId() const;
     bool isInGame() const;
     char getSlots() const;
     char getEmptySlots() const;

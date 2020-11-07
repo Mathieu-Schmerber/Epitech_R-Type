@@ -12,14 +12,20 @@ namespace Engine {
     class LobbyComponent : public Engine::Component {
         private:
             short _port;
-            std::string _ip;
-            std::string _name;
+            unsigned short _lobbyId;
             unsigned short _nbMaxClient;
+            unsigned short _nbActualClient;
             unsigned int _idClientMaster;
+            [[nodiscard]] short getPort() const {return _port;};
+            [[nodiscard]] unsigned short getLobbyId() const {return _lobbyId;};
+            [[nodiscard]] unsigned short getNbMaxClient() const {return _nbMaxClient;};
+            [[nodiscard]] unsigned short getNbActualClient() const {return _nbActualClient;};
+            void setNbActualClient(unsigned short nbOfClient) {_nbActualClient = nbOfClient;};
+            [[nodiscard]] unsigned int getClientMasterId() const {return _idClientMaster;};
 
         public:
-            LobbyComponent(short port, const std::string &ip, const std::string &name, unsigned short nbMaxClient, unsigned int idClientMaster)
-                : _port(port), _ip(ip), _name(name), _nbMaxClient(nbMaxClient), _idClientMaster(idClientMaster) {}
+            LobbyComponent(short port, unsigned int lobbyId,  unsigned short nbMaxClient, unsigned int nbActualClient, unsigned int idClientMaster)
+                : _port(port), _lobbyId(lobbyId), _nbActualClient(nbActualClient), _nbMaxClient(nbMaxClient), _idClientMaster(idClientMaster), Engine::Component() {}
     };
 }
 
