@@ -28,7 +28,7 @@ std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector
     auto entity = new Engine::Entity();
     Engine::SpriteComponent *sprite = nullptr;
 
-    if (in.size() != 9)
+    if (in.size() < 9)
         return nullptr;
     entity->addComponent<Engine::NetworkComponent>(in.at(0));
     entity->addComponent<Engine::TransformComponent>(Engine::Point<int>{in.at(1), in.at(2)}, in.at(3));
@@ -46,7 +46,7 @@ void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, 
 {
     auto *sprite = entity->getComponent<Engine::SpriteComponent>();
 
-    if (in.size() != 9)
+    if (in.size() < 9)
         return;
     entity->getComponent<Engine::TransformComponent>()->setPos({in.at(1), in.at(2)});
     entity->getComponent<Engine::TransformComponent>()->setRotation(in.at(3));

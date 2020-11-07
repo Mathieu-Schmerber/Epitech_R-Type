@@ -35,6 +35,13 @@ void PlayerSystem::handleMovements(std::shared_ptr<Engine::Entity> &player)
     dir.x += (Engine::Utils::isInVector(pressed, Engine::Inputs::Right));
     dir.y -= (Engine::Utils::isInVector(pressed, Engine::Inputs::Up));
     dir.y += (Engine::Utils::isInVector(pressed, Engine::Inputs::Down));
+    //TODO: debug
+    std::cout << "Right: " << Engine::Inputs::Right << std::endl;
+    for (auto &i : pressed)
+        std::cout << i << " ";
+    std::cout << std::endl;
+    std::cout << "dir: " << dir.x << ":" << dir.y << std::endl;
+    //TODO: debug
     dir = {dir.x * speed, dir.y * speed};
     handleMoveAnimations(player, dir);
     player->getComponent<Engine::VelocityComponent>()->setSpeed(dir);
