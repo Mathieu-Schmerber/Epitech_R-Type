@@ -8,6 +8,7 @@
 #include "sfml/TextSFML.hpp"
 #include "sfml/FontSFML.hpp"
 #include "systems/DrawSystem.hpp"
+#include "systems/TextSystem.hpp"
 #include "systems/MouseSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
 #include "systems/AnimationSystem.hpp"
@@ -81,6 +82,7 @@ void Lobby::initEntities()
 void Lobby::initSystems()
 {
     auto draw = std::make_unique<Engine::DrawSystem>(this->_window);
+    auto text = std::make_unique<Engine::TextSystem>(this->_window);
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
@@ -88,6 +90,7 @@ void Lobby::initSystems()
     auto music = std::make_unique<Engine::MusicSystem>();
 
     this->_systems.push_back(std::move(draw));
+    this->_systems.push_back(std::move(text));
     this->_systems.push_back(std::move(mouse));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(parallax));
