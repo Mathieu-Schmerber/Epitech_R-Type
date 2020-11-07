@@ -13,6 +13,8 @@
 #include <map>
 #include <algorithm>
 #include <memory>
+#include <string>
+#include <iostream>
 
 namespace Engine {
     class Utils {
@@ -49,6 +51,14 @@ namespace Engine {
         [[nodiscard]] static std::unique_ptr<T> copyUnique(const std::unique_ptr<T> &source)
         {
             return (source ? std::make_unique<T>(*source) : nullptr);
+        }
+
+        static void printIntTab(const std::string &prefix, const std::vector<int> &tab) {
+            std::cout << prefix << std::endl;
+            std::cout << "=> ";
+            for (auto &i : tab)
+                std::cout << i << " ";
+            std::cout << std::endl;
         }
     };
 }

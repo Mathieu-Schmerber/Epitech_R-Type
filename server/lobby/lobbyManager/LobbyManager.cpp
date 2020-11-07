@@ -6,10 +6,13 @@
 */
 
 #include "LobbyManager.hpp"
+#include "Client.hpp"
 
 LobbyManager::LobbyManager()
 {
+    auto *nLobby = new Lobby(this->_id, 4);
 
+    this->_lobbys.push_back(nLobby);
 }
 
 Lobby *LobbyManager::addLobby(char nbSlots = 4)
@@ -35,4 +38,13 @@ std::vector<Lobby *> LobbyManager::getAvailableLobbies() const
             output.push_back(a);
     }
     return output;
+}
+
+Lobby *LobbyManager::getLobbyById(int id)
+{
+    for (auto &a : this->_lobbys) {
+        if (a->getId() == id)
+            return (a);
+    }
+    return nullptr;
 }

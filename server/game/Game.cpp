@@ -3,12 +3,16 @@
 //
 
 #include "Game.hpp"
-#include "components/NetworkComponent.hpp"
+
+#include <memory>
+#include "tools/Geometry.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
 #include "systems/PhysicSystem.hpp"
 #include "systems/MoveSystem.hpp"
+#include "systems/PlayerSystem.hpp"
 #include "systems/ServerNetworkSystem.hpp"
+#include "components/NetworkComponent.hpp"
 
 Game::Game(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception) : _players(players), _reception(reception), _idIncrement(0)
 {
@@ -26,7 +30,9 @@ Game::~Game()
 
 void Game::initGameEntities()
 {
-    //TODO: spawn game basics (e.g.: Players, Parallax, ...)
+    auto player = new Player(0, Engine::Point<int>{50, 50});
+
+    this->spawn(std::shared_ptr<Player>(player), true);
 }
 
 void Game::initGameSystems()
@@ -35,14 +41,16 @@ void Game::initGameSystems()
     auto network = std::make_unique<ServerNetworkSystem>(this->_players, this->_reception);
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto physic = std::make_unique<Engine::PhysicSystem>();
+    auto players = std::make_unique<PlayerSystem>();
 
     this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(physic));
+    this->_systems.push_back(std::move(players));
     this->_systems.push_back(std::move(network));
 }
 
-void Game::spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork)
+void Game::spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork)
 {
     auto network = entity->getComponent<Engine::NetworkComponent>();
 
@@ -63,7 +71,7 @@ void Game::spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork)
 void Game::update()
 {
     for (auto &sys : this->_systems) {
-        sys->setDeltatime(this->_timer->deltatime());
+        sys->setDeltatime(this->_timer->deltatime(10));
         sys->update();
     }
 }

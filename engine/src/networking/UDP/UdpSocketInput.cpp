@@ -31,7 +31,6 @@ void UdpSocketInput::_handleReceive(const boost::system::error_code &error, size
         std::cerr << "Receive failed: " << error.message() << std::endl;
         return;
     }
-    _receiveBuffer.resize(bytes);
     _socketInput.async_receive_from(boost::asio::buffer(_receiveBuffer), _remoteEndpointInput,
         boost::bind(&UdpSocketInput::_handleReceive, this,
             boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));

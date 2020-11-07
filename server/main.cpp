@@ -1,4 +1,5 @@
 #include "TCP/TcpSocket.hpp"
+#include "Client.hpp"
 
 void testServer()
 {
@@ -7,9 +8,8 @@ void testServer()
     server.run();
 }
 
-#include "networking/AUdpSocketIO.hpp"
-
 int main()
 {
+    testServer();
     return 0;
 }

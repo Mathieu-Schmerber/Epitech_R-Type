@@ -2,6 +2,7 @@
 // Created by mathi on 06/11/2020.
 //
 
+#include "tools/Utils.hpp"
 #include "systems/ClientNetworkSystem.hpp"
 #include "components/NetworkComponent.hpp"
 #include "SocketParser.hpp"
@@ -17,22 +18,23 @@ void ClientNetworkSystem::sendRawInputs()
     auto &socket = this->_server->getUdpSocket();
     auto query = SocketParser::parseUdpInputs(this->_server->getClientId(), this->_events->getKeysPressed(), this->_events->getKeysReleased());
 
+    Engine::Utils::printIntTab("sending: ", query);
     socket->sendDataToServer(query);
 }
 
 void ClientNetworkSystem::receiveGameData()
 {
     auto &socket = this->_server->getUdpSocket();
-    auto entry = socket->getDataFromServer();
+    auto data = socket->getDataFromServer();
     std::shared_ptr<Engine::Entity> toSpawn;
 
     for (auto &e : this->_entities) {
-        if (!entry.empty() && entry.at(0) == e->getComponent<Engine::NetworkComponent>()->getNetworkId()) {
-            SocketParser::updateEntityFromUdp(e, entry);
+        if (!data.empty() && data.at(0) == e->getComponent<Engine::NetworkComponent>()->getNetworkId()) {
+            SocketParser::updateEntityFromUdp(e, data);
             return;
         }
     }
-    toSpawn = SocketParser::unparseUdpEntity(entry);
+    toSpawn = SocketParser::unparseUdpEntity(data);
     if (toSpawn)
         this->_scene->spawnEntity(toSpawn);
 }

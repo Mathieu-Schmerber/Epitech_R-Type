@@ -30,7 +30,6 @@ namespace Engine {
         boost::asio::io_service _ioServiceOutput;
         udp::socket _socketOutput{_ioServiceOutput};
         udp::endpoint _remoteEndpointOutput{};
-        std::thread _threadSender;
     };
 }
 

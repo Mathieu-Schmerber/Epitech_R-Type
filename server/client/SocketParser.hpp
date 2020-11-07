@@ -14,7 +14,7 @@ class SocketParser
 {
 public:
     [[nodiscard]] static std::pair<std::vector<Engine::Inputs>, std::vector<Engine::Inputs>> unparseUdpInputs(const std::vector<int> &in);
-    [[nodiscard]] static std::vector<int> parseUdpEntity(const std::shared_ptr<Engine::Entity> &entity);
+    [[nodiscard]] static std::vector<int> parseUdpEntity(const std::shared_ptr<Engine::Entity>& entity);
 };
 
 

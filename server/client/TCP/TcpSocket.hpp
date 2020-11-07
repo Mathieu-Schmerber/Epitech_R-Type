@@ -17,6 +17,7 @@
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <thread>
+#include "LobbyManager.hpp"
 
 using boost::asio::ip::tcp;
 
@@ -43,13 +44,14 @@ public:
     explicit Server(short port);
 
     void handle_accept(std::shared_ptr<Session> session, const boost::system::error_code& err);
-    void run();
+    [[noreturn]] void run();
     void stop();
 private:
     boost::asio::io_service _io_service;
     tcp::acceptor _acceptor;
     std::vector<Client *> _connected{};
     int _id;
+    LobbyManager _lobbyManager;
 };
 
 #endif //RTYPE_TCPSOCKET_HPP

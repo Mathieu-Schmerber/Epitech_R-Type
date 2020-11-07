@@ -24,7 +24,7 @@ public:
     explicit SpriteSFML(std::shared_ptr<Engine::ATexture> &texture) : Engine::ASprite() {
         setTexture(texture);
     }
-    explicit SpriteSFML(const std::string fileName) : Engine::ASprite() {
+    explicit SpriteSFML(const std::string &fileName) : Engine::ASprite() {
         _texture = std::make_shared<TextureSFML>(fileName);
         setTexture(_texture);
     }

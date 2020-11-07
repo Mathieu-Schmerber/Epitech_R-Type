@@ -7,8 +7,8 @@
 
 #include "ecs/System.hpp"
 #include "tools/Timer.hpp"
-#include "Client.hpp"
 #include "networking/UDP/UdpSocketInput.hpp"
+#include "Client.hpp"
 
 class Game
 {
@@ -28,8 +28,9 @@ public:
     Game(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception);
     ~Game();
 
-    void spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork);
+    void spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork);
     void update();
+    bool isGameRunning() { return true; };
 };
 
 
