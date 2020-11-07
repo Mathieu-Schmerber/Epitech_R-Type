@@ -2,6 +2,7 @@
 // Created by mathi on 06/11/2020.
 //
 
+#include "tools/Utils.hpp"
 #include "systems/ClientNetworkSystem.hpp"
 #include "components/NetworkComponent.hpp"
 #include "SocketParser.hpp"
@@ -17,6 +18,7 @@ void ClientNetworkSystem::sendRawInputs()
     auto &socket = this->_server->getUdpSocket();
     auto query = SocketParser::parseUdpInputs(this->_server->getClientId(), this->_events->getKeysPressed(), this->_events->getKeysReleased());
 
+    Engine::Utils::printIntTab("sending: ", query);
     socket->sendDataToServer(query);
 }
 

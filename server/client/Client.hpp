@@ -12,11 +12,11 @@
 #include "networking/UDP/UdpSocketOutput.hpp"
 
 class Client {
-public:
+    public:
     explicit Client(std::shared_ptr<Session> &session);
     [[nodiscard]] int getId() const;
     void sendToClient(std::vector<int> &toSend);
-private:
+    private:
     std::shared_ptr<Session> _session;
     std::shared_ptr<Engine::UdpSocketOutput> _socketOutput;
 };
