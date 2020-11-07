@@ -22,7 +22,6 @@ bool Engine::DrawSystem::compare(const std::shared_ptr<Engine::Entity> &a, const
 void Engine::DrawSystem::update()
 {
     Engine::TransformComponent *transform = nullptr;
-    Engine::SpriteComponent *sprite = nullptr;
 
     std::sort(this->_entities.begin(), this->_entities.end(), this->compare);
     for (auto &e : this->_entities) {
