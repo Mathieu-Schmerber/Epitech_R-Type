@@ -33,7 +33,7 @@ void Game::initGameEntities()
     auto test = std::make_shared<Engine::Entity>();
 
     test->addComponent<Engine::TransformComponent>(Engine::Point<int>{50, 50});
-    test->addComponent<Engine::VelocityComponent>(Engine::Vector<double>{1, 0});
+    test->addComponent<Engine::VelocityComponent>(Engine::Vector<double>{3, 0});
     this->spawn(test, true);
 }
 
@@ -44,7 +44,7 @@ void Game::initGameSystems()
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto physic = std::make_unique<Engine::PhysicSystem>();
 
-    //this->_systems.push_back(std::move(move));
+    this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(physic));
     this->_systems.push_back(std::move(network));
@@ -71,7 +71,7 @@ void Game::spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork)
 void Game::update()
 {
     for (auto &sys : this->_systems) {
-        sys->setDeltatime(this->_timer->deltatime());
+        sys->setDeltatime(this->_timer->deltatime(10));
         sys->update();
     }
 }

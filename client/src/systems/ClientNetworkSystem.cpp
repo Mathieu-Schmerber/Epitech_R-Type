@@ -26,10 +26,6 @@ void ClientNetworkSystem::receiveGameData()
     auto data = socket->getDataFromServer();
     std::shared_ptr<Engine::Entity> toSpawn;
 
-    std::cout << "Receiving " << data.size() << std::endl << "=> ";
-    for (auto &i : data)
-        std::cout << i << " ";
-    std::cout << std::endl;
     for (auto &e : this->_entities) {
         if (!data.empty() && data.at(0) == e->getComponent<Engine::NetworkComponent>()->getNetworkId()) {
             SocketParser::updateEntityFromUdp(e, data);

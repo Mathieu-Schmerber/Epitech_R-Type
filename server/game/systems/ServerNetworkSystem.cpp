@@ -37,10 +37,6 @@ void ServerNetworkSystem::sendGameData()
         for (auto &cli : this->_players) {
             auto data = SocketParser::parseUdpEntity(e);
             cli.sendToClient(data);
-            std::cout << "Sending: " << data.size() << std::endl << "=> ";
-            for (auto &i : data)
-                std::cout << i << " ";
-            std::cout << std::endl;
         }
     }
 }

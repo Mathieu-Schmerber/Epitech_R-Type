@@ -31,11 +31,11 @@ std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector
     entity->addComponent<Engine::TransformComponent>(Engine::Point<int>{in.at(1), in.at(2)}, in.at(3));
     entity->addComponent<Engine::SpriteComponent>();
     sprite = entity->getComponent<Engine::SpriteComponent>();
-    sprite->getSprite()->setRect({{in.at(5), in.at(6)}, {in.at(7), in.at(8)}});
     // TODO: set texture thanks to the index: in.at(4)
     auto spr = std::make_unique<SpriteSFML>("../../client/assets/images/starships/blue_starship_166x17_33x17.png");
     sprite->setDisplay(std::move(spr));
     // TODO: ^^^This is a temporary texture set ^^^
+    sprite->getSprite()->setRect({{in.at(5), in.at(6)}, {in.at(7), in.at(8)}});
     return std::shared_ptr<Engine::Entity>(entity);
 }
 
