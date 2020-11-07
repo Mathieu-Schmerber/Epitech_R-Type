@@ -18,8 +18,8 @@ namespace Engine {
         public:
         LobbyCard(const Point<int> &pos,
             std::unique_ptr<Engine::ASprite> background,
-            std::vector<std::unique_ptr<Engine::ASprite>> starships,
-            std::vector<std::unique_ptr<Engine::AText>> texts,
+            std::vector<std::unique_ptr<Engine::ASprite>> &starships,
+            std::vector<std::unique_ptr<Engine::AText>> &texts,
             void (*onClick)(std::shared_ptr<Engine::AScene> &),
             std::shared_ptr<Engine::AScene> arg,
             int layer = 1) : Engine::Entity()
