@@ -26,8 +26,8 @@ public:
     explicit TextComponent(int layer, std::unique_ptr<Engine::AText> text) : Engine::Component(), _layer(layer),
     _text(std::move(text)) {}
 
-    [[nodiscard]] std::unique_ptr<Engine::AText> &getSound() {return this->_text;}
-    void setSound(std::unique_ptr<Engine::AText> sound) { this->_text = std::move(sound);}
+    [[nodiscard]] std::unique_ptr<Engine::AText> &getText() {return this->_text;}
+    void setText(std::unique_ptr<Engine::AText> text) { this->_text = std::move(text);}
     void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) {
         if (_hasToBeDraw)
             _text->draw(window, position, angle);

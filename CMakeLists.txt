@@ -47,6 +47,8 @@ set(ENGINE_SOURCES
 		engine/src/networking/UDP/UdpSocketInput.cpp
 		engine/src/networking/UDP/UdpSocketOutput.cpp
 		engine/src/systems/WindowResizeSystem.cpp)
+		engine/src/systems/TextSystem.cpp
+		)
 
 set(ENGINE_INCLUDES
 		engine/include/ecs/Entity.hpp
@@ -113,6 +115,8 @@ set(ENGINE_INCLUDES
 		engine/include/networking/UDP/UdpSocketOutput.hpp
 		engine/include/systems/MoveSystem.hpp
 		engine/include/systems/WindowResizeSystem.hpp)
+		engine/include/systems/MoveSystem.hpp
+		engine/include/systems/TextSystem.hpp)
 
 set(CLIENT_SOURCES
 		client/src/main.cpp
@@ -165,7 +169,7 @@ set(CLIENT_INCLUDES
 		client/include/scenes/InGame.hpp
 		client/include/NetworkAccess.hpp
 		client/include/systems/ClientNetworkSystem.hpp
-		client/include/components/LobbyComponent.hpp)
+		client/include/components/LobbyComponent.hpp client/include/entities/LobbyCard.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp
