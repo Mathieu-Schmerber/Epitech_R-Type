@@ -31,6 +31,7 @@ class HowToPlay : public Engine::AScene
 
     void initEntities() final;
     void initSystems() final;
+    void onFocus() final;
 
     public:
     std::vector<std::shared_ptr<Engine::Drawable>> getEnginesDrawable() const;

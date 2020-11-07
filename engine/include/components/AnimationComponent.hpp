@@ -21,12 +21,13 @@ namespace Engine {
         size_t _frame;
         double _frameTime;
         int _current;
+        bool _looping;
 
     public:
-        explicit AnimationComponent() : _animations({}), _frame(0), _current(0), _frameTime(0),
+        explicit AnimationComponent() : _animations({}), _frame(0), _current(0), _frameTime(0), _looping(false),
                                         _last(std::chrono::high_resolution_clock::now()), Engine::Component() {}
         explicit AnimationComponent(double animationTime, const std::map<int, std::vector<Box<int>>> &anim = {})
-                                    : _animations(anim), _frame(0), _frameTime(animationTime),
+                                    : _animations(anim), _frame(0), _frameTime(animationTime), _looping(false),
                                     _last(std::chrono::high_resolution_clock::now()), Engine::Component() {
             if (!anim.empty())
                 this->_current = anim.begin()->first;
@@ -38,6 +39,8 @@ namespace Engine {
 
         [[nodiscard]]  std::chrono::high_resolution_clock::time_point getLastRefresh() {return this->_last;};
 
+        [[nodiscard]] bool isLooping() const {return this->_looping;}
+
         void refresh() {this->_last = std::chrono::high_resolution_clock::now();}
 
         void setFrameTime(double frameTime) {this->_frameTime = frameTime;}
@@ -48,10 +51,11 @@ namespace Engine {
             this->_animations[name] = frames;
         }
 
-        void setAnimation(int name) {
-            if (Utils::isInMap(this->_animations, name)) {
+        void setAnimation(int name, bool loop = true) {
+            if (Utils::isInMap(this->_animations, name) && this->_current != name) {
                 this->refresh();
                 this->_current = name;
+                this->_looping = loop;
                 this->_frame = 0;
             }
         }
@@ -61,8 +65,10 @@ namespace Engine {
 
             if (Utils::isInMap(this->_animations, this->_current) && !this->_animations[_current].empty()) {
                 this->_frame++;
-                if (this->_frame >= this->_animations[_current].size())
+                if (this->_frame >= this->_animations[_current].size() && this->_looping)
                     this->_frame = 0;
+                else if (!this->_looping)
+                    this->_frame = this->_animations[_current].size() - 1;
                 res = this->_animations[_current].at(this->_frame);
             }
             return res;

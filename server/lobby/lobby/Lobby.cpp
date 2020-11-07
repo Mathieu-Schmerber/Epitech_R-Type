@@ -6,20 +6,30 @@
 */
 
 #include "Lobby.hpp"
+#include "Client.hpp"
+#include "Game.hpp"
 
 Lobby::Lobby(int id, char nbSlots) : _id(id), _nbSlots(nbSlots), _gameRunning(false)
 {
+    _udpSocketInput = std::make_unique<UdpSocketInput>(4243);
 }
 
 void Lobby::run()
 {
+    std::vector<Client> cli;
+    cli.push_back(this->_players.front());
+    _game = std::make_unique<Game>(cli, _udpSocketInput);
+    _gameRunning = true;
+    _thread = std::thread([&] { while (_game->isGameRunning()) { _game->update(); } });
 }
 
-void Lobby::join(Client *cli)
+void Lobby::join(Client &cli)
 {
+    std::cout << "Client " << cli.getId() << " join." << std::endl;
+    _players.push_back(cli);
 }
 
-void Lobby::leave(Client *cli)
+void Lobby::leave(Client &cli)
 {
 }
 

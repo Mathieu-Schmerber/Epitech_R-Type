@@ -5,15 +5,15 @@
 ** Created by Emilien
 */
 
-#include "UdpSocketInput.hpp"
+#include "networking/UDP/UdpSocketInput.hpp"
 
-UdpSocketInput::UdpSocketInput(int port)
+UdpSocketInput::UdpSocketInput(int portIn)
 {
     _socketInput = udp::socket(_ioServiceInput);
     _socketInput.open(udp::v4());
     _receiveBuffer.clear();
     _receiveBuffer.resize(240);
-    _socketInput.bind(udp::endpoint(address::from_string("0.0.0.0"), port));
+    _socketInput.bind(udp::endpoint(address::from_string("0.0.0.0"), portIn));
     _socketInput.async_receive_from(boost::asio::buffer(_receiveBuffer), _remoteEndpointInput,
         boost::bind(&UdpSocketInput::_handleReceive, this,
             boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
@@ -31,6 +31,7 @@ void UdpSocketInput::_handleReceive(const boost::system::error_code &error, size
         std::cerr << "Receive failed: " << error.message() << std::endl;
         return;
     }
+    _receiveBuffer.resize(bytes / sizeof(int));
     _socketInput.async_receive_from(boost::asio::buffer(_receiveBuffer), _remoteEndpointInput,
         boost::bind(&UdpSocketInput::_handleReceive, this,
             boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));

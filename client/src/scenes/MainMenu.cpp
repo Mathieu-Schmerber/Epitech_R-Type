@@ -8,6 +8,7 @@
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
+#include "systems/MoveSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/MusicSystem.hpp"
 #include "scenes/MainMenu.hpp"
@@ -15,6 +16,13 @@
 #include "entities/Drawable.hpp"
 #include "entities/Music.hpp"
 #include "enumerations/ButtonState.hpp"
+
+void goToLobbyScene(std::shared_ptr<Engine::AScene> &menu)
+{
+    Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::LOBBY);
+
+    menu->pushRequest(request);
+}
 
 void goToSettingsScene(std::shared_ptr<Engine::AScene> &menu)
 {
@@ -55,7 +63,7 @@ void MainMenu::initEntities()
     auto rTypeLogoEngine = new Engine::Drawable({RTYPE_LOGO_POSITION_X, RTYPE_LOGO_POSITION_Y}, std::move(rtypeLogoSprite));
 
     auto startButtonSprite = std::make_unique<SpriteSFML>(START_BUTTON_PATH);
-    auto startButtonEngine = new Engine::Button({START_BUTTON_POSITION_X, START_BUTTON_POSITION_Y}, std::move(startButtonSprite), &emptyCallback, std::shared_ptr<Engine::AScene>(this));
+    auto startButtonEngine = new Engine::Button({START_BUTTON_POSITION_X, START_BUTTON_POSITION_Y}, std::move(startButtonSprite), &goToLobbyScene, std::shared_ptr<Engine::AScene>(this));
     startButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::IDLE, {Engine::Box<int>({START_BUTTON_X_IDLE, START_BUTTON_Y}, {START_BUTTON_WIDTH, START_BUTTON_HEIGHT})});
     startButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::HOVER, {Engine::Box<int>({START_BUTTON_X_HOVER, START_BUTTON_Y}, {START_BUTTON_WIDTH, START_BUTTON_HEIGHT})});
     startButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::CLICKED, {Engine::Box<int>({START_BUTTON_X_CLICKED, START_BUTTON_Y}, {START_BUTTON_WIDTH, START_BUTTON_HEIGHT})});
@@ -90,12 +98,14 @@ void MainMenu::initSystems()
     auto draw = std::make_unique<Engine::DrawSystem>(this->_window);
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
+    auto move = std::make_unique<Engine::MoveSystem>();
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto music = std::make_unique<Engine::MusicSystem>();
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
     this->_systems.push_back(std::move(parallax));
+    this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(music));
 }

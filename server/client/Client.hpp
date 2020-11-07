@@ -9,6 +9,7 @@
 #define RTYPE_CLIENT_HPP
 
 #include "TCP/TcpSocket.hpp"
+#include "networking/UDP/UdpSocketOutput.hpp"
 
 class Client {
 public:

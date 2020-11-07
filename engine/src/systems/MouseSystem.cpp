@@ -34,7 +34,9 @@ void Engine::MouseSystem::update()
         clickable = e->getComponent<ClickableComponent>();
         animation = e->getComponent<AnimationComponent>();
         box = Box<int>(transform->getPos(), sprite->getSprite()->getSize());
-        if (released && Geometry::doOverlap(mousePos, box))
+        if (!sprite->isVisible())
+            continue;
+        else if (released && Geometry::doOverlap(mousePos, box))
             clickable->onClick();
         if (animation) {
             if (pressed && Geometry::doOverlap(mousePos, box))

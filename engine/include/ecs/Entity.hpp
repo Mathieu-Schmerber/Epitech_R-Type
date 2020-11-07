@@ -23,6 +23,7 @@ namespace Engine {
 
         template<typename T, typename... TArgs> void addComponent(TArgs&&... args);
         template<typename T> [[nodiscard]] T *getComponent() const;
+        template<typename T> [[nodiscard]] std::vector<T *> getComponents() const;
 
         bool hasComponents(std::vector<std::unique_ptr<Engine::Component>> &components)
         {
@@ -58,6 +59,18 @@ namespace Engine {
                 return static_cast<T *>(component.get());
         }
         return nullptr;
+    }
+
+    template<typename T>
+    std::vector<T *> Engine::Entity::getComponents() const
+    {
+        std::vector<T *> res = {};
+
+        for (auto &component : this->_components) {
+            if (typeid(T).name() == component->getInfo())
+                res.push_back(static_cast<T *>(component.get()));
+        }
+        return res;
     }
 
 

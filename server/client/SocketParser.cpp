@@ -9,19 +9,19 @@
 
 std::pair<std::vector<Engine::Inputs>, std::vector<Engine::Inputs>> SocketParser::unparseUdpInputs(const std::vector<int> &in)
 {
-    size_t i;
     std::vector<Engine::Inputs> pressed;
     std::vector<Engine::Inputs> released;
 
-    for (i = 2; i < in.at(1); ++i)
+    if (in.size() <= 3)
+        return {{}, {}};
+    for (size_t i = 2; i < in.at(1) + 2; ++i)
         pressed.push_back(static_cast<Engine::Inputs>(in.at(i)));
-    i++;
-    for (size_t j = 0; j < in.at(i); ++j)
-        pressed.push_back(static_cast<Engine::Inputs>(in.at(i + j)));
+    for (size_t i = 2 + pressed.size() + 1; i < in.at(2 + pressed.size()); i++)
+        released.push_back(static_cast<Engine::Inputs>(in.at(i)));
     return {pressed, released};
 }
 
-std::vector<int> SocketParser::parseUdpEntity(const std::shared_ptr<Engine::Entity> &entity)
+std::vector<int> SocketParser::parseUdpEntity(const std::shared_ptr<Engine::Entity>& entity)
 {
     std::vector<int> parsed;
     auto transform = entity->getComponent<Engine::TransformComponent>();
@@ -30,11 +30,13 @@ std::vector<int> SocketParser::parseUdpEntity(const std::shared_ptr<Engine::Enti
     parsed.push_back(entity->getComponent<Engine::NetworkComponent>()->getNetworkId());
     parsed.push_back(transform->getPos().x);
     parsed.push_back(transform->getPos().y);
-    parsed.push_back(transform->getRotation());
+    parsed.push_back(static_cast<int>(transform->getRotation()));
     //TODO: push a texture index <here>
+    parsed.push_back(0);
+    //TODO: ^^^ this is a temporary index ^^^
     parsed.push_back(sprite->getSprite()->getRect().x1);
-    parsed.push_back(sprite->getSprite()->getRect().y1);
     parsed.push_back(sprite->getSprite()->getRect().x2);
+    parsed.push_back(sprite->getSprite()->getRect().y1);
     parsed.push_back(sprite->getSprite()->getRect().y2);
     return parsed;
 }

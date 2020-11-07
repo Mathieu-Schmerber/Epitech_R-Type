@@ -27,9 +27,10 @@ public:
 
     void setTitle(const std::string &title) override;
     void setFrameRate(int frameRate) override;
+    void setVsync(bool sync) override;
 
-    [[nodiscard]] int getFrameRate() const;
-    [[nodiscard]] int getVsync() const;
+    [[nodiscard]] int getFrameRate() const override;
+    [[nodiscard]] bool getVsync() const override;
 
     friend class SpriteSFML;
     friend class TextSFML;
@@ -40,8 +41,6 @@ private:
 
     std::unique_ptr<sf::RenderWindow> _window = nullptr;
     sf::String _titleSFML;
-    bool _vSyncEnabled = true;
-    int _frameRate = 60;
 };
 
 

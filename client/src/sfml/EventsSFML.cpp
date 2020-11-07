@@ -5,7 +5,6 @@
 ** Created by Cyprien
 */
 
-
 #include "sfml/EventsSFML.hpp"
 
 void EventsSFML::update()

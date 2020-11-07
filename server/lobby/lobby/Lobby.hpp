@@ -8,17 +8,20 @@
 #ifndef RTYPE_LOBBY_HPP
 #define RTYPE_LOBBY_HPP
 
-#include "Client.hpp"
 #include <vector>
 #include <thread>
+#include "networking/UDP/UdpSocketInput.hpp"
+
+class Client;
+class Game;
 
 class Lobby {
 public:
     explicit Lobby(int id, char nbSlots);
     void run();
 
-    void join(Client *cli);
-    void leave(Client *cli);
+    void join(Client &cli);
+    void leave(Client &cli);
 
     int getId() const;
     bool isInGame() const;
@@ -30,6 +33,8 @@ private:
     int _id;
     char _nbSlots;
     bool _gameRunning;
+    std::unique_ptr<Game> _game;
+    std::unique_ptr<UdpSocketInput> _udpSocketInput;
 };
 
 #endif //RTYPE_LOBBY_HPP

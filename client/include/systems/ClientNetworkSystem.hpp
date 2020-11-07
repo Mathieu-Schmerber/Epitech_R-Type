@@ -5,28 +5,25 @@
 #ifndef RTYPE_CLIENTNETWORKSYSTEM_HPP
 #define RTYPE_CLIENTNETWORKSYSTEM_HPP
 
-#include "networking/AServer.hpp"
+#include "NetworkAccess.hpp"
 #include "graphical/AEvents.hpp"
 #include "sceneManagement/AScene.hpp"
 #include "ecs/System.hpp"
 
-class ClientNetworkSystem : Engine::System
+class ClientNetworkSystem : public Engine::System
 {
 private:
-    std::shared_ptr<Engine::AServer> _server;
+    std::shared_ptr<NetworkAccess> _server;
     std::shared_ptr<Engine::AEvents> _events;
     std::shared_ptr<Engine::AScene> _scene;
-    short _clientId;
 
     void sendRawInputs();
-    void updateGameData();
+    void receiveGameData();
 
 public:
-    ClientNetworkSystem(std::shared_ptr<Engine::AServer> &server,
+    ClientNetworkSystem(std::shared_ptr<NetworkAccess> &server,
                         std::shared_ptr<Engine::AEvents> &events,
                         std::shared_ptr<Engine::AScene> &scene);
-
-    void setClientId(short clientId);
 
     void update() override;
 

@@ -8,6 +8,7 @@
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
+#include "systems/MoveSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/MusicSystem.hpp"
 #include "scenes/HowToPlay.hpp"
@@ -19,21 +20,8 @@
 #include "enumerations/ButtonState.hpp"
 #include "entities/Button.hpp"
 
-void resetHowToPlayScene(std::shared_ptr<Engine::AScene> &howToPlay)
-{
-    auto howToPlayObject = std::dynamic_pointer_cast<HowToPlay>(howToPlay);
-    auto enginesDrawable = howToPlayObject->getEnginesDrawable();
-
-    enginesDrawable[0]->getComponent<Engine::SpriteComponent>()->hasToBeDraw(true);
-    for (auto it = enginesDrawable.begin() + 1; it != enginesDrawable.end(); it++ ) {
-        (*it)->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
-    }
-    howToPlayObject->setEnginesDrawableIndex(0);
-}
-
 void fromHowToPlayToMenu(std::shared_ptr<Engine::AScene> &howToPlay)
 {
-    resetHowToPlayScene(howToPlay);
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::MAIN_MENU);
 
     howToPlay->pushRequest(request);
@@ -212,12 +200,14 @@ void HowToPlay::initSystems()
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
+    auto move = std::make_unique<Engine::MoveSystem>();
     auto music = std::make_unique<Engine::MusicSystem>();
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(parallax));
+    this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(music));
 }
 
@@ -249,4 +239,15 @@ std::vector<std::shared_ptr<Engine::Drawable>> HowToPlay::getEnginesDrawableBonu
 std::shared_ptr<Engine::Drawable> HowToPlay::getPowerUpEngine() const
 {
     return _enginesPowerUp;
+}
+
+void HowToPlay::onFocus()
+{
+    auto enginesDrawable = getEnginesDrawable();
+
+    enginesDrawable[0]->getComponent<Engine::SpriteComponent>()->hasToBeDraw(true);
+    for (auto it = enginesDrawable.begin() + 1; it != enginesDrawable.end(); it++ ) {
+        (*it)->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
+    }
+    setEnginesDrawableIndex(0);
 }
