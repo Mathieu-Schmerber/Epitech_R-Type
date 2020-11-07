@@ -6,6 +6,7 @@
 */
 
 #include "LobbyManager.hpp"
+#include "Client.hpp"
 
 LobbyManager::LobbyManager()
 {

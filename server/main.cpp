@@ -1,4 +1,5 @@
 #include "TCP/TcpSocket.hpp"
+#include "Client.hpp"
 
 void testServer()
 {
