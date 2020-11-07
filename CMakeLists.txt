@@ -46,7 +46,7 @@ set(ENGINE_SOURCES
 		engine/src/networking/ATcpSocket.cpp
 		engine/src/networking/UDP/UdpSocketInput.cpp
 		engine/src/networking/UDP/UdpSocketOutput.cpp
-		engine/src/systems/WindowResizeSystem.cpp)
+		engine/src/systems/WindowResizeSystem.cpp
 		engine/src/systems/TextSystem.cpp
 		)
 
@@ -114,7 +114,7 @@ set(ENGINE_INCLUDES
 		engine/include/networking/UDP/UdpSocketInput.hpp
 		engine/include/networking/UDP/UdpSocketOutput.hpp
 		engine/include/systems/MoveSystem.hpp
-		engine/include/systems/WindowResizeSystem.hpp)
+		engine/include/systems/WindowResizeSystem.hpp
 		engine/include/systems/MoveSystem.hpp
 		engine/include/systems/TextSystem.hpp)
 
