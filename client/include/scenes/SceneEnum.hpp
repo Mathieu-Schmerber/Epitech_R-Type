@@ -10,6 +10,11 @@
 #define PIXEBOY_FONT_PATH "../../client/assets/fonts/Pixeboy.ttf"
 #define LOBBY_CARD_PATH "../../client/assets/images/lobby/lobby_card_850x150.png"
 #define EMPTY_STARSHIP_PATH "../../client/assets/images/starships/empty_starship_33x17.png"
+#define ALL_STARSHIP_PATH "../../client/assets/images/starships/all_starship_132x17_33x17.png"
+#define STARSHIP_WIDTH 33
+#define STARSHIP_HEIGHT 17
+#define STARSHIP_SCALE_X 3
+#define STARSHIP_SCALE_Y 3
 
 #define ON_OFF_PATH "../../client/assets/texts/on_off_text_270x51_135x51.png"
 #define ON_OFF_WIDTH_TOTAL 270
