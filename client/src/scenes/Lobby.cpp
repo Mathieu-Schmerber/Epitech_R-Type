@@ -55,6 +55,26 @@ void Lobby::initEntities()
     goNextButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::HOVER, {Engine::Box<int>({GO_NEXT_BUTTON_X_HOVER, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
     goNextButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::CLICKED, {Engine::Box<int>({GO_NEXT_BUTTON_X_CLICKED, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
 
+
+
+
+
+
+
+
+
+
+    std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(PIXEBOY_FONT_PATH);
+    auto backgroundLobbyCard = std::make_unique<SpriteSFML>(LOBBY_CARD_PATH);
+
+    auto lobbyCardFirst = new Engine::LobbyCard(
+        Engine::Point<int>{500, 500},
+        std::move(backgroundLobbyCard),
+        font,
+        &enterLobby,
+        std::shared_ptr<Engine::AScene>(this),
+        1
+    );
     this->spawnEntity(std::shared_ptr<Engine::Button>(goBackButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Button>(goNextButtonEngine));
 

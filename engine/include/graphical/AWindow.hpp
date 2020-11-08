@@ -7,19 +7,20 @@
 
 #include <string>
 #include <vector>
+#include "tools/Geometry.hpp"
 
 namespace Engine {
 
     class AWindow {
 
     protected:
-        std::pair<int, int> _size;
+        Size<double> _size;
         std::string _title;
         bool _vSyncEnabled = true;
         int _frameRate = 30;
 
     public:
-        AWindow(const std::string &title, const std::pair<int, int> &windowSize);
+        AWindow(const std::string &title, const Size<double> &windowSize);
         ~AWindow() = default;
 
         virtual void open() = 0;
@@ -29,9 +30,9 @@ namespace Engine {
 
         virtual void setFrameRate(int frameRate) = 0;
         virtual void setVsync(bool value) = 0;
-        void setSize(const std::pair<int, int> &size);
+        void setSize(const Size<double> &size);
         virtual void setTitle(const std::string &title);
-        [[nodiscard]] std::pair<int, int> getSize() const;
+        [[nodiscard]] virtual Size<double> getSize() const;
         [[nodiscard]] virtual int getFrameRate() const;
         [[nodiscard]] virtual bool getVsync() const;
         [[nodiscard]] std::string getTitle() const;

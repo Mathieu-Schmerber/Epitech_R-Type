@@ -11,6 +11,7 @@
 #include "systems/MoveSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/MusicSystem.hpp"
+#include "systems/WindowResizeSystem.hpp"
 #include "scenes/MainMenu.hpp"
 #include "entities/Button.hpp"
 #include "entities/Drawable.hpp"
@@ -63,25 +64,25 @@ void MainMenu::initEntities()
     auto rTypeLogoEngine = new Engine::Drawable({RTYPE_LOGO_POSITION_X, RTYPE_LOGO_POSITION_Y}, std::move(rtypeLogoSprite));
 
     auto startButtonSprite = std::make_unique<SpriteSFML>(START_BUTTON_PATH);
-    auto startButtonEngine =  std::make_shared<Engine::Button>(Engine::Point<int>{START_BUTTON_POSITION_X, START_BUTTON_POSITION_Y}, std::move(startButtonSprite), &goToLobbyScene, std::shared_ptr<Engine::AScene>(this));
+    auto startButtonEngine = new Engine::Button({START_BUTTON_POSITION_X, START_BUTTON_POSITION_Y}, {START_BUTTON_WIDTH, START_BUTTON_HEIGHT}, std::move(startButtonSprite), &goToLobbyScene, std::shared_ptr<Engine::AScene>(this));
     startButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::IDLE, {Engine::Box<int>({START_BUTTON_X_IDLE, START_BUTTON_Y}, {START_BUTTON_WIDTH, START_BUTTON_HEIGHT})});
     startButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::HOVER, {Engine::Box<int>({START_BUTTON_X_HOVER, START_BUTTON_Y}, {START_BUTTON_WIDTH, START_BUTTON_HEIGHT})});
     startButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::CLICKED, {Engine::Box<int>({START_BUTTON_X_CLICKED, START_BUTTON_Y}, {START_BUTTON_WIDTH, START_BUTTON_HEIGHT})});
 
     auto settingsButtonSprite = std::make_unique<SpriteSFML>(SETTINGS_BUTTON_PATH);
-    auto settingsButtonEngine =  std::make_shared<Engine::Button>(Engine::Point<int>{SETTINGS_BUTTON_POSITION_X, SETTINGS_BUTTON_POSITION_Y}, std::move(settingsButtonSprite), &goToSettingsScene, std::shared_ptr<Engine::AScene>(this));
+    auto settingsButtonEngine = new Engine::Button({SETTINGS_BUTTON_POSITION_X, SETTINGS_BUTTON_POSITION_Y}, {SETTINGS_BUTTON_WIDTH, SETTINGS_BUTTON_HEIGHT}, std::move(settingsButtonSprite), &goToSettingsScene, std::shared_ptr<Engine::AScene>(this));
     settingsButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::IDLE, {Engine::Box<int>({SETTINGS_BUTTON_X_IDLE, SETTINGS_BUTTON_Y}, {SETTINGS_BUTTON_WIDTH, SETTINGS_BUTTON_HEIGHT})});
     settingsButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::HOVER, {Engine::Box<int>({SETTINGS_BUTTON_X_HOVER, SETTINGS_BUTTON_Y}, {SETTINGS_BUTTON_WIDTH, SETTINGS_BUTTON_HEIGHT})});
     settingsButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::CLICKED, {Engine::Box<int>({SETTINGS_BUTTON_X_CLICKED, SETTINGS_BUTTON_Y}, {SETTINGS_BUTTON_WIDTH, SETTINGS_BUTTON_HEIGHT})});
 
     auto howToPlayButtonSprite = std::make_unique<SpriteSFML>(HOW_TO_PLAY_BUTTON_PATH);
-    auto howToPlayButtonEngine =  std::make_shared<Engine::Button>(Engine::Point<int>{HOW_TO_PLAY_BUTTON_POSITION_X, HOW_TO_PLAY_BUTTON_POSITION_Y}, std::move(howToPlayButtonSprite), &goToHowToPlayScene, std::shared_ptr<Engine::AScene>(this));
+    auto howToPlayButtonEngine = new Engine::Button({HOW_TO_PLAY_BUTTON_POSITION_X, HOW_TO_PLAY_BUTTON_POSITION_Y}, {HOW_TO_PLAY_BUTTON_WIDTH, HOW_TO_PLAY_BUTTON_HEIGHT}, std::move(howToPlayButtonSprite), &goToHowToPlayScene, std::shared_ptr<Engine::AScene>(this));
     howToPlayButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::IDLE, {Engine::Box<int>({HOW_TO_PLAY_BUTTON_X_IDLE, HOW_TO_PLAY_BUTTON_Y}, {HOW_TO_PLAY_BUTTON_WIDTH, HOW_TO_PLAY_BUTTON_HEIGHT})});
     howToPlayButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::HOVER, {Engine::Box<int>({HOW_TO_PLAY_BUTTON_X_HOVER, HOW_TO_PLAY_BUTTON_Y}, {HOW_TO_PLAY_BUTTON_WIDTH, HOW_TO_PLAY_BUTTON_HEIGHT})});
     howToPlayButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::CLICKED, {Engine::Box<int>({HOW_TO_PLAY_BUTTON_X_CLICKED, HOW_TO_PLAY_BUTTON_Y}, {HOW_TO_PLAY_BUTTON_WIDTH, HOW_TO_PLAY_BUTTON_HEIGHT})});
 
     auto quitButtonSprite = std::make_unique<SpriteSFML>(QUIT_BUTTON_PATH);
-    auto quitButtonEngine =  std::make_shared<Engine::Button>(Engine::Point<int>{QUIT_BUTTON_POSITION_X, QUIT_BUTTON_POSITION_Y}, std::move(quitButtonSprite), &quitGame, std::shared_ptr<Engine::AScene>(this));
+    auto quitButtonEngine = new Engine::Button({QUIT_BUTTON_POSITION_X, QUIT_BUTTON_POSITION_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT}, std::move(quitButtonSprite), &quitGame, std::shared_ptr<Engine::AScene>(this));
     quitButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::IDLE, {Engine::Box<int>({QUIT_BUTTON_X_IDLE, QUIT_BUTTON_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT})});
     quitButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::HOVER, {Engine::Box<int>({QUIT_BUTTON_X_HOVER, QUIT_BUTTON_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT})});
     quitButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::CLICKED, {Engine::Box<int>({QUIT_BUTTON_X_CLICKED, QUIT_BUTTON_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT})});
@@ -101,6 +102,7 @@ void MainMenu::initSystems()
     auto move = std::make_unique<Engine::MoveSystem>();
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto music = std::make_unique<Engine::MusicSystem>();
+    auto resize = std::make_unique<Engine::WindowResizeSystem>(this->_window);
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
@@ -108,6 +110,7 @@ void MainMenu::initSystems()
     this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(music));
+    this->_systems.push_back(std::move(resize));
 }
 
 std::shared_ptr<Engine::AWindow> MainMenu::getWindow() const
