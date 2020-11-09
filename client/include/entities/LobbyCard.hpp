@@ -20,8 +20,6 @@ class LobbyCard : public Engine::Entity {
     LobbyCard(const Engine::Point<int> &pos,
         Engine::LobbyComponent &lobby,
         std::shared_ptr<Engine::AFont> &font,
-        void (*onClick)(std::shared_ptr<Engine::AScene> &),
-        std::shared_ptr<Engine::AScene> arg,
         int layer = 1) : Engine::Entity()
 
     {
@@ -29,7 +27,7 @@ class LobbyCard : public Engine::Entity {
         float relativeStarshipPositionX = 40.0;
         this->addComponent<Engine::TransformComponent>(pos);
         this->addComponent<Engine::SpriteComponent>(layer, std::move(background));
-        this->addComponent<Engine::ClickableComponent>(onClick, arg);
+        this->addComponent<Engine::ClickableComponent>();
         std::shared_ptr<Engine::ATexture> starshipTexture = std::make_shared<TextureSFML>(ALL_STARSHIP_PATH);
         std::shared_ptr<Engine::ATexture> emptyStarshipTexture = std::make_shared<TextureSFML>(EMPTY_STARSHIP_PATH);
         

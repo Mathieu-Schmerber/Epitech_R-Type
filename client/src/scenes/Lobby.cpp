@@ -16,17 +16,6 @@
 #include "scenes/Lobby.hpp"
 #include "entities/Button.hpp"
 #include "entities/Music.hpp"
-#include "entities/Drawable.hpp"
-#include "enumerations/ButtonState.hpp"
-#include "scenes/SceneEnum.hpp"
-#include "entities/LobbyCard.hpp"
-#include "components/LobbyComponent.hpp"
-
-void enterLobby(std::shared_ptr<Engine::AScene> &lobby)
-{
-    auto lobbyObject = std::dynamic_pointer_cast<Lobby>(lobby);
-
-}
 
 void goToInGameScene(std::shared_ptr<Engine::AScene> &lobby)
 {
@@ -76,8 +65,7 @@ void Lobby::initEntities()
 
     int relativePositionLobbyCardY = 60;
     for (auto &lobby : _lobbies) {
-        auto lobbyCardFirst = std::make_shared<LobbyCard>(Engine::Point<int>{535, relativePositionLobbyCardY}, lobby, font, &enterLobby,
-            std::shared_ptr<Engine::AScene>(this), 1);
+        auto lobbyCardFirst = std::make_shared<LobbyCard>(Engine::Point<int>{535, relativePositionLobbyCardY}, lobby, font, 1);
         _lobbiesEngines.push_back(lobbyCardFirst);
         this->spawnEntity(std::shared_ptr<LobbyCard>(lobbyCardFirst));
         relativePositionLobbyCardY += 250;
