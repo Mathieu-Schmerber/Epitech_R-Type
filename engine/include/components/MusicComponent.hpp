@@ -9,9 +9,9 @@
 #ifndef RTYPE_MusicCOMPONENT_HPP
 #define RTYPE_MusicCOMPONENT_HPP
 
-#include <graphical/AMusic.hpp>
-#include "ecs/Component.hpp"
 #include <memory>
+#include "graphical/AMusic.hpp"
+#include "ecs/Component.hpp"
 
 namespace Engine {
 

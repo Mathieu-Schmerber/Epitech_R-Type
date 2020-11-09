@@ -5,13 +5,13 @@
 #include "sceneManagement/SceneManager.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
+#include "systems/ButtonSystem.hpp"
 #include "systems/MoveSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
 #include "scenes/Settings.hpp"
 #include "entities/ParallaxSlide.hpp"
 #include "entities/Button.hpp"
 #include "systems/AnimationSystem.hpp"
-#include "enumerations/ButtonState.hpp"
 #include "scenes/GroupId.hpp"
 #include "tools/Utils.hpp"
 #include "components/MusicComponent.hpp"
@@ -125,15 +125,15 @@ void Settings::createSelector(Engine::Point<int> position,  const std::pair<void
     std::pair<std::pair<std::shared_ptr<Engine::Button>, std::shared_ptr<Engine::Button>>, std::shared_ptr<Engine::Drawable>> fullScreenButtonAndText;
     auto fullScreenLeftButtonSprite = std::make_unique<SpriteSFML>(GO_BACK_BUTTON_PATH);
     fullScreenPairButton.first = std::make_shared<Engine::Button>(Engine::Point<int>{position.x, position.y}, Engine::Point<int>{GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT}, std::move(fullScreenLeftButtonSprite), callback.first, std::shared_ptr<AScene>(this));
-    fullScreenPairButton.first->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
-    fullScreenPairButton.first->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
-    fullScreenPairButton.first->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    fullScreenPairButton.first->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    fullScreenPairButton.first->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    fullScreenPairButton.first->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
 
     auto fullScreenRightButtonSprite = std::make_unique<SpriteSFML>(GO_NEXT_BUTTON_PATH);
     fullScreenPairButton.second = std::make_shared<Engine::Button>(Engine::Point<int>{position.x + 300, position.y}, Engine::Point<int>{GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT}, std::move(fullScreenRightButtonSprite), callback.second, std::shared_ptr<AScene>(this));
-    fullScreenPairButton.second->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
-    fullScreenPairButton.second->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
-    fullScreenPairButton.second->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    fullScreenPairButton.second->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    fullScreenPairButton.second->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    fullScreenPairButton.second->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
 
     auto onOffFTextEngine = std::make_shared<Engine::Drawable>(Engine::Point<int>{position.x + 120, position.y + 7}, std::move(text));
 
@@ -146,9 +146,9 @@ void Settings::initEntities()
 {
     auto goBackButtonSprite = std::make_unique<SpriteSFML>(GO_BACK_BUTTON_PATH);
     auto goBackButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{GO_BACK_BUTTON_POSITION_X, GO_BACK_BUTTON_POSITION_Y}, Engine::Point<int>{GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT}, std::move(goBackButtonSprite), &goToMenuScene, std::shared_ptr<Engine::AScene>(this));
-    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
-    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
-    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
 
     auto enableFullscreenText = std::make_unique<SpriteSFML>(FULLSCREEN_TEXT_PATH);
     auto enableFullscreenEngine = std::make_shared<Engine::Drawable>(Engine::Point<int>{FULLSCREEN_TEXT_POSITION_X, FULLSCREEN_TEXT_POSITION_Y}, std::move(enableFullscreenText));
@@ -198,12 +198,14 @@ void Settings::initSystems()
 {
     auto draw = std::make_unique<Engine::DrawSystem>(this->_window);
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
+    auto btn = std::make_unique<Engine::ButtonSystem>();
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
     auto move = std::make_unique<Engine::MoveSystem>();
     auto animation = std::make_unique<Engine::AnimationSystem>();
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
+    this->_systems.push_back(std::move(btn));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(move));

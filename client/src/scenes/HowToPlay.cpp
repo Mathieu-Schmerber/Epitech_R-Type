@@ -7,6 +7,7 @@
 #include "sceneManagement/SceneManager.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
+#include "systems/ButtonSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
 #include "systems/MoveSystem.hpp"
 #include "systems/AnimationSystem.hpp"
@@ -14,10 +15,7 @@
 #include "scenes/HowToPlay.hpp"
 #include "entities/ParallaxSlide.hpp"
 #include "components/AnimationComponent.hpp"
-#include "tools/Geometry.hpp"
 #include "sfml/MusicSFML.hpp"
-#include "entities/Music.hpp"
-#include "enumerations/ButtonState.hpp"
 #include "entities/Button.hpp"
 
 void fromHowToPlayToMenu(std::shared_ptr<Engine::AScene> &howToPlay)
@@ -98,15 +96,15 @@ void HowToPlay::initEntities()
 {
     auto goBackButtonSprite = std::make_unique<SpriteSFML>(GO_BACK_BUTTON_PATH);
     auto goBackButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{GO_BACK_BUTTON_POSITION_X, GO_BACK_BUTTON_POSITION_Y}, Engine::Point<int>{GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT}, std::move(goBackButtonSprite), &goToPreviousHowToPlayScreen, std::shared_ptr<Engine::AScene>(this));
-    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
-    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
-    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
 
     auto nextHowToPlayButtonSprite = std::make_unique<SpriteSFML>(GO_NEXT_BUTTON_PATH);
     auto nextHowToPlayButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{GO_NEXT_BUTTON_POSITION_X, GO_NEXT_BUTTON_POSITION_Y}, Engine::Point<int>{GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT}, std::move(nextHowToPlayButtonSprite), &goToNextHowToPlayScreen, std::shared_ptr<Engine::AScene>(this));
-    nextHowToPlayButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::IDLE, {Engine::Box<int>({GO_NEXT_BUTTON_X_IDLE, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
-    nextHowToPlayButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::HOVER, {Engine::Box<int>({GO_NEXT_BUTTON_X_HOVER, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
-    nextHowToPlayButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonState::CLICKED, {Engine::Box<int>({GO_NEXT_BUTTON_X_CLICKED, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
+    nextHowToPlayButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({GO_NEXT_BUTTON_X_IDLE, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
+    nextHowToPlayButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<int>({GO_NEXT_BUTTON_X_HOVER, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
+    nextHowToPlayButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({GO_NEXT_BUTTON_X_CLICKED, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
 
     auto howToPlaySprite1 = std::make_unique<SpriteSFML>(HOW_TO_PLAY_1_PATH);
     auto howToPlayEngine1 = std::make_shared<Engine::Drawable>(Engine::Point<int>{HOW_TO_PLAY_1_POSITION_X, HOW_TO_PLAY_1_POSITION_Y}, std::move(howToPlaySprite1));
@@ -198,6 +196,7 @@ void HowToPlay::initSystems()
 {
     auto draw = std::make_unique<Engine::DrawSystem>(this->_window);
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
+    auto btn = std::make_unique<Engine::ButtonSystem>();
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
     auto move = std::make_unique<Engine::MoveSystem>();
@@ -205,6 +204,7 @@ void HowToPlay::initSystems()
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
+    this->_systems.push_back(std::move(btn));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(move));

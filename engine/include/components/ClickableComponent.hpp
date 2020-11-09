@@ -12,22 +12,21 @@ namespace Engine {
 
     class ClickableComponent : public Engine::Component {
     private:
-        void (*_onclick)(std::shared_ptr<Engine::AScene> &);
-        std::shared_ptr<Engine::AScene> _arg;
+        bool _isClicked;
+        bool _isHover;
+        bool _isReleased;
 
     public:
-        ClickableComponent() : _onclick(nullptr), Component() {}
+        ClickableComponent() : _isClicked(false), _isHover(false), _isReleased(false), Component() {}
 
-        ClickableComponent(void (*onClick)(std::shared_ptr<Engine::AScene> &),
-                           std::shared_ptr<Engine::AScene> &arg)
-                           : _onclick(onClick), _arg(arg), Component() {}
+        [[nodiscard]] bool isClicked() const {return this->_isClicked;}
+        void setIsClicked(bool click) {this->_isClicked = click;}
 
-        void onClick() {
-            (*_onclick)(_arg);
-        }
+        [[nodiscard]] bool isHover() const {return _isHover;}
+        void setIsHover(bool isHover) {_isHover = isHover;}
 
-        void setOnClick(void (*onClick)(std::shared_ptr<Engine::AScene> &)) {this->_onclick = onClick;};
-        void setArg(std::shared_ptr<Engine::AScene> &arg) {this->_arg = arg;}
+        [[nodiscard]] bool isReleased() const {return _isReleased;}
+        void setIsReleased(bool isReleased) {_isReleased = isReleased;}
     };
 
 }

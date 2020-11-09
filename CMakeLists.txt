@@ -48,7 +48,7 @@ set(ENGINE_SOURCES
 		engine/src/networking/UDP/UdpSocketOutput.cpp
 		engine/src/systems/WindowResizeSystem.cpp
 		engine/src/systems/TextSystem.cpp
-		)
+		engine/src/systems/ButtonSystem.cpp)
 
 set(ENGINE_INCLUDES
 		engine/include/ecs/Entity.hpp
@@ -103,7 +103,6 @@ set(ENGINE_INCLUDES
 		engine/include/systems/MusicSystem.hpp
 		engine/include/graphical/ATexture.hpp
 		engine/include/systems/MusicSystem.hpp
-		engine/include/enumerations/ButtonState.hpp
 		engine/include/graphical/AText.hpp
 		engine/include/graphical/AFont.hpp
 		engine/include/tools/Color.hpp
@@ -116,7 +115,9 @@ set(ENGINE_INCLUDES
 		engine/include/systems/MoveSystem.hpp
 		engine/include/systems/WindowResizeSystem.hpp
 		engine/include/systems/MoveSystem.hpp
-		engine/include/systems/TextSystem.hpp)
+		engine/include/systems/TextSystem.hpp
+		engine/include/components/ButtonComponent.hpp
+		engine/include/systems/ButtonSystem.hpp)
 
 set(CLIENT_SOURCES
 		client/src/main.cpp
@@ -169,7 +170,8 @@ set(CLIENT_INCLUDES
 		client/include/scenes/InGame.hpp
 		client/include/NetworkAccess.hpp
 		client/include/systems/ClientNetworkSystem.hpp
-		client/include/components/LobbyComponent.hpp client/include/entities/LobbyCard.hpp)
+		client/include/components/LobbyComponent.hpp
+		client/include/entities/LobbyCard.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp

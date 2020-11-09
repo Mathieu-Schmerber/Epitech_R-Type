@@ -12,6 +12,7 @@
 #include "components/ClickableComponent.hpp"
 #include "components/AnimationComponent.hpp"
 #include "components/ColliderComponent.hpp"
+#include "components/ButtonComponent.hpp"
 
 namespace Engine {
 
@@ -26,7 +27,8 @@ namespace Engine {
             this->addComponent<ColliderComponent>(0, pos, size);
             this->addComponent<TransformComponent>(pos);
             this->addComponent<SpriteComponent>(layer, std::move(sprite));
-            this->addComponent<ClickableComponent>(onClick, arg);
+            this->addComponent<ClickableComponent>();
+            this->addComponent<ButtonComponent>(onClick, arg);
             this->addComponent<AnimationComponent>();
         }
     };
