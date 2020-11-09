@@ -96,39 +96,39 @@ HowToPlay::HowToPlay(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<E
 void HowToPlay::initEntities()
 {
     auto goBackButtonSprite = std::make_unique<SpriteSFML>(GO_BACK_BUTTON_PATH);
-    auto goBackButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{GO_BACK_BUTTON_POSITION_X, GO_BACK_BUTTON_POSITION_Y}, Engine::Point<int>{GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT}, std::move(goBackButtonSprite), &goToPreviousHowToPlayScreen, std::shared_ptr<Engine::AScene>(this));
+    std::shared_ptr<Engine::Entity> goBackButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{GO_BACK_BUTTON_POSITION_X, GO_BACK_BUTTON_POSITION_Y}, Engine::Point<int>{GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT}, std::move(goBackButtonSprite), &goToPreviousHowToPlayScreen, std::shared_ptr<Engine::AScene>(this));
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
 
     auto nextHowToPlayButtonSprite = std::make_unique<SpriteSFML>(GO_NEXT_BUTTON_PATH);
-    auto nextHowToPlayButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{GO_NEXT_BUTTON_POSITION_X, GO_NEXT_BUTTON_POSITION_Y}, Engine::Point<int>{GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT}, std::move(nextHowToPlayButtonSprite), &goToNextHowToPlayScreen, std::shared_ptr<Engine::AScene>(this));
+    std::shared_ptr<Engine::Entity> nextHowToPlayButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{GO_NEXT_BUTTON_POSITION_X, GO_NEXT_BUTTON_POSITION_Y}, Engine::Point<int>{GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT}, std::move(nextHowToPlayButtonSprite), &goToNextHowToPlayScreen, std::shared_ptr<Engine::AScene>(this));
     nextHowToPlayButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({GO_NEXT_BUTTON_X_IDLE, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
     nextHowToPlayButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<int>({GO_NEXT_BUTTON_X_HOVER, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
     nextHowToPlayButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({GO_NEXT_BUTTON_X_CLICKED, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
 
     auto howToPlaySprite1 = std::make_unique<SpriteSFML>(HOW_TO_PLAY_1_PATH);
-    auto howToPlayEngine1 = std::make_shared<Engine::Drawable>(Engine::Point<int>{HOW_TO_PLAY_1_POSITION_X, HOW_TO_PLAY_1_POSITION_Y}, std::move(howToPlaySprite1));
+    std::shared_ptr<Engine::Entity> howToPlayEngine1 = std::make_shared<Engine::Drawable>(Engine::Point<int>{HOW_TO_PLAY_1_POSITION_X, HOW_TO_PLAY_1_POSITION_Y}, std::move(howToPlaySprite1));
     _enginesDrawableHowToPlayScreen.push_back(howToPlayEngine1);
 
     auto howToPlaySprite2 = std::make_unique<SpriteSFML>(HOW_TO_PLAY_2_PATH);
-    auto howToPlayEngine2 = std::make_shared<Engine::Drawable>(Engine::Point<int>{HOW_TO_PLAY_2_POSITION_X, HOW_TO_PLAY_2_POSITION_Y}, std::move(howToPlaySprite2));
+    std::shared_ptr<Engine::Entity> howToPlayEngine2 = std::make_shared<Engine::Drawable>(Engine::Point<int>{HOW_TO_PLAY_2_POSITION_X, HOW_TO_PLAY_2_POSITION_Y}, std::move(howToPlaySprite2));
     howToPlayEngine2->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
     _enginesDrawableHowToPlayScreen.push_back(howToPlayEngine2);
 
     auto howToPlaySprite3 = std::make_unique<SpriteSFML>(HOW_TO_PLAY_3_PATH);
-    auto howToPlayEngine3 = std::make_shared<Engine::Drawable>(Engine::Point<int>{HOW_TO_PLAY_3_POSITION_X, HOW_TO_PLAY_3_POSITION_Y}, std::move(howToPlaySprite3));
+    std::shared_ptr<Engine::Entity> howToPlayEngine3 = std::make_shared<Engine::Drawable>(Engine::Point<int>{HOW_TO_PLAY_3_POSITION_X, HOW_TO_PLAY_3_POSITION_Y}, std::move(howToPlaySprite3));
     howToPlayEngine3->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
     _enginesDrawableHowToPlayScreen.push_back(howToPlayEngine3);
 
     auto howToPlaySprite4 = std::make_unique<SpriteSFML>(HOW_TO_PLAY_4_PATH);
-    auto howToPlayEngine4 = std::make_shared<Engine::Drawable>(Engine::Point<int>{HOW_TO_PLAY_4_POSITION_X, HOW_TO_PLAY_4_POSITION_Y}, std::move(howToPlaySprite4));
+    std::shared_ptr<Engine::Entity> howToPlayEngine4 = std::make_shared<Engine::Drawable>(Engine::Point<int>{HOW_TO_PLAY_4_POSITION_X, HOW_TO_PLAY_4_POSITION_Y}, std::move(howToPlaySprite4));
     howToPlayEngine4->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
     _enginesDrawableHowToPlayScreen.push_back(howToPlayEngine4);
 
     auto bonusSprite1 = std::make_unique<SpriteSFML>(BONUS_1_PATH);
     bonusSprite1->setScale({static_cast<float>(BONUS_SCALE_X), static_cast<float>(BONUS_SCALE_Y)});
-    auto bonusEngine1 = std::make_shared<Engine::Drawable>(Engine::Point<int>{BONUS_1_POSITION_X, BONUS_1_POSITION_Y}, std::move(bonusSprite1));
+    std::shared_ptr<Engine::Entity> bonusEngine1 = std::make_shared<Engine::Drawable>(Engine::Point<int>{BONUS_1_POSITION_X, BONUS_1_POSITION_Y}, std::move(bonusSprite1));
     bonusEngine1->addComponent<Engine::AnimationComponent>(0.4);
     bonusEngine1->getComponent<Engine::AnimationComponent>()->addAnimation(0, {
         {{0, 0}, {BONUS_1_WIDTH, BONUS_1_HEIGHT}},
@@ -142,7 +142,7 @@ void HowToPlay::initEntities()
 
     auto bonusSprite2 = std::make_unique<SpriteSFML>(BONUS_2_PATH);
     bonusSprite2->setScale({static_cast<float>(BONUS_SCALE_X), static_cast<float>(BONUS_SCALE_Y)});
-    auto bonusEngine2 = std::make_shared<Engine::Drawable>(Engine::Point<int>{BONUS_2_POSITION_X, BONUS_2_POSITION_Y}, std::move(bonusSprite2));
+    std::shared_ptr<Engine::Entity> bonusEngine2 = std::make_shared<Engine::Drawable>(Engine::Point<int>{BONUS_2_POSITION_X, BONUS_2_POSITION_Y}, std::move(bonusSprite2));
     bonusEngine2->addComponent<Engine::AnimationComponent>(0.4);
     bonusEngine2->getComponent<Engine::AnimationComponent>()->addAnimation(1, {
         {{0, 0}, {BONUS_2_WIDTH, BONUS_2_HEIGHT}},
@@ -156,7 +156,7 @@ void HowToPlay::initEntities()
 
     auto bonusSprite3 = std::make_unique<SpriteSFML>(BONUS_3_PATH);
     bonusSprite3->setScale({static_cast<float>(BONUS_SCALE_X), static_cast<float>(BONUS_SCALE_Y)});
-    auto bonusEngine3 = std::make_shared<Engine::Drawable>(Engine::Point<int>{BONUS_3_POSITION_X, BONUS_3_POSITION_Y}, std::move(bonusSprite3));
+    std::shared_ptr<Engine::Entity> bonusEngine3 = std::make_shared<Engine::Drawable>(Engine::Point<int>{BONUS_3_POSITION_X, BONUS_3_POSITION_Y}, std::move(bonusSprite3));
     bonusEngine3->addComponent<Engine::AnimationComponent>(0.4);
     bonusEngine3->getComponent<Engine::AnimationComponent>()->addAnimation(2, {
         {{0, 0}, {BONUS_3_WIDTH, BONUS_3_HEIGHT}},
@@ -181,16 +181,16 @@ void HowToPlay::initEntities()
     _enginesPowerUp->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
     _enginesPowerUp->getComponent<Engine::AnimationComponent>()->setAnimation(3);
 
-    this->spawnEntity(std::shared_ptr<Engine::Drawable>(howToPlayEngine1));
-    this->spawnEntity(std::shared_ptr<Engine::Drawable>(howToPlayEngine2));
-    this->spawnEntity(std::shared_ptr<Engine::Drawable>(howToPlayEngine3));
-    this->spawnEntity(std::shared_ptr<Engine::Drawable>(howToPlayEngine4));
-    this->spawnEntity(std::shared_ptr<Engine::Button>(goBackButtonEngine));
-    this->spawnEntity(std::shared_ptr<Engine::Button>(nextHowToPlayButtonEngine));
-    this->spawnEntity(std::shared_ptr<Engine::Drawable>(bonusEngine1));
-    this->spawnEntity(std::shared_ptr<Engine::Drawable>(bonusEngine2));
-    this->spawnEntity(std::shared_ptr<Engine::Drawable>(bonusEngine3));
-    this->spawnEntity(std::shared_ptr<Engine::Drawable>(_enginesPowerUp));
+    this->spawnEntity(howToPlayEngine1);
+    this->spawnEntity(howToPlayEngine2);
+    this->spawnEntity(howToPlayEngine3);
+    this->spawnEntity(howToPlayEngine4);
+    this->spawnEntity(goBackButtonEngine);
+    this->spawnEntity(nextHowToPlayButtonEngine);
+    this->spawnEntity(bonusEngine1);
+    this->spawnEntity(bonusEngine2);
+    this->spawnEntity(bonusEngine3);
+    this->spawnEntity(_enginesPowerUp);
 }
 
 void HowToPlay::initSystems()
@@ -219,7 +219,7 @@ std::shared_ptr<Engine::AWindow> HowToPlay::getWindow() const
     return _window;
 }
 
-std::vector<std::shared_ptr<Engine::Drawable>> HowToPlay::getEnginesDrawable() const
+std::vector<std::shared_ptr<Engine::Entity>> HowToPlay::getEnginesDrawable() const
 {
     return _enginesDrawableHowToPlayScreen;
 }
@@ -234,12 +234,12 @@ void HowToPlay::setEnginesDrawableIndex(unsigned char index)
     _enginesDrawableHowToPlayScreenIndex = index;
 }
 
-std::vector<std::shared_ptr<Engine::Drawable>> HowToPlay::getEnginesDrawableBonus() const
+std::vector<std::shared_ptr<Engine::Entity>> HowToPlay::getEnginesDrawableBonus() const
 {
     return _enginesDrawableHowToPlayBonus;
 }
 
-std::shared_ptr<Engine::Drawable> HowToPlay::getPowerUpEngine() const
+std::shared_ptr<Engine::Entity> HowToPlay::getPowerUpEngine() const
 {
     return _enginesPowerUp;
 }

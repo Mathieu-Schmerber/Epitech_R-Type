@@ -24,21 +24,21 @@ class HowToPlay : public Engine::AScene
     private:
     std::shared_ptr<Engine::AWindow> _window;
     std::shared_ptr<Engine::AEvents> _events;
-    std::vector<std::shared_ptr<Engine::Drawable>> _enginesDrawableHowToPlayScreen;
+    std::vector<std::shared_ptr<Engine::Entity>> _enginesDrawableHowToPlayScreen;
     int _enginesDrawableHowToPlayScreenIndex = 0;
-    std::vector<std::shared_ptr<Engine::Drawable>> _enginesDrawableHowToPlayBonus;
-    std::shared_ptr<Engine::Drawable> _enginesPowerUp;
+    std::vector<std::shared_ptr<Engine::Entity>> _enginesDrawableHowToPlayBonus;
+    std::shared_ptr<Engine::Entity> _enginesPowerUp;
 
     void initEntities() final;
     void initSystems() final;
     void onFocus() final;
 
     public:
-    std::vector<std::shared_ptr<Engine::Drawable>> getEnginesDrawable() const;
+    std::vector<std::shared_ptr<Engine::Entity>> getEnginesDrawable() const;
     int getEnginesDrawableIndex() const;
     void setEnginesDrawableIndex(unsigned char index);
-    std::vector<std::shared_ptr<Engine::Drawable>> getEnginesDrawableBonus() const;
-    std::shared_ptr<Engine::Drawable> getPowerUpEngine() const;
+    std::vector<std::shared_ptr<Engine::Entity>> getEnginesDrawableBonus() const;
+    std::shared_ptr<Engine::Entity> getPowerUpEngine() const;
     HowToPlay(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events);
     std::shared_ptr<Engine::AWindow> getWindow() const;
 };
