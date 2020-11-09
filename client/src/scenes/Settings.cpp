@@ -8,12 +8,10 @@
 #include "systems/ButtonSystem.hpp"
 #include "systems/MoveSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
+#include "systems/WindowResizeSystem.hpp"
 #include "scenes/Settings.hpp"
-#include "entities/ParallaxSlide.hpp"
-#include "entities/Button.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "scenes/GroupId.hpp"
-#include "tools/Utils.hpp"
 #include "components/MusicComponent.hpp"
 
 void changeWindowEnableFullscreen(std::shared_ptr<Engine::AScene> &settings)
@@ -202,6 +200,7 @@ void Settings::initSystems()
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
     auto move = std::make_unique<Engine::MoveSystem>();
     auto animation = std::make_unique<Engine::AnimationSystem>();
+    auto window = std::make_unique<Engine::WindowResizeSystem>(this->_window);
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
@@ -209,6 +208,7 @@ void Settings::initSystems()
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(move));
+    this->_systems.push_back(std::move(window));
 }
 
 std::shared_ptr<Engine::AWindow> Settings::getWindow() const

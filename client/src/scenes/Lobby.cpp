@@ -7,6 +7,7 @@
 #include "sfml/MusicSFML.hpp"
 #include "sfml/FontSFML.hpp"
 #include "systems/DrawSystem.hpp"
+#include "systems/WindowResizeSystem.hpp"
 #include "systems/ButtonSystem.hpp"
 #include "systems/TextSystem.hpp"
 #include "systems/MouseSystem.hpp"
@@ -82,6 +83,7 @@ void Lobby::initSystems()
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
     auto move = std::make_unique<Engine::MoveSystem>();
     auto music = std::make_unique<Engine::MusicSystem>();
+    auto window = std::make_unique<Engine::WindowResizeSystem>(this->_window);
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(text));
@@ -91,6 +93,7 @@ void Lobby::initSystems()
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(music));
+    this->_systems.push_back(std::move(window));
 }
 
 std::shared_ptr<Engine::AWindow> Lobby::getWindow() const

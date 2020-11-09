@@ -12,6 +12,7 @@
 #include "systems/MoveSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/MusicSystem.hpp"
+#include "systems/WindowResizeSystem.hpp"
 #include "scenes/HowToPlay.hpp"
 #include "entities/ParallaxSlide.hpp"
 #include "components/AnimationComponent.hpp"
@@ -201,6 +202,7 @@ void HowToPlay::initSystems()
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
     auto move = std::make_unique<Engine::MoveSystem>();
     auto music = std::make_unique<Engine::MusicSystem>();
+    auto window = std::make_unique<Engine::WindowResizeSystem>(this->_window);
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
@@ -209,6 +211,7 @@ void HowToPlay::initSystems()
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(music));
+    this->_systems.push_back(std::move(window));
 }
 
 std::shared_ptr<Engine::AWindow> HowToPlay::getWindow() const
