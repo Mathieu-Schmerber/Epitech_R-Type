@@ -140,7 +140,8 @@ set(CLIENT_SOURCES
 		client/src/systems/ClientNetworkSystem.cpp
 		client/src/sfml/SpriteSfml.cpp
 		client/src/scenes/InGame.cpp
-		client/src/scenes/InGame.cpp client/src/systems/LobbySystem.cpp client/include/systems/LobbySystem.hpp)
+		client/src/scenes/InGame.cpp
+		client/src/systems/LobbySystem.cpp)
 
 set(CLIENT_INCLUDES
 		client/include/Core.hpp
@@ -171,7 +172,8 @@ set(CLIENT_INCLUDES
 		client/include/NetworkAccess.hpp
 		client/include/systems/ClientNetworkSystem.hpp
 		client/include/components/LobbyComponent.hpp
-		client/include/entities/LobbyCard.hpp client/src/systems/LobbySystem.cpp client/include/systems/LobbySystem.hpp)
+		client/include/entities/LobbyCard.hpp
+		client/include/systems/LobbySystem.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp
