@@ -45,10 +45,12 @@ std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector
 void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in)
 {
     auto *sprite = entity->getComponent<Engine::SpriteComponent>();
+    auto inititalPos = entity->getComponent<Engine::TransformComponent>()->getPos();
+    auto smooth = Engine::Point<int>{(inititalPos.x + in.at(1)) / 2, (inititalPos.y + in.at(2)) / 2};
 
     if (in.size() < 9)
         return;
-    entity->getComponent<Engine::TransformComponent>()->setPos({in.at(1), in.at(2)});
+    entity->getComponent<Engine::TransformComponent>()->setPos(smooth);
     entity->getComponent<Engine::TransformComponent>()->setRotation(in.at(3));
     sprite->getSprite()->setRect({in.at(5), in.at(6), in.at(7), in.at(8)});
 }

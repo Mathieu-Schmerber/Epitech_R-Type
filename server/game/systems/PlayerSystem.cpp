@@ -27,7 +27,7 @@ void PlayerSystem::handleMoveAnimations(std::shared_ptr<Engine::Entity> &player,
 
 void PlayerSystem::handleMovements(std::shared_ptr<Engine::Entity> &player)
 {
-    const double speed = 3;
+    const double speed = 10;
     auto pressed = player->getComponent<Engine::ControllerComponent>()->getPressed();
     Engine::Vector<double> dir = {0, 0};
 

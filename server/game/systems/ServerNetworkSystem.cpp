@@ -41,6 +41,7 @@ void ServerNetworkSystem::sendGameData()
         for (auto &cli : this->_players) {
             auto data = SocketParser::parseUdpEntity(e);
             cli.sendToClient(data);
+            std::cout << "heho" << std::endl;
         }
     }
 }
