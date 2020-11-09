@@ -1,13 +1,14 @@
 //
-// Created by mathi on 30/10/2020.
+// Created by mathieu on 30/10/2020.
 //
 
 #include "systems/MoveSystem.hpp"
 #include "sfml/SpriteSfml.hpp"
 #include "sfml/MusicSFML.hpp"
-#include "sceneManagement/SceneManager.hpp"
+#include "sfml/FontSFML.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/ButtonSystem.hpp"
+#include "systems/TextSystem.hpp"
 #include "systems/MouseSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
 #include "systems/AnimationSystem.hpp"
@@ -15,7 +16,17 @@
 #include "scenes/Lobby.hpp"
 #include "entities/Button.hpp"
 #include "entities/Music.hpp"
+#include "entities/Drawable.hpp"
+#include "enumerations/ButtonState.hpp"
 #include "scenes/SceneEnum.hpp"
+#include "entities/LobbyCard.hpp"
+#include "components/LobbyComponent.hpp"
+
+void enterLobby(std::shared_ptr<Engine::AScene> &lobby)
+{
+    auto lobbyObject = std::dynamic_pointer_cast<Lobby>(lobby);
+
+}
 
 void goToInGameScene(std::shared_ptr<Engine::AScene> &lobby)
 {
@@ -48,11 +59,35 @@ void Lobby::initEntities()
 
     this->spawnEntity(std::shared_ptr<Engine::Button>(goBackButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Button>(goNextButtonEngine));
+
+    std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(PIXEBOY_FONT_PATH);
+
+
+    //TMP TODO Emilien implement call to recover lobbycomponent and client//
+    auto _lobby1 = Engine::LobbyComponent(4242, 0, 4, 2, 5);
+    _lobbies.push_back(_lobby1);
+    auto _lobby2 = Engine::LobbyComponent(4242, 1, 4, 0, 7);
+    _lobbies.push_back(_lobby2);
+    auto _lobby3 = Engine::LobbyComponent(4242, 2, 1, 0, 8);
+    _lobbies.push_back(_lobby3);
+    auto _lobby4 = Engine::LobbyComponent(4242, 3, 4, 3, 9);
+    _lobbies.push_back(_lobby4);
+    //TMP//
+
+    int relativePositionLobbyCardY = 60;
+    for (auto &lobby : _lobbies) {
+        auto lobbyCardFirst = std::make_shared<LobbyCard>(Engine::Point<int>{535, relativePositionLobbyCardY}, lobby, font, &enterLobby,
+            std::shared_ptr<Engine::AScene>(this), 1);
+        _lobbiesEngines.push_back(lobbyCardFirst);
+        this->spawnEntity(std::shared_ptr<LobbyCard>(lobbyCardFirst));
+        relativePositionLobbyCardY += 250;
+    }
 }
 
 void Lobby::initSystems()
 {
     auto draw = std::make_unique<Engine::DrawSystem>(this->_window);
+    auto text = std::make_unique<Engine::TextSystem>(this->_window);
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
     auto btn = std::make_unique<Engine::ButtonSystem>();
     auto animation = std::make_unique<Engine::AnimationSystem>();
@@ -61,6 +96,7 @@ void Lobby::initSystems()
     auto music = std::make_unique<Engine::MusicSystem>();
 
     this->_systems.push_back(std::move(draw));
+    this->_systems.push_back(std::move(text));
     this->_systems.push_back(std::move(mouse));
     this->_systems.push_back(std::move(btn));
     this->_systems.push_back(std::move(animation));
@@ -72,4 +108,14 @@ void Lobby::initSystems()
 std::shared_ptr<Engine::AWindow> Lobby::getWindow() const
 {
     return _window;
+}
+
+std::vector<Engine::LobbyComponent> Lobby::getLobbies() const
+{
+    return _lobbies;
+}
+
+std::vector<std::shared_ptr<LobbyCard>> Lobby::getLobbiesEngines() const
+{
+    return _lobbiesEngines;
 }
