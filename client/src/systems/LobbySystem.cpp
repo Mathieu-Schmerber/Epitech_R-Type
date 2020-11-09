@@ -2,6 +2,7 @@
 // Created by mathi on 09/11/2020.
 //
 
+#include "SocketParser.hpp"
 #include "components/LobbyComponent.hpp"
 #include "components/ClickableComponent.hpp"
 #include "systems/LobbySystem.hpp"
@@ -18,6 +19,9 @@ LobbySystem::LobbySystem(std::shared_ptr<NetworkAccess> &server, std::shared_ptr
 void LobbySystem::updateFromServer()
 {
     auto &tcp = this->_server->getTcpSocket();
+
+    for (auto &e : this->_entities)
+        SocketParser::updateLobbyTcpUdp(e, {});
 }
 
 void LobbySystem::handleScroll()

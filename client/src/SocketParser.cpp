@@ -57,7 +57,7 @@ void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, 
 
 std::shared_ptr<Engine::Entity> SocketParser::unparseTcpLobby(const std::vector<int> &in)
 {
-    //TODO: TMP RAW DATA
+    //TODO: TMP RAW DATA (Get it from the "in")
     int lobbyId = 0;
     int maxPlayers = 4;
     int idClientMaster = 0;
@@ -66,4 +66,15 @@ std::shared_ptr<Engine::Entity> SocketParser::unparseTcpLobby(const std::vector<
     auto entity = new LobbyCard(port, lobbyId, maxPlayers, idClientMaster);
 
     return std::shared_ptr<Engine::Entity>(entity);
+}
+
+void SocketParser::updateLobbyTcpUdp(std::shared_ptr<Engine::Entity> &lobby, const std::vector<int> &in)
+{
+    //TODO: TMP RAW DATA (Get it from the "in")
+    int connectedPlayers = 1;
+    //TODO: TMP RAW DATA
+    auto sprites = lobby->getComponents<Engine::SpriteComponent>();
+
+    for (int i = 1; i < connectedPlayers + 1; ++i)
+        sprites.at(i)->getSprite()->setRect({Engine::Box<int>({STARSHIP_WIDTH * i, 0}, {STARSHIP_WIDTH, STARSHIP_HEIGHT})});
 }
