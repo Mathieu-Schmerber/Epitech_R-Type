@@ -44,7 +44,7 @@ void Core::initScenes()
     this->_sceneManager->addScene(std::move(std::make_unique<MainMenu>(this->_graph->getWindow(), this->_graph->getEvents())));
     this->_sceneManager->addScene(std::move(std::make_unique<Settings>(this->_graph->getWindow(), this->_graph->getEvents())));
     this->_sceneManager->addScene(std::move(std::make_unique<HowToPlay>(this->_graph->getWindow(), this->_graph->getEvents())));
-    this->_sceneManager->addScene(std::move(std::make_unique<Lobby>(this->_graph->getWindow(), this->_graph->getEvents())));
+    this->_sceneManager->addScene(std::move(std::make_unique<Lobby>(this->_graph->getWindow(), this->_graph->getEvents(), this->_server)));
     this->_sceneManager->addScene(std::move(std::make_unique<InGame>(this->_graph->getWindow(), this->_graph->getEvents(), this->_server)));
     this->setupGroups();
     this->_sceneManager->switchScene(SceneType::MAIN_MENU);

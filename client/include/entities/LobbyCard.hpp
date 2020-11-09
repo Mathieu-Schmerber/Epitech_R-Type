@@ -11,6 +11,7 @@
 #include "components/SpriteComponent.hpp"
 #include "sfml/TextSFML.hpp"
 #include "components/ClickableComponent.hpp"
+#include "components/ColliderComponent.hpp"
 #include "components/TextComponent.hpp"
 #include "components/LobbyComponent.hpp"
 #include "scenes/SceneEnum.hpp"
@@ -18,7 +19,7 @@
 class LobbyCard : public Engine::Entity {
     public:
     LobbyCard(const Engine::Point<int> &pos,
-        Engine::LobbyComponent &lobby,
+        LobbyComponent &lobby,
         std::shared_ptr<Engine::AFont> &font,
         int layer = 1) : Engine::Entity()
 
@@ -28,6 +29,7 @@ class LobbyCard : public Engine::Entity {
         this->addComponent<Engine::TransformComponent>(pos);
         this->addComponent<Engine::SpriteComponent>(layer, std::move(background));
         this->addComponent<Engine::ClickableComponent>();
+        this->addComponent<Engine::ColliderComponent>(0, Engine::Box<double>{{(double)pos.x, (double)pos.y}, {850.0, 150.0}});
         std::shared_ptr<Engine::ATexture> starshipTexture = std::make_shared<TextureSFML>(ALL_STARSHIP_PATH);
         std::shared_ptr<Engine::ATexture> emptyStarshipTexture = std::make_shared<TextureSFML>(EMPTY_STARSHIP_PATH);
         

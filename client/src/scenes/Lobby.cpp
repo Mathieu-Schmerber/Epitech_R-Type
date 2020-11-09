@@ -14,6 +14,7 @@
 #include "systems/ParallaxSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/MusicSystem.hpp"
+#include "systems/LobbySystem.hpp"
 #include "scenes/Lobby.hpp"
 #include "entities/Button.hpp"
 #include "entities/Music.hpp"
@@ -26,8 +27,8 @@ void goToInGameScene(std::shared_ptr<Engine::AScene> &lobby)
 }
 
 
-Lobby::Lobby(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events)
-    : _window(window), _events(events), Engine::AScene(SceneType::LOBBY)
+Lobby::Lobby(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<NetworkAccess> &server)
+: _window(window), _events(events), _server(server), Engine::AScene(SceneType::LOBBY)
 {
     this->initSystems();
     this->initEntities();
@@ -52,15 +53,16 @@ void Lobby::initEntities()
 
     std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(PIXEBOY_FONT_PATH);
 
-
     //TMP TODO Emilien implement call to recover lobbycomponent and client//
-    auto _lobby1 = Engine::LobbyComponent(4242, 0, 4, 2, 5);
+    std::vector<LobbyComponent> _lobbies;
+
+    auto _lobby1 = LobbyComponent(4242, 0, 4, 2, 5);
     _lobbies.push_back(_lobby1);
-    auto _lobby2 = Engine::LobbyComponent(4242, 1, 4, 0, 7);
+    auto _lobby2 = LobbyComponent(4242, 1, 4, 0, 7);
     _lobbies.push_back(_lobby2);
-    auto _lobby3 = Engine::LobbyComponent(4242, 2, 1, 0, 8);
+    auto _lobby3 = LobbyComponent(4242, 2, 1, 0, 8);
     _lobbies.push_back(_lobby3);
-    auto _lobby4 = Engine::LobbyComponent(4242, 3, 4, 3, 9);
+    auto _lobby4 = LobbyComponent(4242, 3, 4, 3, 9);
     _lobbies.push_back(_lobby4);
     //TMP//
 
@@ -75,6 +77,7 @@ void Lobby::initEntities()
 
 void Lobby::initSystems()
 {
+    auto scene = std::shared_ptr<Engine::AScene>(this);
     auto draw = std::make_unique<Engine::DrawSystem>(this->_window);
     auto text = std::make_unique<Engine::TextSystem>(this->_window);
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
@@ -84,6 +87,7 @@ void Lobby::initSystems()
     auto move = std::make_unique<Engine::MoveSystem>();
     auto music = std::make_unique<Engine::MusicSystem>();
     auto window = std::make_unique<Engine::WindowResizeSystem>(this->_window);
+    auto lobby = std::make_unique<LobbySystem>(this->_server, this->_events, scene);
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(text));
@@ -99,14 +103,4 @@ void Lobby::initSystems()
 std::shared_ptr<Engine::AWindow> Lobby::getWindow() const
 {
     return _window;
-}
-
-std::vector<Engine::LobbyComponent> Lobby::getLobbies() const
-{
-    return _lobbies;
-}
-
-std::vector<std::shared_ptr<LobbyCard>> Lobby::getLobbiesEngines() const
-{
-    return _lobbiesEngines;
 }
