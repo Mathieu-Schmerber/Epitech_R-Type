@@ -24,6 +24,8 @@ public:
     LobbySystem(std::shared_ptr<NetworkAccess> &server,
                 std::shared_ptr<Engine::AEvents> &events,
                 std::shared_ptr<Engine::AScene> &scene);
+    void scrollDownLobbies();
+    void scrollUpLobbies();
 
     void update() override;
 };

@@ -7,13 +7,14 @@
 #include "components/ClickableComponent.hpp"
 #include "systems/LobbySystem.hpp"
 #include "entities/LobbyCard.hpp"
-#include "sfml/FontSFML.hpp"
+#include "enumerations/Inputs.hpp"
 
 LobbySystem::LobbySystem(std::shared_ptr<NetworkAccess> &server, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<Engine::AScene> &scene)
 : _server(server), _events(events), _scene(scene), Engine::System()
 {
     this->addDependency<LobbyComponent>();
     this->addDependency<Engine::ClickableComponent>();
+    this->addDependency<Engine::TransformComponent>();
 }
 
 void LobbySystem::updateFromServer()
@@ -35,7 +36,13 @@ void LobbySystem::updateFromServer()
 
 void LobbySystem::handleScroll()
 {
-    // TODO: uses this->_events
+    auto wheel = this->_events->getScrollState();
+
+    if (wheel.direction == wheel.vertical && wheel.movement < 0) {
+       scrollDownLobbies();
+    } else if (wheel.direction == wheel.vertical && wheel.movement > 0) {
+        scrollUpLobbies();
+    }
 }
 
 void LobbySystem::handleLobbyJoin(std::shared_ptr<Engine::Entity> &lobby)
@@ -54,4 +61,26 @@ void LobbySystem::update()
     this->handleScroll();
     for (auto &e : this->_entities)
         this->handleLobbyJoin(e);
+}
+
+void LobbySystem::scrollUpLobbies()
+{
+    auto firstCardPosition = _entities.front()->getComponent<Engine::TransformComponent>()->getPos();
+    for (auto &e: this->_entities) {
+        auto tcomponent = e->getComponent<Engine::TransformComponent>();
+        auto pos = tcomponent->getPos();
+        if (firstCardPosition.y < 60)
+            tcomponent->setPos(Engine::Point<int>{pos.x, pos.y + 50});
+    }
+}
+
+void LobbySystem::scrollDownLobbies()
+{
+    auto lastCardPosition = _entities.back()->getComponent<Engine::TransformComponent>()->getPos();
+    for (auto &e: this->_entities) {
+        auto tcomponent = e->getComponent<Engine::TransformComponent>();
+        auto pos = tcomponent->getPos();
+        if (lastCardPosition.y > 810)
+            tcomponent->setPos(Engine::Point<int>{pos.x, pos.y - 50});
+    }
 }

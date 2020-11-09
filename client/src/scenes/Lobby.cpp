@@ -14,10 +14,25 @@
 #include "systems/ParallaxSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/MusicSystem.hpp"
-#include "systems/LobbySystem.hpp"
 #include "scenes/Lobby.hpp"
 #include "entities/Button.hpp"
 #include "entities/Music.hpp"
+
+void scrollDownLobby(std::shared_ptr<Engine::AScene> &lobby)
+{
+    auto lobbyObject = std::dynamic_pointer_cast<Lobby>(lobby);
+    auto lobbySystem = dynamic_cast<LobbySystem *>(lobbyObject->getLobbySystem().get());
+
+    lobbySystem->scrollDownLobbies();
+}
+
+void scrollUpLobby(std::shared_ptr<Engine::AScene> &lobby)
+{
+    auto lobbyObject = std::dynamic_pointer_cast<Lobby>(lobby);
+    auto lobbySystem = dynamic_cast<LobbySystem *>(lobbyObject->getLobbySystem().get());
+
+    lobbySystem->scrollUpLobbies();
+}
 
 void goToInGameScene(std::shared_ptr<Engine::AScene> &lobby)
 {
@@ -25,7 +40,6 @@ void goToInGameScene(std::shared_ptr<Engine::AScene> &lobby)
 
     lobby->pushRequest(request);
 }
-
 
 Lobby::Lobby(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<NetworkAccess> &server)
 : _window(window), _events(events), _server(server), Engine::AScene(SceneType::LOBBY)
@@ -48,13 +62,56 @@ void Lobby::initEntities()
     goNextButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<int>({GO_NEXT_BUTTON_X_HOVER, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
     goNextButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({GO_NEXT_BUTTON_X_CLICKED, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
 
+    auto goUpButtonSprite = std::make_unique<SpriteSFML>(GO_UP_BUTTON_PATH);
+    auto goUpButtonEngine = new Engine::Button(Engine::Point<int>{1385, 60}, {GO_UP_BUTTON_WIDTH, GO_UP_BUTTON_HEIGHT}, std::move(goUpButtonSprite), &scrollUpLobby, std::shared_ptr<Engine::AScene>(this));
+    goUpButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({GO_UP_BUTTON_X_IDLE, GO_UP_BUTTON_Y}, {GO_UP_BUTTON_WIDTH, GO_UP_BUTTON_HEIGHT})});
+    goUpButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<int>({GO_UP_BUTTON_X_HOVER, GO_UP_BUTTON_Y}, {GO_UP_BUTTON_WIDTH, GO_UP_BUTTON_HEIGHT})});
+    goUpButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({GO_UP_BUTTON_X_CLICKED, GO_UP_BUTTON_Y}, {GO_UP_BUTTON_WIDTH, GO_UP_BUTTON_HEIGHT})});
+
+    auto goDownButtonSprite = std::make_unique<SpriteSFML>(GO_DOWN_BUTTON_PATH);
+    auto goDownButtonEngine = new Engine::Button(Engine::Point<int>{1385, 896}, {GO_DOWN_BUTTON_WIDTH, GO_DOWN_BUTTON_HEIGHT}, std::move(goDownButtonSprite), &scrollDownLobby, std::shared_ptr<Engine::AScene>(this));
+    goDownButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({GO_DOWN_BUTTON_X_IDLE, GO_NEXT_BUTTON_Y}, {GO_DOWN_BUTTON_WIDTH, GO_DOWN_BUTTON_HEIGHT})});
+    goDownButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<int>({GO_DOWN_BUTTON_X_HOVER, GO_NEXT_BUTTON_Y}, {GO_DOWN_BUTTON_WIDTH, GO_DOWN_BUTTON_HEIGHT})});
+    goDownButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({GO_DOWN_BUTTON_X_CLICKED, GO_NEXT_BUTTON_Y}, {GO_DOWN_BUTTON_WIDTH, GO_DOWN_BUTTON_HEIGHT})});
+
     this->spawnEntity(std::shared_ptr<Engine::Button>(goBackButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Button>(goNextButtonEngine));
+    this->spawnEntity(std::shared_ptr<Engine::Button>(goUpButtonEngine));
+    this->spawnEntity(std::shared_ptr<Engine::Button>(goDownButtonEngine));
+
 
     //TODO: remove the following temporary lines
     auto lobby = new LobbyCard(4242, 0, 4, 0);
     lobby->getComponent<Engine::TransformComponent>()->setPos({535, 60});
     this->spawnEntity(std::shared_ptr<LobbyCard>(lobby));
+
+    auto lobby1 = new LobbyCard(4242, 0, 4, 0);
+    lobby1->getComponent<Engine::TransformComponent>()->setPos({535, 310});
+    this->spawnEntity(std::shared_ptr<LobbyCard>(lobby1));
+
+    auto lobby2 = new LobbyCard(4242, 0, 4, 0);
+    lobby2->getComponent<Engine::TransformComponent>()->setPos({535, 560});
+    this->spawnEntity(std::shared_ptr<LobbyCard>(lobby2));
+
+    auto lobby3 = new LobbyCard(4242, 0, 4, 0);
+    lobby3->getComponent<Engine::TransformComponent>()->setPos({535, 810});
+    this->spawnEntity(std::shared_ptr<LobbyCard>(lobby3));
+
+    auto lobby4 = new LobbyCard(4242, 0, 4, 0);
+    lobby4->getComponent<Engine::TransformComponent>()->setPos({535, 1060});
+    this->spawnEntity(std::shared_ptr<LobbyCard>(lobby4));
+
+    auto lobby5 = new LobbyCard(4242, 0, 4, 0);
+    lobby5->getComponent<Engine::TransformComponent>()->setPos({535, 1310});
+    this->spawnEntity(std::shared_ptr<LobbyCard>(lobby5));
+
+    auto lobby6 = new LobbyCard(4242, 0, 4, 0);
+    lobby6->getComponent<Engine::TransformComponent>()->setPos({535, 1560});
+    this->spawnEntity(std::shared_ptr<LobbyCard>(lobby6));
+
+    auto lobby7 = new LobbyCard(4242, 0, 4, 0);
+    lobby7->getComponent<Engine::TransformComponent>()->setPos({535, 1810});
+    this->spawnEntity(std::shared_ptr<LobbyCard>(lobby7));
 }
 
 void Lobby::initSystems()
@@ -81,9 +138,15 @@ void Lobby::initSystems()
     this->_systems.push_back(std::move(music));
     this->_systems.push_back(std::move(window));
     this->_systems.push_back(std::move(lobby));
+    //lobby MUST BE THE LAST COMPONENT to get lobby System (see getSystem method)
 }
 
 std::shared_ptr<Engine::AWindow> Lobby::getWindow() const
 {
     return _window;
+}
+
+const std::unique_ptr<Engine::System> &Lobby::getLobbySystem() const
+{
+    return _systems.back();
 }

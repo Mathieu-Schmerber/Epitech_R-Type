@@ -11,6 +11,7 @@
 #include "graphical/AWindow.hpp"
 #include "graphical/AEvents.hpp"
 #include "entities/LobbyCard.hpp"
+#include "systems/LobbySystem.hpp"
 
 class Lobby : public Engine::AScene
 {
@@ -24,10 +25,13 @@ class Lobby : public Engine::AScene
 
     public:
     Lobby(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<NetworkAccess> &server);
+    const std::unique_ptr<Engine::System> &getLobbySystem() const;
 
     std::shared_ptr<Engine::AWindow> getWindow() const;
 };
 
+void scrollDownLobby(std::shared_ptr<Engine::AScene> &);
+void scrollUpLobby(std::shared_ptr<Engine::AScene> &);
 void enterLobby(std::shared_ptr<Engine::AScene> &);
 void goToInGameScene(std::shared_ptr<Engine::AScene> &);
 void goToMenuScene(std::shared_ptr<Engine::AScene> &);
