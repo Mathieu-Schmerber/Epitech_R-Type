@@ -68,7 +68,7 @@ std::shared_ptr<Engine::Entity> SocketParser::unparseTcpLobby(const std::vector<
     return std::shared_ptr<Engine::Entity>(entity);
 }
 
-void SocketParser::updateLobbyTcpUdp(std::shared_ptr<Engine::Entity> &lobby, const std::vector<int> &in)
+void SocketParser::updateLobbyFromTcp(std::shared_ptr<Engine::Entity> &lobby, const std::vector<int> &in)
 {
     //TODO: TMP RAW DATA (Get it from the "in")
     int connectedPlayers = 1;
