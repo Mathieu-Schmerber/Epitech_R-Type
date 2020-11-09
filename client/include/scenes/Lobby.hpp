@@ -18,7 +18,6 @@ class Lobby : public Engine::AScene
     std::shared_ptr<Engine::AWindow> _window;
     std::shared_ptr<Engine::AEvents> _events;
     std::shared_ptr<NetworkAccess> _server;
-    std::vector<std::shared_ptr<LobbyCard>> _lobbiesEngines;
 
     void initEntities() final;
     void initSystems() final;

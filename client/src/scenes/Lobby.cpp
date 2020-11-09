@@ -51,7 +51,7 @@ void Lobby::initEntities()
     this->spawnEntity(std::shared_ptr<Engine::Button>(goBackButtonEngine));
     this->spawnEntity(std::shared_ptr<Engine::Button>(goNextButtonEngine));
 
-    std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(PIXEBOY_FONT_PATH);
+    /*std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(PIXEBOY_FONT_PATH);
 
     //TMP TODO Emilien implement call to recover lobbycomponent and client//
     std::vector<LobbyComponent> _lobbies;
@@ -68,11 +68,10 @@ void Lobby::initEntities()
 
     int relativePositionLobbyCardY = 60;
     for (auto &lobby : _lobbies) {
-        auto lobbyCardFirst = std::make_shared<LobbyCard>(Engine::Point<int>{535, relativePositionLobbyCardY}, lobby, font, 1);
-        _lobbiesEngines.push_back(lobbyCardFirst);
+        auto lobbyCardFirst = new LobbyCard(Engine::Point<int>{535, relativePositionLobbyCardY}, lobby, font, 1);
         this->spawnEntity(std::shared_ptr<LobbyCard>(lobbyCardFirst));
         relativePositionLobbyCardY += 250;
-    }
+    }*/
 }
 
 void Lobby::initSystems()
