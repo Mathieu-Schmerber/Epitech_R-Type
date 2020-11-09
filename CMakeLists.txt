@@ -48,7 +48,7 @@ set(ENGINE_SOURCES
 		engine/src/networking/UDP/UdpSocketOutput.cpp
 		engine/src/systems/WindowResizeSystem.cpp
 		engine/src/systems/TextSystem.cpp
-		engine/src/systems/ButtonSystem.cpp)
+		engine/src/systems/ButtonSystem.cpp engine/include/tools/AssetPool.cpp engine/include/tools/AssetPool.hpp)
 
 set(ENGINE_INCLUDES
 		engine/include/ecs/Entity.hpp
@@ -117,7 +117,7 @@ set(ENGINE_INCLUDES
 		engine/include/systems/MoveSystem.hpp
 		engine/include/systems/TextSystem.hpp
 		engine/include/components/ButtonComponent.hpp
-		engine/include/systems/ButtonSystem.hpp)
+		engine/include/systems/ButtonSystem.hpp engine/include/tools/AssetPool.cpp engine/include/tools/AssetPool.hpp)
 
 set(CLIENT_SOURCES
 		client/src/main.cpp

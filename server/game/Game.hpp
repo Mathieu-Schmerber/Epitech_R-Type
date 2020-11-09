@@ -13,6 +13,7 @@
 class Game
 {
 private:
+    bool _running;
     int _idIncrement;
     std::unique_ptr<Engine::Timer> _timer;
     std::vector<std::unique_ptr<Engine::System>> _systems;
@@ -30,7 +31,7 @@ public:
 
     void spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork);
     void update();
-    bool isGameRunning() { return true; };
+    [[nodiscard]] bool isGameRunning() const;
 };
 
 

@@ -9,6 +9,7 @@
 #include "graphical/AEvents.hpp"
 #include "sceneManagement/AScene.hpp"
 #include "ecs/System.hpp"
+#include "SocketParser.hpp"
 
 class ClientNetworkSystem : public Engine::System
 {
@@ -16,6 +17,7 @@ private:
     std::shared_ptr<NetworkAccess> _server;
     std::shared_ptr<Engine::AEvents> _events;
     std::shared_ptr<Engine::AScene> _scene;
+    std::unique_ptr<SocketParser> _parser;
 
     void sendRawInputs();
     void receiveGameData();

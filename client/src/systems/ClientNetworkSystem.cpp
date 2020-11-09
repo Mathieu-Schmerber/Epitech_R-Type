@@ -5,12 +5,15 @@
 #include "tools/Utils.hpp"
 #include "systems/ClientNetworkSystem.hpp"
 #include "components/NetworkComponent.hpp"
+#include "components/SpriteComponent.hpp"
 #include "SocketParser.hpp"
 
 ClientNetworkSystem::ClientNetworkSystem(std::shared_ptr<NetworkAccess> &server, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<Engine::AScene> &scene)
 : _server(server), _events(events), _scene(scene)
 {
     this->addDependency<Engine::NetworkComponent>();
+    this->addDependency<Engine::SpriteComponent>();
+    this->_parser = std::make_unique<SocketParser>();
 }
 
 void ClientNetworkSystem::sendRawInputs()
@@ -18,7 +21,6 @@ void ClientNetworkSystem::sendRawInputs()
     auto &socket = this->_server->getUdpSocket();
     auto query = SocketParser::parseUdpInputs(this->_server->getClientId(), this->_events->getKeysPressed(), this->_events->getKeysReleased());
 
-    Engine::Utils::printIntTab("sending: ", query);
     socket->sendDataToServer(query);
 }
 
@@ -34,7 +36,7 @@ void ClientNetworkSystem::receiveGameData()
             return;
         }
     }
-    toSpawn = SocketParser::unparseUdpEntity(data);
+    toSpawn = this->_parser->unparseUdpEntity(data);
     if (toSpawn)
         this->_scene->spawnEntity(toSpawn);
 }

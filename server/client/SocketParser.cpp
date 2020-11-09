@@ -3,6 +3,7 @@
 //
 
 #include "SocketParser.hpp"
+#include "tools/AssetPool.hpp"
 #include "components/NetworkComponent.hpp"
 #include "components/SpriteComponent.hpp"
 #include "components/TransformComponent.hpp"
@@ -23,6 +24,7 @@ std::pair<std::vector<Engine::Inputs>, std::vector<Engine::Inputs>> SocketParser
 
 std::vector<int> SocketParser::parseUdpEntity(const std::shared_ptr<Engine::Entity>& entity)
 {
+    static auto pool = new Engine::AssetPool("../../client/assets");
     std::vector<int> parsed;
     auto transform = entity->getComponent<Engine::TransformComponent>();
     auto sprite = entity->getComponent<Engine::SpriteComponent>();
@@ -31,9 +33,7 @@ std::vector<int> SocketParser::parseUdpEntity(const std::shared_ptr<Engine::Enti
     parsed.push_back(transform->getPos().x);
     parsed.push_back(transform->getPos().y);
     parsed.push_back(static_cast<int>(transform->getRotation()));
-    //TODO: push a texture index <here>
-    parsed.push_back(0);
-    //TODO: ^^^ this is a temporary index ^^^
+    parsed.push_back(static_cast<int>(pool->getIndexFromPath(sprite->getTexture()->getFilename())));
     parsed.push_back(sprite->getSprite()->getRect().x1);
     parsed.push_back(sprite->getSprite()->getRect().x2);
     parsed.push_back(sprite->getSprite()->getRect().y1);

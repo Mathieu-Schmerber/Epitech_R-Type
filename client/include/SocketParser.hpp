@@ -8,15 +8,20 @@
 #include <vector>
 #include "ecs/Entity.hpp"
 #include "enumerations/Inputs.hpp"
+#include "tools/AssetPool.hpp"
 
 class SocketParser
 {
+private:
+    std::unique_ptr<Engine::AssetPool> _pool;
 public:
+    SocketParser();
+
     [[nodiscard]] static std::vector<int> parseUdpInputs(int clientId,
                                                          const std::vector<Engine::Inputs> &pressed,
                                                          const std::vector<Engine::Inputs> &released);
 
-    [[nodiscard]] static std::shared_ptr<Engine::Entity> unparseUdpEntity(const std::vector<int> &in);
+    [[nodiscard]] std::shared_ptr<Engine::Entity> unparseUdpEntity(const std::vector<int> &in);
     static void updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in);
 
     [[nodiscard]] static std::shared_ptr<Engine::Entity> unparseTcpLobby(const std::vector<int> &in);

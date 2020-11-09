@@ -4,11 +4,12 @@
 
 #include "SocketParser.hpp"
 #include "entities/LobbyCard.hpp"
-#include "tools/Utils.hpp"
-#include "sfml/SpriteSfml.hpp"
 #include "components/NetworkComponent.hpp"
-#include "components/SpriteComponent.hpp"
-#include "components/TransformComponent.hpp"
+
+SocketParser::SocketParser()
+{
+    this->_pool = std::make_unique<Engine::AssetPool>("../../client/assets");
+}
 
 std::vector<int> SocketParser::parseUdpInputs(int clientId, const std::vector<Engine::Inputs> &pressed, const std::vector<Engine::Inputs> &released)
 {
@@ -35,10 +36,8 @@ std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector
     entity->addComponent<Engine::TransformComponent>(Engine::Point<int>{in.at(1), in.at(2)}, in.at(3));
     entity->addComponent<Engine::SpriteComponent>();
     sprite = entity->getComponent<Engine::SpriteComponent>();
-    // TODO: set texture thanks to the index: in.at(4)
-    auto spr = std::make_unique<SpriteSFML>("../../client/assets/images/starships/blue_starship_166x17_33x17.png");
+    auto spr = std::make_unique<SpriteSFML>(this->_pool->getPathFromIndex(in.at(4)));
     sprite->setDisplay(std::move(spr));
-    // TODO: ^^^This is a temporary texture set ^^^
     sprite->getSprite()->setRect({in.at(5), in.at(6), in.at(7), in.at(8)});
     return std::shared_ptr<Engine::Entity>(entity);
 }
@@ -52,7 +51,6 @@ void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, 
     entity->getComponent<Engine::TransformComponent>()->setPos({in.at(1), in.at(2)});
     entity->getComponent<Engine::TransformComponent>()->setRotation(in.at(3));
     sprite->getSprite()->setRect({in.at(5), in.at(6), in.at(7), in.at(8)});
-    // TODO: set texture thanks to the index: in.at(4)
 }
 
 std::shared_ptr<Engine::Entity> SocketParser::unparseTcpLobby(const std::vector<int> &in)

@@ -14,7 +14,8 @@
 #include "systems/ServerNetworkSystem.hpp"
 #include "components/NetworkComponent.hpp"
 
-Game::Game(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception) : _players(players), _reception(reception), _idIncrement(0)
+Game::Game(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception)
+: _players(players), _reception(reception), _idIncrement(0), _running(true)
 {
     this->_timer = std::make_unique<Engine::Timer>();
     this->initGameSystems();
@@ -66,6 +67,11 @@ void Game::spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork)
         if (this->_entities.back()->hasComponents(sys->getDependencies()))
             sys->addEntity(this->_entities.back());
     }
+}
+
+bool Game::isGameRunning() const
+{
+    return _running;
 }
 
 void Game::update()
