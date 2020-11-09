@@ -28,7 +28,7 @@ public:
     Game(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception);
     ~Game();
 
-    void spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork);
+    void spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork);
     void update();
     bool isGameRunning() { return true; };
 };

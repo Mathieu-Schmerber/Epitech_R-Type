@@ -57,10 +57,10 @@ void LobbySystem::handleLobbyJoin(std::shared_ptr<Engine::Entity> &lobby)
 
 void LobbySystem::update()
 {
-    this->updateFromServer();
     this->handleScroll();
     for (auto &e : this->_entities)
         this->handleLobbyJoin(e);
+    this->updateFromServer();
 }
 
 void LobbySystem::scrollUpLobbies()

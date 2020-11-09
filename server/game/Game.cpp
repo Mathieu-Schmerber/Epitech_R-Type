@@ -30,9 +30,9 @@ Game::~Game()
 
 void Game::initGameEntities()
 {
-    auto player = new Player(0, Engine::Point<int>{50, 50});
+    std::shared_ptr<Engine::Entity> player = std::make_shared<Player>(0, Engine::Point<int>{50, 50});
 
-    this->spawn(std::shared_ptr<Player>(player), true);
+    this->spawn(player, true);
 }
 
 void Game::initGameSystems()
