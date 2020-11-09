@@ -50,7 +50,7 @@ void Game::initGameSystems()
     this->_systems.push_back(std::move(network));
 }
 
-void Game::spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork)
+void Game::spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork)
 {
     auto network = entity->getComponent<Engine::NetworkComponent>();
 
