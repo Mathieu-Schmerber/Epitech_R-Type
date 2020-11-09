@@ -3,6 +3,7 @@
 //
 
 #include "SocketParser.hpp"
+#include "entities/LobbyCard.hpp"
 #include "tools/Utils.hpp"
 #include "sfml/SpriteSfml.hpp"
 #include "components/NetworkComponent.hpp"
@@ -52,4 +53,17 @@ void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, 
     entity->getComponent<Engine::TransformComponent>()->setRotation(in.at(3));
     sprite->getSprite()->setRect({in.at(5), in.at(6), in.at(7), in.at(8)});
     // TODO: set texture thanks to the index: in.at(4)
+}
+
+std::shared_ptr<Engine::Entity> SocketParser::unparseTcpLobby(const std::vector<int> &in)
+{
+    //TODO: TMP RAW DATA
+    int lobbyId = 0;
+    int maxPlayers = 4;
+    int idClientMaster = 0;
+    short port = 4242;
+    //TODO: TMP RAW DATA
+    auto entity = new LobbyCard(port, lobbyId, maxPlayers, idClientMaster);
+
+    return std::shared_ptr<Engine::Entity>(entity);
 }

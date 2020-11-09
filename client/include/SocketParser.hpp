@@ -18,6 +18,8 @@ public:
 
     [[nodiscard]] static std::shared_ptr<Engine::Entity> unparseUdpEntity(const std::vector<int> &in);
     static void updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in);
+
+    [[nodiscard]] static std::shared_ptr<Engine::Entity> unparseTcpLobby(const std::vector<int> &in);
 };
 
 

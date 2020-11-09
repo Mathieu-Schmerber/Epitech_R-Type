@@ -10,7 +10,7 @@
 #include "sceneManagement/AScene.hpp"
 #include "ecs/System.hpp"
 
-class LobbySystem : Engine::System {
+class LobbySystem : public Engine::System {
 private:
     std::shared_ptr<NetworkAccess> _server;
     std::shared_ptr<Engine::AEvents> _events;

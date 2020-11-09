@@ -5,6 +5,8 @@
 #include "components/LobbyComponent.hpp"
 #include "components/ClickableComponent.hpp"
 #include "systems/LobbySystem.hpp"
+#include "entities/LobbyCard.hpp"
+#include "sfml/FontSFML.hpp"
 
 LobbySystem::LobbySystem(std::shared_ptr<NetworkAccess> &server, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<Engine::AScene> &scene)
 : _server(server), _events(events), _scene(scene), Engine::System()
