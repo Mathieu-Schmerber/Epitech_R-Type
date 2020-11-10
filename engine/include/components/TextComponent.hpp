@@ -9,8 +9,8 @@
 #ifndef RTYPE_TEXTCOMPONENT_HPP
 #define RTYPE_TEXTCOMPONENT_HPP
 
-#include <ecs/Component.hpp>
-#include <graphical/AText.hpp>
+#include "ecs/Component.hpp"
+#include "graphical/AText.hpp"
 
 namespace Engine {
 

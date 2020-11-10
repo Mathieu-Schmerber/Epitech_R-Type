@@ -9,7 +9,7 @@
 #ifndef RTYPE_MUSIC_HPP
 #define RTYPE_MUSIC_HPP
 
-#include <components/MusicComponent.hpp>
+#include "components/MusicComponent.hpp"
 #include "ecs/Entity.hpp"
 
 namespace Engine {

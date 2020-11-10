@@ -137,7 +137,7 @@ void Settings::createSelector(Engine::Point<int> position,  const std::pair<void
 
     fullScreenButtonAndText.first = fullScreenPairButton;
     fullScreenButtonAndText.second = onOffFTextEngine;
-    _selectorButtonsAndText.push_back(fullScreenButtonAndText);
+    _selectorButtonsAndText.emplace_back(fullScreenButtonAndText);
 }
 
 void Settings::initEntities()

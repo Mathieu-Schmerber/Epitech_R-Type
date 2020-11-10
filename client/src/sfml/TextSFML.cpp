@@ -49,8 +49,7 @@ float TextSFML::getRotation() const
 
 void TextSFML::setString(const std::string text)
 {
-    _string = text.data();
-    _text.setString(_string);
+    _text.setString(text.data());
 }
 
 void TextSFML::setFont(std::shared_ptr<Engine::AFont> &font)
@@ -87,4 +86,9 @@ void TextSFML::setLetterSpacing(float spacingFactor)
 void TextSFML::setLineSpacing(float spacingFactor)
 {
     _text.setLineSpacing(spacingFactor);
+}
+
+std::string TextSFML::toStdString() const
+{
+    return _text.getString().toAnsiString();
 }

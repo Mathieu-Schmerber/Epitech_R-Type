@@ -175,7 +175,7 @@ set(CLIENT_INCLUDES
 		client/include/components/LobbyComponent.hpp
 		client/include/entities/LobbyCard.hpp
 		client/include/systems/LobbySystem.hpp
-		client/include/scenes/CreateLobby.hpp client/include/systems/LobbyCreateSystem.hpp client/include/components/CreateLobbyComponent.hpp client/src/systems/LobbyCreateSystem.cpp client/include/entities/CreateLobbyEntity.hpp)
+		client/include/scenes/CreateLobby.hpp client/src/scenes/LobbyWaiting.cpp client/include/scenes/LobbyWaiting.hpp client/include/entities/LobbyWaitingEntity.hpp engine/include/entities/Text.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp

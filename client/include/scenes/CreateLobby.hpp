@@ -17,14 +17,14 @@ class CreateLobby : public Engine::AScene
     std::shared_ptr<Engine::AWindow> _window;
     std::shared_ptr<Engine::AEvents> _events;
     std::shared_ptr<NetworkAccess> _server;
+    std::shared_ptr<Engine::Entity> _textNbPlayerMax;
 
     void initEntities() final;
     void initSystems() final;
 
     public:
     CreateLobby(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<NetworkAccess> &server);
-    const std::unique_ptr<Engine::System> &getCreateLobbySystem() const;
-
+    std::shared_ptr<Engine::Entity> getTextNbPlayerMax() const;
 
     std::shared_ptr<Engine::AWindow> getWindow() const;
 };
