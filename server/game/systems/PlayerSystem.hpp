@@ -7,16 +7,20 @@
 
 #include "ecs/System.hpp"
 #include "entities/Player.hpp"
+#include "Game.hpp"
 
 class PlayerSystem : public Engine::System
 {
 private:
+    std::shared_ptr<Game> _game;
+    std::shared_ptr<Engine::ATexture> _projectileTexture;
+
     static void handleMoveAnimations(std::shared_ptr<Engine::Entity> &player, Engine::Vector<double> dir);
     static void handleMovements(std::shared_ptr<Engine::Entity> &player);
-    static void handleWeapon(std::shared_ptr<Engine::Entity> &player);
+    void handleWeapon(std::shared_ptr<Engine::Entity> &player);
     static void handleCollisions(std::shared_ptr<Engine::Entity> &player);
 public:
-    PlayerSystem();
+    explicit PlayerSystem(std::shared_ptr<Game> &game);
 
     void update() override;
 };
