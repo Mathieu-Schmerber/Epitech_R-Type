@@ -45,6 +45,7 @@ public:
     [[nodiscard]] Engine::Point<float> getPosition() const final;
     [[nodiscard]] Engine::Size<int> getSize() const final;
     [[nodiscard]] float getRotation() const final;
+    //sf::String //getText
 };
 
 

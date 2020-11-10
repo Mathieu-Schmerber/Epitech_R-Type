@@ -16,7 +16,6 @@ class LobbyComponent : public Engine::Component {
         unsigned short _nbActualClient;
         unsigned int _idClientMaster;
 
-
     public:
         explicit LobbyComponent() : _port(0), _lobbyId(0), _nbActualClient(0), _nbMaxClient(0), _idClientMaster(0), Engine::Component() {}
         LobbyComponent(short port, unsigned int lobbyId, unsigned short nbMaxClient, unsigned int nbActualClient,

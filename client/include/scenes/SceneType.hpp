@@ -10,7 +10,7 @@ enum SceneType {
     GAME,
     SETTINGS,
     HOW_TO_PLAY,
-    LOBBY,
+    LOBBY_LIST,
     CREATE_LOBBY
 };
 

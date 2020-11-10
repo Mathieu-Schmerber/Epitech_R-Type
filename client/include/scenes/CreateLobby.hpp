@@ -23,8 +23,15 @@ class CreateLobby : public Engine::AScene
 
     public:
     CreateLobby(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<NetworkAccess> &server);
+    const std::unique_ptr<Engine::System> &getCreateLobbySystem() const;
+
 
     std::shared_ptr<Engine::AWindow> getWindow() const;
 };
+
+void increaseNbOfClientsCb(std::shared_ptr<Engine::AScene> &);
+void decreaseNbOfClientsCb(std::shared_ptr<Engine::AScene> &);
+void goToLobbyWaiting(std::shared_ptr<Engine::AScene> &);
+void goBackToLobbyList(std::shared_ptr<Engine::AScene> &);
 
 #endif //RTYPE_CREATELOBBY_HPP

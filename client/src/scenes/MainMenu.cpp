@@ -18,9 +18,9 @@
 #include "entities/Drawable.hpp"
 #include "entities/Music.hpp"
 
-void goToLobbyScene(std::shared_ptr<Engine::AScene> &menu)
+void goToLobbyListScene(std::shared_ptr<Engine::AScene> &menu)
 {
-    Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::LOBBY);
+    Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::LOBBY_LIST);
 
     menu->pushRequest(request);
 }
@@ -64,7 +64,7 @@ void MainMenu::initEntities()
     std::shared_ptr<Engine::Entity> rTypeLogoEngine = std::make_shared<Engine::Drawable>(Engine::Point<int>{RTYPE_LOGO_POSITION_X, RTYPE_LOGO_POSITION_Y}, std::move(rtypeLogoSprite));
 
     auto startButtonSprite = std::make_unique<SpriteSFML>(START_BUTTON_PATH);
-    std::shared_ptr<Engine::Entity> startButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{START_BUTTON_POSITION_X, START_BUTTON_POSITION_Y}, Engine::Point<int>{START_BUTTON_WIDTH, START_BUTTON_HEIGHT}, std::move(startButtonSprite), &goToLobbyScene, std::shared_ptr<Engine::AScene>(this));
+    std::shared_ptr<Engine::Entity> startButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{START_BUTTON_POSITION_X, START_BUTTON_POSITION_Y}, Engine::Point<int>{START_BUTTON_WIDTH, START_BUTTON_HEIGHT}, std::move(startButtonSprite), &goToLobbyListScene, std::shared_ptr<Engine::AScene>(this));
     startButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({START_BUTTON_X_IDLE, START_BUTTON_Y}, {START_BUTTON_WIDTH, START_BUTTON_HEIGHT})});
     startButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<int>({START_BUTTON_X_HOVER, START_BUTTON_Y}, {START_BUTTON_WIDTH, START_BUTTON_HEIGHT})});
     startButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({START_BUTTON_X_CLICKED, START_BUTTON_Y}, {START_BUTTON_WIDTH, START_BUTTON_HEIGHT})});

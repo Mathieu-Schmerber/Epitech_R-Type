@@ -5,7 +5,6 @@
 #include "systems/MoveSystem.hpp"
 #include "sfml/SpriteSfml.hpp"
 #include "sfml/MusicSFML.hpp"
-#include "sfml/FontSFML.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/WindowResizeSystem.hpp"
 #include "systems/ButtonSystem.hpp"
@@ -14,7 +13,7 @@
 #include "systems/ParallaxSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/MusicSystem.hpp"
-#include "scenes/Lobby.hpp"
+#include "scenes/LobbyList.hpp"
 #include "entities/Button.hpp"
 #include "entities/Music.hpp"
 
@@ -27,7 +26,7 @@ void goToCreateLobbyScene(std::shared_ptr<Engine::AScene> &lobby)
 
 void scrollDownLobby(std::shared_ptr<Engine::AScene> &lobby)
 {
-    auto lobbyObject = std::dynamic_pointer_cast<Lobby>(lobby);
+    auto lobbyObject = std::dynamic_pointer_cast<LobbyList>(lobby);
     auto lobbySystem = dynamic_cast<LobbySystem *>(lobbyObject->getLobbySystem().get());
 
     lobbySystem->scrollDownLobbies();
@@ -35,7 +34,7 @@ void scrollDownLobby(std::shared_ptr<Engine::AScene> &lobby)
 
 void scrollUpLobby(std::shared_ptr<Engine::AScene> &lobby)
 {
-    auto lobbyObject = std::dynamic_pointer_cast<Lobby>(lobby);
+    auto lobbyObject = std::dynamic_pointer_cast<LobbyList>(lobby);
     auto lobbySystem = dynamic_cast<LobbySystem *>(lobbyObject->getLobbySystem().get());
 
     lobbySystem->scrollUpLobbies();
@@ -48,14 +47,14 @@ void goToInGameScene(std::shared_ptr<Engine::AScene> &lobby)
     lobby->pushRequest(request);
 }
 
-Lobby::Lobby(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<NetworkAccess> &server)
-: _window(window), _events(events), _server(server), Engine::AScene(SceneType::LOBBY)
+LobbyList::LobbyList(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<NetworkAccess> &server)
+: _window(window), _events(events), _server(server), Engine::AScene(SceneType::LOBBY_LIST)
 {
     this->initSystems();
     this->initEntities();
 }
 
-void Lobby::initEntities()
+void LobbyList::initEntities()
 {
     auto goBackButtonSprite = std::make_unique<SpriteSFML>(GO_BACK_BUTTON_PATH);
     std::shared_ptr<Engine::Entity> goBackButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{GO_BACK_BUTTON_POSITION_X, GO_BACK_BUTTON_POSITION_Y}, Engine::Point<int>{GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT}, std::move(goBackButtonSprite), &goToMenuScene, std::shared_ptr<Engine::AScene>(this));
@@ -128,7 +127,7 @@ void Lobby::initEntities()
     this->spawnEntity(lobby7);
 }
 
-void Lobby::initSystems()
+void LobbyList::initSystems()
 {
     auto scene = std::shared_ptr<Engine::AScene>(this);
     auto draw = std::make_unique<Engine::DrawSystem>(this->_window);
@@ -155,12 +154,12 @@ void Lobby::initSystems()
     //lobby MUST BE THE LAST COMPONENT to get lobby System (see getSystem method)
 }
 
-std::shared_ptr<Engine::AWindow> Lobby::getWindow() const
+std::shared_ptr<Engine::AWindow> LobbyList::getWindow() const
 {
     return _window;
 }
 
-const std::unique_ptr<Engine::System> &Lobby::getLobbySystem() const
+const std::unique_ptr<Engine::System> &LobbyList::getLobbySystem() const
 {
     return _systems.back();
 }
