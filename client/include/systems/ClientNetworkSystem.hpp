@@ -18,6 +18,7 @@
 class ClientNetworkSystem : public Engine::System
 {
 private:
+    std::vector<int> _lastData;
     std::shared_ptr<NetworkAccess> _server;
     std::shared_ptr<Engine::AEvents> _events;
     std::shared_ptr<Engine::AScene> _scene;

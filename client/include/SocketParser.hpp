@@ -17,9 +17,12 @@ class SocketParser
 private:
     std::unique_ptr<Engine::AssetPool> _pool;
     std::unique_ptr<Engine::Timer> _timer;
+    std::unique_ptr<Engine::Timer> _serverTimer;
+    double _serverDelta;
     double _deltatime;
+    bool _serverUpdate;
 
-    [[nodiscard]] static Engine::Point<int> lerp(Engine::Point<int> a, Engine::Point<int> b, double time, Engine::Point<int> speed);
+    [[nodiscard]] static Engine::Point<int> lerp(Engine::Point<int> a, Engine::Point<int> b, double time);
 
 public:
     SocketParser();
@@ -34,7 +37,7 @@ public:
     [[nodiscard]] static std::shared_ptr<Engine::Entity> unparseTcpLobby(const std::vector<int> &in);
     static void updateLobbyFromTcp(std::shared_ptr<Engine::Entity> &lobby, const std::vector<int> &in);
 
-    void refreshTimer();
+    void refreshTimer(bool dataChanged);
 };
 
 

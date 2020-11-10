@@ -13,6 +13,7 @@ ClientNetworkSystem::ClientNetworkSystem(std::shared_ptr<NetworkAccess> &server,
     this->addDependency<Engine::NetworkComponent>();
     this->addDependency<Engine::SpriteComponent>();
     this->_parser = std::make_unique<SocketParser>();
+    this->_lastData = std::vector<int>(UDP_BUFFER_SIZE);
 }
 
 void ClientNetworkSystem::sendRawInputs()
@@ -32,7 +33,8 @@ void ClientNetworkSystem::receiveGameData()
     int rest;
     std::vector<int> dataSection;
 
-    this->_parser->refreshTimer();
+    this->_parser->refreshTimer((data != this->_lastData));
+    this->_lastData = data;
     for (auto &e : copy) {
         if (increment >= UDP_BUFFER_SIZE)
             return;

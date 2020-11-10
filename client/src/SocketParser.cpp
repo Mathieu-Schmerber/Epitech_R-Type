@@ -2,6 +2,7 @@
 // Created by mathi on 06/11/2020.
 //
 
+#include <stdlib.h>
 #include "SocketParser.hpp"
 #include "entities/LobbyCard.hpp"
 #include "components/NetworkComponent.hpp"
@@ -11,14 +12,16 @@ SocketParser::SocketParser()
     this->_pool = std::make_unique<Engine::AssetPool>("../../client/assets");
     this->_timer = std::make_unique<Engine::Timer>();
     this->_deltatime = 0;
+    this->_serverTimer = std::make_unique<Engine::Timer>();
+    this->_serverDelta = 0;
+    this->_serverUpdate = false;
 }
 
-Engine::Point<int> SocketParser::lerp(Engine::Point<int> a, Engine::Point<int> b, double time, Engine::Point<int> speed)
+Engine::Point<int> SocketParser::lerp(Engine::Point<int> a, Engine::Point<int> b, double time)
 {
-    if (speed.x != 0 || speed.y != 0)
-        return {(int)(a.x + (b.x - a.x) * time), (int)(a.y + (b.y - a.y) * time)};
-    else
-        return b;
+    if (time <= 0.5)
+        return {(int)(a.x * (1 - time * 0.5) + b.x * time * 0.5), (int)(a.y * (1 - time * 0.5) + b.y * time * 0.5)};
+    return b;
 }
 
 std::vector<int> SocketParser::parseUdpInputs(int clientId, const std::vector<Engine::Inputs> &pressed, const std::vector<Engine::Inputs> &released)
@@ -56,7 +59,7 @@ void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, 
 {
     auto *sprite = entity->getComponent<Engine::SpriteComponent>();
     auto inititalPos = entity->getComponent<Engine::TransformComponent>()->getPos();
-    auto smooth = this->lerp(inititalPos, {in.at(1), in.at(2)}, this->_deltatime, {in.at(10), in.at(11)});
+    auto smooth = SocketParser::lerp(inititalPos, {in.at(1), in.at(2)}, this->_deltatime);
 
     if (in.size() < 9)
         return;
@@ -90,7 +93,10 @@ void SocketParser::updateLobbyFromTcp(std::shared_ptr<Engine::Entity> &lobby, co
         sprites.at(i)->getSprite()->setRect({Engine::Box<int>({STARSHIP_WIDTH * i, 0}, {STARSHIP_WIDTH, STARSHIP_HEIGHT})});
 }
 
-void SocketParser::refreshTimer()
+void SocketParser::refreshTimer(bool dataChanged)
 {
+    this->_serverUpdate = dataChanged;
+    if (dataChanged)
+        this->_serverDelta = this->_serverTimer->deltatime();
     this->_deltatime = this->_timer->deltatime();
 }
