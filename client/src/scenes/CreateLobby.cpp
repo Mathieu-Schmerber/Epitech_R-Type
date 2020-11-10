@@ -30,7 +30,6 @@ void CreateLobby::initEntities()
 
 void CreateLobby::initSystems()
 {
-    auto scene = std::shared_ptr<Engine::AScene>(this);
     auto draw = std::make_unique<Engine::DrawSystem>(this->_window);
     auto text = std::make_unique<Engine::TextSystem>(this->_window);
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
