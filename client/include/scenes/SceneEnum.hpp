@@ -20,6 +20,14 @@
 #define ON_OFF_WIDTH 135
 #define ON_OFF_HEIGHT 51
 
+#define CREATE_LOBBY_BUTTON_PATH "../../client/assets/images/buttons/create/create_button_414x30_138x30.png"
+#define CREATE_LOBBY_BUTTON_Y 0
+#define CREATE_LOBBY_BUTTON_HEIGHT 30
+#define CREATE_LOBBY_BUTTON_WIDTH 138
+#define CREATE_LOBBY_BUTTON_X_IDLE 0
+#define CREATE_LOBBY_BUTTON_X_HOVER 138
+#define CREATE_LOBBY_BUTTON_X_CLICKED 276
+
 #define GO_BACK_BUTTON_PATH "../../client/assets/images/buttons/left_arrow/left_arrow_full_192x64.png"
 #define GO_BACK_BUTTON_Y 0
 #define GO_BACK_BUTTON_HEIGHT 64

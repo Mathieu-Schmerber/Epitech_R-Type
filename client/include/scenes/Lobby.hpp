@@ -32,7 +32,7 @@ class Lobby : public Engine::AScene
 
 void scrollDownLobby(std::shared_ptr<Engine::AScene> &);
 void scrollUpLobby(std::shared_ptr<Engine::AScene> &);
-void enterLobby(std::shared_ptr<Engine::AScene> &);
+void goToCreateLobbyScene(std::shared_ptr<Engine::AScene> &);
 void goToInGameScene(std::shared_ptr<Engine::AScene> &);
 void goToMenuScene(std::shared_ptr<Engine::AScene> &);
 

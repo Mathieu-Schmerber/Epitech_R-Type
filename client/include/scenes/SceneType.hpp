@@ -11,6 +11,7 @@ enum SceneType {
     SETTINGS,
     HOW_TO_PLAY,
     LOBBY,
+    CREATE_LOBBY
 };
 
 #endif //RTYPE_SCENETYPE_HPP
