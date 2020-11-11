@@ -4,7 +4,6 @@
 
 #include <sfml/SpriteSfml.hpp>
 #include <memory>
-#include "sceneManagement/SceneManager.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
 #include "systems/ButtonSystem.hpp"
@@ -42,7 +41,8 @@ void goToNextHowToPlayScreen(std::shared_ptr<Engine::AScene> &howToPlay)
     }
 
     if (index == HowToPlayContext::WEAPONS - 1) {
-        enginePowerUp->getComponent<Engine::SpriteComponent>()->hasToBeDraw(true);
+        if (enginePowerUp->getComponent<Engine::SpriteComponent>())
+            enginePowerUp->getComponent<Engine::SpriteComponent>()->hasToBeDraw(true);
     } else {
         enginePowerUp->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
     }
@@ -76,6 +76,7 @@ void goToPreviousHowToPlayScreen(std::shared_ptr<Engine::AScene> &howToPlay)
     } else {
         enginePowerUp->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
     }
+
 
     if (enginesDrawable[index] != enginesDrawable.front()) {
         enginesDrawable[index]->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
@@ -170,16 +171,17 @@ void HowToPlay::initEntities()
 
     auto powerUpSprite = std::make_unique<SpriteSFML>(POWER_UP_PATH);
     powerUpSprite->setScale({static_cast<float>(POWER_UP_SCALE_X), static_cast<float>(POWER_UP_SCALE_Y)});
-    _enginesPowerUp = std::make_shared<Engine::Drawable>(Engine::Point<int>{POWER_UP_POSITION_X, POWER_UP_POSITION_Y}, std::move(powerUpSprite));
-    _enginesPowerUp->addComponent<Engine::AnimationComponent>(0.4);
-    _enginesPowerUp->getComponent<Engine::AnimationComponent>()->addAnimation(3, {
+    std::shared_ptr<Engine::Entity> enginesPowerUp = std::make_shared<Engine::Drawable>(Engine::Point<int>{POWER_UP_POSITION_X, POWER_UP_POSITION_Y}, std::move(powerUpSprite));
+    enginesPowerUp->addComponent<Engine::AnimationComponent>(0.4);
+    enginesPowerUp->getComponent<Engine::AnimationComponent>()->addAnimation(3, {
         {{0, 0}, {POWER_UP_WIDTH, POWER_UP_HEIGHT}},
         {{POWER_UP_WIDTH, 0}, {POWER_UP_WIDTH, POWER_UP_HEIGHT}},
         {{POWER_UP_WIDTH * 2, 0},{POWER_UP_WIDTH, POWER_UP_HEIGHT}},
         {{POWER_UP_WIDTH * 3, 0},{POWER_UP_WIDTH, POWER_UP_HEIGHT}}
     });
-    _enginesPowerUp->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
-    _enginesPowerUp->getComponent<Engine::AnimationComponent>()->setAnimation(3);
+    enginesPowerUp->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
+    enginesPowerUp->getComponent<Engine::AnimationComponent>()->setAnimation(3);
+    _enginesPowerUp = enginesPowerUp;
 
     this->spawnEntity(howToPlayEngine1);
     this->spawnEntity(howToPlayEngine2);
@@ -190,7 +192,7 @@ void HowToPlay::initEntities()
     this->spawnEntity(bonusEngine1);
     this->spawnEntity(bonusEngine2);
     this->spawnEntity(bonusEngine3);
-    this->spawnEntity(_enginesPowerUp);
+    this->spawnEntity(enginesPowerUp);
 }
 
 void HowToPlay::initSystems()

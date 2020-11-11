@@ -5,7 +5,6 @@
 #ifndef RTYPE_LOBBYWAITING_HPP
 #define RTYPE_LOBBYWAITING_HPP
 
-#include "SceneType.hpp"
 #include "sceneManagement/AScene.hpp"
 #include "NetworkAccess.hpp"
 #include "graphical/AWindow.hpp"
@@ -26,5 +25,7 @@ class LobbyWaiting : public Engine::AScene
 
     std::shared_ptr<Engine::AWindow> getWindow() const;
 };
+
+void goBackToCreateLobby(std::shared_ptr<Engine::AScene> &);
 
 #endif //RTYPE_LOBBYWAITING_HPP

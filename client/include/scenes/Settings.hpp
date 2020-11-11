@@ -19,8 +19,7 @@ enum SettingsSelectorSprite {
     FRAMERATE,
     VSYNC_ENABLED,
     MUSIC_ENABLED,
-    SOUND_EFFECTS_ENABLED,
-
+    SOUND_EFFECTS_ENABLED
 };
 
 class Settings : public Engine::AScene
@@ -38,8 +37,6 @@ public:
     Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events);
     std::shared_ptr<Engine::AWindow> getWindow() const;
     std::vector<std::pair<std::pair<std::shared_ptr<Engine::Entity>, std::shared_ptr<Engine::Entity>>, std::shared_ptr<Engine::Entity>>> getSelectorButtonsAndText() const;
-
-
 };
 
 void goToMenuScene(std::shared_ptr<Engine::AScene> &);
