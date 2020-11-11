@@ -28,6 +28,14 @@
 #define CREATE_LOBBY_BUTTON_X_HOVER 138
 #define CREATE_LOBBY_BUTTON_X_CLICKED 276
 
+#define PLAY_BUTTON_PATH "../../client/assets/images/buttons/play/play_button_543x57_181x57.png"
+#define PLAY_BUTTON_Y 0
+#define PLAY_BUTTON_HEIGHT 57
+#define PLAY_BUTTON_WIDTH 181
+#define PLAY_BUTTON_X_IDLE 0
+#define PLAY_BUTTON_X_HOVER 181
+#define PLAY_BUTTON_X_CLICKED 362
+
 #define GO_BACK_BUTTON_PATH "../../client/assets/images/buttons/left_arrow/left_arrow_full_192x64.png"
 #define GO_BACK_BUTTON_Y 0
 #define GO_BACK_BUTTON_HEIGHT 64

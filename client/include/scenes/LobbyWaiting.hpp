@@ -27,5 +27,6 @@ class LobbyWaiting : public Engine::AScene
 };
 
 void goBackToCreateLobby(std::shared_ptr<Engine::AScene> &);
+void goToInGamesScene(std::shared_ptr<Engine::AScene> &);
 
 #endif //RTYPE_LOBBYWAITING_HPP

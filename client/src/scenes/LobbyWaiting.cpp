@@ -21,6 +21,13 @@
 #include "entities/Button.hpp"
 #include "entities/PlayerAndStarshipEntity.hpp"
 
+void goToInGamesScene(std::shared_ptr<Engine::AScene> &lobbyWaiting)
+{
+    Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::GAME);
+
+    lobbyWaiting->pushRequest(request);
+}
+
 void goBackToCreateLobby(std::shared_ptr<Engine::AScene> &lobbyWaiting)
 {
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::CREATE_LOBBY);
@@ -43,7 +50,14 @@ void LobbyWaiting::initEntities()
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
 
+    auto playButtonSprite = std::make_unique<SpriteSFML>(PLAY_BUTTON_PATH);
+    std::shared_ptr<Engine::Entity> playButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{870, 900}, Engine::Point<int>{PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT}, std::move(playButtonSprite), &goToInGamesScene, std::shared_ptr<Engine::AScene>(this));
+    playButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({PLAY_BUTTON_X_IDLE, PLAY_BUTTON_Y}, {PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT})});
+    playButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<int>({PLAY_BUTTON_X_HOVER, PLAY_BUTTON_Y}, {PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT})});
+    playButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({PLAY_BUTTON_X_CLICKED, PLAY_BUTTON_Y}, {PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT})});
+
     this->spawnEntity(goBackButtonEngine);
+    this->spawnEntity(playButtonEngine);
 
     //TODO: remove the following temporary lines
     std::shared_ptr<Engine::Entity> playerAndStarShipCard = std::make_shared<PlayerAndStarshipEntity>("Player 1");
