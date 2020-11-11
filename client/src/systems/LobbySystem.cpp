@@ -23,6 +23,8 @@ void LobbySystem::updateFromServer()
     auto data = tcp->getDataFromServer();
     int size = data.at(0);
 
+    if (size < 6)
+        return;
     if (data.at(1) == 0) {
         for (auto &e : this->_entities) {
             if (e->getComponent<LobbyComponent>()->getLobbyId() == data.at(2)) {

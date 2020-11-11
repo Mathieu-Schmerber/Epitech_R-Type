@@ -22,6 +22,9 @@ void Engine::ATcpSocket::sendToServer(std::vector<int> &toSend)
 std::vector<int> Engine::ATcpSocket::getDataFromServer()
 {
     std::vector<int> buffer;
+
+    buffer.resize(20);
+    buffer.at(0) = 0;
     size_t len = _socket.read_some(boost::asio::buffer(buffer));
 
     std::cout << "=====================" << std::endl;
