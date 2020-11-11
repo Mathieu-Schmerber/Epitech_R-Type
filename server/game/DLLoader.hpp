@@ -55,8 +55,10 @@ void DLLoader<T>::open()
 template<typename T>
 T DLLoader<T>::getInstance() const
 {
-    if (!_lib)
+    if (!_lib) {
+        std::cout << "Lib not found" << std::endl;
         return (nullptr);
+    }
 
     #ifdef __unix__
     if (!dlsym(_lib, "newInstance"))
@@ -65,9 +67,9 @@ T DLLoader<T>::getInstance() const
     *(void **)(&f) = dlsym(_lib, "newInstance");
     return ((*f)());
     #elif defined(_WIN32) || defined(WIN32)
-    if (!(fct) GetProcAddress(_lib, "newInstance"))
+    if (!static_cast<void *>(GetProcAddress(static_cast<HINSTANCE>(_lib), "newInstance")))
         throw std::exception();
-    fct f = (fct) GetProcAddress(_lib, "newInstance");
+    fct f = (fct) GetProcAddress(static_cast<HINSTANCE>(_lib), "newInstance");
     return ((f)());
     #endif
 }
