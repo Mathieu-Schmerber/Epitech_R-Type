@@ -62,9 +62,11 @@ T DLLoader<T>::getInstance() const
     *(void **)(&f) = dlsym(_lib, "newInstance");
     return ((*f)());
     #elif defined(_WIN32) || defined(WIN32)
-    if (!(T (*f)()) GetProcAddress(hinstLib, "newInstance"))
+    if (!GetProcAddress(hinstLib, "newInstance"))
         throw std::exception();
-    return ((T (*f)()) GetProcAddress(hinstLib, "newInstance"))()
+    T (*f)();
+    *(void **)(&f) = GetProcAddress(hinstLib, "newInstance");
+    return ((*f)());
     #endif
 }
 
@@ -81,10 +83,11 @@ void DLLoader<T>::close(T instance) const
     ((*f)(instance));
     dlclose(_lib);
     #elif defined(_WIN32) || defined(WIN32)
-    if (!(T (*f)()) GetProcAddress(hinstLib, "destroyInstance"))
+    if (!GetProcAddress(hinstLib, "destroyInstance"))
         throw std::exception();
-    ((T (*f)()) GetProcAddress(hinstLib, "destroyInstance"))()
-    FreeLibrary(_lib);
+    T (*f)();
+    *(void **)(&f) = GetProcAddress(hinstLib, "destroyInstance");
+    return ((*f)());
     #endif
 }
 
