@@ -20,18 +20,24 @@ LobbySystem::LobbySystem(std::shared_ptr<NetworkAccess> &server, std::shared_ptr
 void LobbySystem::updateFromServer()
 {
     auto &tcp = this->_server->getTcpSocket();
-    //TODO: auto data = tcp->getDataFromServer();
-    unsigned short lobbyId = 0; // TODO: get id from the tcp data at a certain index
+    auto data = tcp->getDataFromServer();
+    int size = data.at(0);
 
-    for (auto &e : this->_entities) {
-        if (e->getComponent<LobbyComponent>()->getLobbyId() == lobbyId) {
-            SocketParser::updateLobbyFromTcp(e, {});
-            return;
+    if (data.at(1) == 0) {
+        for (auto &e : this->_entities) {
+            if (e->getComponent<LobbyComponent>()->getLobbyId() == data.at(2)) {
+                if (data.at(3) == 0)
+                    SocketParser::updateLobbyFromTcp(e, data);
+                //else
+                    //remove element e
+                return;
+            }
         }
+    } else {
+        auto entity = SocketParser::unparseTcpLobby(data);
+        if (entity)
+            this->_scene->spawnEntity(entity); // TODO: pass actual "data" got from server tcp
     }
-    auto entity = SocketParser::unparseTcpLobby({});
-    if (entity)
-        this->_scene->spawnEntity(entity); // TODO: pass actual "data" got from server tcp
 }
 
 void LobbySystem::handleScroll()
