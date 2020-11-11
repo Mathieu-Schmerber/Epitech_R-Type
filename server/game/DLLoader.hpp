@@ -10,7 +10,13 @@
 #define RTYPE_DLLOADER_HPP
 
 #include <string>
-#include <dlfcn.h>
+
+#ifdef __unix__
+    #include <dlfcn.h>
+#elif defined(_WIN32) || defined(WIN32)
+    #include <windows.h>
+    #include <stdio.h>
+#endif
 
 template <typename T>
 class DLLoader {
@@ -34,7 +40,11 @@ DLLoader<T>::DLLoader(const std::string& lib) : _lib(nullptr)
 template<typename T>
 void DLLoader<T>::open()
 {
-    _lib = dlopen(_libName.c_str(), RTLD_LAZY);
+    #ifdef __unix__
+        _lib = dlopen(_libName.c_str(), RTLD_LAZY);
+    #elif defined(_WIN32) || defined(WIN32)
+        _lib = LoadLibrary(TEXT(_libName.c_str()));
+    #endif
     if (!_lib)
         throw std::exception(); //TODO: Utiliser dlerror() !
 }
@@ -44,11 +54,18 @@ T DLLoader<T>::getInstance() const
 {
     if (!_lib)
         return (nullptr);
+
+    #ifdef __unix__
     if (!dlsym(_lib, "newInstance"))
         throw std::exception();
     T (*f)();
     *(void **)(&f) = dlsym(_lib, "newInstance");
     return ((*f)());
+    #elif defined(_WIN32) || defined(WIN32)
+    if (!(MYPROC) GetProcAddress(hinstLib, "myPuts"))
+        throw std::exception();
+    return ((MYPROC) GetProcAddress(hinstLib, "myPuts"))()
+    #endif
 }
 
 template<typename T>
