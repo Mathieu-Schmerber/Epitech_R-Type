@@ -18,10 +18,11 @@ void changeWindowEnableFullscreen(std::shared_ptr<Engine::AScene> &settings)
 {
     auto settingsObject = std::dynamic_pointer_cast<Settings>(settings);
 
-    for (auto &e : settingsObject->getEntities()) {
+    for (auto &e : settingsObject->getSettingsEntities()) {
         auto sprite = e->getComponent<Engine::SpriteComponent>();
-        if (sprite)
+        if (sprite && sprite->getSprite()) {
             std::cout << sprite->getSprite()->getRect().x1;
+        }
     }
 }
 
@@ -66,7 +67,7 @@ void Settings::initEntities()
     std::shared_ptr<Engine::Entity> button = std::make_shared<Engine::Button>(Engine::Point<int>{0 + 300,0},
         Engine::Point<int>{GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT},
         std::move(buttonSprite), changeWindowEnableFullscreen, std::shared_ptr<AScene>(this));
-    _entities.emplace_back(button);
+    _settingsEntities.push_back(button);
 
     this->spawnEntity(enableFullscreenEngine);
     this->spawnEntity(framerateEngine);
@@ -74,7 +75,7 @@ void Settings::initEntities()
     this->spawnEntity(musicEngine);
     this->spawnEntity(soundEffectsEngine);
     this->spawnEntity(goBackButtonEngine);
-    for (auto &e: _entities) {
+    for (auto &e: _settingsEntities) {
         this->spawnEntity(e);
     }
 }

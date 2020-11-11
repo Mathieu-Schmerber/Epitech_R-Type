@@ -27,7 +27,7 @@ class Settings : public Engine::AScene
     private:
         std::shared_ptr<Engine::AWindow> _window;
         std::shared_ptr<Engine::AEvents> _events;
-        std::vector<std::shared_ptr<Engine::Entity>> _entities;
+        std::vector<std::shared_ptr<Engine::Entity>> _settingsEntities;
 
         void initEntities() final;
         void initSystems() final;
@@ -35,7 +35,7 @@ class Settings : public Engine::AScene
 
         Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events);
         std::shared_ptr<Engine::AWindow> getWindow() const;
-        std::vector<std::shared_ptr<Engine::Entity>> getEntities() const {return _entities;};
+        std::vector<std::shared_ptr<Engine::Entity>> getSettingsEntities() const {return _settingsEntities;};
 };
 
 void goToMenuScene(std::shared_ptr<Engine::AScene> &);
