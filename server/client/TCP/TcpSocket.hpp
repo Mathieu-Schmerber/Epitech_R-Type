@@ -21,10 +21,12 @@
 
 using boost::asio::ip::tcp;
 
+class Server;
+
 class Session : public std::enable_shared_from_this<Session>
 {
 public:
-    Session(boost::asio::io_service& io_service, int id);
+    Session(boost::asio::io_service& io_service, int id, Server *server);
 
     tcp::socket& get_socket();
     void start();
@@ -35,6 +37,7 @@ private:
     enum { max_length = 1024 };
     std::vector<int> _data;
     int _id;
+    Server *_server;
 };
 
 class Client;
@@ -43,7 +46,7 @@ class Server {
 public:
     explicit Server(short port);
 
-    void handle_accept(std::shared_ptr<Session> session, const boost::system::error_code& err);
+    void handle_accept(std::shared_ptr<Session> session, const boost::system::error_code& err, Server *server);
     [[noreturn]] void run();
     void stop();
 private:
