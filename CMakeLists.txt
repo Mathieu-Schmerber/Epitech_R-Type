@@ -235,10 +235,22 @@ set(SERVER_INCLUDES
 		server/game/systems/ServerNetworkSystem.hpp
 		server/client/TCP/TcpSocket.hpp
 		server/game/systems/ServerNetworkSystem.hpp
-		server/game/Game.hpp)
+		server/game/Game.hpp server/game/IEnemy.hpp server/game/DLLoader.hpp)
+
+
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
+
+include(GNUInstallDirs)
+add_library(enemy SHARED
+		dynamic_libs/Enemy.cpp
+		dynamic_libs/Enemy.hpp
+		)
+set_target_properties(enemy PROPERTIES SOVERSION 1)
+set_target_properties(enemy PROPERTIES PUBLIC_HEADER
+		server/game/IEnemy.hpp
+		)
 
 target_include_directories(r-type_server PRIVATE
         server/core
@@ -250,7 +262,16 @@ target_include_directories(r-type_server PRIVATE
         engine/src/networking/UDP)
 target_include_directories(r-type_client PRIVATE
         client/include
-        engine/include)
+        engine/include
+		)
+target_include_directories(enemy PUBLIC
+		dynamic_libs
+		)
+install(TARGETS enemy
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES ${CMAKE_BINARY_DIR}/enemy.pc
+		DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
 
 message("===========================================")
 message(${CONAN_LIBS})
