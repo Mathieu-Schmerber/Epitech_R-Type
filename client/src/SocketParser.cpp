@@ -2,6 +2,7 @@
 // Created by mathi on 06/11/2020.
 //
 
+#include <stdlib.h>
 #include "SocketParser.hpp"
 #include "entities/LobbyCard.hpp"
 #include "components/NetworkComponent.hpp"
@@ -9,6 +10,18 @@
 SocketParser::SocketParser()
 {
     this->_pool = std::make_unique<Engine::AssetPool>("../../client/assets");
+    this->_timer = std::make_unique<Engine::Timer>();
+    this->_deltatime = 0;
+    this->_serverTimer = std::make_unique<Engine::Timer>();
+    this->_serverDelta = 0;
+    this->_serverUpdate = false;
+}
+
+Engine::Point<int> SocketParser::lerp(Engine::Point<int> a, Engine::Point<int> b, double time)
+{
+    if (time <= 0.5)
+        return {(int)(a.x * (1 - time * 0.5) + b.x * time * 0.5), (int)(a.y * (1 - time * 0.5) + b.y * time * 0.5)};
+    return b;
 }
 
 std::vector<int> SocketParser::parseUdpInputs(int clientId, const std::vector<Engine::Inputs> &pressed, const std::vector<Engine::Inputs> &released)
@@ -46,13 +59,14 @@ void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, 
 {
     auto *sprite = entity->getComponent<Engine::SpriteComponent>();
     auto inititalPos = entity->getComponent<Engine::TransformComponent>()->getPos();
-    auto smooth = Engine::Point<int>{(inititalPos.x + in.at(1)) / 2, (inititalPos.y + in.at(2)) / 2};
+    auto smooth = SocketParser::lerp(inititalPos, {in.at(1), in.at(2)}, this->_deltatime);
 
     if (in.size() < 9)
         return;
     entity->getComponent<Engine::TransformComponent>()->setPos(smooth);
     entity->getComponent<Engine::TransformComponent>()->setRotation(in.at(3));
     sprite->getSprite()->setRect({in.at(5), in.at(6), in.at(7), in.at(8)});
+    sprite->setLayer(in.at(9));
 }
 
 std::shared_ptr<Engine::Entity> SocketParser::unparseTcpLobby(const std::vector<int> &in)
@@ -78,4 +92,12 @@ void SocketParser::updateLobbyFromTcp(std::shared_ptr<Engine::Entity> &lobby, co
         std::cout << "Game launched" << std::endl;
     for (int i = 1; i < connectedPlayers + 1; ++i)
         sprites.at(i)->getSprite()->setRect({Engine::Box<int>({STARSHIP_WIDTH * i, 0}, {STARSHIP_WIDTH, STARSHIP_HEIGHT})});
+}
+
+void SocketParser::refreshTimer(bool dataChanged)
+{
+    this->_serverUpdate = dataChanged;
+    if (dataChanged)
+        this->_serverDelta = this->_serverTimer->deltatime();
+    this->_deltatime = this->_timer->deltatime();
 }

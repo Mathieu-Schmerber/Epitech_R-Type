@@ -9,11 +9,21 @@
 #include "ecs/Entity.hpp"
 #include "enumerations/Inputs.hpp"
 #include "tools/AssetPool.hpp"
+#include "tools/Timer.hpp"
+#include "tools/Geometry.hpp"
 
 class SocketParser
 {
 private:
     std::unique_ptr<Engine::AssetPool> _pool;
+    std::unique_ptr<Engine::Timer> _timer;
+    std::unique_ptr<Engine::Timer> _serverTimer;
+    double _serverDelta;
+    double _deltatime;
+    bool _serverUpdate;
+
+    [[nodiscard]] static Engine::Point<int> lerp(Engine::Point<int> a, Engine::Point<int> b, double time);
+
 public:
     SocketParser();
 
@@ -22,10 +32,12 @@ public:
                                                          const std::vector<Engine::Inputs> &released);
 
     [[nodiscard]] std::shared_ptr<Engine::Entity> unparseUdpEntity(const std::vector<int> &in);
-    static void updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in);
+    void updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in);
 
     [[nodiscard]] static std::shared_ptr<Engine::Entity> unparseTcpLobby(const std::vector<int> &in);
     static void updateLobbyFromTcp(std::shared_ptr<Engine::Entity> &lobby, const std::vector<int> &in);
+
+    void refreshTimer(bool dataChanged);
 };
 
 

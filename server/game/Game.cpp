@@ -7,6 +7,7 @@
 #include <memory>
 #include "tools/Geometry.hpp"
 #include "entities/ParallaxSlide.hpp"
+#include "systems/ProjectileSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
 #include "systems/PhysicSystem.hpp"
@@ -32,34 +33,28 @@ Game::~Game()
 
 void Game::initGameEntities()
 {
-    std::unique_ptr<Engine::ASprite> menuParralaxA = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png",
-                                                                                  Engine::Box<int>{0, 3840, 0, 1080});
-    std::unique_ptr<Engine::ASprite> menuParralaxB = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png",
-                                                                                  Engine::Box<int>{0, 3840, 0, 1080});
-    std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<int>{0, 0}, Engine::Point<int>{-3840, 0}, Engine::Vector<double>{-10, 0}, std::move(menuParralaxA));
-    std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<int>{3840, 0}, Engine::Point<int>{0, 0}, Engine::Vector<double>{-10, 0}, std::move(menuParralaxB));
     std::shared_ptr<Engine::Entity> player = std::make_shared<Player>(0, Engine::Point<int>{50, 50});
 
-    std::cout << slideA->getComponent<Engine::SpriteComponent>()->getSprite()->getRect().size.x << std::endl;
     this->spawn(player, true);
-    //this->spawn(slideA, true);
-    //this->spawn(slideB, true);
 }
 
 void Game::initGameSystems()
 {
+    auto game = std::shared_ptr<Game>(this);
     auto move = std::make_unique<Engine::MoveSystem>();
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
     auto network = std::make_unique<ServerNetworkSystem>(this->_players, this->_reception);
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto physic = std::make_unique<Engine::PhysicSystem>();
-    auto players = std::make_unique<PlayerSystem>();
+    auto players = std::make_unique<PlayerSystem>(game);
+    auto projectiles = std::make_unique<ProjectileSystem>(game);
 
     this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(physic));
     this->_systems.push_back(std::move(players));
+    this->_systems.push_back(std::move(projectiles));
     this->_systems.push_back(std::move(network));
 }
 
@@ -81,6 +76,15 @@ void Game::spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork)
     }
 }
 
+void Game::despawn(std::shared_ptr<Engine::Entity> &entity)
+{
+    for (auto &sys : this->_systems) {
+        if (entity->hasComponents(sys->getDependencies()))
+            sys->deleteEntity(entity);
+    }
+    Engine::Utils::removeFromVector(this->_entities, entity);
+}
+
 bool Game::isGameRunning() const
 {
     return _running;
@@ -89,7 +93,7 @@ bool Game::isGameRunning() const
 void Game::update()
 {
     for (auto &sys : this->_systems) {
-        sys->setDeltatime(this->_timer->deltatime(0.1));
+        sys->setDeltatime(this->_timer->deltatime(10));
         sys->update();
     }
 }

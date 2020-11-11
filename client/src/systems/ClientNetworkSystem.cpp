@@ -2,7 +2,6 @@
 // Created by mathi on 06/11/2020.
 //
 
-#include "tools/Utils.hpp"
 #include "systems/ClientNetworkSystem.hpp"
 #include "components/NetworkComponent.hpp"
 #include "components/SpriteComponent.hpp"
@@ -14,6 +13,7 @@ ClientNetworkSystem::ClientNetworkSystem(std::shared_ptr<NetworkAccess> &server,
     this->addDependency<Engine::NetworkComponent>();
     this->addDependency<Engine::SpriteComponent>();
     this->_parser = std::make_unique<SocketParser>();
+    this->_lastData = std::vector<int>(UDP_BUFFER_SIZE);
 }
 
 void ClientNetworkSystem::sendRawInputs()
@@ -26,19 +26,37 @@ void ClientNetworkSystem::sendRawInputs()
 
 void ClientNetworkSystem::receiveGameData()
 {
+    auto copy = this->_entities;
     auto &socket = this->_server->getUdpSocket();
     auto data = socket->getDataFromServer();
-    std::shared_ptr<Engine::Entity> toSpawn;
+    int increment = 0;
+    int rest;
+    std::vector<int> dataSection;
 
-    for (auto &e : this->_entities) {
-        if (!data.empty() && data.at(0) == e->getComponent<Engine::NetworkComponent>()->getNetworkId()) {
-            SocketParser::updateEntityFromUdp(e, data);
+    this->_parser->refreshTimer((data != this->_lastData));
+    this->_lastData = data;
+    for (auto &e : copy) {
+        if (increment >= UDP_BUFFER_SIZE)
             return;
+        dataSection = std::vector<int>(data.begin() + increment, data.begin() + increment + UDP_ENTITY_SIZE);
+        if (!dataSection.empty() && dataSection.at(0) == e->getComponent<Engine::NetworkComponent>()->getNetworkId())
+            this->_parser->updateEntityFromUdp(e, dataSection);
+        else if (!dataSection.empty()) {
+            this->_scene->despawnEntity(e);
+            continue;
         }
+        increment += UDP_ENTITY_SIZE;
     }
-    toSpawn = this->_parser->unparseUdpEntity(data);
-    if (toSpawn)
-        this->_scene->spawnEntity(toSpawn);
+    rest = (UDP_BUFFER_SIZE - increment) / UDP_ENTITY_SIZE;
+    for (int i = 0; i < rest; ++i) {
+        dataSection = std::vector<int>(data.begin() + increment, data.begin() + increment + UDP_ENTITY_SIZE);
+        if (dataSection.at(0) == -1)
+            return;
+        auto toSpawn = this->_parser->unparseUdpEntity(dataSection);
+        if (toSpawn)
+            this->_scene->spawnEntity(toSpawn);
+        increment += UDP_ENTITY_SIZE;
+    }
 }
 
 void ClientNetworkSystem::update()
