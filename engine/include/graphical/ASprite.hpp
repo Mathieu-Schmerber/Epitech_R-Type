@@ -23,6 +23,8 @@ namespace Engine {
         virtual void setTexture(std::shared_ptr<Engine::ATexture> &texture);
         virtual void setScale(Engine::Scale<float> scale) = 0;
         virtual void setOrigin(Engine::Point<float> origin) = 0;
+        [[nodiscard]] virtual Engine::Point<float> getOrigin() const = 0;
+        [[nodiscard]] virtual Engine::Point<float> getPosition() const = 0;
         virtual void setRect(Engine::Box<int> rect) = 0;
         virtual void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) = 0;
         [[nodiscard]] std::shared_ptr<Engine::ATexture> &getTexture() {return _texture;}

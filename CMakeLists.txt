@@ -61,7 +61,12 @@ set(ENGINE_SOURCES
         engine/src/Timer.cpp
         engine/src/graphical/AMusic.cpp
         engine/src/graphical/ASoundBuffer.cpp
-        engine/include/graphical/ASoundBuffer.hpp)
+        engine/include/graphical/ASoundBuffer.hpp
+		engine/src/systems/WindowResizeSystem.cpp
+		engine/src/systems/TextSystem.cpp
+		engine/src/systems/ButtonSystem.cpp
+		engine/include/tools/AssetPool.cpp
+		engine/include/tools/AssetPool.hpp)
 
 set(ENGINE_INCLUDES
 		engine/include/ecs/Entity.hpp
@@ -116,7 +121,6 @@ set(ENGINE_INCLUDES
 		engine/include/systems/MusicSystem.hpp
 		engine/include/graphical/ATexture.hpp
 		engine/include/systems/MusicSystem.hpp
-		engine/include/enumerations/ButtonState.hpp
 		engine/include/graphical/AText.hpp
 		engine/include/graphical/AFont.hpp
 		engine/include/tools/Color.hpp
@@ -126,6 +130,12 @@ set(ENGINE_INCLUDES
 		engine/include/networking/AUdpSocketIO.hpp
 		engine/include/networking/UDP/UdpSocketInput.hpp
 		engine/include/networking/UDP/UdpSocketOutput.hpp
+		engine/include/systems/MoveSystem.hpp
+		engine/include/systems/WindowResizeSystem.hpp
+		engine/include/systems/MoveSystem.hpp
+		engine/include/systems/TextSystem.hpp
+		engine/include/components/ButtonComponent.hpp
+		engine/include/systems/ButtonSystem.hpp engine/include/tools/AssetPool.cpp engine/include/tools/AssetPool.hpp
 		engine/include/systems/MoveSystem.hpp
         engine/include/enumerations/ButtonState.hpp
         engine/include/graphical/AText.hpp
@@ -156,6 +166,8 @@ set(CLIENT_SOURCES
 		client/src/systems/ClientNetworkSystem.cpp
 		client/src/sfml/SpriteSfml.cpp
 		client/src/scenes/InGame.cpp
+		client/src/scenes/InGame.cpp
+		client/src/systems/LobbySystem.cpp
 		client/src/scenes/InGame.cpp
         client/src/main.cpp
         client/src/Core.cpp
@@ -203,6 +215,9 @@ set(CLIENT_INCLUDES
 		client/include/NetworkAccess.hpp
 		client/include/systems/ClientNetworkSystem.hpp
 		client/include/components/LobbyComponent.hpp
+		client/include/entities/LobbyCard.hpp
+		client/include/systems/LobbySystem.hpp
+		client/include/components/LobbyComponent.hpp
         client/include/scenes/Settings.hpp
         client/include/sfml/MusicSFML.hpp
         client/include/sfml/TextureSFML.hpp
@@ -220,10 +235,14 @@ set(SERVER_SOURCES
         server/lobby/lobbyManager/LobbyManager.cpp
         server/lobby/lobby/Lobby.cpp
         server/client/TCP/TcpSocket.cpp
-        server/client/SocketParser.cpp
+		server/client/SocketParser.cpp
         server/client/TCP/TcpSocket.cpp
 		server/game/systems/ServerNetworkSystem.cpp
-        server/game/Game.cpp)
+        server/game/Game.cpp
+		server/game/dataHolders/DataSprite.cpp
+		server/game/dataHolders/DataTexture.cpp
+		server/game/systems/PlayerSystem.cpp
+		server/game/systems/ProjectileSystem.cpp server/game/systems/ProjectileSystem.hpp)
 
 set(SERVER_INCLUDES
 		server/core/CoreServer.hpp
@@ -235,9 +254,19 @@ set(SERVER_INCLUDES
 		server/game/systems/ServerNetworkSystem.hpp
 		server/client/TCP/TcpSocket.hpp
 		server/game/systems/ServerNetworkSystem.hpp
-		server/game/Game.hpp server/game/IEnemy.hpp server/game/DLLoader.hpp)
-
-
+		server/game/Game.hpp
+		server/game/IEnemy.hpp
+		server/game/DLLoader.hpp
+		server/game/Game.hpp
+		server/game/dataHolders/DataSprite.hpp
+		server/game/dataHolders/DataTexture.hpp
+		server/game/entities/Player.hpp
+		server/game/systems/PlayerSystem.hpp
+		server/game/components/WeaponComponent.hpp
+		server/game/components/ProjectileComponent.hpp
+		server/game/entities/Projectile.hpp
+		server/game/systems/ProjectileSystem.cpp
+		server/game/systems/ProjectileSystem.hpp)
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
@@ -259,6 +288,7 @@ target_include_directories(r-type_server PRIVATE
         server/lobby/lobbyManager
         server/lobby/lobby
         server/Client/TCP
+		server/game
         engine/src/networking/UDP)
 target_include_directories(r-type_client PRIVATE
         client/include

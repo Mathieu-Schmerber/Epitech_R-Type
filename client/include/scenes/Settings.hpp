@@ -28,7 +28,7 @@ class Settings : public Engine::AScene
 private:
     std::shared_ptr<Engine::AWindow> _window;
     std::shared_ptr<Engine::AEvents> _events;
-    std::vector<std::pair<std::pair<std::shared_ptr<Engine::Button>, std::shared_ptr<Engine::Button>>, std::shared_ptr<Engine::Drawable>>> _selectorButtonsAndText;
+    std::vector<std::pair<std::pair<std::shared_ptr<Engine::Entity>, std::shared_ptr<Engine::Entity>>, std::shared_ptr<Engine::Entity>>> _selectorButtonsAndText;
 
     void initEntities() final;
     void initSystems() final;
@@ -37,7 +37,7 @@ public:
 
     Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events);
     std::shared_ptr<Engine::AWindow> getWindow() const;
-    std::vector<std::pair<std::pair<std::shared_ptr<Engine::Button>, std::shared_ptr<Engine::Button>>, std::shared_ptr<Engine::Drawable>>> getSelectorButtonsAndText() const;
+    std::vector<std::pair<std::pair<std::shared_ptr<Engine::Entity>, std::shared_ptr<Engine::Entity>>, std::shared_ptr<Engine::Entity>>> getSelectorButtonsAndText() const;
 
 
 };

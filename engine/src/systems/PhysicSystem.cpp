@@ -18,19 +18,21 @@ void Engine::PhysicSystem::update()
 {
     ColliderComponent *colliderA = nullptr;
     ColliderComponent *colliderB = nullptr;
-    Box<int> boxA(0, 0, 0, 0);
-    Box<int> boxB(0, 0, 0, 0);
+    TransformComponent *transform = nullptr;
 
     for (auto &a : this->_entities) {
         colliderA = a->getComponent<ColliderComponent>();
-        boxA = Box<int>(a->getComponent<TransformComponent>()->getPos(),
-                        a->getComponent<SpriteComponent>()->getSprite()->getSize());
+        transform = a->getComponent<TransformComponent>();
+        if (transform->getPos().x != colliderA->getHitBox().x1 || transform->getPos().y != (int)colliderA->getHitBox().x2) {
+            auto original = colliderA->getBaseHitBox();
+            auto current = colliderA->getHitBox();
+            colliderA->setBaseHitBox({{(double)transform->getPos().x, (double)transform->getPos().y}, original.size});
+            colliderA->setHitBox({{(double)transform->getPos().x, (double)transform->getPos().y}, current.size});
+        }
         for (auto &b : this->_entities) {
             colliderB = b->getComponent<ColliderComponent>();
-            boxB = Box<int>(b->getComponent<TransformComponent>()->getPos(),
-                            b->getComponent<SpriteComponent>()->getSprite()->getSize());
             colliderB->clearCollisions();
-            if (Geometry::doOverlap(boxA, boxB))
+            if (Geometry::doOverlap(colliderA->getHitBox(), colliderB->getHitBox()))
                 colliderB->collide(a);
         }
     }

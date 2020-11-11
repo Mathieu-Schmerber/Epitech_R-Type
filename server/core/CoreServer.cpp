@@ -6,6 +6,7 @@
 */
 
 #include "CoreServer.hpp"
+#include "Client.hpp"
 
 CoreServer::CoreServer()
 {}

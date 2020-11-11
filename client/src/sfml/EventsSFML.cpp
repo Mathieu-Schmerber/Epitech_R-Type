@@ -5,7 +5,6 @@
 ** Created by Cyprien
 */
 
-
 #include "sfml/EventsSFML.hpp"
 
 void EventsSFML::update()
@@ -14,9 +13,8 @@ void EventsSFML::update()
     _buttonsReleased.clear();
     _scroll.movement = 0;
 
-    while (_window->getWindow()->pollEvent(_event)) {
+    while (_window->getWindow()->pollEvent(_event))
         manageEvents();
-    }
 }
 
 void EventsSFML::manageEvents()

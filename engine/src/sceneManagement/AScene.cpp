@@ -62,13 +62,22 @@ int Engine::AScene::getId() const
     return this->_sceneId;
 }
 
-void Engine::AScene::spawnEntity(std::shared_ptr<Entity> entity)
+void Engine::AScene::spawnEntity(std::shared_ptr<Entity> &entity)
 {
     this->_entities.push_back(std::move(entity));
     for (auto &sys : this->_systems) {
         if (this->_entities.back()->hasComponents(sys->getDependencies()))
             sys->addEntity(this->_entities.back());
     }
+}
+
+void Engine::AScene::despawnEntity(std::shared_ptr<Entity> &entity)
+{
+    for (auto &sys : this->_systems) {
+        if (entity->hasComponents(sys->getDependencies()))
+            sys->deleteEntity(entity);
+    }
+    Utils::removeFromVector(this->_entities, entity);
 }
 
 void Engine::AScene::update()

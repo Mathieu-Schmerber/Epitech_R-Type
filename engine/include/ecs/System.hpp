@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <memory>
+#include "tools/Utils.hpp"
 #include "ecs/Entity.hpp"
 
 namespace Engine {
@@ -31,6 +32,11 @@ namespace Engine {
         void addEntity(std::shared_ptr<Engine::Entity> &entity)
         {
             this->_entities.emplace_back(entity);
+        }
+
+        void deleteEntity(std::shared_ptr<Engine::Entity> &entity)
+        {
+            Utils::removeFromVector(this->_entities, entity);
         }
 
         std::vector <std::unique_ptr<Component>> &getDependencies()

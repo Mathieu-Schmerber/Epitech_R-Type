@@ -25,7 +25,7 @@ private:
     sf::String _string;
 
 public:
-    TextSFML(const std::string text, std::shared_ptr<Engine::AFont> &font, unsigned int characterSize) : Engine::AText() {
+    TextSFML(const std::string &text, std::shared_ptr<Engine::AFont> &font, unsigned int characterSize) : Engine::AText() {
         setString(text);
         setFont(font);
         setCharacterSize(characterSize);

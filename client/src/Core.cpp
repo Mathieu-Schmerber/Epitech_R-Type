@@ -19,9 +19,9 @@
 Core::Core()
 {
     this->_graph = std::make_unique<GraphicalSFML>();
-    this->_graph->setWindow(std::make_shared<WindowSFML>(std::string("r-type"), std::make_pair(1920, 1080)));
+    this->_graph->setWindow(std::make_shared<WindowSFML>(std::string("r-type"), Engine::Size<double>{1920, 1080}));
     this->_graph->setEvents(std::make_shared<EventsSFML>(_graph->getWindow()));
-    this->_server = std::make_shared<NetworkAccess>("127.0.0.1", 4242, 4343);
+    this->_server = std::make_shared<NetworkAccess>("127.0.0.1", 4243, 4242);
     this->_timer = std::make_unique<Engine::Timer>();
     this->_sceneManager = std::make_unique<Engine::SceneManager>();
 }
@@ -44,7 +44,7 @@ void Core::initScenes()
     this->_sceneManager->addScene(std::move(std::make_unique<MainMenu>(this->_graph->getWindow(), this->_graph->getEvents())));
     this->_sceneManager->addScene(std::move(std::make_unique<Settings>(this->_graph->getWindow(), this->_graph->getEvents())));
     this->_sceneManager->addScene(std::move(std::make_unique<HowToPlay>(this->_graph->getWindow(), this->_graph->getEvents())));
-    this->_sceneManager->addScene(std::move(std::make_unique<Lobby>(this->_graph->getWindow(), this->_graph->getEvents())));
+    this->_sceneManager->addScene(std::move(std::make_unique<Lobby>(this->_graph->getWindow(), this->_graph->getEvents(), this->_server)));
     this->_sceneManager->addScene(std::move(std::make_unique<InGame>(this->_graph->getWindow(), this->_graph->getEvents(), this->_server)));
     this->setupGroups();
     this->_sceneManager->switchScene(SceneType::MAIN_MENU);

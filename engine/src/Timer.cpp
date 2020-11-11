@@ -4,12 +4,12 @@
 
 #include "tools/Timer.hpp"
 
-Engine::Timer::Timer() {}
+Engine::Timer::Timer() : _lastPoint(std::chrono::high_resolution_clock::now()) {}
 
-double Engine::Timer::deltatime()
+double Engine::Timer::deltatime(double multiplier)
 {
     auto now = std::chrono::high_resolution_clock::now();
-    auto res = (double)(((now - this->_lastPoint) / std::chrono::milliseconds(1)) / 100.0);
+    auto res = std::chrono::duration<double, std::milli>(now - this->_lastPoint).count() * multiplier;
 
     this->_lastPoint = std::chrono::high_resolution_clock::now();
     return res;

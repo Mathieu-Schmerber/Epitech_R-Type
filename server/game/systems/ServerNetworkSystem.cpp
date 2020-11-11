@@ -2,6 +2,7 @@
 // Created by mathi on 06/11/2020.
 //
 
+#include "tools/Utils.hpp"
 #include "ServerNetworkSystem.hpp"
 #include "SocketParser.hpp"
 #include "components/NetworkComponent.hpp"
@@ -15,7 +16,6 @@ ServerNetworkSystem::ServerNetworkSystem(std::vector<Client> &players, std::uniq
     this->addDependency<Engine::NetworkComponent>();
     this->addDependency<Engine::TransformComponent>();
     this->addDependency<Engine::SpriteComponent>();
-    this->addDependency<Engine::ControllerComponent>();
 }
 
 void ServerNetworkSystem::receiveClientInputs()
@@ -23,19 +23,29 @@ void ServerNetworkSystem::receiveClientInputs()
     std::vector<int> data = this->_reception.get()->getDataFromServer();
     auto inputs = SocketParser::unparseUdpInputs(data);
     std::shared_ptr<Engine::Entity> affected;
+    Engine::ControllerComponent *controller = nullptr;
 
-    if (!data.empty()) {
+    if (!data.empty() && data.at(0) != -1 && !this->_entities.empty()) {
         affected = this->_entities.at(data.at(0));
-        affected->getComponent<Engine::ControllerComponent>()->setPressed(inputs.first);
-        affected->getComponent<Engine::ControllerComponent>()->setReleased(inputs.second);
+        controller = affected->getComponent<Engine::ControllerComponent>();
+        if (controller) {
+            affected->getComponent<Engine::ControllerComponent>()->setPressed(inputs.first);
+            affected->getComponent<Engine::ControllerComponent>()->setReleased(inputs.second);
+        }
     }
 }
 
 void ServerNetworkSystem::sendGameData()
 {
+    std::vector<int> data;
+
     for (auto &e : this->_entities) {
-        //TODO: for (auto &cli : this->_players)
-        //TODO: cli->getUdpSocket()->send(SocketParser::parseEntityUdp(e))
+        auto section = SocketParser::parseUdpEntity(e);
+        data.insert(data.end(), section.begin(), section.end());
+    }
+    for (auto &cli : this->_players)
+    {
+        cli.sendToClient(data);
     }
 }
 

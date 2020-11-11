@@ -7,6 +7,14 @@
 
 /* GLOBAL */
 
+#define PIXEBOY_FONT_PATH "../../client/assets/fonts/Pixeboy.ttf"
+#define LOBBY_CARD_PATH "../../client/assets/images/lobby/lobby_card_850x150.png"
+#define ALL_STARSHIP_PATH "../../client/assets/images/starships/all_starship_165x17_33x17.png"
+#define STARSHIP_WIDTH 33
+#define STARSHIP_HEIGHT 17
+#define STARSHIP_SCALE_X 3
+#define STARSHIP_SCALE_Y 3
+
 #define ON_OFF_PATH "../../client/assets/texts/on_off_text_270x51_135x51.png"
 #define ON_OFF_WIDTH_TOTAL 270
 #define ON_OFF_WIDTH 135
@@ -27,6 +35,22 @@
 #define GO_NEXT_BUTTON_X_IDLE 0
 #define GO_NEXT_BUTTON_X_HOVER 64
 #define GO_NEXT_BUTTON_X_CLICKED 128
+
+#define GO_UP_BUTTON_PATH "../../client/assets/images/buttons/up_arrow/up_arrow_full_192x64.png"
+#define GO_UP_BUTTON_Y 0
+#define GO_UP_BUTTON_HEIGHT 64
+#define GO_UP_BUTTON_WIDTH 64
+#define GO_UP_BUTTON_X_IDLE 0
+#define GO_UP_BUTTON_X_HOVER 64
+#define GO_UP_BUTTON_X_CLICKED 128
+
+#define GO_DOWN_BUTTON_PATH "../../client/assets/images/buttons/down_arrow/down_arrow_full_192x64.png"
+#define GO_DOWN_BUTTON_Y 0
+#define GO_DOWN_BUTTON_HEIGHT 64
+#define GO_DOWN_BUTTON_WIDTH 64
+#define GO_DOWN_BUTTON_X_IDLE 0
+#define GO_DOWN_BUTTON_X_HOVER 64
+#define GO_DOWN_BUTTON_X_CLICKED 128
 
 #define BONUS_1_PATH "../../client/assets/images/bonus/bonus_1_160x36_40x36.png"
 #define BONUS_1_WIDTH 40

@@ -11,12 +11,18 @@
 
 #include <boost/asio.hpp>
 
+using boost::asio::ip::tcp;
+
 namespace Engine {
     class ATcpSocket {
     public:
-        ATcpSocket(const std::string &in, int port);
+        explicit ATcpSocket(const std::string &in, int port);
+        void sendToServer(std::vector<int> &toSend);
+        std::vector<int> getDataFromServer();
     private:
-
+        boost::asio::io_service _io_service;
+        tcp::endpoint _endpoint;
+        tcp::socket _socket;
     };
 }
 

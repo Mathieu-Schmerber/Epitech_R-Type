@@ -1,6 +1,7 @@
 #include "TCP/TcpSocket.hpp"
-#include "game/IEnemy.hpp"
-#include "game/DLLoader.hpp"
+#include "game/IEnemy.hpp" // FIXME
+#include "game/DLLoader.hpp"  // FIXME
+#include "Client.hpp"
 
 void testServer()
 {
