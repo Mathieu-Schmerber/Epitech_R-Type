@@ -33,7 +33,7 @@ public:
 private:
     tcp::socket socket;
     enum { max_length = 1024 };
-    char data[max_length]{};
+    std::vector<int> _data;
     int _id;
 };
 
@@ -51,6 +51,7 @@ private:
     tcp::acceptor _acceptor;
     std::vector<Client *> _connected{};
     int _id;
+    std::thread _thread;
     LobbyManager _lobbyManager;
 };
 

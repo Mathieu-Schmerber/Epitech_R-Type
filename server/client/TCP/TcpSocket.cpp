@@ -9,7 +9,9 @@
 #include "Client.hpp"
 
 Session::Session(boost::asio::io_service &io_service, int id) : socket(io_service), _id(id)
-{}
+{
+    _data.resize(40);
+}
 
 tcp::socket &Session::get_socket()
 {
@@ -18,14 +20,14 @@ tcp::socket &Session::get_socket()
 
 void Session::start()
 {
-    socket.async_read_some(boost::asio::buffer(data, max_length), boost::bind(&Session::handle_read, this, shared_from_this(), boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
+    socket.async_read_some(boost::asio::buffer(_data, max_length), boost::bind(&Session::handle_read, this, shared_from_this(), boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
 }
 
 void Session::handle_read(std::shared_ptr<Session> &s, const boost::system::error_code &err, size_t bytes_transferred)
 {
-    std::cout << data << std::endl;
+    std::cout << _data << std::endl;
     if (!err) {
-        socket.async_read_some(boost::asio::buffer(data, max_length), boost::bind(&Session::handle_read, this, shared_from_this(), boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
+        socket.async_read_some(boost::asio::buffer(_data, max_length), boost::bind(&Session::handle_read, this, shared_from_this(), boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
     } else {
         std::cout << "Client Disconnected id : " << s->getId() << std::endl;
     }
@@ -40,7 +42,11 @@ int Session::getId() const
 
 Server::Server(short port) : _io_service(), _acceptor(_io_service, tcp::endpoint(tcp::v4(), port)), _id(1),
     _lobbyManager()
-{}
+{
+    std::shared_ptr<Session> session = std::make_shared<Session>(_io_service, 0);
+    _acceptor.async_accept(session->get_socket(), boost::bind(&Server::handle_accept, this, session, boost::asio::placeholders::error));
+    _thread = std::thread([&] { this->_io_service.run(); } );
+}
 
 void Server::handle_accept(std::shared_ptr<Session> session, const boost::system::error_code &err)
 {
@@ -62,9 +68,6 @@ void Server::handle_accept(std::shared_ptr<Session> session, const boost::system
 
 void Server::run()
 {
-    /*std::shared_ptr<Session> session = std::make_shared<Session>(_io_service, 0);
-    _acceptor.async_accept(session->get_socket(), boost::bind(&Server::handle_accept, this, session, boost::asio::placeholders::error));
-    this->_io_service.run();*/
     boost::asio::io_service io_serv;
     auto pouet = std::make_shared<Session>(io_serv, 1);
     Client cli(pouet);
