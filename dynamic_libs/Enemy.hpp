@@ -17,13 +17,14 @@ private:
     std::string _test;
 
 public:
-    Enemy(std::string test);
+    Enemy(std::string test = "coucou");
 
+    void test2() override {
+        std::cout << "test function call" << std::endl;
+        //std::cout << _test << std::endl;
+    }
     void hihi() override {
         std::cout << "hihi function call" << std::endl;
-    }
-    void test() {
-        std::cout << _test << std::endl;
     }
 
 };

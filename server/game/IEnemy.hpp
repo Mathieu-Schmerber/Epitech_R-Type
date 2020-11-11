@@ -13,5 +13,6 @@
 
 class IEnemy {
 public:
+    virtual void test2() {std::cout << "houla" << std::endl;}
     virtual void hihi() {std::cout << "houla" << std::endl;}
 };

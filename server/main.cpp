@@ -14,13 +14,13 @@ void testSharedLibs(std::string arg)
     auto dl = new DLLoader<IEnemy *>(arg);
     dl->open();
     auto i = dl->getInstance();
-    i->hihi();
+    i->test2();
 }
 
 #include "networking/AUdpSocketIO.hpp"
 
 int main(int ac, char **av)
 {
-    testSharedLibs(av[1]);
+    testServer();
     return 0;
 }

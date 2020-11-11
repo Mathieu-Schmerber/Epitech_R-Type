@@ -8,6 +8,8 @@
 
 #include "Enemy.hpp"
 
+#include <utility>
+
 #if defined(_WIN32) || defined(WIN32)
     #include <windows.h>
     #include <stdio.h>
@@ -19,11 +21,11 @@ extern "C" {
     #endif
     IEnemy* newInstance()
     {
-        return new Enemy("hihi");
+        return new Enemy();
     }
 }
 
-Enemy::Enemy(std::string test) : _test(test)
+Enemy::Enemy(std::string test) : _test(std::move(test))
 {
-
+    std::cout << _test << std::endl;
 }
