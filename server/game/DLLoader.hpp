@@ -22,6 +22,9 @@ template <typename T>
 class DLLoader {
 public:
     explicit DLLoader(const std::string& lib);
+
+    typedef T (*fct)();
+
     void open();
     T getInstance() const;
     void close(T instance) const;
@@ -62,11 +65,10 @@ T DLLoader<T>::getInstance() const
     *(void **)(&f) = dlsym(_lib, "newInstance");
     return ((*f)());
     #elif defined(_WIN32) || defined(WIN32)
-    if (!GetProcAddress(_lib, "newInstance"))
+    if (!(fct) GetProcAddress(_lib, "newInstance"))
         throw std::exception();
-    T (*f)();
-    *(void **)(&f) = GetProcAddress(_lib, "newInstance");
-    return ((*f)());
+    fct f = (fct) GetProcAddress(_lib, "newInstance");
+    return ((f)());
     #endif
 }
 
@@ -83,11 +85,7 @@ void DLLoader<T>::close(T instance) const
     ((*f)(instance));
     dlclose(_lib);
     #elif defined(_WIN32) || defined(WIN32)
-    if (!GetProcAddress(_lib, "destroyInstance"))
-        throw std::exception();
-    T (*f)();
-    *(void **)(&f) = GetProcAddress(_lib, "destroyInstance");
-    return ((*f)());
+    // TODO
     #endif
 }
 
