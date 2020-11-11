@@ -15,7 +15,7 @@
 #include "systems/ServerNetworkSystem.hpp"
 #include "components/NetworkComponent.hpp"
 
-Game::Game(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception)
+Game::Game(std::vector<std::shared_ptr<Client>> &players, std::unique_ptr<UdpSocketInput> &reception)
 : _players(players), _reception(reception), _idIncrement(0), _running(true)
 {
     this->_timer = std::make_unique<Engine::Timer>();

@@ -20,15 +20,15 @@ public:
     explicit Lobby(int id, char nbSlots);
     void run();
 
-    void join(Client &cli);
-    void leave(Client &cli);
+    void join(const std::shared_ptr<Client> &cli);
+    void leave(const std::shared_ptr<Client> &cli);
 
     [[nodiscard]] int getId() const;
     [[nodiscard]] bool isInGame() const;
     [[nodiscard]] char getSlots() const;
     [[nodiscard]] char getEmptySlots() const;
 private:
-    std::vector<Client> _players{};
+    std::vector<std::shared_ptr<Client>> _players{};
     std::thread _thread{};
     int _id;
     char _nbSlots;

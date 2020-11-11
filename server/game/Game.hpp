@@ -18,7 +18,7 @@ private:
     std::unique_ptr<Engine::Timer> _timer;
     std::vector<std::unique_ptr<Engine::System>> _systems;
     std::vector<std::shared_ptr<Engine::Entity>> _entities;
-    std::vector<Client> _players;
+    std::vector<std::shared_ptr<Client>> _players;
     std::reference_wrapper<std::unique_ptr<UdpSocketInput>> _reception;
 
 
@@ -26,7 +26,7 @@ private:
     void initGameSystems();
 
 public:
-    Game(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception);
+    Game(std::vector<std::shared_ptr<Client>> &players, std::unique_ptr<UdpSocketInput> &reception);
     ~Game();
 
     void spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork);

@@ -16,7 +16,7 @@
 #include <memory>
 #include "LobbyManager.hpp"
 
-class Session;
+class Client;
 
 class CoreServer {
 public:

@@ -10,7 +10,7 @@
 #include "components/ControllerComponent.hpp"
 #include "components/SpriteComponent.hpp"
 
-ServerNetworkSystem::ServerNetworkSystem(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception)
+ServerNetworkSystem::ServerNetworkSystem(std::vector<std::shared_ptr<Client>> &players, std::unique_ptr<UdpSocketInput> &reception)
 : _players(players), _reception(reception), Engine::System()
 {
     this->addDependency<Engine::NetworkComponent>();
@@ -40,7 +40,7 @@ void ServerNetworkSystem::sendGameData()
     for (auto &e : this->_entities) {
         for (auto &cli : this->_players) {
             auto data = SocketParser::parseUdpEntity(e);
-            cli.sendToClient(data);
+            cli->sendToClient(data);
             std::cout << "heho" << std::endl;
         }
     }
