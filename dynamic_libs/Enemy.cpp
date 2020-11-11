@@ -8,6 +8,11 @@
 
 #include "Enemy.hpp"
 
+#if defined(_WIN32) || defined(WIN32)
+    #include <windows.h>
+    #include <stdio.h>
+#endif
+
 extern "C" IEnemy *newInstance()
 {
     return new Enemy("hihi");

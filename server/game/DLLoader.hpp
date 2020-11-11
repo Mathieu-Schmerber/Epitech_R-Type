@@ -62,9 +62,9 @@ T DLLoader<T>::getInstance() const
     *(void **)(&f) = dlsym(_lib, "newInstance");
     return ((*f)());
     #elif defined(_WIN32) || defined(WIN32)
-    if (!(MYPROC) GetProcAddress(hinstLib, "myPuts"))
+    if (!(MYPROC) GetProcAddress(hinstLib, "newInstance"))
         throw std::exception();
-    return ((MYPROC) GetProcAddress(hinstLib, "myPuts"))()
+    return ((MYPROC) GetProcAddress(hinstLib, "newInstance"))()
     #endif
 }
 
@@ -73,12 +73,19 @@ void DLLoader<T>::close(T instance) const
 {
     if (!_lib)
         return;
+    #ifdef __unix__
     if (!dlsym(_lib, "destroyInstance"))
         throw std::exception();
     T (*f)(T);
     *(void **)(&f) = dlsym(_lib, "destroyInstance");
     ((*f)(instance));
     dlclose(_lib);
+    #elif defined(_WIN32) || defined(WIN32)
+    if (!(MYPROC) GetProcAddress(hinstLib, "destroyInstance"))
+        throw std::exception();
+    ((MYPROC) GetProcAddress(hinstLib, "destroyInstance"))()
+    FreeLibrary(_lib);
+    #endif
 }
 
 template<typename T>
