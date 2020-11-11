@@ -2,7 +2,6 @@
 // Created by mathi on 02/11/2020.
 //
 
-#include "sceneManagement/SceneManager.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
 #include "systems/ButtonSystem.hpp"
@@ -17,13 +16,90 @@
 void changeWindowEnableFullscreen(std::shared_ptr<Engine::AScene> &settings)
 {
     auto settingsObject = std::dynamic_pointer_cast<Settings>(settings);
+    auto fullscreenSelectorValue = settingsObject->getSettingsEntities();
+    auto rect = fullscreenSelectorValue[SettingsSelectorSprite::FULLSCREEN_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->getRect();
+    fullscreenSelectorValue[SettingsSelectorSprite::FULLSCREEN_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->setRect({Engine::Box<int>({(rect.x1 + ON_OFF_WIDTH) % ON_OFF_WIDTH_TOTAL, 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
 
-    for (auto &e : settingsObject->getSettingsEntities()) {
-        auto sprite = e->getComponent<Engine::SpriteComponent>();
-        if (sprite && sprite->getSprite()) {
-            std::cout << sprite->getSprite()->getRect().x1;
-        }
+    //TODO implement change of fullscreen attribute
+}
+
+void changeWindowFramerateNext(std::shared_ptr<Engine::AScene> &settings)
+{
+    auto settingsObject = std::dynamic_pointer_cast<Settings>(settings);
+    auto window = settingsObject->getWindow();
+    auto actualFrameRate = window->getFrameRate();
+    auto changeWindowSelectorValue = settingsObject->getSettingsEntities();
+
+    if (actualFrameRate == 30) {
+        window->setFrameRate(60);
+        changeWindowSelectorValue[SettingsSelectorSprite::FRAMERATE]->getComponent<Engine::SpriteComponent>()->getSprite()->setRect({Engine::Box<int>({FRAMERATE_VALUE_WIDTH, 0}, {FRAMERATE_VALUE_WIDTH, FRAMERATE_VALUE_HEIGHT})});
+    } else if (actualFrameRate == 60) {
+        window->setFrameRate(120);
+        changeWindowSelectorValue[SettingsSelectorSprite::FRAMERATE]->getComponent<Engine::SpriteComponent>()->getSprite()->setRect({Engine::Box<int>({FRAMERATE_VALUE_WIDTH * 2, 0}, {FRAMERATE_VALUE_WIDTH, FRAMERATE_VALUE_HEIGHT})});
+    } else {
+        window->setFrameRate(30);
+        changeWindowSelectorValue[SettingsSelectorSprite::FRAMERATE]->getComponent<Engine::SpriteComponent>()->getSprite()->setRect({Engine::Box<int>({0, 0}, {FRAMERATE_VALUE_WIDTH, FRAMERATE_VALUE_HEIGHT})});
     }
+
+    //TODO fix parallax stopping when framerate is at 120 and find why there is a speed up when low framerate
+}
+
+void changeWindowFrameratePrev(std::shared_ptr<Engine::AScene> &settings)
+{
+    auto settingsObject = std::dynamic_pointer_cast<Settings>(settings);
+    auto window = settingsObject->getWindow();
+    auto actualFrameRate = window->getFrameRate();
+    auto changeWindowSelectorValue = settingsObject->getSettingsEntities();
+
+    if (actualFrameRate == 30) {
+        window->setFrameRate(120);
+        changeWindowSelectorValue[SettingsSelectorSprite::FRAMERATE]->getComponent<Engine::SpriteComponent>()->getSprite()->setRect({Engine::Box<int>({FRAMERATE_VALUE_WIDTH * 2, 0}, {FRAMERATE_VALUE_WIDTH, FRAMERATE_VALUE_HEIGHT})});
+    } else if (actualFrameRate == 60) {
+        window->setFrameRate(30);
+        changeWindowSelectorValue[SettingsSelectorSprite::FRAMERATE]->getComponent<Engine::SpriteComponent>()->getSprite()->setRect({Engine::Box<int>({0, 0}, {FRAMERATE_VALUE_WIDTH, FRAMERATE_VALUE_HEIGHT})});
+    } else {
+        window->setFrameRate(60);
+        changeWindowSelectorValue[SettingsSelectorSprite::FRAMERATE]->getComponent<Engine::SpriteComponent>()->getSprite()->setRect({Engine::Box<int>({FRAMERATE_VALUE_WIDTH , 0}, {FRAMERATE_VALUE_WIDTH, FRAMERATE_VALUE_HEIGHT})});
+    }
+
+    //TODO fix parallax stopping when framerate is at 120 and find why there is a speed up when low framerate
+}
+
+void changeWindowVsync(std::shared_ptr<Engine::AScene> &settings)
+{
+    auto settingsObject = std::dynamic_pointer_cast<Settings>(settings);
+    auto fullscreenSelectorValue = settingsObject->getSettingsEntities();
+    auto rect = fullscreenSelectorValue[SettingsSelectorSprite::VSYNC_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->getRect();
+    auto window = settingsObject->getWindow();
+
+    window->setVsync(!window->getVsync());
+    fullscreenSelectorValue[SettingsSelectorSprite::VSYNC_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->setRect({Engine::Box<int>({(rect.x1 + ON_OFF_WIDTH) % ON_OFF_WIDTH_TOTAL, 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
+
+}
+
+void changeAudioEnableMusic(std::shared_ptr<Engine::AScene> &settings)
+{
+    auto settingsObject = std::dynamic_pointer_cast<Settings>(settings);
+    auto fullscreenSelectorValue = settingsObject->getSettingsEntities();
+    auto rect = fullscreenSelectorValue[SettingsSelectorSprite::MUSIC_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->getRect();
+    auto group = settingsObject->getGroupAccess();
+
+    fullscreenSelectorValue[SettingsSelectorSprite::MUSIC_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->setRect({Engine::Box<int>({(rect.x1 + ON_OFF_WIDTH) % ON_OFF_WIDTH_TOTAL, 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
+    if (Engine::Utils::isInMap(group, static_cast<int>(GroupId::MENU_MUSIC))) {
+        group[GroupId::MENU_MUSIC]->getEntities()[0]->getComponent<Engine::MusicComponent>()->getMusic()->stop();
+    }
+
+    //TODO stop and reactivate the music properly
+}
+
+void changeAudioEnableSoundEffects(std::shared_ptr<Engine::AScene> &settings)
+{
+    auto settingsObject = std::dynamic_pointer_cast<Settings>(settings);
+    auto fullscreenSelectorValue = settingsObject->getSettingsEntities();
+    auto rect = fullscreenSelectorValue[SettingsSelectorSprite::SOUND_EFFECTS_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->getRect();
+    fullscreenSelectorValue[SettingsSelectorSprite::SOUND_EFFECTS_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->setRect({Engine::Box<int>({(rect.x1 + ON_OFF_WIDTH) % ON_OFF_WIDTH_TOTAL, 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
+
+    //TODO stop and reactivate sound effects properly
 }
 
 void goToMenuScene(std::shared_ptr<Engine::AScene> &settings)
@@ -38,6 +114,29 @@ Settings::Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Eng
 {
     this->initSystems();
     this->initEntities();
+}
+
+void Settings::createSelector(Engine::Point<int> position,  const std::pair<void (*)(std::shared_ptr<Engine::AScene> &), void (*)(std::shared_ptr<Engine::AScene> &)> &callback, const std::string &path, std::unique_ptr<SpriteSFML> text)
+{
+    auto fullScreenLeftButtonSprite = std::make_unique<SpriteSFML>(GO_BACK_BUTTON_PATH);
+    std::shared_ptr<Engine::Entity> leftButton = std::make_shared<Engine::Button>(Engine::Point<int>{position.x, position.y}, Engine::Point<int>{GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT}, std::move(fullScreenLeftButtonSprite), callback.first, std::shared_ptr<AScene>(this));
+    leftButton->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    leftButton->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    leftButton->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+
+    auto fullScreenRightButtonSprite = std::make_unique<SpriteSFML>(GO_NEXT_BUTTON_PATH);
+    std::shared_ptr<Engine::Entity> rightButton = std::make_shared<Engine::Button>(Engine::Point<int>{position.x + 300, position.y}, Engine::Point<int>{GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT}, std::move(fullScreenRightButtonSprite), callback.second, std::shared_ptr<AScene>(this));
+    rightButton->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({GO_NEXT_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
+    rightButton->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::HOVER, {Engine::Box<int>({GO_NEXT_BUTTON_X_HOVER, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
+    rightButton->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::CLICKED, {Engine::Box<int>({GO_NEXT_BUTTON_X_CLICKED, GO_NEXT_BUTTON_Y}, {GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT})});
+
+    std::shared_ptr<Engine::Entity> textSprite = std::make_shared<Engine::Drawable>(Engine::Point<int>{position.x + 120, position.y + 7}, std::move(text));
+
+    _settingsEntities.push_back(textSprite);
+
+    this->spawnEntity(leftButton);
+    this->spawnEntity(textSprite);
+    this->spawnEntity(rightButton);
 }
 
 void Settings::initEntities()
@@ -63,21 +162,28 @@ void Settings::initEntities()
     auto soundEffectsText = std::make_unique<SpriteSFML>(SOUND_EFFECTS_TEXT_PATH);
     std::shared_ptr<Engine::Entity> soundEffectsEngine = std::make_shared<Engine::Drawable>(Engine::Point<int>{SOUND_EFFECTS_TEXT_POSITION_X, SOUND_EFFECTS_TEXT_POSITION_Y}, std::move(soundEffectsText));
 
-    auto buttonSprite = std::make_unique<SpriteSFML>(GO_NEXT_BUTTON_PATH);
-    std::shared_ptr<Engine::Entity> button = std::make_shared<Engine::Button>(Engine::Point<int>{0 + 300,0},
-        Engine::Point<int>{GO_NEXT_BUTTON_WIDTH, GO_NEXT_BUTTON_HEIGHT},
-        std::move(buttonSprite), changeWindowEnableFullscreen, std::shared_ptr<AScene>(this));
-    _settingsEntities.push_back(button);
-
     this->spawnEntity(enableFullscreenEngine);
     this->spawnEntity(framerateEngine);
     this->spawnEntity(vsyncEngine);
     this->spawnEntity(musicEngine);
     this->spawnEntity(soundEffectsEngine);
     this->spawnEntity(goBackButtonEngine);
-    for (auto &e: _settingsEntities) {
-        this->spawnEntity(e);
-    }
+
+    auto onOffFTextWindowEnableFullscreen = std::make_unique<SpriteSFML>(ON_OFF_PATH);
+    onOffFTextWindowEnableFullscreen ->setRect({Engine::Box<int>({0, 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
+    createSelector({static_cast<int>(LEFT_BUTTON_FULLSCREEN_POSITION_X),static_cast<int>(RIGHT_BUTTON_FULLSCREEN_POSITION_Y)}, {changeWindowEnableFullscreen, changeWindowEnableFullscreen}, ON_OFF_PATH, std::move(onOffFTextWindowEnableFullscreen ));
+    auto framerateTextNumber = std::make_unique<SpriteSFML>(FRAMERATE_VALUE_PATH);
+    framerateTextNumber->setRect({Engine::Box<int>({0, 0}, {FRAMERATE_VALUE_WIDTH, FRAMERATE_VALUE_HEIGHT})});
+    createSelector({static_cast<int>(LEFT_BUTTON_FRAMERATE_POSITION_X),static_cast<int>(RIGHT_BUTTON_FRAMERATE_POSITION_Y)}, {changeWindowFrameratePrev, changeWindowFramerateNext}, FRAMERATE_VALUE_PATH, std::move(framerateTextNumber));
+    auto onOffFTextWindowVSync = std::make_unique<SpriteSFML>(ON_OFF_PATH);
+    onOffFTextWindowVSync->setRect({Engine::Box<int>({0, 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
+    createSelector({static_cast<int>(LEFT_BUTTON_VSYNC_POSITION_X),static_cast<int>(RIGHT_BUTTON_VSYNC_POSITION_Y)}, {changeWindowVsync, changeWindowVsync}, ON_OFF_PATH, std::move(onOffFTextWindowVSync));
+    auto onOffFTextMusicEnabled = std::make_unique<SpriteSFML>(ON_OFF_PATH);
+    onOffFTextMusicEnabled->setRect({Engine::Box<int>({0, 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
+    createSelector({static_cast<int>(LEFT_BUTTON_MUSIC_POSITION_X),static_cast<int>(RIGHT_BUTTON_MUSIC_POSITION_Y)}, {changeAudioEnableMusic, changeAudioEnableMusic}, ON_OFF_PATH, std::move(onOffFTextMusicEnabled));
+    auto onOffFTextSoundEffectEnabled = std::make_unique<SpriteSFML>(ON_OFF_PATH);
+    onOffFTextSoundEffectEnabled->setRect({Engine::Box<int>({0, 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
+    createSelector({static_cast<int>(LEFT_BUTTON_SOUND_EFFECTS_POSITION_X),static_cast<int>(RIGHT_BUTTON_SOUND_EFFECTS_POSITION_Y)} , {changeAudioEnableSoundEffects, changeAudioEnableSoundEffects}, ON_OFF_PATH, std::move(onOffFTextSoundEffectEnabled));
 }
 
 void Settings::initSystems()
@@ -102,4 +208,9 @@ void Settings::initSystems()
 std::shared_ptr<Engine::AWindow> Settings::getWindow() const
 {
     return _window;
+}
+
+std::vector<std::shared_ptr<Engine::Entity>> Settings::getSettingsEntities() const
+{
+    return _settingsEntities;
 }
