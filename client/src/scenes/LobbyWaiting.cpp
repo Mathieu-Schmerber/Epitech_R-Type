@@ -47,8 +47,12 @@ void LobbyWaiting::initEntities()
 
     //TODO: remove the following temporary lines
     std::shared_ptr<Engine::Entity> playerAndStarShipCard = std::make_shared<PlayerAndStarshipEntity>("Player 1");
-    playerAndStarShipCard->getComponent<Engine::TransformComponent>()->setPos({400, 100});
+    playerAndStarShipCard->getComponent<Engine::TransformComponent>()->setPos({535, 100});
     this->spawnEntity(playerAndStarShipCard);
+
+    std::shared_ptr<Engine::Entity> playerAndStarShipCard2 = std::make_shared<PlayerAndStarshipEntity>("Player 2");
+    playerAndStarShipCard2->getComponent<Engine::TransformComponent>()->setPos({535, 300});
+    this->spawnEntity(playerAndStarShipCard2);
 }
 
 void LobbyWaiting::initSystems()
