@@ -34,7 +34,6 @@ set(ENGINE_SOURCES
 		engine/src/systems/AnimationSystem.cpp
 		engine/src/sceneManagement/AEntityGroup.cpp
 		engine/src/Timer.cpp
-		engine/src/systems/AnimationSystem.cpp
 		engine/src/graphical/AMusic.cpp
 		engine/src/systems/MusicSystem.cpp
 		engine/src/graphical/ATexture.cpp
@@ -46,7 +45,23 @@ set(ENGINE_SOURCES
 		engine/src/networking/ATcpSocket.cpp
 		engine/src/networking/UDP/UdpSocketInput.cpp
 		engine/src/networking/UDP/UdpSocketOutput.cpp
-		)
+        engine/src/networking/AServer.cpp
+        engine/src/sceneManagement/SceneManager.cpp
+        engine/src/sceneManagement/AScene.cpp
+        engine/src/graphical/ASprite.cpp
+        engine/src/graphical/AEvents.cpp
+        engine/src/graphical/ASound.cpp
+        engine/src/graphical/AGraphical.cpp
+        engine/src/graphical/AWindow.cpp
+        engine/src/systems/DrawSystem.cpp
+        engine/src/systems/DrawSystem.cpp
+        engine/src/systems/MouseSystem.cpp
+        engine/src/systems/InputSystem.cpp
+        engine/src/systems/PhysicSystem.cpp
+        engine/src/Timer.cpp
+        engine/src/graphical/AMusic.cpp
+        engine/src/graphical/ASoundBuffer.cpp
+        engine/include/graphical/ASoundBuffer.hpp)
 
 set(ENGINE_INCLUDES
 		engine/include/ecs/Entity.hpp
@@ -111,7 +126,14 @@ set(ENGINE_INCLUDES
 		engine/include/networking/AUdpSocketIO.hpp
 		engine/include/networking/UDP/UdpSocketInput.hpp
 		engine/include/networking/UDP/UdpSocketOutput.hpp
-		engine/include/systems/MoveSystem.hpp)
+		engine/include/systems/MoveSystem.hpp
+        engine/include/enumerations/ButtonState.hpp
+        engine/include/graphical/AText.hpp
+        engine/include/graphical/AFont.hpp
+        engine/include/tools/Color.hpp
+        engine/include/components/TextComponent.hpp
+        engine/src/graphical/ASoundBuffer.cpp
+        engine/include/graphical/ASoundBuffer.hpp)
 
 set(CLIENT_SOURCES
 		client/src/main.cpp
@@ -134,7 +156,23 @@ set(CLIENT_SOURCES
 		client/src/systems/ClientNetworkSystem.cpp
 		client/src/sfml/SpriteSfml.cpp
 		client/src/scenes/InGame.cpp
-		client/src/scenes/InGame.cpp)
+		client/src/scenes/InGame.cpp
+        client/src/main.cpp
+        client/src/Core.cpp
+        client/src/scenes/MainMenu.cpp
+        client/src/sfml/WindowSFML.cpp
+        client/src/sfml/SoundSFML.cpp
+        client/src/sfml/EventsSFML.cpp
+        client/src/sfml/GraphicalSFML.cpp
+        client/src/scenes/Settings.cpp
+        client/src/sfml/MusicSFML.cpp
+        client/src/sfml/TextureSFML.cpp
+        client/src/sfml/TextureSFML.cpp
+        client/src/scenes/HowToPlay.cpp
+        client/src/sfml/TextSFML.cpp
+        client/src/sfml/FontSFML.cpp
+        client/src/sfml/SoundBufferSFML.cpp
+        client/include/sfml/SoundBufferSFML.hpp)
 
 set(CLIENT_INCLUDES
 		client/include/Core.hpp
@@ -164,7 +202,16 @@ set(CLIENT_INCLUDES
 		client/include/scenes/InGame.hpp
 		client/include/NetworkAccess.hpp
 		client/include/systems/ClientNetworkSystem.hpp
-		client/include/components/LobbyComponent.hpp)
+		client/include/components/LobbyComponent.hpp
+        client/include/scenes/Settings.hpp
+        client/include/sfml/MusicSFML.hpp
+        client/include/sfml/TextureSFML.hpp
+        client/include/sfml/TextureSFML.hpp
+        client/include/scenes/HowToPlay.hpp
+        client/include/sfml/TextSFML.hpp
+        client/include/sfml/FontSFML.hpp
+        client/src/sfml/SoundBufferSFML.cpp
+        client/include/sfml/SoundBufferSFML.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp
