@@ -13,7 +13,7 @@ Engine::AScene::~AScene()
     this->_systems.clear();
 }
 
-void Engine::AScene::updateDeltatime(float delta)
+void Engine::AScene::updateDeltatime(double delta)
 {
     for (auto &sys : this->_systems)
         sys->setDeltatime(delta);

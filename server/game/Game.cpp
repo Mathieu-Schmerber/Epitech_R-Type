@@ -35,14 +35,14 @@ Game::~Game()
 
 void Game::initGameEntities()
 {
-    std::shared_ptr<Engine::Entity> player = std::make_shared<Player>(0, Engine::Point<float>{50, 50});
+    std::shared_ptr<Engine::Entity> player = std::make_shared<Player>(0, Engine::Point<double>{50, 50});
 
     auto parallaxA = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png");
     auto parallaxB = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png");
     parallaxA->setRect({{0, 0}, {3840, 1080}});
     parallaxB->setRect({{0, 0}, {3840, 1080}});
-    std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<float>{0, 0}, Engine::Point<float>{-3840, 0}, Engine::Point<float>{-2, 0}, std::move(parallaxA));
-    std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<float>{3840, 0}, Engine::Point<float>{0, 0}, Engine::Point<float>{-2, 0}, std::move(parallaxB));
+    std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{0, 0}, Engine::Point<double>{-3840, 0}, Engine::Point<double>{-2, 0}, std::move(parallaxA));
+    std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{3840, 0}, Engine::Point<double>{0, 0}, Engine::Point<double>{-2, 0}, std::move(parallaxB));
 
     // FIXME test load enemy in dyn lib
     dynLoader.open();
@@ -114,7 +114,7 @@ bool Game::isGameRunning() const
 void Game::update()
 {
     int serverTicks = 60;
-    float time;
+    double time;
 
     if (Engine::Timer::hasElapsed(this->_timer->getLastPoint(), 1.0 / serverTicks)) {
         time = this->_timer->deltatime(0.1);

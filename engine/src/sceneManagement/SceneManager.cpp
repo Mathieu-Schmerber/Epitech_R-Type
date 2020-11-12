@@ -48,7 +48,7 @@ void Engine::SceneManager::handleSceneRequests()
     }
 }
 
-void Engine::SceneManager::handleTime(float deltatime)
+void Engine::SceneManager::handleTime(double deltatime)
 {
     for (auto &entry : this->_scenes)
         entry.second->updateDeltatime(deltatime);

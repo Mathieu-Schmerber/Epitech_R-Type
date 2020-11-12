@@ -27,7 +27,7 @@ public:
     void play() final;
     void pause() final;
     void stop() final;
-    void setVolume(float volume) final;
+    void setVolume(double volume) final;
     bool isPlaying() const;
     bool isPaused() const;
     bool isStopped() const;

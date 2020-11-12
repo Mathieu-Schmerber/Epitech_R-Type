@@ -17,7 +17,7 @@
 
 class WindowSFML : public Engine::AWindow {
 public:
-    WindowSFML(const std::string &title, const Engine::Size<float> windowSize) : Engine::AWindow(title, windowSize),
+    WindowSFML(const std::string &title, const Engine::Size<double> windowSize) : Engine::AWindow(title, windowSize),
     _titleSFML(title.data()) {}
     ~WindowSFML() = default;
 
@@ -32,7 +32,7 @@ public:
 
     [[nodiscard]] int getFrameRate() const override;
     [[nodiscard]] bool getVsync() const override;
-    [[nodiscard]] Engine::Size<float> getSize() const override;
+    [[nodiscard]] Engine::Size<double> getSize() const override;
 
     friend class SpriteSFML;
     friend class TextSFML;

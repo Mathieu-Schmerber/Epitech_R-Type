@@ -8,7 +8,7 @@
 
 #include "graphical/ASound.hpp"
 
-void Engine::ASound::setVolume(float volume)
+void Engine::ASound::setVolume(double volume)
 {
     _volume = volume;
 }

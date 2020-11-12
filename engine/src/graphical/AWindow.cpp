@@ -4,10 +4,10 @@
 
 #include "graphical/AWindow.hpp"
 
-Engine::AWindow::AWindow(const std::string &title, const Size<float> &windowSize)
+Engine::AWindow::AWindow(const std::string &title, const Size<double> &windowSize)
 : _title(title), _size(windowSize) {}
 
-void Engine::AWindow::setSize(const Size<float> &size)
+void Engine::AWindow::setSize(const Size<double> &size)
 {
     this->_size = size;
 }
@@ -17,7 +17,7 @@ void Engine::AWindow::setTitle(const std::string &title)
     this->_title = title;
 }
 
-Engine::Size<float> Engine::AWindow::getSize() const
+Engine::Size<double> Engine::AWindow::getSize() const
 {
     return this->_size;
 }

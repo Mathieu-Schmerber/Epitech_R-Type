@@ -17,10 +17,10 @@ namespace Engine {
     class ASound : public Engine::IAudio {
     public:
         ASound() = default;
-        virtual void setVolume(float volume) override;
+        virtual void setVolume(double volume) override;
 
     protected:
-        float _volume = 100;
+        double _volume = 100;
     };
 
 }

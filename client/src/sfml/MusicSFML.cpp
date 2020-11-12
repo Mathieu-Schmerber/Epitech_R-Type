@@ -30,7 +30,7 @@ void MusicSFML::stop()
     _music->stop();
 }
 
-void MusicSFML::setVolume(float volume)
+void MusicSFML::setVolume(double volume)
 {
     AMusic::setVolume(volume);
     _music->setVolume(volume);

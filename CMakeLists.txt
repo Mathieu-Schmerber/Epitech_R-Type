@@ -292,7 +292,10 @@ set(SERVER_INCLUDES
 		server/game/systems/PlayerSystem.hpp
 		server/game/components/ProjectileComponent.hpp
 		server/game/entities/Projectile.hpp
-		server/game/systems/ProjectileSystem.hpp)
+		server/game/systems/ProjectileSystem.hpp
+		server/game/entities/Spawner.hpp
+		server/game/components/SpawnerComponent.hpp
+		)
 
 
 set(ENEMIES_INCLUDES
@@ -311,25 +314,25 @@ add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURC
 include(GNUInstallDirs)
 
 # Dynamic libs
-add_library(floatingRobot SHARED
+add_library(doubleingRobot SHARED
 		dynamic_libs/FloatingRobot.cpp
 		dynamic_libs/FloatingRobot.hpp
 
 		${ENEMIES_SOURCES}
 		)
-set_target_properties(floatingRobot PROPERTIES SOVERSION 1)
-set_target_properties(floatingRobot PROPERTIES
+set_target_properties(doubleingRobot PROPERTIES SOVERSION 1)
+set_target_properties(doubleingRobot PROPERTIES
 		PUBLIC_HEADER "${ENEMIES_INCLUDES}")
-target_include_directories(floatingRobot PUBLIC
+target_include_directories(doubleingRobot PUBLIC
 		dynamic_libs
 		engine/include
 		server/game
 		client/include
 		)
-install(TARGETS floatingRobot
+install(TARGETS doubleingRobot
 		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-install(FILES ${CMAKE_BINARY_DIR}/floatingRobot.pc
+install(FILES ${CMAKE_BINARY_DIR}/doubleingRobot.pc
 		DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
 
 ###############

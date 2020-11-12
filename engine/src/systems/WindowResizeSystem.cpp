@@ -15,9 +15,9 @@ _lastSize(window->getSize()), _baseSize(_lastSize), Engine::System()
 
 void Engine::WindowResizeSystem::update()
 {
-    Engine::Point<float> current = this->_window->getSize();
-    auto ratio = Scale<float>{(float)(current.x / _baseSize.x),
-                               (float)(current.y / _baseSize.y)};
+    Engine::Point<double> current = this->_window->getSize();
+    auto ratio = Scale<double>{(double)(current.x / _baseSize.x),
+                               (double)(current.y / _baseSize.y)};
 
     if (current == this->_lastSize)
         return;

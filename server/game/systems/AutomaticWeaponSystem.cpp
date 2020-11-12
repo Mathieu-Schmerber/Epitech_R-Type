@@ -29,7 +29,7 @@ void AutomaticWeaponSystem::automaticShot(std::shared_ptr<Engine::Entity> &shoot
     if (hasToShoot(weapon) && weapon->canShoot()) {
         weapon->refreshShoots();
         std::shared_ptr<Engine::Entity> projectile = std::make_shared<Projectile>(
-                transform->getPos(), Engine::Point<float>{18, 18}, Engine::Vector<float>{3, 0},
+                transform->getPos(), Engine::Point<double>{18, 18}, Engine::Vector<double>{3, 0},
                 weapon->getCurrentDamages(), 2, this->_projectileTexture); // FIXME changer le collision masque
         this->_game->spawn(projectile, true);
     }

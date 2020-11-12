@@ -15,7 +15,7 @@ namespace Engine {
     class System {
 
     private:
-        float _deltatime;
+        double _deltatime;
 
     protected:
         std::vector<std::unique_ptr<Component>> _dependencies;
@@ -24,8 +24,8 @@ namespace Engine {
     public:
         explicit System() : _deltatime(0) {}
 
-        void setDeltatime(float delta) {this->_deltatime = delta;}
-        [[nodiscard]] float deltatime() const {return this->_deltatime;}
+        void setDeltatime(double delta) {this->_deltatime = delta;}
+        [[nodiscard]] double deltatime() const {return this->_deltatime;}
 
         template<typename T> void addDependency();
 

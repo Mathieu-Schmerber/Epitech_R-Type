@@ -23,7 +23,7 @@ private:
     std::vector<Client> _players;
     std::reference_wrapper<std::unique_ptr<UdpSocketInput>> _reception;
 
-    DLLoader<Enemy> dynLoader = std::string("../lib/libfloatingRobot.so");
+    DLLoader<Enemy> dynLoader = std::string("../lib/libdoubleingRobot.so");
 
     void initGameEntities();
     void initGameSystems();

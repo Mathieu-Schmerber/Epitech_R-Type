@@ -14,27 +14,27 @@ namespace Engine {
 
     class TransformComponent : public Engine::Component {
     private:
-        Point<float> _pos;
-        float _rotation;
-        Point<float> _normal;
+        Point<double> _pos;
+        double _rotation;
+        Point<double> _normal;
 
     public:
-        explicit TransformComponent(const Point<float> &pos = {0.0, 0.0},
-                                    float rotation = 0,
-                                    const Point<float> &normal = {1, 0})
+        explicit TransformComponent(const Point<double> &pos = {0.0, 0.0},
+                                    double rotation = 0,
+                                    const Point<double> &normal = {1, 0})
                 : _pos(pos), _rotation(rotation), _normal(normal), Component() {}
 
-        [[nodiscard]] Point<float> getPos() const { return this->_pos; }
-        void setPos(const Point<float> &pos) {this->_pos = pos;}
-        void movePos(const Vector<float> &increment) {
+        [[nodiscard]] Point<double> getPos() const { return this->_pos; }
+        void setPos(const Point<double> &pos) {this->_pos = pos;}
+        void movePos(const Vector<double> &increment) {
             this->_pos.x += increment.x;
             this->_pos.y += increment.y;
         }
 
-        [[nodiscard]] float getRotation() const {return this->_rotation;}
-        void setRotation(float rotation) {this->_rotation = rotation;}
+        [[nodiscard]] double getRotation() const {return this->_rotation;}
+        void setRotation(double rotation) {this->_rotation = rotation;}
 
-        [[nodiscard]] Point<float> getNormal() const
+        [[nodiscard]] Point<double> getNormal() const
         {
             return Geometry::rotateVector(this->_normal, this->_rotation);
         }

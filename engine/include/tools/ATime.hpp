@@ -17,7 +17,7 @@ namespace Engine {
 
     class ATime {
     public:
-        virtual float asSeconds() = 0;
+        virtual double asSeconds() = 0;
     private:
         ATime() = default;
         friend class Time;

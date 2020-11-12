@@ -6,16 +6,16 @@
 
 Engine::Timer::Timer() : _lastPoint(std::chrono::high_resolution_clock::now()) {}
 
-float Engine::Timer::deltatime(float multiplier)
+double Engine::Timer::deltatime(double multiplier)
 {
     auto now = std::chrono::high_resolution_clock::now();
-    auto res = std::chrono::duration<float, std::milli>(now - this->_lastPoint).count() * multiplier;
+    auto res = std::chrono::duration<double, std::milli>(now - this->_lastPoint).count() * multiplier;
 
     this->_lastPoint = std::chrono::high_resolution_clock::now();
     return res;
 }
 
-bool Engine::Timer::hasElapsed(std::chrono::high_resolution_clock::time_point time, float seconds)
+bool Engine::Timer::hasElapsed(std::chrono::high_resolution_clock::time_point time, double seconds)
 {
     auto now = std::chrono::high_resolution_clock::now();
 

@@ -13,7 +13,7 @@ namespace Engine {
     class NetworkComponent : public Engine::Component {
     private:
         int _networkIdentity;
-        std::vector<float> _dataSaved;
+        std::vector<double> _dataSaved;
 
     public:
         explicit NetworkComponent(int id = 0) : _networkIdentity(id), _dataSaved({}), Component() {}
@@ -21,8 +21,8 @@ namespace Engine {
         void setNetworkId(int id) {this->_networkIdentity = id;}
         [[nodiscard]] int getNetworkId() const {return this->_networkIdentity;}
 
-        void saveData(const std::vector<float> &data) {this->_dataSaved = data;}
-        [[nodiscard]] std::vector<float> getData() const {return this->_dataSaved;}
+        void saveData(const std::vector<double> &data) {this->_dataSaved = data;}
+        [[nodiscard]] std::vector<double> getData() const {return this->_dataSaved;}
     };
 
 }

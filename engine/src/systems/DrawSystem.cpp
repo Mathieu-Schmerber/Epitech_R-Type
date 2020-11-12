@@ -25,6 +25,6 @@ void Engine::DrawSystem::update()
     for (auto &e : this->_entities) {
         auto transform = e->getComponent<Engine::TransformComponent>();
         for (auto &spr : e->getComponents<Engine::SpriteComponent>())
-            spr->draw(_window, transform->getPos(), static_cast<float>(transform->getRotation()));
+            spr->draw(_window, transform->getPos(), static_cast<double>(transform->getRotation()));
     }
 }

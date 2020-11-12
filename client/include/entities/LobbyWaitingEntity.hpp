@@ -23,28 +23,28 @@ class LobbyWaitingEntity : public Engine::Entity  {
         std::shared_ptr<Engine::ATexture> starshipTexture = std::make_shared<TextureSFML>(ALL_STARSHIP_PATH);
         std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(PIXEBOY_FONT_PATH);
         auto background = std::make_unique<SpriteSFML>(LOBBY_CARD_PATH);
-        float relativeStarshipPositionX = 40.0;
+        double relativeStarshipPositionX = 40.0;
 
         this->addComponent<Engine::TransformComponent>();
         this->addComponent<Engine::SpriteComponent>(1, std::move(background));
         this->addComponent<Engine::ClickableComponent>();
-        this->addComponent<Engine::ColliderComponent>(0,Engine::Box<float>{{0, 0}, {850.0, 150.0}});
+        this->addComponent<Engine::ColliderComponent>(0,Engine::Box<double>{{0, 0}, {850.0, 150.0}});
         this->addComponent<LobbyComponent>(port, lobbyId, maxPlayers, 0,
             idClientMaster);
         for (int i = 0; i < maxPlayers; ++i) {
             auto starship = std::make_unique<SpriteSFML>(starshipTexture);
-            starship->setScale({static_cast<float>(STARSHIP_SCALE_X),static_cast<float>(STARSHIP_SCALE_Y)});
-            starship->setRect({Engine::Box<float>({STARSHIP_WIDTH * 4, 0},{STARSHIP_WIDTH, STARSHIP_HEIGHT})});
-            starship->setOrigin(Engine::Point<float>{static_cast<float>(-relativeStarshipPositionX), -28.0});
+            starship->setScale({static_cast<double>(STARSHIP_SCALE_X),static_cast<double>(STARSHIP_SCALE_Y)});
+            starship->setRect({Engine::Box<double>({STARSHIP_WIDTH * 4, 0},{STARSHIP_WIDTH, STARSHIP_HEIGHT})});
+            starship->setOrigin(Engine::Point<double>{static_cast<double>(-relativeStarshipPositionX), -28.0});
             relativeStarshipPositionX += 50.0;
             this->addComponent<Engine::SpriteComponent>(2, std::move(starship));
         }
         auto idTxt = std::make_unique<TextSFML>(std::to_string(lobbyId), font,40);
         auto portTxt = std::make_unique<TextSFML>(std::to_string(port), font,40);
         auto playingTxt = std::make_unique<TextSFML>(std::to_string(lobbyId),font, 40);
-        idTxt->setOrigin(Engine::Point<float>{-175, 0});
-        portTxt->setOrigin(Engine::Point<float>{-380, 0});
-        playingTxt->setOrigin(Engine::Point<float>{-715, 0});
+        idTxt->setOrigin(Engine::Point<double>{-175, 0});
+        portTxt->setOrigin(Engine::Point<double>{-380, 0});
+        playingTxt->setOrigin(Engine::Point<double>{-715, 0});
         this->addComponent<Engine::TextComponent>(2, std::move(idTxt));
         this->addComponent<Engine::TextComponent>(2, std::move(portTxt));
         this->addComponent<Engine::TextComponent>(2, std::move(playingTxt));
