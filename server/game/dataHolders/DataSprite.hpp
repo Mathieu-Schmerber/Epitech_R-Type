@@ -23,7 +23,7 @@ public:
     : _position({0, 0}), _rotation(0), _scale({0, 0}), _origin({0, 0}), _rect(rect), Engine::ASprite() {
         setTexture(texture);
     }
-    explicit DataSprite(const std::string &fileName, Engine::Box<int> rect = {0, 0, 0, 0})
+    explicit DataSprite(const std::string fileName, Engine::Box<int> rect = {0, 0, 0, 0})
     : _position({0, 0}), _rotation(0), _scale({0, 0}), _origin({0, 0}), _rect(rect), Engine::ASprite() {
         _texture = std::make_shared<DataTexture>(fileName);
         setTexture(_texture);

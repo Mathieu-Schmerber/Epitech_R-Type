@@ -1,5 +1,5 @@
 #include "TCP/TcpSocket.hpp"
-#include "game/IEnemy.hpp" // FIXME
+#include "entities/Enemy.hpp" // FIXME
 #include "game/DLLoader.hpp"  // FIXME
 #include "Client.hpp"
 
@@ -8,14 +8,6 @@ void testServer()
     Server server(4242);
 
     server.run();
-}
-
-void testSharedLibs(std::string arg)
-{
-    auto dl = new DLLoader<IEnemy *>(arg);
-    dl->open();
-    auto i = dl->getInstance();
-    i->test2();
 }
 
 #include "networking/AUdpSocketIO.hpp"

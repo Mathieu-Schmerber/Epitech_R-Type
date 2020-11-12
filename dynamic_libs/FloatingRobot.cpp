@@ -6,9 +6,7 @@
 */
 
 
-#include "Enemy.hpp"
-
-#include <utility>
+#include "FloatingRobot.hpp"
 
 #if defined(_WIN32) || defined(WIN32)
     #include <windows.h>
@@ -19,13 +17,8 @@ extern "C" {
     #if defined(_WIN32) || defined(WIN32)
     __declspec(dllexport) 
     #endif
-    IEnemy* newInstance()
+    Enemy* newInstance()
     {
-        return new Enemy();
+        return new FloatingRobot();
     }
-}
-
-Enemy::Enemy(std::string test) : _test(std::move(test))
-{
-    std::cout << _test << std::endl;
 }
