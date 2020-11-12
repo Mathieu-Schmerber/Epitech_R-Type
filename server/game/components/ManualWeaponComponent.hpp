@@ -2,13 +2,13 @@
 // Created by mathi on 10/11/2020.
 //
 
-#ifndef RTYPE_WEAPONCOMPONENT_HPP
-#define RTYPE_WEAPONCOMPONENT_HPP
+#ifndef RTYPE_MANUALWEAPONCOMPONENT_HPP
+#define RTYPE_MANUALWEAPONCOMPONENT_HPP
 
 #include "tools/Timer.hpp"
 #include "ecs/Component.hpp"
 
-class WeaponComponent : public Engine::Component
+class ManualWeaponComponent : public Engine::Component
 {
 private:
     double _cooldown;
@@ -19,9 +19,9 @@ private:
     double _damageMultiplier;
 
 public:
-    explicit WeaponComponent() : _baseDamage(0), _damageMultiplier(0), _cooldown(0),
-    _lastShoot(std::chrono::high_resolution_clock::now()), Engine::Component() {}
-    explicit WeaponComponent(double damage, double multiplier, double cooldown)
+    explicit ManualWeaponComponent() : _baseDamage(0), _damageMultiplier(0), _cooldown(0),
+                                       _lastShoot(std::chrono::high_resolution_clock::now()), Engine::Component() {}
+    explicit ManualWeaponComponent(double damage, double multiplier, double cooldown)
     : _baseDamage(damage), _damageMultiplier(multiplier), _cooldown(cooldown), _lastShoot(std::chrono::high_resolution_clock::now())
     , Engine::Component() {}
 
@@ -32,4 +32,4 @@ public:
     void refreshShoots() {_lastShoot = std::chrono::high_resolution_clock::now();}
 };
 
-#endif //RTYPE_WEAPONCOMPONENT_HPP
+#endif //RTYPE_MANUALWEAPONCOMPONENT_HPP

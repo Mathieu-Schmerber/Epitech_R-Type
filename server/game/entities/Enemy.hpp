@@ -10,7 +10,7 @@
 
 #include "ecs/Entity.hpp"
 #include "dataHolders/DataSprite.hpp"
-#include "components/WeaponComponent.hpp"
+#include "components/ManualWeaponComponent.hpp"
 #include "components/SpriteComponent.hpp"
 #include "components/TransformComponent.hpp"
 #include "components/AnimationComponent.hpp"

@@ -136,7 +136,9 @@ set(ENGINE_INCLUDES
 		engine/include/systems/WindowResizeSystem.hpp
 		engine/include/systems/MoveSystem.hpp
 		engine/include/systems/TextSystem.hpp
-		engine/include/systems/ButtonSystem.hpp engine/include/tools/AssetPool.cpp engine/include/tools/AssetPool.hpp
+		engine/include/systems/ButtonSystem.hpp
+		engine/include/tools/AssetPool.cpp
+		engine/include/tools/AssetPool.hpp
 		engine/include/systems/MoveSystem.hpp
         engine/include/graphical/AText.hpp
         engine/include/graphical/AFont.hpp
@@ -241,7 +243,11 @@ set(SERVER_SOURCES
 		server/game/dataHolders/DataSprite.cpp
 		server/game/dataHolders/DataTexture.cpp
 		server/game/systems/PlayerSystem.cpp
-		server/game/systems/ProjectileSystem.cpp server/game/systems/ProjectileSystem.hpp)
+		server/game/systems/ProjectileSystem.cpp
+		server/game/systems/AutomaticWeaponSystem.cpp
+		server/game/systems/EnemySystem.cpp
+		server/game/systems/ProjectileSystem.cpp
+		)
 
 set(SERVER_INCLUDES
 		server/core/CoreServer.hpp
@@ -261,13 +267,16 @@ set(SERVER_INCLUDES
 		server/game/dataHolders/DataTexture.hpp
 		server/game/entities/Player.hpp
 		server/game/systems/PlayerSystem.hpp
-		server/game/components/WeaponComponent.hpp
+		server/game/components/ManualWeaponComponent.hpp
 		server/game/components/ProjectileComponent.hpp
 		server/game/entities/Projectile.hpp
-		server/game/systems/ProjectileSystem.cpp
 		server/game/systems/ProjectileSystem.hpp
-		server/game/systems/EnemySystem.cpp
-		server/game/systems/EnemySystem.hpp server/game/components/PatternComponent.hpp)
+		server/game/systems/ProjectileSystem.hpp
+		server/game/systems/EnemySystem.hpp
+		server/game/components/PatternComponent.hpp
+		server/game/systems/AutomaticWeaponSystem.hpp
+		server/game/components/AutomaticWeaponComponent.hpp
+		)
 
 set(ENEMIES_INCLUDES
 	${ENGINE_INCLUDES} ${SERVER_INCLUDES}
@@ -277,7 +286,6 @@ set(ENEMIES_SOURCES
 		server/game/dataHolders/DataTexture.cpp
 		engine/src/graphical/ASprite.cpp
 		engine/src/graphical/ATexture.cpp
-
 		)
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
@@ -289,6 +297,7 @@ include(GNUInstallDirs)
 add_library(floatingRobot SHARED
 		dynamic_libs/FloatingRobot.cpp
 		dynamic_libs/FloatingRobot.hpp
+
 		${ENEMIES_SOURCES}
 		)
 set_target_properties(floatingRobot PROPERTIES SOVERSION 1)

@@ -6,7 +6,6 @@
 */
 
 
-#include <dataHolders/DataTexture.hpp>
 #include "components/PatternComponent.hpp"
 #include "EnemySystem.hpp"
 
@@ -19,7 +18,6 @@ EnemySystem::EnemySystem(std::shared_ptr<Game> &game) : _game(game), Engine::Sys
     this->addDependency<Engine::AnimationComponent>();
     this->addDependency<Engine::ColliderComponent>();
     this->addDependency<PatternComponent>();
-    this->_projectileTexture = std::make_shared<DataTexture>("../../client/assets/images/projectiles/projectile_1_72x18_18x18.png");
 }
 
 void EnemySystem::handleMovements(std::shared_ptr<Engine::Entity> &enemy)

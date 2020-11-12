@@ -26,6 +26,7 @@ private:
 
 public:
     Core();
+    ~Core() = default;
     void start();
 };
 

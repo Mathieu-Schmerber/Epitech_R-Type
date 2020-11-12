@@ -29,10 +29,9 @@ Core::Core()
 void Core::setupGroups()
 {
     auto p = std::make_shared<ParallaxGroup>();
-    auto m = std::make_shared<MusicGroup>();
 
     this->_sceneManager->addGroup(GroupId::MENU_PARALLAX, std::dynamic_pointer_cast<Engine::AEntityGroup>(p));
-    this->_sceneManager->addGroup(GroupId::MENU_MUSIC, std::dynamic_pointer_cast<Engine::AEntityGroup>(m));
+    this->_sceneManager->addGroup(GroupId::MENU_MUSIC, std::dynamic_pointer_cast<Engine::AEntityGroup>(std::make_shared<MusicGroup>()));
     this->_sceneManager->setAccessGroup(SceneType::MAIN_MENU, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::SETTINGS, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::HOW_TO_PLAY, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
@@ -68,7 +67,6 @@ void Core::run()
     _graph->getEvents()->update();
     _graph->getWindow()->display();
 }
-
 
 
 

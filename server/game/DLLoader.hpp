@@ -22,6 +22,7 @@ template <typename T>
 class DLLoader {
 public:
     DLLoader(std::string libName);
+    ~DLLoader() {std::cout << "Lib destroyed" << std::endl;}
 
     typedef T *(*fct)();
 
@@ -77,6 +78,7 @@ T *DLLoader<T>::getInstance() const
 template<typename T>
 void DLLoader<T>::close(T instance) const
 {
+    std::cout << "lib closed" << std::endl;
     if (!_lib)
         return;
     #ifdef __unix__

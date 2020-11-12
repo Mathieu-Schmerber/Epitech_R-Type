@@ -19,7 +19,6 @@ namespace Engine {
         void addChild(std::shared_ptr<Entity> &child) {this->_children.emplace_back(child);}
         [[nodiscard]] std::vector<std::shared_ptr<Entity>> getChildren() const {return this->_children;}
     };
-
 }
 
 #endif //RTYPE_CHILDRENCOMPONENT_HPP

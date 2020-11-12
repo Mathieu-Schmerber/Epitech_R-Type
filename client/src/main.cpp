@@ -3,7 +3,7 @@
 
 int main()
 {
-    auto core = new Core();
+    auto core = std::make_unique<Core>();
 
     core->start();
     return 0;

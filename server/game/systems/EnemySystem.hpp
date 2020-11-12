@@ -16,7 +16,6 @@
 class EnemySystem : public Engine::System {
 private:
     std::shared_ptr<Game> _game;
-    std::shared_ptr<Engine::ATexture> _projectileTexture;
 
 public:
     explicit EnemySystem(std::shared_ptr<Game> &game);

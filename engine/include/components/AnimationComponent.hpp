@@ -33,6 +33,7 @@ namespace Engine {
                 this->_current = anim.begin()->first;
         }
 
+
         [[nodiscard]] bool hasAnimations() const {return !(this->_animations.empty());}
 
         [[nodiscard]] double getFrameTime() const {return this->_frameTime;}

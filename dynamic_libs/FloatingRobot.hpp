@@ -13,6 +13,7 @@
 
 #include <iostream>
 #include <utility>
+#include "components/AutomaticWeaponComponent.hpp"
 #include "components/PatternComponent.hpp"
 
 #define PATH "../../client/assets/images/enemies/ennemy_5_99x33_33x33.png"
@@ -25,14 +26,14 @@ private:
 
 public:
     explicit FloatingRobot(const Engine::Point<int> &pos = {0, 0}) : Enemy(std::move(std::make_unique<DataSprite>(PATH, Engine::Box<int>{pos, {SIZE_X, SIZE_Y}})), pos) {
+        this->addComponent<PatternComponent>();
+        this->addComponent<AutomaticWeaponComponent>(1, 0.5, 0.2);  // FIXME changer les stats
         this->addComponent<Engine::AnimationComponent>(0.2, std::map<int, std::vector<Engine::Box<int>>>{
                 {DEFAULT, {
                     {_size.x * 0, _size.x * 1, 0, _size.y},
                     {_size.x * 1, _size.x * 2, 0, _size.y},
                     {_size.x * 2, _size.x * 3, 0, _size.y}}}
         }, true);
-        this->addComponent<WeaponComponent>(1, 0.5, 0.2); // FIXME changer les stats
-        this->addComponent<PatternComponent>(); // FIXME changer les stats
     }
 };
 

@@ -15,12 +15,9 @@ Engine::AnimationSystem::AnimationSystem() : Engine::System()
 
 void Engine::AnimationSystem::update()
 {
-    SpriteComponent *sprite = nullptr;
-    AnimationComponent *animation = nullptr;
-
     for (auto &e : this->_entities) {
-        sprite = e->getComponent<SpriteComponent>();
-        animation = e->getComponent<AnimationComponent>();
+        auto sprite = e->getComponent<SpriteComponent>();
+        auto animation = e->getComponent<AnimationComponent>();
         if (animation->hasAnimations() && Engine::Timer::hasElapsed(animation->getLastRefresh(), animation->getFrameTime())) {
             sprite->getSprite()->setRect(animation->getNextFrame());
             animation->refresh();

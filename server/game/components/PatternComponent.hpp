@@ -18,6 +18,7 @@ private:
 
 public:
     explicit PatternComponent() : Engine::Component() {}
+
 };
 
 #endif //RTYPE_PATTERNCOMPONENT_HPP

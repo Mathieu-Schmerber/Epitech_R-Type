@@ -24,6 +24,7 @@ public:
     InGame(std::shared_ptr<Engine::AWindow> &window,
            std::shared_ptr<Engine::AEvents> &events,
            std::shared_ptr<NetworkAccess> &server);
+    ~InGame() = default;
 
     void onFocus() override;
     void onExit() override;

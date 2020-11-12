@@ -13,7 +13,7 @@
 #include "components/VelocityComponent.hpp"
 #include "components/ControllerComponent.hpp"
 #include "components/ColliderComponent.hpp"
-#include "components/WeaponComponent.hpp"
+#include "components/ManualWeaponComponent.hpp"
 
 class Player : public Engine::Entity
 {
@@ -51,7 +51,7 @@ public:
 
         });
         this->getComponent<Engine::AnimationComponent>()->setAnimation(IDLE, false);
-        this->addComponent<WeaponComponent>(1, 0.5, 0.2);
+        this->addComponent<ManualWeaponComponent>(1, 0.5, 0.2);
     }
 
 };

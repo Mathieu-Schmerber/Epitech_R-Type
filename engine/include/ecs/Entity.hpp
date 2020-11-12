@@ -20,6 +20,7 @@ namespace Engine {
 
     public:
         explicit Entity() = default;
+        ~Entity() = default;
 
         template<typename T, typename... TArgs> void addComponent(TArgs&&... args);
         template<typename T> [[nodiscard]] T *getComponent() const;

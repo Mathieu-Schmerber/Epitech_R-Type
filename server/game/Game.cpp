@@ -5,9 +5,9 @@
 #include "Game.hpp"
 
 #include <memory>
+#include "systems/AutomaticWeaponSystem.hpp"
 #include "systems/EnemySystem.hpp"
 #include "tools/Geometry.hpp"
-#include "entities/ParallaxSlide.hpp"
 #include "systems/ProjectileSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
@@ -38,7 +38,9 @@ void Game::initGameEntities()
 
     // FIXME test load enemy in dyn lib
     dynLoader.open();
+    std::cout << "================== set enemy test ==================" << std::endl;
     std::shared_ptr<Engine::Entity> enemy_test = std::shared_ptr<Engine::Entity>(dynLoader.getInstance());
+
 
     this->spawn(player, true);
     this->spawn(enemy_test, true);
@@ -55,6 +57,7 @@ void Game::initGameSystems()
     auto players = std::make_unique<PlayerSystem>(game);
     auto projectiles = std::make_unique<ProjectileSystem>(game);
     auto enemy = std::make_unique<EnemySystem>(game);
+    auto autoWeapon = std::make_unique<AutomaticWeaponSystem>(game);
 
     this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(parallax));
@@ -64,6 +67,7 @@ void Game::initGameSystems()
     this->_systems.push_back(std::move(projectiles));
     this->_systems.push_back(std::move(network));
     this->_systems.push_back(std::move(enemy));
+    this->_systems.push_back(std::move(autoWeapon));
 }
 
 void Game::spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork)
