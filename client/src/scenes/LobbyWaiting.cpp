@@ -16,8 +16,6 @@
 #include "systems/WindowResizeSystem.hpp"
 #include "systems/PlayerAndStarshipSystem.hpp"
 #include "components/AnimationComponent.hpp"
-#include "sfml/SpriteSfml.hpp"
-#include "scenes/SceneEnum.hpp"
 #include "entities/Button.hpp"
 #include "entities/PlayerAndStarshipEntity.hpp"
 

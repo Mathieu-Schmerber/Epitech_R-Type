@@ -3,7 +3,6 @@
 //
 
 #include <memory>
-
 #include "Core.hpp"
 #include "scenes/MainMenu.hpp"
 #include "scenes/Settings.hpp"
@@ -74,45 +73,3 @@ void Core::run()
     _graph->getEvents()->update();
     _graph->getWindow()->display();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class mesCouilles {
-    private:
-        short _port;
-        std::string _ip;
-        int _idMasterClient;
-        int _nbMaxClient;
-
-};

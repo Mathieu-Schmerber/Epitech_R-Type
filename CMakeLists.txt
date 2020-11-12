@@ -181,7 +181,9 @@ set(CLIENT_SOURCES
         client/src/sfml/TextSFML.cpp
         client/src/sfml/FontSFML.cpp
         client/src/sfml/SoundBufferSFML.cpp
-		client/src/systems/LobbySystem.cpp)
+		client/src/systems/LobbySystem.cpp
+		client/src/scenes/LobbyWaiting.cpp
+		client/src/systems/PlayerAndStarshipSystem.cpp)
 
 set(CLIENT_INCLUDES
 		client/include/Core.hpp
