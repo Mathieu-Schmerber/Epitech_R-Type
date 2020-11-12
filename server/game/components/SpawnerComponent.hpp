@@ -17,7 +17,6 @@ class SpawnerComponent : public Engine::Component
 {
 private:
     std::chrono::high_resolution_clock::time_point _timeSinceLastSpawn = std::chrono::high_resolution_clock::now();
-    Engine::Timer _timer;
     double _spawnRate = 5;
     double _scale = 30; // 30s
 
@@ -27,7 +26,7 @@ public:
 
     void setSpawnRate(double spawnRate) {_spawnRate = spawnRate;}
     [[nodiscard]] bool canSpawn() const {return Engine::Timer::hasElapsed(_timeSinceLastSpawn, _scale / _spawnRate);}
-    //void spawn() {Engine::Timer }
+    void spawn() {_timeSinceLastSpawn = std::chrono::high_resolution_clock::now();}
 };
 
 #endif //RTYPE_SPAWNERCOMPONENT_HPP

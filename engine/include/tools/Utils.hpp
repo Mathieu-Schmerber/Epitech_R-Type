@@ -22,7 +22,8 @@ namespace Engine {
         template<typename T>
         static void removeFromVector(std::vector<T> &vector, T item)
         {
-            vector.erase(std::remove_if(vector.begin(), vector.end(), [item](T x){return x == item;}));
+            if (isInVector(vector, item))
+                vector.erase(std::remove_if(vector.begin(), vector.end(), [item](T x){return x == item;}));
         }
 
         template<typename T>
