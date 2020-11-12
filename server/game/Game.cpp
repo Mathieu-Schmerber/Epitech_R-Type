@@ -2,8 +2,6 @@
 // Created by mathi on 06/11/2020.
 //
 
-#include "Game.hpp"
-
 #include <memory>
 #include "tools/Geometry.hpp"
 #include "entities/ParallaxSlide.hpp"
@@ -15,6 +13,7 @@
 #include "systems/PlayerSystem.hpp"
 #include "systems/ServerNetworkSystem.hpp"
 #include "components/NetworkComponent.hpp"
+#include "Game.hpp"
 
 Game::Game(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception)
 : _players(players), _reception(reception), _idIncrement(0), _running(true)
