@@ -66,7 +66,7 @@ std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector
 
 void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in) const
 {
-    auto *sprite = entity->getComponent<Engine::SpriteComponent>();
+    auto sprite = entity->getComponent<Engine::SpriteComponent>();
     auto inititalPos = entity->getComponent<Engine::TransformComponent>()->getPos();
     auto smooth = SocketParser::lerp(inititalPos, {in.at(1), in.at(2)}, this->_deltatime);
 

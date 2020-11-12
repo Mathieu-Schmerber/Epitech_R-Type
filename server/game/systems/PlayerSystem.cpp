@@ -14,7 +14,7 @@ PlayerSystem::PlayerSystem(std::shared_ptr<Game> &game) : _game(game), Engine::S
     this->addDependency<Engine::SpriteComponent>();
     this->addDependency<Engine::AnimationComponent>();
     this->addDependency<Engine::ColliderComponent>();
-    this->addDependency<WeaponComponent>();
+    this->addDependency<ManualWeaponComponent>();
     this->_projectileTexture = std::make_shared<DataTexture>("../../client/assets/images/projectiles/projectile_1_72x18_18x18.png");
 }
 
@@ -52,7 +52,7 @@ void PlayerSystem::handleCollisions(std::shared_ptr<Engine::Entity> &player)
 void PlayerSystem::handleWeapon(std::shared_ptr<Engine::Entity> &player)
 {
     auto pressed = player->getComponent<Engine::ControllerComponent>()->getPressed();
-    auto weapon = player->getComponent<WeaponComponent>();
+    auto weapon = player->getComponent<ManualWeaponComponent>();
     auto transform = player->getComponent<Engine::TransformComponent>();
 
     if (Engine::Utils::isInVector(pressed, Engine::Inputs::Space) && weapon->canShoot()) {

@@ -12,10 +12,8 @@ Engine::InputSystem::InputSystem(Engine::AEvents *events) : _events(events), Eng
 
 void Engine::InputSystem::update()
 {
-    ControllerComponent *controller = nullptr;
-
     for (auto &e : this->_entities) {
-        controller = e->getComponent<ControllerComponent>();
+        auto controller = e->getComponent<ControllerComponent>();
         controller->setPressed(this->_events->getKeysPressed());
         controller->setReleased(this->_events->getKeysReleased());
     }

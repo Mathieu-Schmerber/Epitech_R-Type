@@ -20,6 +20,10 @@ namespace Engine {
         {
             this->addComponent<MusicComponent>(std::move(music));
         }
+        ~Music() {
+            getComponent<Engine::MusicComponent>()->getMusic()->close();
+            _components.clear();
+        }
     };
 }
 

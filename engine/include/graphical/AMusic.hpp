@@ -23,11 +23,11 @@ namespace Engine {
         virtual bool isStopped() const = 0;
         virtual void setLoop(bool loop=true) = 0;
         virtual bool isLooping() const = 0;
+        virtual void close() = 0;
 
     protected:
-        float _volume = 100;
+        float _volume = 0;
     };
-
 }
 
 #endif //RTYPE_AMUSIC_HPP

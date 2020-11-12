@@ -5,6 +5,8 @@
 #ifndef RTYPE_GROUPS_HPP
 #define RTYPE_GROUPS_HPP
 
+#include <memory>
+
 #include "sceneManagement/AEntityGroup.hpp"
 #include "entities/ParallaxSlide.hpp"
 #include "entities/Music.hpp"
@@ -32,10 +34,11 @@ class MusicGroup : public Engine::AEntityGroup {
 public:
     MusicGroup() : Engine::AEntityGroup() {
         auto music = std::make_unique<MusicSFML>("../../client/assets/ogg/themes/menu_theme.ogg");
-        auto musicE = new Engine::Music(std::move(music));
 
-        this->addEntities({std::shared_ptr<Engine::Music>(musicE)});
+        this->addEntities({std::make_shared<Engine::Music>(std::move(music))});
     }
+
+    ~MusicGroup() = default;
 
     void freeze() override {
         Engine::MusicComponent *music = nullptr;

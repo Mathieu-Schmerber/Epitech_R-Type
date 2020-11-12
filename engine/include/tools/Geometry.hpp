@@ -148,4 +148,12 @@ template<typename T>
     return Geometry::doOverlap(point, this);
 }
 
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const Engine::Box<T>& box)
+{
+    os << "x1/x2: " << box.x1 << "/" << box.x2 << " && ";
+    os << "y1/y2: " << box.y1 << "/" << box.y2;
+    return os;
+}
+
 #endif //RTYPE_GEOMETRY_HPP

@@ -21,12 +21,13 @@
 template <typename T>
 class DLLoader {
 public:
-    explicit DLLoader(const std::string& lib);
+    DLLoader(std::string libName);
+    ~DLLoader() {std::cout << "Lib destroyed" << std::endl;}
 
-    typedef T (*fct)();
+    typedef T *(*fct)();
 
     void open();
-    T getInstance() const;
+    T *getInstance() const;
     void close(T instance) const;
     std::string getLibName() const;
 private:
@@ -35,10 +36,8 @@ private:
 };
 
 template<typename T>
-DLLoader<T>::DLLoader(const std::string& lib) : _lib(nullptr)
-{
-    _libName = lib;
-}
+DLLoader<T>::DLLoader(const std::string libName) : _lib(nullptr), _libName(libName)
+{}
 
 template<typename T>
 void DLLoader<T>::open()
@@ -48,22 +47,24 @@ void DLLoader<T>::open()
     #elif defined(_WIN32) || defined(WIN32)
         _lib = LoadLibrary(TEXT(_libName.c_str()));
     #endif
-    if (!_lib)
-        throw std::exception(); //TODO: Utiliser dlerror() !
+    if (!_lib) {
+        std::cerr << dlerror() << std::endl;
+        throw std::exception();
+    }
 }
 
 template<typename T>
-T DLLoader<T>::getInstance() const
+T *DLLoader<T>::getInstance() const
 {
     if (!_lib) {
-        std::cout << "Lib not found" << std::endl;
+        std::cerr << "Lib not found" << std::endl;
         return (nullptr);
     }
 
     #ifdef __unix__
     if (!dlsym(_lib, "newInstance"))
         throw std::exception();
-    T (*f)();
+    T *(*f)();
     *(void **)(&f) = dlsym(_lib, "newInstance");
     return ((*f)());
     #elif defined(_WIN32) || defined(WIN32)
@@ -77,6 +78,7 @@ T DLLoader<T>::getInstance() const
 template<typename T>
 void DLLoader<T>::close(T instance) const
 {
+    std::cout << "lib closed" << std::endl;
     if (!_lib)
         return;
     #ifdef __unix__

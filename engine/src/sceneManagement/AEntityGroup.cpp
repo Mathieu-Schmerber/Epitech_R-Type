@@ -5,9 +5,7 @@
 #include "sceneManagement/AEntityGroup.hpp"
 
 Engine::AEntityGroup::AEntityGroup()
-{
-
-}
+= default;
 
 Engine::AEntityGroup::~AEntityGroup()
 {
@@ -21,8 +19,9 @@ std::vector<std::shared_ptr<Engine::Entity>> Engine::AEntityGroup::getEntities()
 
 void Engine::AEntityGroup::addEntities(const std::vector<std::shared_ptr<Engine::Entity>> &entities)
 {
-    for (auto &e : entities)
+    for (auto &e : entities) {
         this->_entities.push_back(e);
+    }
 }
 
 void Engine::AEntityGroup::addEntity(std::shared_ptr<Engine::Entity> &entity)
