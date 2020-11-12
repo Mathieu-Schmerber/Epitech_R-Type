@@ -3,6 +3,7 @@
 //
 
 #include <memory>
+#include "Game.hpp"
 #include "tools/Geometry.hpp"
 #include "entities/ParallaxSlide.hpp"
 #include "systems/ProjectileSystem.hpp"
