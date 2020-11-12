@@ -19,7 +19,7 @@ namespace Engine {
 
     public:
         explicit ParallaxComponent() : _start({0, 0}), _limit({0, 0}), Engine::Component() {}
-        explicit ParallaxComponent(const Point<int> &start,const Point<int> &limit) : _start(start), _limit(limit),
+        explicit ParallaxComponent(const Point<int> &start, const Point<int> &limit) : _start(start), _limit(limit),
         Engine::Component() {}
 
         [[nodiscard]] bool isLimitReached(const Point<int> &pos, const Vector<double> &direction) const {

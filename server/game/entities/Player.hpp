@@ -36,7 +36,7 @@ public:
         this->addComponent<Engine::VelocityComponent>();
         this->addComponent<Engine::SpriteComponent>(1, std::move(spr));
         this->addComponent<Engine::ControllerComponent>();
-        this->addComponent<Engine::ColliderComponent>();
+        this->addComponent<Engine::ColliderComponent>(0, pos, _size);
         this->addComponent<Engine::AnimationComponent>(0.2, std::map<int, std::vector<Engine::Box<int>>>{
                 {IDLE, {
                             {_size.x * 2, _size.x * 3, 0, _size.y}}},

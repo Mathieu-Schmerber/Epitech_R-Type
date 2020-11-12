@@ -247,7 +247,7 @@ set(SERVER_SOURCES
 		server/game/dataHolders/DataSprite.cpp
 		server/game/dataHolders/DataTexture.cpp
 		server/game/systems/PlayerSystem.cpp
-		server/game/systems/ProjectileSystem.cpp)
+		server/game/systems/ProjectileSystem.cpp server/game/systems/GroundSystem.cpp server/game/systems/GroundSystem.hpp)
 
 set(SERVER_INCLUDES
 		server/core/CoreServer.hpp
@@ -271,7 +271,7 @@ set(SERVER_INCLUDES
 		server/game/components/WeaponComponent.hpp
 		server/game/components/ProjectileComponent.hpp
 		server/game/entities/Projectile.hpp
-		server/game/systems/ProjectileSystem.hpp)
+		server/game/systems/ProjectileSystem.hpp server/game/systems/GroundSystem.cpp server/game/systems/GroundSystem.hpp server/game/entities/Ground.hpp)
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
