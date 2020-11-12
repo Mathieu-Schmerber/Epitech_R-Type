@@ -24,7 +24,7 @@ EnemySystem::EnemySystem(std::shared_ptr<Game> &game) : _game(game), Engine::Sys
 
 void EnemySystem::handleMovements(std::shared_ptr<Engine::Entity> &enemy)
 {
-    const double speed = 0.5;
+    const double speed = 1;
     Engine::Vector<double> dir = {0, 0};
 
     dir.x += 1;
@@ -35,10 +35,7 @@ void EnemySystem::handleMovements(std::shared_ptr<Engine::Entity> &enemy)
 
 void EnemySystem::update()
 {
-    std::cout << "=========" << std::endl;
     for (auto &e : this->_entities) {
-        std::cout << "enemy update" << std::endl;
         handleMovements(e);
     }
-    std::cout << "=========" << std::endl;
 }

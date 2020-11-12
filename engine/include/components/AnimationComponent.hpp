@@ -26,8 +26,8 @@ namespace Engine {
     public:
         explicit AnimationComponent() : _animations({}), _frame(0), _current(0), _frameTime(0), _looping(false),
                                         _last(std::chrono::high_resolution_clock::now()), Engine::Component() {}
-        explicit AnimationComponent(double animationTime, const std::map<int, std::vector<Box<int>>> &anim = {})
-                                    : _animations(anim), _frame(0), _frameTime(animationTime), _looping(false),
+        explicit AnimationComponent(double animationTime, const std::map<int, std::vector<Box<int>>> &anim = {}, bool looping = false)
+                                    : _animations(anim), _frame(0), _frameTime(animationTime), _looping(looping),
                                     _last(std::chrono::high_resolution_clock::now()), Engine::Component() {
             if (!anim.empty())
                 this->_current = anim.begin()->first;
