@@ -14,29 +14,29 @@ namespace Engine {
 
     class ParallaxComponent : public Engine::Component {
     private:
-        Point<int> _start;
-        Point<int> _limit;
+
+        Point<float> _start;
+        Point<float> _limit;
         bool _isAutomatic;
 
     public:
         explicit ParallaxComponent() : _start({0, 0}), _limit({0, 0}), _isAutomatic(true), Engine::Component() {}
-        explicit ParallaxComponent(const Point<int> &start, const Point<int> &limit, bool automatic = true) : _isAutomatic(automatic), _start(start), _limit(limit),
+        explicit ParallaxComponent(const Point<float> &start, const Point<float> &limit, bool automatic = true) : _isAutomatic(automatic), _start(start), _limit(limit),
         Engine::Component() {}
 
-        [[nodiscard]] bool isLimitReached(const Point<int> &pos, const Vector<double> &direction) const {
+        [[nodiscard]] bool isLimitReached(const Point<float> &pos, const Vector<float> &direction) const {
             return (
                     (direction.x >= 0 && pos.x >= _limit.x) && (direction.y >= 0 && pos.y >= _limit.y) ||
                     (direction.x <= 0 && pos.x <= _limit.x) && (direction.y <= 0 && pos.y <= _limit.y)
             );
         }
 
-        [[nodiscard]] Point<int> getStart() const {return this->_start;}
-        [[nodiscard]] Point<int> getLimit() const {return this->_limit;}
-        void setStart(const Point<int> &start) {this->_start = start;}
-
         [[nodiscard]] bool isAutomatic() const {return _isAutomatic;}
-
-        void setLimit(const Point<int> &limit) {this->_limit = limit;}
+		
+        [[nodiscard]] Point<float> getStart() const {return this->_start;}
+        [[nodiscard]] Point<float> getLimit() const {return this->_limit;}
+        void setStart(const Point<float> &start) {this->_start = start;}
+        void setLimit(const Point<float> &limit) {this->_limit = limit;}
     };
 
 }

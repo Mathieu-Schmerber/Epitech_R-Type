@@ -16,9 +16,9 @@ SocketParser::SocketParser()
     this->_serverUpdate = false;
 }
 
-Engine::Point<int> SocketParser::lerp(Engine::Point<int> a, Engine::Point<int> b, double time)
+Engine::Point<int> SocketParser::lerp(Engine::Point<int> a, Engine::Point<int> b, float time)
 {
-    double factor = 1;
+    float factor = 1;
 
     if (time <= factor)
         return {(int)(a.x * (1 - time * factor) + b.x * time * factor), (int)(a.y * (1 - time * factor) + b.y * time * factor)};
@@ -27,10 +27,10 @@ Engine::Point<int> SocketParser::lerp(Engine::Point<int> a, Engine::Point<int> b
 
 bool SocketParser::shouldTeleport(Engine::Point<int> a, Engine::Point<int> b, Engine::Point<int> size)
 {
-    double tolerance = 40;
+    float tolerance = 40;
 
-    return (abs(sqrt(pow(b.x - a.x, 2)) - tolerance) >= (double)(size.x * 0.5) ||
-            abs(sqrt(pow(b.y - a.y, 2)) - tolerance) >= (double)(size.y * 0.5));
+    return (abs(sqrt(pow(b.x - a.x, 2)) - tolerance) >= (float)(size.x * 0.5) ||
+            abs(sqrt(pow(b.y - a.y, 2)) - tolerance) >= (float)(size.y * 0.5));
 }
 
 std::vector<int> SocketParser::parseUdpInputs(int clientId, const std::vector<Engine::Inputs> &pressed, const std::vector<Engine::Inputs> &released)
@@ -55,26 +55,26 @@ std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector
     if (in.size() < 9)
         return nullptr;
     entity->addComponent<Engine::NetworkComponent>(in.at(0));
-    entity->addComponent<Engine::TransformComponent>(Engine::Point<int>{in.at(1), in.at(2)}, in.at(3));
+    entity->addComponent<Engine::TransformComponent>(Engine::Point<float>{static_cast<float>(in.at(1)), static_cast<float>(in.at(2))}, in.at(3));
     entity->addComponent<Engine::SpriteComponent>();
     sprite = entity->getComponent<Engine::SpriteComponent>();
     auto spr = std::make_unique<SpriteSFML>(this->_pool->getPathFromIndex(in.at(4)));
     sprite->setDisplay(std::move(spr));
-    sprite->getSprite()->setRect({in.at(5), in.at(6), in.at(7), in.at(8)});
+    sprite->getSprite()->setRect({static_cast<float>(in.at(5)), static_cast<float>(in.at(6)), static_cast<float>(in.at(7)), static_cast<float>(in.at(8))});
     return std::shared_ptr<Engine::Entity>(entity);
 }
 
 void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in) const
 {
-    auto *sprite = entity->getComponent<Engine::SpriteComponent>();
-    auto inititalPos = entity->getComponent<Engine::TransformComponent>()->getPos();
+    auto sprite = entity->getComponent<Engine::SpriteComponent>();
+    Engine::Point<int> inititalPos = static_cast<Engine::Point<int>>(entity->getComponent<Engine::TransformComponent>()->getPos());
     auto smooth = SocketParser::lerp(inititalPos, {in.at(1), in.at(2)}, this->_deltatime);
 
     if (SocketParser::shouldTeleport(inititalPos, {in.at(1), in.at(2)}, {in.at(6), in.at(8)}))
         smooth = Engine::Point<int>{in.at(1), in.at(2)};
-    entity->getComponent<Engine::TransformComponent>()->setPos(smooth);
+    entity->getComponent<Engine::TransformComponent>()->setPos(static_cast<Engine::Point<float>>(smooth));
     entity->getComponent<Engine::TransformComponent>()->setRotation(in.at(3));
-    sprite->getSprite()->setRect({in.at(5), in.at(6), in.at(7), in.at(8)});
+    sprite->getSprite()->setRect({static_cast<float>(in.at(5)), static_cast<float>(in.at(6)), static_cast<float>(in.at(7)), static_cast<float>(in.at(8))});
     sprite->setLayer(in.at(9));
 }
 
@@ -99,7 +99,7 @@ void SocketParser::updateLobbyFromTcp(std::shared_ptr<Engine::Entity> &lobby, co
     auto sprites = lobby->getComponents<Engine::SpriteComponent>();
 
     for (int i = 1; i < connectedPlayers + 1; ++i)
-        sprites.at(i)->getSprite()->setRect({Engine::Box<int>({STARSHIP_WIDTH * i, 0}, {STARSHIP_WIDTH, STARSHIP_HEIGHT})});
+        sprites.at(i)->getSprite()->setRect({Engine::Box<float>({STARSHIP_WIDTH * i, 0}, {STARSHIP_WIDTH, STARSHIP_HEIGHT})});
 }
 
 void SocketParser::refreshTimer(bool dataChanged)

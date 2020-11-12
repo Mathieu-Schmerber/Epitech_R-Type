@@ -14,8 +14,8 @@ namespace Engine {
     class WindowResizeSystem : public Engine::System
     {
     private:
-        Size<double> _lastSize;
-        Size<double> _baseSize;
+        Size<float> _lastSize;
+        Size<float> _baseSize;
         std::shared_ptr<AWindow> _window;
     public:
         WindowResizeSystem(std::shared_ptr<AWindow> &window);

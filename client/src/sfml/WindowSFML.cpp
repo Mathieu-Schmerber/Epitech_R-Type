@@ -62,9 +62,9 @@ int WindowSFML::getFrameRate() const
     return _frameRate;
 }
 
-Engine::Size<double> WindowSFML::getSize() const
+Engine::Size<float> WindowSFML::getSize() const
 {
     if (!_window)
         return this->_size;
-    return {static_cast<double>(this->_window->getSize().x), static_cast<double>(this->_window->getSize().y)};
+    return {static_cast<float>(this->_window->getSize().x), static_cast<float>(this->_window->getSize().y)};
 }

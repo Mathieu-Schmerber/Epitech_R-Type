@@ -20,13 +20,13 @@
 
 class Projectile : public Engine::Entity {
 public:
-    explicit Projectile(Engine::Point<int> pos, Engine::Point<int> size, Engine::Vector<double> speed, double damage, double lifetime,
+    explicit Projectile(Engine::Point<float> pos, Engine::Point<float> size, Engine::Vector<float> speed, float damage, float lifetime,
                         std::shared_ptr<Engine::ATexture> &texture) : Engine::Entity()
     {
-        std::unique_ptr<Engine::ASprite> spr = std::make_unique<DataSprite>(texture, Engine::Box<int>{{0, 0}, {size.x, size.y}});
+        std::unique_ptr<Engine::ASprite> spr = std::make_unique<DataSprite>(texture, Engine::Box<float>{{0, 0}, {size.x, size.y}});
         this->addComponent<Engine::TransformComponent>(pos);
         this->addComponent<Engine::VelocityComponent>(speed);
-        this->addComponent<Engine::ColliderComponent>(Collision::PLAYER_PROJECTILE, Engine::Box<double>{{0, 0}, {(double)size.x, (double)size.y}});
+        this->addComponent<Engine::ColliderComponent>(Collision::PLAYER_PROJECTILE, Engine::Box<float>{{0, 0}, {(float)size.x, (float)size.y}});
         this->addComponent<Engine::AnimationComponent>();
         this->addComponent<Engine::SpriteComponent>(0, std::move(spr));
         this->addComponent<ProjectileComponent>(damage, lifetime);

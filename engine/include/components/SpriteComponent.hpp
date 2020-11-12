@@ -28,7 +28,7 @@ namespace Engine {
         [[nodiscard]] bool isVisible() const {return this->_hasToBeDraw;}
         void setDisplay(std::unique_ptr<Engine::ASprite> sprite) { this->_sprite = std::move(sprite);}
         void hasToBeDraw(bool draw) {_hasToBeDraw = draw;};
-        void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) {
+        void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<float> position, float angle) {
             if (_hasToBeDraw)
                 _sprite->draw(window, position, angle);
         }

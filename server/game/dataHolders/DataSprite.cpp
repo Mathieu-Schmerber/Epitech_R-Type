@@ -19,12 +19,12 @@ Engine::Scale<float> DataSprite::getScale() const
     return _scale;
 }
 
-void DataSprite::setRect(Engine::Box<int> rect)
+void DataSprite::setRect(Engine::Box<float> rect)
 {
     _rect = rect;
 }
 
-Engine::Box<int> DataSprite::getRect() const
+Engine::Box<float> DataSprite::getRect() const
 {
     return _rect;
 }
@@ -49,7 +49,7 @@ Engine::Point<float> DataSprite::getOrigin() const
     return _origin;
 }
 
-void DataSprite::draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle)
+void DataSprite::draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<float> position, float angle)
 {}
 
 void DataSprite::setRotation(float angle)
@@ -62,6 +62,6 @@ float DataSprite::getRotation()
     return _rotation;
 }
 
-Engine::Size<int> DataSprite::getSize() const {
+Engine::Size<float> DataSprite::getSize() const {
     return {_rect.size.x, _rect.size.y};
 }

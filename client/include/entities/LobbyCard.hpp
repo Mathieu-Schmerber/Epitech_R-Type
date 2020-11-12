@@ -28,12 +28,12 @@ class LobbyCard : public Engine::Entity {
         this->addComponent<Engine::TransformComponent>();
         this->addComponent<Engine::SpriteComponent>(1, std::move(background));
         this->addComponent<Engine::ClickableComponent>();
-        this->addComponent<Engine::ColliderComponent>(0, Engine::Box<double>{{0,0},{850.0, 150.0}});
+        this->addComponent<Engine::ColliderComponent>(0, Engine::Box<float>{{0,0},{850.0, 150.0}});
         this->addComponent<LobbyComponent>(port, lobbyId, maxPlayers, 0, idClientMaster);
         for (int i = 0; i < maxPlayers; ++i) {
             auto starship = std::make_unique<SpriteSFML>(starshipTexture);
             starship->setScale({static_cast<float>(STARSHIP_SCALE_X), static_cast<float>(STARSHIP_SCALE_Y)});
-            starship->setRect({Engine::Box<int>({STARSHIP_WIDTH * 4, 0}, {STARSHIP_WIDTH, STARSHIP_HEIGHT})});
+            starship->setRect({Engine::Box<float>({STARSHIP_WIDTH * 4, 0}, {STARSHIP_WIDTH, STARSHIP_HEIGHT})});
             starship->setOrigin(Engine::Point<float>{static_cast<float>(-relativeStarshipPositionX), -28.0});
             relativeStarshipPositionX += 50.0;
             this->addComponent<Engine::SpriteComponent>(2, std::move(starship));

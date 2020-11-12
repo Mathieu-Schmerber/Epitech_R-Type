@@ -73,7 +73,7 @@ void LobbySystem::scrollUpLobbies()
         auto tcomponent = e->getComponent<Engine::TransformComponent>();
         auto pos = tcomponent->getPos();
         if (firstCardPosition.y < 60)
-            tcomponent->setPos(Engine::Point<int>{pos.x, pos.y + 50});
+            tcomponent->setPos(Engine::Point<float>{pos.x, pos.y + 50});
     }
 }
 
@@ -84,6 +84,6 @@ void LobbySystem::scrollDownLobbies()
         auto tcomponent = e->getComponent<Engine::TransformComponent>();
         auto pos = tcomponent->getPos();
         if (lastCardPosition.y > 810)
-            tcomponent->setPos(Engine::Point<int>{pos.x, pos.y - 50});
+            tcomponent->setPos(Engine::Point<float>{pos.x, pos.y - 50});
     }
 }

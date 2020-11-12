@@ -3,6 +3,9 @@
 //
 
 #include <memory>
+#include "Game.hpp"
+#include "systems/AutomaticWeaponSystem.hpp"
+#include "systems/EnemySystem.hpp"
 #include "tools/Geometry.hpp"
 #include "entities/ParallaxSlide.hpp"
 #include "systems/ProjectileSystem.hpp"
@@ -32,27 +35,24 @@ Game::~Game()
 
 void Game::initGameEntities()
 {
-    std::shared_ptr<Engine::Entity> player = std::make_shared<Player>(0, Engine::Point<int>{50, 50});
+    std::shared_ptr<Engine::Entity> player = std::make_shared<Player>(0, Engine::Point<float>{50, 50});
 
     auto parallaxA = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png");
     auto parallaxB = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png");
-    //auto parallaxC = std::make_unique<DataSprite>("../../client/assets/images/platform/bottom_platform_full.png");
-    //auto parallaxD = std::make_unique<DataSprite>("../../client/assets/images/platform/bottom_platform_full.png");
     parallaxA->setRect({{0, 0}, {3840, 1080}});
     parallaxB->setRect({{0, 0}, {3840, 1080}});
-    //parallaxC->setRect({{0, 0}, {3940, 70}});
-    //parallaxD->setRect({{0, 0}, {3940, 70}});
-    std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<int>{0, 0}, Engine::Point<int>{-3840, 0}, Engine::Point<double>{-10, 0}, std::move(parallaxA));
-    std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<int>{3840, 0}, Engine::Point<int>{0, 0}, Engine::Point<double>{-10, 0}, std::move(parallaxB));
-    //std::shared_ptr<Engine::Entity> groundA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<int>{0, 1010}, Engine::Point<int>{-3940, 1010}, Engine::Point<double>{-20, 0}, std::move(parallaxC));
-    //std::shared_ptr<Engine::Entity> groundB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<int>{3940, 1010}, Engine::Point<int>{0, 1010}, Engine::Point<double>{-20, 0}, std::move(parallaxD));
-    std::shared_ptr<Engine::Entity> ground = std::make_shared<Ground>(Engine::Point<int>{200, 200}, Engine::Point<int>{0, 0}, Engine::Vector<double>{0, 0});
+    std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<float>{0, 0}, Engine::Point<float>{-3840, 0}, Engine::Point<float>{-2, 0}, std::move(parallaxA));
+    std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<float>{3840, 0}, Engine::Point<float>{0, 0}, Engine::Point<float>{-2, 0}, std::move(parallaxB));
+
+    // FIXME test load enemy in dyn lib
+    dynLoader.open();
+    std::cout << "================== set enemy test ==================" << std::endl;
+    std::shared_ptr<Engine::Entity> enemy_test = std::shared_ptr<Engine::Entity>(dynLoader.getInstance());
 
     this->spawn(player, true);
     this->spawn(slideA, true);
     this->spawn(slideB, true);
-    //this->spawn(groundA, true);
-    //this->spawn(groundB, true);
+    this->spawn(enemy_test, true);
 }
 
 void Game::initGameSystems()
@@ -66,6 +66,8 @@ void Game::initGameSystems()
     auto players = std::make_unique<PlayerSystem>(game);
     auto projectiles = std::make_unique<ProjectileSystem>(game);
     auto ground = std::make_unique<GroundSystem>(game);
+    auto enemy = std::make_unique<EnemySystem>(game);
+    auto autoWeapon = std::make_unique<AutomaticWeaponSystem>(game);
 
     this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(ground));
@@ -75,6 +77,8 @@ void Game::initGameSystems()
     this->_systems.push_back(std::move(players));
     this->_systems.push_back(std::move(projectiles));
     this->_systems.push_back(std::move(network));
+    this->_systems.push_back(std::move(enemy));
+    this->_systems.push_back(std::move(autoWeapon));
 }
 
 void Game::spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork)
@@ -112,11 +116,11 @@ bool Game::isGameRunning() const
 void Game::update()
 {
     int serverTicks = 60;
-    double time;
+    float time;
 
     std::cout << "Game entities " << this->_entities.size() << std::endl;
     if (Engine::Timer::hasElapsed(this->_timer->getLastPoint(), 1.0 / serverTicks)) {
-        time = this->_timer->deltatime();
+        time = this->_timer->deltatime(0.1);
         for (auto &sys : this->_systems) {
             sys->setDeltatime(time);
             sys->update();

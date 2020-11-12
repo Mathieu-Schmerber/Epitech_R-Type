@@ -5,6 +5,7 @@
 #ifndef RTYPE_AENTITYGROUP_HPP
 #define RTYPE_AENTITYGROUP_HPP
 
+#include "components/MusicComponent.hpp"
 #include "ecs/Entity.hpp"
 
 namespace Engine {
@@ -23,6 +24,7 @@ namespace Engine {
         void addEntity(std::shared_ptr<Engine::Entity> &entity);
         void addEntities(const std::vector<std::shared_ptr<Engine::Entity>> &entities);
         [[nodiscard]] std::vector<std::shared_ptr<Engine::Entity>> getEntities() const;
+
     };
 
 }

@@ -12,18 +12,18 @@ namespace Engine {
 
     class VelocityComponent : public Engine::Component {
     private:
-        Vector<double> _speed;
-        Vector<double> _acceleration;
+        Vector<float> _speed;
+        Vector<float> _acceleration;
 
     public:
-        explicit VelocityComponent(const Vector<double> &speed = {0, 0},
-                                   const Vector<double> &acceleration = {0, 0})
+        explicit VelocityComponent(const Vector<float> &speed = {0, 0},
+                                   const Vector<float> &acceleration = {0, 0})
                                    : _speed(speed), _acceleration(acceleration), Component() {}
 
-        [[nodiscard]] Vector<double> getSpeed() const {return _speed;}
-        [[nodiscard]] Vector<double> getAcceleration() const {return _acceleration;}
-        void setSpeed(const Vector<double> &speed) {_speed = speed;}
-        void setAcceleration(const Vector<double> &acceleration) {_acceleration = acceleration;}
+        [[nodiscard]] Vector<float> getSpeed() const {return _speed;}
+        [[nodiscard]] Vector<float> getAcceleration() const {return _acceleration;}
+        void setSpeed(const Vector<float> &speed) {_speed = speed;}
+        void setAcceleration(const Vector<float> &acceleration) {_acceleration = acceleration;}
     };
 
 }

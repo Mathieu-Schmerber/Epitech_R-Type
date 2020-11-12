@@ -35,7 +35,7 @@ class TextSFML : public Engine::AText {
         void setFillColor(Engine::Color color) final;
         void setOutlineColor(Engine::Color color) final;
         void setString(std::string text) final;
-        void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) final;
+        void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<float> position, float angle) final;
         void setRotation(float angle) final;
         void setPosition(Engine::Point<float> position) final;
         void setCharacterSize(unsigned int size) final;

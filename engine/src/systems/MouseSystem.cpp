@@ -18,16 +18,14 @@ void Engine::MouseSystem::update()
     bool released = !this->_events->getButtonsReleased().empty();
     bool pressed = !this->_events->getButtonsPressed().empty();
     Point<int> mousePos = this->_events->getMousePosWindowRelative();
-    ColliderComponent *collider = nullptr;
-    ClickableComponent *clickable = nullptr;
 
     for (auto &e : this->_entities) {
-        collider = e->getComponent<ColliderComponent>();
-        clickable = e->getComponent<ClickableComponent>();
+        auto collider = e->getComponent<ColliderComponent>();
+        auto clickable = e->getComponent<ClickableComponent>();
         if (e->getComponent<SpriteComponent>()&& !e->getComponent<SpriteComponent>()->isVisible())
             continue;
-        clickable->setIsReleased(released && Geometry::doOverlap({(double)mousePos.x, (double)mousePos.y}, collider->getHitBox()));
-        clickable->setIsClicked(pressed && Geometry::doOverlap({(double)mousePos.x, (double)mousePos.y}, collider->getHitBox()));
-        clickable->setIsHover(Geometry::doOverlap({(double)mousePos.x, (double)mousePos.y}, collider->getHitBox()));
+        clickable->setIsReleased(released && Geometry::doOverlap({(float)mousePos.x, (float)mousePos.y}, collider->getHitBox()));
+        clickable->setIsClicked(pressed && Geometry::doOverlap({(float)mousePos.x, (float)mousePos.y}, collider->getHitBox()));
+        clickable->setIsHover(Geometry::doOverlap({(float)mousePos.x, (float)mousePos.y}, collider->getHitBox()));
     }
 }

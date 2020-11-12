@@ -20,7 +20,7 @@
 Core::Core()
 {
     this->_graph = std::make_unique<GraphicalSFML>();
-    this->_graph->setWindow(std::make_shared<WindowSFML>(std::string("r-type"), Engine::Size<double>{1920, 1080}));
+    this->_graph->setWindow(std::make_shared<WindowSFML>(std::string("r-type"), Engine::Size<float>{1920, 1080}));
     this->_graph->setEvents(std::make_shared<EventsSFML>(_graph->getWindow()));
     this->_server = std::make_shared<NetworkAccess>("127.0.0.1", 4243, 4242);
     this->_timer = std::make_unique<Engine::Timer>();
@@ -30,10 +30,9 @@ Core::Core()
 void Core::setupGroups()
 {
     auto p = std::make_shared<ParallaxGroup>();
-    auto m = std::make_shared<MusicGroup>();
 
     this->_sceneManager->addGroup(GroupId::MENU_PARALLAX, std::dynamic_pointer_cast<Engine::AEntityGroup>(p));
-    this->_sceneManager->addGroup(GroupId::MENU_MUSIC, std::dynamic_pointer_cast<Engine::AEntityGroup>(m));
+    this->_sceneManager->addGroup(GroupId::MENU_MUSIC, std::dynamic_pointer_cast<Engine::AEntityGroup>(std::make_shared<MusicGroup>()));
     this->_sceneManager->setAccessGroup(SceneType::MAIN_MENU, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::SETTINGS, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::HOW_TO_PLAY, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});

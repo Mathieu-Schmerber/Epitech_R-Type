@@ -5,13 +5,14 @@
 #ifndef RTYPE_GEOMETRY_HPP
 #define RTYPE_GEOMETRY_HPP
 
+#include <cmath>
 #include <utility>
 #include <cmath>
 #include <ostream>
 
 namespace Engine {
 
-    static const double PI = 3.141592653589793238463;
+    static const float PI = 3.141592653589793238463;
 
     template<typename T>
     struct Point {
@@ -27,12 +28,15 @@ namespace Engine {
             return rhs != *this;
         }
 
-        Point<T> operator * (double c) const {
+        Point<T> operator * (float c) const {
             return Point<T>(x * c, y * c);
         }
 
         template<typename U>
-        explicit operator Point<U>() const { return {(U)x, (U)y}; }
+        explicit operator Point<U>() const {
+            return {static_cast<U>(x), static_cast<U>(y)};
+        }
+
     };
 
     template<typename T>
@@ -51,7 +55,6 @@ namespace Engine {
         T y1;
         T y2;
         Point<T> size;
-        Point<T> center;
 
         /*!
          * \brief Creates a box.
@@ -60,14 +63,14 @@ namespace Engine {
          * \param y1 top
          * \param y2 bottom
         */
-        Box(T x1, T x2, T y1, T y2) : x1(x1), x2(x2), y1(y1), y2(y2), size({x2 - x1, y2 - y1}), center({x1 + size.x / 2, y1 + size.y / 2}){}
+        Box(T x1, T x2, T y1, T y2) : x1(x1), x2(x2), y1(y1), y2(y2), size({x2 - x1, y2 - y1}){}
 
         /*!
          * \brief Creates a box.
          * \param pos top-left corner
          * \param size width-height
         */
-        Box(Point<T> pos, Point<T> size) : x1(pos.x), x2(pos.x + size.x), y1(pos.y), y2(pos.y + size.y), size(size), center({x1 + size.x / 2, y1 + size.y / 2}) {}
+        Box(Point<T> pos, Point<T> size) : x1(pos.x), x2(pos.x + size.x), y1(pos.y), y2(pos.y + size.y), size(size) {}
 
         bool operator==(const Box &rhs) const {
             return x1 == rhs.x1 &&
@@ -80,9 +83,6 @@ namespace Engine {
             return rhs != *this;
         }
 
-        template<typename U>
-        explicit operator Box<U>() const { return {(U)x1, (U)x2, (U)y1, (U)y2}; }
-
         [[nodiscard]] bool doOverlap(const Box &rhs) const;
         [[nodiscard]] bool doOverlap(const Point<T> &point) const;
 
@@ -91,15 +91,15 @@ namespace Engine {
     class Geometry {
     public:
 
-        [[nodiscard]] static double degreeToRadiant(double degree) {return degree * (PI / 180);}
+        [[nodiscard]] static float degreeToRadiant(float degree) {return degree * (PI / 180);}
 
         template<typename T>
-        [[nodiscard]] static Point<T> rotateVector(Engine::Point<T> vector, double degree)
+        [[nodiscard]] static Point<T> rotateVector(Engine::Point<T> vector, float degree)
         {
-            double angle = degreeToRadiant(degree);
+            float angle = degreeToRadiant(degree);
             Point<T> res = {
-                    vector.x * cos(angle) - vector.y * sin(angle),
-                    vector.x * sin(angle) + vector.y * cos(angle)};
+                    vector.x * std::cos(angle) - vector.y * std::sin(angle),
+                    vector.x * std::sin(angle) + vector.y * std::cos(angle)};
 
             return res;
         }
@@ -115,13 +115,13 @@ namespace Engine {
         }
 
         template<typename T>
-        [[nodiscard]] static double getVectorMagnitude(const Engine::Point<T> &vector)
+        [[nodiscard]] static float getVectorMagnitude(const Engine::Point<T> &vector)
         {
             return (sqrt(pow(vector.x, 2) + pow(vector.y, 2)));
         }
 
         template<typename T>
-        [[nodiscard]] static double getDistance(const Engine::Point<T> &a, const Engine::Point<T> &b)
+        [[nodiscard]] static float getDistance(const Engine::Point<T> &a, const Engine::Point<T> &b)
         {
             return sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
         }
@@ -152,6 +152,14 @@ template<typename T>
 [[nodiscard]] bool Engine::Box<T>::doOverlap(const Engine::Point<T> &point) const
 {
     return Geometry::doOverlap(point, this);
+}
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const Engine::Box<T>& box)
+{
+    os << "x1/x2: " << box.x1 << "/" << box.x2 << " && ";
+    os << "y1/y2: " << box.y1 << "/" << box.y2;
+    return os;
 }
 
 #endif //RTYPE_GEOMETRY_HPP

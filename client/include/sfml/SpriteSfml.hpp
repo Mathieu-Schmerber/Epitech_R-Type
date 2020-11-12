@@ -39,11 +39,11 @@ public:
     [[nodiscard]] Engine::Point<float> getOrigin() const override;
     void setScale(Engine::Scale<float> scale) override;
     [[nodiscard]] Engine::Scale<float> getScale() const;
-    void setRect(Engine::Box<int> rect) override;
-    [[nodiscard]] Engine::Box<int> getRect() const override;
-    [[nodiscard]] Engine::Size<int> getSize() const override;
+    void setRect(Engine::Box<float> rect) override;
+    [[nodiscard]] Engine::Box<float> getRect() const override;
+    [[nodiscard]] Engine::Size<float> getSize() const override;
 
-    void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) override;
+    void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<float> position, float angle) override;
 
 private:
     sf::Sprite _sprite;
