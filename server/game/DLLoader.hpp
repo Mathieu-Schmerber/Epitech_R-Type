@@ -48,7 +48,7 @@ void DLLoader<T>::open()
         _lib = LoadLibrary(TEXT(_libName.c_str()));
     #endif
     if (!_lib) {
-        std::cerr << dlerror() << std::endl;
+        //std::cerr << dlerror() << std::endl;
         throw std::exception();
     }
 }

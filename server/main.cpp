@@ -4,7 +4,7 @@
 
 void testServer()
 {
-    Server server(4242);
+    Server server(4243);
 
     server.run();
 }

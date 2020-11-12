@@ -19,9 +19,13 @@ LobbySystem::LobbySystem(std::shared_ptr<NetworkAccess> &server, std::shared_ptr
 
 void LobbySystem::updateFromServer()
 {
+    std::cout << "OUI 1" << std::endl;
     auto &tcp = this->_server->getTcpSocket();
+    std::cout << "OUI 2" << std::endl;
     auto data = tcp->getDataFromServer();
+    std::cout << "OUI 3" << std::endl;
     int size = data.at(0);
+    std::cout << "OUI 4" << std::endl;
 
     if (size < 6)
         return;
