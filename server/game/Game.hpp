@@ -5,10 +5,12 @@
 #ifndef RTYPE_GAME_HPP
 #define RTYPE_GAME_HPP
 
+#include <entities/Enemy.hpp>
 #include "ecs/System.hpp"
 #include "tools/Timer.hpp"
 #include "networking/UDP/UdpSocketInput.hpp"
 #include "Client.hpp"
+#include "DLLoader.hpp"
 
 class Game : public std::enable_shared_from_this<Game>
 {
@@ -21,6 +23,7 @@ private:
     std::vector<std::shared_ptr<Client>> _players;
     std::reference_wrapper<std::unique_ptr<UdpSocketInput>> _reception;
 
+    DLLoader<Enemy> dynLoader = std::string("../lib/libfloatingRobot.so");
 
     void initGameEntities();
     void initGameSystems();

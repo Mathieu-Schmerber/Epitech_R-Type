@@ -2,9 +2,12 @@
 // Created by Paul on 11/10/20.
 //
 
+#include "entities/Text.hpp"
 #include "systems/MoveSystem.hpp"
 #include "sfml/SpriteSfml.hpp"
 #include "sfml/MusicSFML.hpp"
+#include "sfml/TextSFML.hpp"
+#include "sfml/FontSFML.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/WindowResizeSystem.hpp"
 #include "systems/ButtonSystem.hpp"
@@ -15,9 +18,8 @@
 #include "systems/MusicSystem.hpp"
 #include "entities/Button.hpp"
 #include "entities/Music.hpp"
-#include "systems/LobbyCreateSystem.hpp"
 #include "scenes/CreateLobby.hpp"
-#include "entities/CreateLobbyEntity.hpp"
+#include "scenes/SceneEnum.hpp"
 
 void goBackToLobbyList(std::shared_ptr<Engine::AScene> &createLobby)
 {
@@ -28,23 +30,35 @@ void goBackToLobbyList(std::shared_ptr<Engine::AScene> &createLobby)
 
 void goToLobbyWaiting(std::shared_ptr<Engine::AScene> &createLobby)
 {
+    Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::LOBBY_WAITING);
 
+    createLobby->pushRequest(request);
 }
 
 void increaseNbOfClientsCb(std::shared_ptr<Engine::AScene> &createLobby)
 {
     auto createLobbyObject = std::dynamic_pointer_cast<CreateLobby>(createLobby);
-    auto lobbySystem = dynamic_cast<CreateLobbySystem *>(createLobbyObject->getCreateLobbySystem().get());
+    auto &text = createLobbyObject->getTextNbPlayerMax()->getComponent<Engine::TextComponent>()->getText();
+    auto string = text->toStdString();
+    auto nb = std::atoi(string.substr(20, 21).c_str());
 
-    lobbySystem->increaseNbOClients();
+    if (nb < 9) {
+        string.back() = std::to_string(nb + 1).front();
+        text->setString(string);
+    }
 }
 
 void decreaseNbOfClientsCb(std::shared_ptr<Engine::AScene> &createLobby)
 {
     auto createLobbyObject = std::dynamic_pointer_cast<CreateLobby>(createLobby);
-    auto lobbySystem = dynamic_cast<CreateLobbySystem *>(createLobbyObject->getCreateLobbySystem().get());
+    auto &text = createLobbyObject->getTextNbPlayerMax()->getComponent<Engine::TextComponent>()->getText();
+    auto string = text->toStdString();
+    auto nb = std::atoi(string.substr(20, 21).c_str());
 
-    lobbySystem->decreaseNbOfClients();
+    if (nb > 1) {
+        string.back() = std::to_string(nb - 1).front();
+        text->setString(string);
+    }
 }
 
 CreateLobby::CreateLobby(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<NetworkAccess> &server)
@@ -56,9 +70,6 @@ CreateLobby::CreateLobby(std::shared_ptr<Engine::AWindow> &window, std::shared_p
 
 void CreateLobby::initEntities()
 {
-    std::shared_ptr<Engine::Entity> nbMaxOfClients = std::make_shared<CreateLobbyEntity>();
-    nbMaxOfClients->getComponent<Engine::TransformComponent>()->setPos({547, 486});
-
     auto goBackButtonSprite = std::make_unique<SpriteSFML>(GO_BACK_BUTTON_PATH);
     std::shared_ptr<Engine::Entity> goBackButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{GO_BACK_BUTTON_POSITION_X, GO_BACK_BUTTON_POSITION_Y}, Engine::Point<int>{GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT}, std::move(goBackButtonSprite), &goBackToLobbyList, std::shared_ptr<Engine::AScene>(this));
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
@@ -78,16 +89,21 @@ void CreateLobby::initEntities()
     goDownButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({GO_DOWN_BUTTON_X_CLICKED, GO_NEXT_BUTTON_Y}, {GO_DOWN_BUTTON_WIDTH, GO_DOWN_BUTTON_HEIGHT})});
 
     auto createLobbySprite = std::make_unique<SpriteSFML>(CREATE_LOBBY_BUTTON_PATH);
-    std::shared_ptr<Engine::Entity> createLobbyButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{900, 670}, Engine::Point<int>{GO_DOWN_BUTTON_WIDTH, GO_DOWN_BUTTON_HEIGHT}, std::move(createLobbySprite),&goToLobbyWaiting, std::shared_ptr<Engine::AScene>(this));
+    std::shared_ptr<Engine::Entity> createLobbyButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{900, 670}, Engine::Point<int>{CREATE_LOBBY_BUTTON_WIDTH, CREATE_LOBBY_BUTTON_HEIGHT}, std::move(createLobbySprite), &goToLobbyWaiting, std::shared_ptr<Engine::AScene>(this));
     createLobbyButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({CREATE_LOBBY_BUTTON_X_IDLE, CREATE_LOBBY_BUTTON_Y}, {CREATE_LOBBY_BUTTON_WIDTH, CREATE_LOBBY_BUTTON_HEIGHT})});
     createLobbyButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<int>({CREATE_LOBBY_BUTTON_X_HOVER, GO_NEXT_BUTTON_Y}, {CREATE_LOBBY_BUTTON_WIDTH, CREATE_LOBBY_BUTTON_HEIGHT})});
     createLobbyButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({CREATE_LOBBY_BUTTON_X_CLICKED, CREATE_LOBBY_BUTTON_Y}, {CREATE_LOBBY_BUTTON_WIDTH, CREATE_LOBBY_BUTTON_HEIGHT})});
 
-    this->spawnEntity(nbMaxOfClients);
+    std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(PIXEBOY_FONT_PATH);
+    auto nbMaxOfClientsText = std::make_unique<TextSFML>("Number of players : 1", font, 100);
+    std::shared_ptr<Engine::Entity> nbMaxOfClientsTextEngine = std::make_shared<Engine::Text>(Engine::Point<int>{547, 486}, std::move(nbMaxOfClientsText));
+    _textNbPlayerMax = nbMaxOfClientsTextEngine;
+
     this->spawnEntity(goBackButtonEngine);
     this->spawnEntity(goUpButtonEngine);
     this->spawnEntity(goDownButtonEngine);
     this->spawnEntity(createLobbyButtonEngine);
+    this->spawnEntity(nbMaxOfClientsTextEngine);
 }
 
 void CreateLobby::initSystems()
@@ -101,7 +117,6 @@ void CreateLobby::initSystems()
     auto move = std::make_unique<Engine::MoveSystem>();
     auto music = std::make_unique<Engine::MusicSystem>();
     auto window = std::make_unique<Engine::WindowResizeSystem>(this->_window);
-    auto createLobby = std::make_unique<CreateLobbySystem>(this->_server, this->_events);
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(text));
@@ -112,16 +127,15 @@ void CreateLobby::initSystems()
     this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(music));
     this->_systems.push_back(std::move(window));
-    this->_systems.push_back(std::move(createLobby));
-    //create LobbyList system MUST be at the end
 }
 
-const std::unique_ptr<Engine::System> & CreateLobby::getCreateLobbySystem() const
-{
-    return _systems.back();
-}
 
 std::shared_ptr<Engine::AWindow> CreateLobby::getWindow() const
 {
     return _window;
+}
+
+std::shared_ptr<Engine::Entity> CreateLobby::getTextNbPlayerMax() const
+{
+    return _textNbPlayerMax;
 }

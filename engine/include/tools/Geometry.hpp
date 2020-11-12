@@ -99,6 +99,28 @@ namespace Engine {
         }
 
         template<typename T>
+        static void normalizeVector(Engine::Point<T> &vector)
+        {
+            T magnitude = getVectorMagnitude(vector);
+
+            if (magnitude == 0)
+                return;
+            vector = Point<T>{vector.x / magnitude, vector.y / magnitude};
+        }
+
+        template<typename T>
+        [[nodiscard]] static double getVectorMagnitude(const Engine::Point<T> &vector)
+        {
+            return (sqrt(pow(vector.x, 2) + pow(vector.y, 2)));
+        }
+
+        template<typename T>
+        [[nodiscard]] static double getDistance(const Engine::Point<T> &a, const Engine::Point<T> &b)
+        {
+            return sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
+        }
+
+        template<typename T>
         [[nodiscard]] static bool doOverlap(const Point<T> &point, const Box<T> &box) {
             return (point.x >= box.x1 && point.x <= box.x2 &&
                     point.y >= box.y1 && point.y <= box.y2);
@@ -124,6 +146,14 @@ template<typename T>
 [[nodiscard]] bool Engine::Box<T>::doOverlap(const Engine::Point<T> &point) const
 {
     return Geometry::doOverlap(point, this);
+}
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const Engine::Box<T>& box)
+{
+    os << "x1/x2: " << box.x1 << "/" << box.x2 << " && ";
+    os << "y1/y2: " << box.y1 << "/" << box.y2;
+    return os;
 }
 
 #endif //RTYPE_GEOMETRY_HPP

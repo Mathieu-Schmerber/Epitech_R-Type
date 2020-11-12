@@ -1,5 +1,6 @@
 #include "TCP/TcpSocket.hpp"
 #include "Client.hpp"
+#include "game/DLLoader.hpp"
 
 void testServer()
 {
@@ -8,7 +9,7 @@ void testServer()
     server.run();
 }
 
-int main()
+int main(int ac, char **av)
 {
     testServer();
     return 0;

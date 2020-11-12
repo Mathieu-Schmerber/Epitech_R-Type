@@ -39,13 +39,11 @@ void ClientNetworkSystem::receiveGameData()
         if (increment >= UDP_BUFFER_SIZE)
             return;
         dataSection = std::vector<int>(data.begin() + increment, data.begin() + increment + UDP_ENTITY_SIZE);
-        if (!dataSection.empty() && dataSection.at(0) == e->getComponent<Engine::NetworkComponent>()->getNetworkId())
+        if (!dataSection.empty() && dataSection.at(0) == e->getComponent<Engine::NetworkComponent>()->getNetworkId()) {
             this->_parser->updateEntityFromUdp(e, dataSection);
-        else if (!dataSection.empty()) {
+            increment += UDP_ENTITY_SIZE;
+        } else if (!dataSection.empty())
             this->_scene->despawnEntity(e);
-            continue;
-        }
-        increment += UDP_ENTITY_SIZE;
     }
     rest = (UDP_BUFFER_SIZE - increment) / UDP_ENTITY_SIZE;
     for (int i = 0; i < rest; ++i) {

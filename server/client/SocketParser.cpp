@@ -28,7 +28,6 @@ std::vector<int> SocketParser::parseUdpEntity(const std::shared_ptr<Engine::Enti
     static auto pool = new Engine::AssetPool("../../client/assets");
     std::vector<int> parsed;
     auto transform = entity->getComponent<Engine::TransformComponent>();
-    auto velocity = entity->getComponent<Engine::VelocityComponent>();
     auto sprite = entity->getComponent<Engine::SpriteComponent>();
 
     parsed.push_back(entity->getComponent<Engine::NetworkComponent>()->getNetworkId());
@@ -41,7 +40,5 @@ std::vector<int> SocketParser::parseUdpEntity(const std::shared_ptr<Engine::Enti
     parsed.push_back(sprite->getSprite()->getRect().y1);
     parsed.push_back(sprite->getSprite()->getRect().y2);
     parsed.push_back(sprite->getLayer());
-    parsed.push_back(velocity ? (int)velocity->getSpeed().x : 0);
-    parsed.push_back(velocity ? (int)velocity->getSpeed().y : 0);
     return parsed;
 }

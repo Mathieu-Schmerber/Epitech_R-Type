@@ -11,6 +11,7 @@ enum SceneType {
     SETTINGS,
     HOW_TO_PLAY,
     LOBBY_LIST,
+    LOBBY_WAITING,
     CREATE_LOBBY
 };
 

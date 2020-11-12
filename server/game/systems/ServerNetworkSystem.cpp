@@ -43,10 +43,9 @@ void ServerNetworkSystem::sendGameData()
         auto section = SocketParser::parseUdpEntity(e);
         data.insert(data.end(), section.begin(), section.end());
     }
+    data.resize(240, -1);
     for (auto &cli : this->_players)
-    {
         cli->sendToClient(data);
-    }
 }
 
 void ServerNetworkSystem::update()

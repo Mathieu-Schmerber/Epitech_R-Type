@@ -3,7 +3,6 @@
 //
 
 #include <memory>
-
 #include "Core.hpp"
 #include "scenes/MainMenu.hpp"
 #include "scenes/Settings.hpp"
@@ -16,6 +15,7 @@
 #include "scenes/Groups.hpp"
 #include "scenes/LobbyList.hpp"
 #include "scenes/CreateLobby.hpp"
+#include "scenes/LobbyWaiting.hpp"
 
 Core::Core()
 {
@@ -30,15 +30,15 @@ Core::Core()
 void Core::setupGroups()
 {
     auto p = std::make_shared<ParallaxGroup>();
-    auto m = std::make_shared<MusicGroup>();
 
     this->_sceneManager->addGroup(GroupId::MENU_PARALLAX, std::dynamic_pointer_cast<Engine::AEntityGroup>(p));
-    this->_sceneManager->addGroup(GroupId::MENU_MUSIC, std::dynamic_pointer_cast<Engine::AEntityGroup>(m));
+    this->_sceneManager->addGroup(GroupId::MENU_MUSIC, std::dynamic_pointer_cast<Engine::AEntityGroup>(std::make_shared<MusicGroup>()));
     this->_sceneManager->setAccessGroup(SceneType::MAIN_MENU, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::SETTINGS, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::HOW_TO_PLAY, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::LOBBY_LIST, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::CREATE_LOBBY, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
+    this->_sceneManager->setAccessGroup(SceneType::LOBBY_WAITING, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
 }
 
 void Core::initScenes()
@@ -49,6 +49,7 @@ void Core::initScenes()
     this->_sceneManager->addScene(std::move(std::make_unique<LobbyList>(this->_graph->getWindow(), this->_graph->getEvents(), this->_server)));
     this->_sceneManager->addScene(std::move(std::make_unique<InGame>(this->_graph->getWindow(), this->_graph->getEvents(), this->_server)));
     this->_sceneManager->addScene(std::move(std::make_unique<CreateLobby>(this->_graph->getWindow(), this->_graph->getEvents(), this->_server)));
+    this->_sceneManager->addScene(std::move(std::make_unique<LobbyWaiting>(this->_graph->getWindow(), this->_graph->getEvents(), this->_server)));
     this->setupGroups();
     this->_sceneManager->switchScene(SceneType::MAIN_MENU);
 }
@@ -71,45 +72,3 @@ void Core::run()
     _graph->getEvents()->update();
     _graph->getWindow()->display();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class mesCouilles {
-    private:
-        short _port;
-        std::string _ip;
-        int _idMasterClient;
-        int _nbMaxClient;
-
-};

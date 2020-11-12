@@ -37,6 +37,7 @@ namespace Engine {
         [[nodiscard]] virtual Engine::Size<int> getSize() const = 0;
         [[nodiscard]] virtual float getRotation() const = 0;
         [[nodiscard]] virtual std::shared_ptr<Engine::AFont> getFont() const;
+        [[nodiscard]] virtual std::string toStdString() const = 0;
 
     protected:
         std::shared_ptr<Engine::AFont> _font;

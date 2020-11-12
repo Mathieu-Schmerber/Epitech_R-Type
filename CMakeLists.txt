@@ -34,7 +34,6 @@ set(ENGINE_SOURCES
 		engine/src/systems/AnimationSystem.cpp
 		engine/src/sceneManagement/AEntityGroup.cpp
 		engine/src/Timer.cpp
-		engine/src/systems/AnimationSystem.cpp
 		engine/src/graphical/AMusic.cpp
 		engine/src/systems/MusicSystem.cpp
 		engine/src/graphical/ATexture.cpp
@@ -48,7 +47,29 @@ set(ENGINE_SOURCES
 		engine/src/networking/UDP/UdpSocketOutput.cpp
 		engine/src/systems/WindowResizeSystem.cpp
 		engine/src/systems/TextSystem.cpp
-		engine/src/systems/ButtonSystem.cpp engine/include/tools/AssetPool.cpp engine/include/tools/AssetPool.hpp)
+        engine/src/networking/AServer.cpp
+        engine/src/sceneManagement/SceneManager.cpp
+        engine/src/sceneManagement/AScene.cpp
+        engine/src/graphical/ASprite.cpp
+        engine/src/graphical/AEvents.cpp
+        engine/src/graphical/ASound.cpp
+        engine/src/graphical/AGraphical.cpp
+        engine/src/graphical/AWindow.cpp
+        engine/src/systems/DrawSystem.cpp
+        engine/src/systems/DrawSystem.cpp
+        engine/src/systems/MouseSystem.cpp
+        engine/src/systems/InputSystem.cpp
+        engine/src/systems/PhysicSystem.cpp
+        engine/src/Timer.cpp
+        engine/src/graphical/AMusic.cpp
+        engine/src/graphical/ASoundBuffer.cpp
+        engine/include/graphical/ASoundBuffer.hpp
+		engine/src/systems/WindowResizeSystem.cpp
+		engine/src/systems/TextSystem.cpp
+		engine/src/systems/ButtonSystem.cpp
+		engine/src/graphical/ASoundBuffer.cpp
+		engine/src/systems/ButtonSystem.cpp
+		engine/src/tools/AssetPool.cpp)
 
 set(ENGINE_INCLUDES
 		engine/include/ecs/Entity.hpp
@@ -61,6 +82,20 @@ set(ENGINE_INCLUDES
 		engine/include/networking/ATcpSocket.hpp
 		engine/include/components/TransformComponent.hpp
 		engine/include/components/SpriteComponent.hpp
+		engine/include/components/ClickableComponent.hpp
+		engine/include/components/NetworkComponent.hpp
+		engine/include/components/ControllerComponent.hpp
+		engine/include/components/ColliderComponent.hpp
+		engine/include/components/ChildrenComponent.hpp
+		engine/include/components/VelocityComponent.hpp
+		engine/include/components/MusicComponent.hpp
+		engine/include/components/SoundComponent.hpp
+		engine/include/components/ParallaxComponent.hpp
+		engine/include/components/AnimationComponent.hpp
+		engine/include/components/TextComponent.hpp
+		engine/include/components/ButtonComponent.hpp
+		engine/include/components/TextComponent.hpp
+		engine/include/components/AudioComponent.hpp
 		engine/include/systems/DrawSystem.hpp
 		engine/include/graphical/ASprite.hpp
 		engine/include/graphical/AGraphical.hpp
@@ -69,33 +104,22 @@ set(ENGINE_INCLUDES
 		engine/include/graphical/AWindow.hpp
 		engine/include/systems/DrawSystem.hpp
 		engine/include/entities/Button.hpp
-		engine/include/components/ClickableComponent.hpp
-		engine/include/components/NetworkComponent.hpp
-		engine/include/components/ControllerComponent.hpp
 		engine/include/enumerations/Inputs.hpp
-		engine/include/components/ColliderComponent.hpp
-		engine/include/components/ChildrenComponent.hpp
-		engine/include/components/VelocityComponent.hpp
-		engine/include/components/MusicComponent.hpp
-		engine/include/components/SoundComponent.hpp
 		engine/include/systems/MouseSystem.hpp
 		engine/include/tools/Geometry.hpp
 		engine/include/systems/InputSystem.hpp
 		engine/include/systems/PhysicSystem.hpp
 		engine/include/entities/Drawable.hpp
 		engine/include/tools/Utils.hpp
-		engine/include/components/ParallaxComponent.hpp
 		engine/include/systems/ParallaxSystem.hpp
 		engine/include/entities/ParallaxSlide.hpp
 		engine/include/tools/Timer.hpp
-		engine/include/components/AnimationComponent.hpp
 		engine/include/systems/AnimationSystem.hpp
 		engine/include/sceneManagement/AEntityGroup.hpp
 		engine/include/sceneManagement/SceneRequest.hpp
 		engine/include/enumerations/QueryType.hpp
 		engine/include/graphical/AMusic.hpp
 		engine/include/graphical/IAudio.hpp
-		engine/include/components/AudioComponent.hpp
 		engine/include/tools/Time.hpp
 		engine/include/entities/Music.hpp
 		engine/include/tools/ATime.hpp
@@ -106,7 +130,6 @@ set(ENGINE_INCLUDES
 		engine/include/graphical/AText.hpp
 		engine/include/graphical/AFont.hpp
 		engine/include/tools/Color.hpp
-		engine/include/components/TextComponent.hpp
 		engine/include/networking/AUdpSocketIO.hpp
 		engine/include/systems/MoveSystem.hpp
 		engine/include/networking/AUdpSocketIO.hpp
@@ -116,8 +139,18 @@ set(ENGINE_INCLUDES
 		engine/include/systems/WindowResizeSystem.hpp
 		engine/include/systems/MoveSystem.hpp
 		engine/include/systems/TextSystem.hpp
+		engine/include/systems/ButtonSystem.hpp
+		engine/include/systems/MoveSystem.hpp
+        engine/include/graphical/AText.hpp
+        engine/include/graphical/AFont.hpp
+        engine/include/tools/Color.hpp
+        engine/src/graphical/ASoundBuffer.cpp
+        engine/include/graphical/ASoundBuffer.hpp
+        engine/include/components/TextComponent.hpp
+        engine/include/graphical/ASoundBuffer.hpp
 		engine/include/components/ButtonComponent.hpp
-		engine/include/systems/ButtonSystem.hpp engine/include/tools/AssetPool.cpp engine/include/tools/AssetPool.hpp)
+		engine/include/systems/ButtonSystem.hpp
+		engine/include/tools/AssetPool.hpp)
 
 set(CLIENT_SOURCES
 		client/src/main.cpp
@@ -142,7 +175,28 @@ set(CLIENT_SOURCES
 		client/src/scenes/InGame.cpp
 		client/src/scenes/InGame.cpp
 		client/src/systems/LobbySystem.cpp
-		client/src/scenes/CreateLobby.cpp)
+		client/src/scenes/InGame.cpp
+		client/src/systems/LobbySystem.cpp
+		client/src/scenes/CreateLobby.cpp
+        client/src/main.cpp
+        client/src/Core.cpp
+        client/src/scenes/MainMenu.cpp
+        client/src/sfml/WindowSFML.cpp
+        client/src/sfml/SoundSFML.cpp
+        client/src/sfml/EventsSFML.cpp
+        client/src/sfml/GraphicalSFML.cpp
+        client/src/scenes/Settings.cpp
+        client/src/sfml/MusicSFML.cpp
+        client/src/sfml/TextureSFML.cpp
+        client/src/sfml/TextureSFML.cpp
+        client/src/scenes/HowToPlay.cpp
+        client/src/sfml/TextSFML.cpp
+        client/src/sfml/FontSFML.cpp
+        client/src/sfml/SoundBufferSFML.cpp
+		client/src/systems/LobbySystem.cpp
+		client/src/scenes/LobbyWaiting.cpp
+		client/src/systems/PlayerAndStarshipSystem.cpp
+        client/include/sfml/SoundBufferSFML.hpp)
 
 set(CLIENT_INCLUDES
 		client/include/Core.hpp
@@ -154,14 +208,12 @@ set(CLIENT_INCLUDES
 		client/include/sfml/EventsSFML.hpp
 		client/include/sfml/SoundSFML.hpp
 		client/include/sfml/SpriteSfml.hpp
-		client/include/scenes/SceneType.hpp
 		client/include/scenes/Settings.hpp
 		client/include/scenes/GroupId.hpp
 		client/include/scenes/Groups.hpp
 		client/include/Layer.hpp
 		client/include/scenes/Settings.hpp
 		client/include/sfml/MusicSFML.hpp
-		client/include/sfml/TextureSFML.hpp
 		client/include/sfml/TextureSFML.hpp
 		client/include/scenes/HowToPlay.hpp
 		client/include/sfml/TextSFML.hpp
@@ -175,7 +227,20 @@ set(CLIENT_INCLUDES
 		client/include/components/LobbyComponent.hpp
 		client/include/entities/LobbyCard.hpp
 		client/include/systems/LobbySystem.hpp
-		client/include/scenes/CreateLobby.hpp client/include/systems/LobbyCreateSystem.hpp client/include/components/CreateLobbyComponent.hpp client/src/systems/LobbyCreateSystem.cpp client/include/entities/CreateLobbyEntity.hpp)
+		client/include/components/LobbyComponent.hpp
+		client/include/systems/LobbySystem.hpp
+		client/include/scenes/CreateLobby.hpp
+		client/include/scenes/LobbyWaiting.hpp
+		client/include/entities/LobbyWaitingEntity.hpp
+		engine/include/entities/Text.hpp
+		client/include/entities/PlayerAndStarshipEntity.hpp
+		client/include/systems/PlayerAndStarshipSystem.hpp
+		client/include/components/LobbyComponent.hpp
+        client/include/scenes/Settings.hpp
+        client/include/sfml/MusicSFML.hpp
+        client/src/sfml/SoundBufferSFML.cpp
+		client/include/sfml/SoundBufferSFML.hpp
+		client/include/systems/LobbySystem.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp
@@ -191,7 +256,9 @@ set(SERVER_SOURCES
 		server/game/dataHolders/DataSprite.cpp
 		server/game/dataHolders/DataTexture.cpp
 		server/game/systems/PlayerSystem.cpp
-		server/game/systems/ProjectileSystem.cpp server/game/systems/ProjectileSystem.hpp)
+		server/game/systems/AutomaticWeaponSystem.cpp
+		server/game/systems/EnemySystem.cpp
+		server/game/systems/ProjectileSystem.cpp)
 
 set(SERVER_INCLUDES
 		server/core/CoreServer.hpp
@@ -204,13 +271,68 @@ set(SERVER_INCLUDES
 		server/client/TCP/TcpSocket.hpp
 		server/game/systems/ServerNetworkSystem.hpp
 		server/game/Game.hpp
+		server/game/entities/Enemy.hpp
+		server/game/DLLoader.hpp
+		server/game/Game.hpp
 		server/game/dataHolders/DataSprite.hpp
 		server/game/dataHolders/DataTexture.hpp
 		server/game/entities/Player.hpp
-		server/game/systems/PlayerSystem.hpp server/game/components/WeaponComponent.hpp server/game/components/ProjectileComponent.hpp server/game/entities/Projectile.hpp server/game/systems/ProjectileSystem.cpp server/game/systems/ProjectileSystem.hpp)
+		server/game/systems/PlayerSystem.hpp
+		server/game/components/ManualWeaponComponent.hpp
+		server/game/components/ProjectileComponent.hpp
+		server/game/entities/Projectile.hpp
+		server/game/systems/ProjectileSystem.hpp
+		server/game/systems/ProjectileSystem.hpp
+		server/game/systems/EnemySystem.hpp
+		server/game/components/PatternComponent.hpp
+		server/game/systems/AutomaticWeaponSystem.hpp
+		server/game/components/AutomaticWeaponComponent.hpp
+		server/game/Game.hpp
+		server/game/DLLoader.hpp
+		server/game/systems/PlayerSystem.hpp
+		server/game/components/ProjectileComponent.hpp
+		server/game/entities/Projectile.hpp
+		server/game/systems/ProjectileSystem.hpp)
+
+
+set(ENEMIES_INCLUDES
+	${ENGINE_INCLUDES} ${SERVER_INCLUDES}
+)
+set(ENEMIES_SOURCES
+		server/game/dataHolders/DataSprite.cpp
+		server/game/dataHolders/DataTexture.cpp
+		engine/src/graphical/ASprite.cpp
+		engine/src/graphical/ATexture.cpp
+		)
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
+
+include(GNUInstallDirs)
+
+# Dynamic libs
+add_library(floatingRobot SHARED
+		dynamic_libs/FloatingRobot.cpp
+		dynamic_libs/FloatingRobot.hpp
+
+		${ENEMIES_SOURCES}
+		)
+set_target_properties(floatingRobot PROPERTIES SOVERSION 1)
+set_target_properties(floatingRobot PROPERTIES
+		PUBLIC_HEADER "${ENEMIES_INCLUDES}")
+target_include_directories(floatingRobot PUBLIC
+		dynamic_libs
+		engine/include
+		server/game
+		client/include
+		)
+install(TARGETS floatingRobot
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES ${CMAKE_BINARY_DIR}/floatingRobot.pc
+		DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+
+###############
 
 target_include_directories(r-type_server PRIVATE
         server/core
@@ -223,7 +345,8 @@ target_include_directories(r-type_server PRIVATE
         engine/src/networking/UDP)
 target_include_directories(r-type_client PRIVATE
         client/include
-        engine/include)
+        engine/include
+		)
 
 message("===========================================")
 message(${CONAN_LIBS})

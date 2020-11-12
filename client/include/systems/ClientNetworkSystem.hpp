@@ -12,7 +12,7 @@
 #include "SocketParser.hpp"
 
 #define UDP_BUFFER_SIZE 240
-#define UDP_ENTITY_SIZE 12
+#define UDP_ENTITY_SIZE 10
 #define UDP_READ UDP_BUFFER / UDP_ENTITY_SIZE
 
 class ClientNetworkSystem : public Engine::System

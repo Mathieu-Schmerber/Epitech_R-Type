@@ -66,8 +66,8 @@ private:
     void initSystems() final;
 
 public:
-
     MainMenu(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events);
+    ~MainMenu() = default;
     std::shared_ptr<Engine::AWindow> getWindow() const;
 };
 
