@@ -5,6 +5,7 @@
 #ifndef RTYPE_GROUND_HPP
 #define RTYPE_GROUND_HPP
 
+#include "CollisionMasks.hpp"
 #include "tools/Geometry.hpp"
 #include "components/TransformComponent.hpp"
 #include "components/SpriteComponent.hpp"
@@ -29,9 +30,9 @@ public:
 
         spr->setRect({{0, 0}, _size});
         this->addComponent<Engine::TransformComponent>(pos);
-        this->addComponent<Engine::ParallaxComponent>(pos, limit);
+        this->addComponent<Engine::ParallaxComponent>(pos, limit, false);
         this->addComponent<Engine::VelocityComponent>(speed);
-        this->addComponent<Engine::ColliderComponent>(0, pos, _size);
+        this->addComponent<Engine::ColliderComponent>(Collision::WALL, pos, _size);
         this->addComponent<Engine::SpriteComponent>(1, std::move(spr));
     }
 };

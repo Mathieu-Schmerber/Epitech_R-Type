@@ -14,7 +14,7 @@ GroundSystem::GroundSystem(std::shared_ptr<Game> &game) : _game(game), Engine::S
     this->_lastHeight = 1;
 }
 
-void GroundSystem::spawnGrounds(int offset)
+void GroundSystem::spawnGrounds(int xOffset, int yOffset)
 {
     std::random_device rd;
     std::mt19937 rng(rd());
@@ -25,7 +25,7 @@ void GroundSystem::spawnGrounds(int offset)
 
     height = (height > 3 ? 2 : (height == 0 ? 1 : height));
     for (int j = 1; j < height + 1; j++) {
-        pos = {offset, 1080 - (GROUND_HEIGHT * j)};
+        pos = {xOffset, (yOffset != 0 ? yOffset - (GROUND_HEIGHT * j) : (GROUND_HEIGHT * (j - 1)))};
         gr = std::make_shared<Ground>(pos, Engine::Point<int>{-GROUND_WIDTH, pos.y}, Engine::Vector<double>{-20, 0});
         this->_game->spawn(gr, true);
     }
@@ -41,8 +41,10 @@ void GroundSystem::update()
     bool spawned = false;
 
     if (this->_entities.empty()) {
-        for (int i = 0; i < 1920 / GROUND_WIDTH + 1; ++i)
-            this->spawnGrounds(i * GROUND_WIDTH);
+        for (int i = 0; i < 1920 / GROUND_WIDTH + 1; ++i) {
+            this->spawnGrounds(i * GROUND_WIDTH, 1080);
+            this->spawnGrounds(i * GROUND_WIDTH, 0);
+        }
     }
     for (auto &e : copy) {
         transform = e->getComponent<Engine::TransformComponent>();
@@ -53,6 +55,8 @@ void GroundSystem::update()
             this->_game->despawn(e);
         }
     }
-    if (spawned)
-        this->spawnGrounds(GROUND_WIDTH * 10);
+    if (spawned) {
+        this->spawnGrounds(GROUND_WIDTH * 9, 1080);
+        this->spawnGrounds(GROUND_WIDTH * 9, 0);
+    }
 }

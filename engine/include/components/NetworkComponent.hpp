@@ -5,8 +5,8 @@
 #ifndef RTYPE_NETWORKCOMPONENT_HPP
 #define RTYPE_NETWORKCOMPONENT_HPP
 
-#include "ecs/Component.hpp"
 #include "tools/Geometry.hpp"
+#include "ecs/Component.hpp"
 
 namespace Engine {
 

@@ -17,7 +17,7 @@ private:
     std::vector<int> _graph;
     int _lastHeight;
 
-    void spawnGrounds(int offset);
+    void spawnGrounds(int xOffset, int yOffset);
 
 public:
     explicit GroundSystem(std::shared_ptr<Game> &game);
