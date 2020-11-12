@@ -25,7 +25,7 @@ void Lobby::run()
 
 void Lobby::join(const std::shared_ptr<Client> &cli)
 {
-    std::cout << "Client " << cli->getId() << " join." << std::endl;
+    std::cout << "Client " << cli->getId() << " join lobby " << _id << std::endl;
     _players.push_back(cli);
 }
 

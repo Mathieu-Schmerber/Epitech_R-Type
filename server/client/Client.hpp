@@ -31,11 +31,12 @@ public:
     void sendToClient(const std::vector<int> &in);
     int getId() const;
 private:
-    tcp::socket socket;
+    std::shared_ptr<Engine::UdpSocketOutput> _socketOutput;
     enum { max_length = 1024 };
     std::vector<int> _data;
-    int _id;
+    tcp::socket socket;
     Server *_server;
+    int _id;
 };
 
 #endif //RTYPE_CLIENT_HPP

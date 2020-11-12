@@ -10,6 +10,7 @@
 
 Client::Client(boost::asio::io_service &io_service, int id, Server *server) : socket(io_service), _id(id), _server(server)
 {
+    _socketOutput = std::make_shared<Engine::UdpSocketOutput>("127.0.0.1", 4242);
     _data.resize(40);
 }
 
@@ -36,7 +37,8 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
     if (_data.at(1) == 1) {
         //Join a lobby
         for (auto a : this->_server->getLobbyManager().getAvailableLobbies()) {
-            //a->join(this);
+            if (a->getId() == _data.at(2))
+                a->join(std::shared_ptr<Client>(this));
         }
     }
 }
