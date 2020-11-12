@@ -133,7 +133,6 @@ set(ENGINE_INCLUDES
 		engine/include/systems/WindowResizeSystem.hpp
 		engine/include/systems/MoveSystem.hpp
 		engine/include/systems/TextSystem.hpp
-        engine/include/enumerations/ButtonState.hpp
         engine/include/graphical/AText.hpp
         engine/include/graphical/AFont.hpp
         engine/include/tools/Color.hpp
