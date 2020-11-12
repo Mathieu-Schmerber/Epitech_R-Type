@@ -92,8 +92,14 @@ bool Game::isGameRunning() const
 
 void Game::update()
 {
-    for (auto &sys : this->_systems) {
-        sys->setDeltatime(this->_timer->deltatime(10));
-        sys->update();
+    int serverTicks = 60;
+    double time;
+
+    if (Engine::Timer::hasElapsed(this->_timer->getLastPoint(), 1.0 / serverTicks)) {
+        time = this->_timer->deltatime();
+        for (auto &sys : this->_systems) {
+            sys->setDeltatime(time);
+            sys->update();
+        }
     }
 }

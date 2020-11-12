@@ -19,6 +19,8 @@ namespace Engine {
 
         [[nodiscard]] static bool hasElapsed(std::chrono::high_resolution_clock::time_point time, double seconds);
         double deltatime(double multiplier = 0.01);
+
+        const std::chrono::high_resolution_clock::time_point &getLastPoint() const;
     };
 
 }

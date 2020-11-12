@@ -99,6 +99,16 @@ namespace Engine {
         }
 
         template<typename T>
+        static void normalizeVector(Engine::Point<T> &vector)
+        {
+            T magnitude = abs(vector.x) + abs(vector.y);
+
+            if (magnitude == 0)
+                return;
+            vector = Point<T>{vector.x / magnitude, vector.y / magnitude};
+        }
+
+        template<typename T>
         [[nodiscard]] static bool doOverlap(const Point<T> &point, const Box<T> &box) {
             return (point.x >= box.x1 && point.x <= box.x2 &&
                     point.y >= box.y1 && point.y <= box.y2);
