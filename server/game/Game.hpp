@@ -10,9 +10,10 @@
 #include "networking/UDP/UdpSocketInput.hpp"
 #include "Client.hpp"
 
-class Game
+class Game : public std::enable_shared_from_this<Game>
 {
 private:
+    bool _running;
     int _idIncrement;
     std::unique_ptr<Engine::Timer> _timer;
     std::vector<std::unique_ptr<Engine::System>> _systems;
@@ -28,9 +29,10 @@ public:
     Game(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception);
     ~Game();
 
-    void spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork);
+    void spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork);
+    void despawn(std::shared_ptr<Engine::Entity> &entity);
     void update();
-    bool isGameRunning() { return true; };
+    [[nodiscard]] bool isGameRunning() const;
 };
 
 

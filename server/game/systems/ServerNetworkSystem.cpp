@@ -25,7 +25,7 @@ void ServerNetworkSystem::receiveClientInputs()
     std::shared_ptr<Engine::Entity> affected;
     Engine::ControllerComponent *controller = nullptr;
 
-    if (!data.empty() && !this->_entities.empty()) {
+    if (!data.empty() && data.at(0) != -1 && !this->_entities.empty()) {
         affected = this->_entities.at(data.at(0));
         controller = affected->getComponent<Engine::ControllerComponent>();
         if (controller) {
@@ -37,12 +37,15 @@ void ServerNetworkSystem::receiveClientInputs()
 
 void ServerNetworkSystem::sendGameData()
 {
+    std::vector<int> data;
+
     for (auto &e : this->_entities) {
-        for (auto &cli : this->_players) {
-            auto data = SocketParser::parseUdpEntity(e);
-            cli.sendToClient(data);
-        }
+        auto section = SocketParser::parseUdpEntity(e);
+        data.insert(data.end(), section.begin(), section.end());
     }
+    data.resize(240, -1);
+    for (auto &cli : this->_players)
+        cli.sendToClient(data);
 }
 
 void ServerNetworkSystem::update()

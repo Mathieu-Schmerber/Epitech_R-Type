@@ -67,7 +67,7 @@ namespace Engine {
                 this->_frame++;
                 if (this->_frame >= this->_animations[_current].size() && this->_looping)
                     this->_frame = 0;
-                else if (!this->_looping)
+                else if (this->_frame >= this->_animations[_current].size() && !this->_looping)
                     this->_frame = this->_animations[_current].size() - 1;
                 res = this->_animations[_current].at(this->_frame);
             }

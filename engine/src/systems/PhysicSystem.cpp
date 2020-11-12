@@ -18,9 +18,17 @@ void Engine::PhysicSystem::update()
 {
     ColliderComponent *colliderA = nullptr;
     ColliderComponent *colliderB = nullptr;
+    TransformComponent *transform = nullptr;
 
     for (auto &a : this->_entities) {
         colliderA = a->getComponent<ColliderComponent>();
+        transform = a->getComponent<TransformComponent>();
+        if (transform->getPos().x != colliderA->getHitBox().x1 || transform->getPos().y != (int)colliderA->getHitBox().x2) {
+            auto original = colliderA->getBaseHitBox();
+            auto current = colliderA->getHitBox();
+            colliderA->setBaseHitBox({{(double)transform->getPos().x, (double)transform->getPos().y}, original.size});
+            colliderA->setHitBox({{(double)transform->getPos().x, (double)transform->getPos().y}, current.size});
+        }
         for (auto &b : this->_entities) {
             colliderB = b->getComponent<ColliderComponent>();
             colliderB->clearCollisions();

@@ -3,11 +3,35 @@
 //
 
 #include "SocketParser.hpp"
-#include "tools/Utils.hpp"
-#include "sfml/SpriteSfml.hpp"
+#include "entities/LobbyCard.hpp"
 #include "components/NetworkComponent.hpp"
-#include "components/SpriteComponent.hpp"
-#include "components/TransformComponent.hpp"
+
+SocketParser::SocketParser()
+{
+    this->_pool = std::make_unique<Engine::AssetPool>("../../client/assets");
+    this->_timer = std::make_unique<Engine::Timer>();
+    this->_deltatime = 0;
+    this->_serverTimer = std::make_unique<Engine::Timer>();
+    this->_serverDelta = 0;
+    this->_serverUpdate = false;
+}
+
+Engine::Point<int> SocketParser::lerp(Engine::Point<int> a, Engine::Point<int> b, double time)
+{
+    double factor = 1;
+
+    if (time <= factor)
+        return {(int)(a.x * (1 - time * factor) + b.x * time * factor), (int)(a.y * (1 - time * factor) + b.y * time * factor)};
+    return b;
+}
+
+bool SocketParser::shouldTeleport(Engine::Point<int> a, Engine::Point<int> b, Engine::Point<int> size)
+{
+    double tolerance = 40;
+
+    return (abs(sqrt(pow(b.x - a.x, 2)) - tolerance) >= (double)(size.x * 0.5) ||
+            abs(sqrt(pow(b.y - a.y, 2)) - tolerance) >= (double)(size.y * 0.5));
+}
 
 std::vector<int> SocketParser::parseUdpInputs(int clientId, const std::vector<Engine::Inputs> &pressed, const std::vector<Engine::Inputs> &released)
 {
@@ -34,22 +58,54 @@ std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector
     entity->addComponent<Engine::TransformComponent>(Engine::Point<int>{in.at(1), in.at(2)}, in.at(3));
     entity->addComponent<Engine::SpriteComponent>();
     sprite = entity->getComponent<Engine::SpriteComponent>();
-    // TODO: set texture thanks to the index: in.at(4)
-    auto spr = std::make_unique<SpriteSFML>("../../client/assets/images/starships/blue_starship_166x17_33x17.png");
+    auto spr = std::make_unique<SpriteSFML>(this->_pool->getPathFromIndex(in.at(4)));
     sprite->setDisplay(std::move(spr));
-    // TODO: ^^^This is a temporary texture set ^^^
     sprite->getSprite()->setRect({in.at(5), in.at(6), in.at(7), in.at(8)});
     return std::shared_ptr<Engine::Entity>(entity);
 }
 
-void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in)
+void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in) const
 {
     auto *sprite = entity->getComponent<Engine::SpriteComponent>();
+    auto inititalPos = entity->getComponent<Engine::TransformComponent>()->getPos();
+    auto smooth = SocketParser::lerp(inititalPos, {in.at(1), in.at(2)}, this->_deltatime);
 
-    if (in.size() < 9)
-        return;
-    entity->getComponent<Engine::TransformComponent>()->setPos({in.at(1), in.at(2)});
+    if (SocketParser::shouldTeleport(inititalPos, {in.at(1), in.at(2)}, {in.at(6), in.at(8)}))
+        smooth = Engine::Point<int>{in.at(1), in.at(2)};
+    entity->getComponent<Engine::TransformComponent>()->setPos(smooth);
     entity->getComponent<Engine::TransformComponent>()->setRotation(in.at(3));
     sprite->getSprite()->setRect({in.at(5), in.at(6), in.at(7), in.at(8)});
-    // TODO: set texture thanks to the index: in.at(4)
+    sprite->setLayer(in.at(9));
+}
+
+std::shared_ptr<Engine::Entity> SocketParser::unparseTcpLobby(const std::vector<int> &in)
+{
+    //TODO: TMP RAW DATA (Get it from the "in")
+    int lobbyId = 0;
+    int maxPlayers = 4;
+    int idClientMaster = 0;
+    short port = 4242;
+    //TODO: TMP RAW DATA
+    auto entity = new LobbyCard(port, lobbyId, maxPlayers, idClientMaster);
+
+    return std::shared_ptr<Engine::Entity>(entity);
+}
+
+void SocketParser::updateLobbyFromTcp(std::shared_ptr<Engine::Entity> &lobby, const std::vector<int> &in)
+{
+    //TODO: TMP RAW DATA (Get it from the "in")
+    int connectedPlayers = 1;
+    //TODO: TMP RAW DATA
+    auto sprites = lobby->getComponents<Engine::SpriteComponent>();
+
+    for (int i = 1; i < connectedPlayers + 1; ++i)
+        sprites.at(i)->getSprite()->setRect({Engine::Box<int>({STARSHIP_WIDTH * i, 0}, {STARSHIP_WIDTH, STARSHIP_HEIGHT})});
+}
+
+void SocketParser::refreshTimer(bool dataChanged)
+{
+    this->_serverUpdate = dataChanged;
+    if (dataChanged)
+        this->_serverDelta = this->_serverTimer->deltatime();
+    this->_deltatime = this->_timer->deltatime();
 }

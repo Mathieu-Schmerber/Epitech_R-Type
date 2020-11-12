@@ -21,3 +21,8 @@ bool Engine::Timer::hasElapsed(std::chrono::high_resolution_clock::time_point ti
 
     return (((now - time) / std::chrono::milliseconds(1)) >= seconds * 1000);
 }
+
+const std::chrono::high_resolution_clock::time_point &Engine::Timer::getLastPoint() const
+{
+    return _lastPoint;
+}

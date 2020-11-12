@@ -21,6 +21,7 @@
 class SpriteSFML : public Engine::ASprite {
 public:
     SpriteSFML() = default;
+
     explicit SpriteSFML(std::shared_ptr<Engine::ATexture> &texture) : Engine::ASprite() {
         setTexture(texture);
     }

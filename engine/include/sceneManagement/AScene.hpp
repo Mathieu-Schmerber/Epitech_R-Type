@@ -33,7 +33,8 @@ namespace Engine {
 
         void updateDeltatime(double delta);
         [[nodiscard]] int getId() const;
-        void spawnEntity(std::shared_ptr<Entity> entity);
+        void spawnEntity(std::shared_ptr<Entity> &entity);
+        void despawnEntity(std::shared_ptr<Entity> &entity);
         [[nodiscard]] std::vector<Engine::SceneRequest> getRequests() const;
         void pushRequest(const SceneRequest &request);
         void clearRequests();

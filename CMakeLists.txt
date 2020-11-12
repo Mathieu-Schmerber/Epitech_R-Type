@@ -63,7 +63,9 @@ set(ENGINE_SOURCES
         engine/src/Timer.cpp
         engine/src/graphical/AMusic.cpp
         engine/src/graphical/ASoundBuffer.cpp
-		engine/src/graphical/ASoundBuffer.cpp)
+		engine/src/graphical/ASoundBuffer.cpp
+		engine/src/systems/ButtonSystem.cpp
+		engine/src/tools/AssetPool.cpp)
 
 set(ENGINE_INCLUDES
 		engine/include/ecs/Entity.hpp
@@ -118,7 +120,6 @@ set(ENGINE_INCLUDES
 		engine/include/systems/MusicSystem.hpp
 		engine/include/graphical/ATexture.hpp
 		engine/include/systems/MusicSystem.hpp
-		engine/include/enumerations/ButtonState.hpp
 		engine/include/graphical/AText.hpp
 		engine/include/graphical/AFont.hpp
 		engine/include/tools/Color.hpp
@@ -137,7 +138,10 @@ set(ENGINE_INCLUDES
         engine/include/graphical/AFont.hpp
         engine/include/tools/Color.hpp
         engine/include/components/TextComponent.hpp
-        engine/include/graphical/ASoundBuffer.hpp)
+        engine/include/graphical/ASoundBuffer.hpp
+		engine/include/components/ButtonComponent.hpp
+		engine/include/systems/ButtonSystem.hpp
+		engine/include/tools/AssetPool.hpp)
 
 set(CLIENT_SOURCES
 		client/src/main.cpp
@@ -176,7 +180,7 @@ set(CLIENT_SOURCES
         client/src/sfml/TextSFML.cpp
         client/src/sfml/FontSFML.cpp
         client/src/sfml/SoundBufferSFML.cpp
-        )
+		client/src/systems/LobbySystem.cpp)
 
 set(CLIENT_INCLUDES
 		client/include/Core.hpp
@@ -217,8 +221,8 @@ set(CLIENT_INCLUDES
         client/include/sfml/TextSFML.hpp
         client/include/sfml/FontSFML.hpp
 		client/include/sfml/SoundBufferSFML.hpp
-		)
-
+		client/include/systems/LobbySystem.hpp)
+		
 set(SERVER_SOURCES
         server/main.cpp
         server/core/CoreServer.cpp
@@ -233,7 +237,7 @@ set(SERVER_SOURCES
 		server/game/dataHolders/DataSprite.cpp
 		server/game/dataHolders/DataTexture.cpp
 		server/game/systems/PlayerSystem.cpp
-		)
+		server/game/systems/ProjectileSystem.cpp)
 
 set(SERVER_INCLUDES
 		server/core/CoreServer.hpp
@@ -252,7 +256,12 @@ set(SERVER_INCLUDES
 		server/game/systems/PlayerSystem.hpp
 		server/game/Game.hpp 
 		server/game/IEnemy.hpp 
-		server/game/DLLoader.hpp)
+		server/game/DLLoader.hpp
+		server/game/systems/PlayerSystem.hpp
+		server/game/components/WeaponComponent.hpp
+		server/game/components/ProjectileComponent.hpp
+		server/game/entities/Projectile.hpp
+		server/game/systems/ProjectileSystem.hpp)
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
