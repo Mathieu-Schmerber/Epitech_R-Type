@@ -37,10 +37,13 @@ void LobbySystem::updateFromServer()
 void LobbySystem::handleScroll()
 {
     auto wheel = this->_events->getScrollState();
+    auto arrow = this->_events->getKeysReleased();
 
-    if (wheel.direction == wheel.vertical && wheel.movement < 0) {
+    if ((wheel.direction == wheel.vertical && wheel.movement < 0) ||
+    (!this->_events->getKeysReleased().empty() && arrow.front() == Engine::Inputs::Down)) {
        scrollDownLobbies();
-    } else if (wheel.direction == wheel.vertical && wheel.movement > 0) {
+    } else if ((wheel.direction == wheel.vertical && wheel.movement > 0)||
+        (!this->_events->getKeysReleased().empty() && arrow.front() == Engine::Inputs::Up)) {
         scrollUpLobbies();
     }
 }

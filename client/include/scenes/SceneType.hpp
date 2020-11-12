@@ -10,7 +10,9 @@ enum SceneType {
     GAME,
     SETTINGS,
     HOW_TO_PLAY,
-    LOBBY,
+    LOBBY_LIST,
+    LOBBY_WAITING,
+    CREATE_LOBBY
 };
 
 #endif //RTYPE_SCENETYPE_HPP

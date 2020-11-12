@@ -123,7 +123,7 @@ set(CLIENT_SOURCES
 		client/src/main.cpp
 		client/src/Core.cpp
 		client/src/scenes/MainMenu.cpp
-		client/src/scenes/Lobby.cpp
+		client/src/scenes/LobbyList.cpp
 		client/src/sfml/WindowSFML.cpp
 		client/src/sfml/SoundSFML.cpp
 		client/src/sfml/EventsSFML.cpp
@@ -141,12 +141,13 @@ set(CLIENT_SOURCES
 		client/src/sfml/SpriteSfml.cpp
 		client/src/scenes/InGame.cpp
 		client/src/scenes/InGame.cpp
-		client/src/systems/LobbySystem.cpp)
+		client/src/systems/LobbySystem.cpp
+		client/src/scenes/CreateLobby.cpp)
 
 set(CLIENT_INCLUDES
 		client/include/Core.hpp
 		client/include/scenes/MainMenu.hpp
-		client/include/scenes/Lobby.hpp
+		client/include/scenes/LobbyList.hpp
 		client/include/scenes/SceneType.hpp
 		client/include/sfml/GraphicalSFML.hpp
 		client/include/sfml/WindowSFML.hpp
@@ -173,7 +174,8 @@ set(CLIENT_INCLUDES
 		client/include/systems/ClientNetworkSystem.hpp
 		client/include/components/LobbyComponent.hpp
 		client/include/entities/LobbyCard.hpp
-		client/include/systems/LobbySystem.hpp)
+		client/include/systems/LobbySystem.hpp
+		client/include/scenes/CreateLobby.hpp client/src/scenes/LobbyWaiting.cpp client/include/scenes/LobbyWaiting.hpp client/include/entities/LobbyWaitingEntity.hpp engine/include/entities/Text.hpp client/include/entities/PlayerAndStarshipEntity.hpp client/include/systems/PlayerAndStarshipSystem.hpp client/src/systems/PlayerAndStarshipSystem.cpp)
 
 set(SERVER_SOURCES
         server/main.cpp
