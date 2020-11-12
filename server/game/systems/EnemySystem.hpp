@@ -20,6 +20,7 @@ private:
 
 public:
     explicit EnemySystem(std::shared_ptr<Game> &game);
+    void handleMovements(std::shared_ptr<Engine::Entity> &enemy);
 
     void update() override;
 };

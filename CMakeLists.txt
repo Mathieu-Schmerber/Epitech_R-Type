@@ -267,7 +267,7 @@ set(SERVER_INCLUDES
 		server/game/systems/ProjectileSystem.cpp
 		server/game/systems/ProjectileSystem.hpp
 		server/game/systems/EnemySystem.cpp
-		server/game/systems/EnemySystem.hpp)
+		server/game/systems/EnemySystem.hpp server/game/components/PatternComponent.hpp)
 
 set(ENEMIES_INCLUDES
 	${ENGINE_INCLUDES} ${SERVER_INCLUDES}

@@ -56,7 +56,7 @@ template<typename T>
 T *DLLoader<T>::getInstance() const
 {
     if (!_lib) {
-        std::cout << "Lib not found" << std::endl;
+        std::cerr << "Lib not found" << std::endl;
         return (nullptr);
     }
 
