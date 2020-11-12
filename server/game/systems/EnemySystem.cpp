@@ -28,7 +28,6 @@ void EnemySystem::handleMovements(std::shared_ptr<Engine::Entity> &enemy)
     dir.x += 1;
     dir.y += 1;
     dir = {dir.x * speed, dir.y * speed};
-    std::cout << "update speed" << std::endl;
     enemy->getComponent<Engine::VelocityComponent>()->setSpeed(dir);
 }
 
