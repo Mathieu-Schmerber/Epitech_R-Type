@@ -27,8 +27,10 @@ Engine::Point<int> SocketParser::lerp(Engine::Point<int> a, Engine::Point<int> b
 
 bool SocketParser::shouldTeleport(Engine::Point<int> a, Engine::Point<int> b, Engine::Point<int> size)
 {
-    return (sqrt(pow(b.x - a.x, 2)) >= (double)(size.x / 2.0) ||
-            sqrt(pow(b.y - a.y, 2)) >= (double)(size.y / 2.0));
+    double tolerance = 40;
+
+    return (abs(sqrt(pow(b.x - a.x, 2)) - tolerance) >= (double)(size.x * 0.5) ||
+            abs(sqrt(pow(b.y - a.y, 2)) - tolerance) >= (double)(size.y * 0.5));
 }
 
 std::vector<int> SocketParser::parseUdpInputs(int clientId, const std::vector<Engine::Inputs> &pressed, const std::vector<Engine::Inputs> &released)
