@@ -24,8 +24,8 @@ void Engine::MouseSystem::update()
         auto clickable = e->getComponent<ClickableComponent>();
         if (e->getComponent<SpriteComponent>()&& !e->getComponent<SpriteComponent>()->isVisible())
             continue;
-        clickable->setIsReleased(released && Geometry::doOverlap({(float)mousePos.x, (float)mousePos.y}, collider->getHitBox()));
-        clickable->setIsClicked(pressed && Geometry::doOverlap({(float)mousePos.x, (float)mousePos.y}, collider->getHitBox()));
-        clickable->setIsHover(Geometry::doOverlap({(float)mousePos.x, (float)mousePos.y}, collider->getHitBox()));
+        clickable->setIsReleased(released && Geometry::doOverlap({(double)mousePos.x, (double)mousePos.y}, collider->getHitBox()));
+        clickable->setIsClicked(pressed && Geometry::doOverlap({(double)mousePos.x, (double)mousePos.y}, collider->getHitBox()));
+        clickable->setIsHover(Geometry::doOverlap({(double)mousePos.x, (double)mousePos.y}, collider->getHitBox()));
     }
 }

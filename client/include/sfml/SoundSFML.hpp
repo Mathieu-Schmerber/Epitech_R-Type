@@ -21,7 +21,7 @@ public:
     void play() final;
     void pause() final;
     void stop() final;
-    void setVolume(float volume) final;
+    void setVolume(double volume) final;
 
 private:
     sf::SoundBuffer _buffer;

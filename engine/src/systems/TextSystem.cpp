@@ -27,6 +27,6 @@ void Engine::TextSystem::update()
     for (auto &e : this->_entities) {
         transform = e->getComponent<Engine::TransformComponent>();
         for (auto &txt : e->getComponents<Engine::TextComponent>())
-            txt->draw(_window, transform->getPos(), static_cast<float>(transform->getRotation()));
+            txt->draw(_window, transform->getPos(), static_cast<double>(transform->getRotation()));
     }
 }

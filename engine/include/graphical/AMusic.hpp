@@ -17,7 +17,7 @@ namespace Engine {
     class AMusic : public Engine::IAudio {
     public:
         AMusic() = default;
-        void setVolume(float volume) override;
+        void setVolume(double volume) override;
         virtual bool isPlaying() const = 0;
         virtual bool isPaused() const = 0;
         virtual bool isStopped() const = 0;
@@ -26,7 +26,7 @@ namespace Engine {
         virtual void close() = 0;
 
     protected:
-        float _volume = 0;
+        double _volume = 0;
     };
 }
 

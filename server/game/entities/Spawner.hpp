@@ -5,8 +5,8 @@
 ** Created by Cyprien
 */
 
-#ifndef RTYPE_IENEMY_HPP
-#define RTYPE_IENEMY_HPP
+#ifndef RTYPE_SPAWNER_HPP
+#define RTYPE_SPAWNER_HPP
 
 #include "ecs/Entity.hpp"
 #include "dataHolders/DataSprite.hpp"
@@ -18,20 +18,14 @@
 #include "components/ControllerComponent.hpp"
 #include "components/ColliderComponent.hpp"
 
-class Enemy : public Engine::Entity {
+class Spawner : public Engine::Entity {
 public:
-    explicit Enemy(std::unique_ptr<Engine::ASprite> sprite, const Engine::Point<double> &pos = {0, 0}) : Engine::Entity()
+    explicit Spawner(const Engine::Point<double> &pos = {0, 0}) : Engine::Entity()
     {
         this->addComponent<Engine::TransformComponent>(pos);
         this->addComponent<Engine::VelocityComponent>();
-        this->addComponent<Engine::SpriteComponent>(1, std::move(sprite));
-        this->addComponent<Engine::ControllerComponent>();
         this->addComponent<Engine::ColliderComponent>();
     }
-
-    enum enemyState {
-        DEFAULT
-    };
 };
 
-#endif //RTYPE_IENEMY_HPP
+#endif //RTYPE_SPAWNER_HPP

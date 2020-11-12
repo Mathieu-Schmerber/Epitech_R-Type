@@ -12,7 +12,7 @@
 
 namespace Engine {
 
-    static const float PI = 3.141592653589793238463;
+    static const double PI = 3.141592653589793238463;
 
     template<typename T>
     struct Point {
@@ -28,7 +28,7 @@ namespace Engine {
             return rhs != *this;
         }
 
-        Point<T> operator * (float c) const {
+        Point<T> operator * (double c) const {
             return Point<T>(x * c, y * c);
         }
 
@@ -91,12 +91,12 @@ namespace Engine {
     class Geometry {
     public:
 
-        [[nodiscard]] static float degreeToRadiant(float degree) {return degree * (PI / 180);}
+        [[nodiscard]] static double degreeToRadiant(double degree) {return degree * (PI / 180);}
 
         template<typename T>
-        [[nodiscard]] static Point<T> rotateVector(Engine::Point<T> vector, float degree)
+        [[nodiscard]] static Point<T> rotateVector(Engine::Point<T> vector, double degree)
         {
-            float angle = degreeToRadiant(degree);
+            double angle = degreeToRadiant(degree);
             Point<T> res = {
                     vector.x * std::cos(angle) - vector.y * std::sin(angle),
                     vector.x * std::sin(angle) + vector.y * std::cos(angle)};
@@ -115,13 +115,13 @@ namespace Engine {
         }
 
         template<typename T>
-        [[nodiscard]] static float getVectorMagnitude(const Engine::Point<T> &vector)
+        [[nodiscard]] static double getVectorMagnitude(const Engine::Point<T> &vector)
         {
             return (sqrt(pow(vector.x, 2) + pow(vector.y, 2)));
         }
 
         template<typename T>
-        [[nodiscard]] static float getDistance(const Engine::Point<T> &a, const Engine::Point<T> &b)
+        [[nodiscard]] static double getDistance(const Engine::Point<T> &a, const Engine::Point<T> &b)
         {
             return sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
         }

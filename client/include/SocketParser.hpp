@@ -18,11 +18,11 @@ private:
     std::unique_ptr<Engine::AssetPool> _pool;
     std::unique_ptr<Engine::Timer> _timer;
     std::unique_ptr<Engine::Timer> _serverTimer;
-    float _serverDelta;
-    float _deltatime;
+    double _serverDelta;
+    double _deltatime;
     bool _serverUpdate;
 
-    [[nodiscard]] static Engine::Point<int> lerp(Engine::Point<int> a, Engine::Point<int> b, float time);
+    [[nodiscard]] static Engine::Point<int> lerp(Engine::Point<int> a, Engine::Point<int> b, double time);
     [[nodiscard]] static bool shouldTeleport(Engine::Point<int> a, Engine::Point<int> b, Engine::Point<int> size);
 
 public:

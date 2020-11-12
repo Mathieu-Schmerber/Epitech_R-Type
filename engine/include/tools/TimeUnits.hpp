@@ -20,9 +20,9 @@ namespace Engine {
     struct seconds {
     public:
         seconds() = delete;
-        explicit seconds(float seconds) : _seconds(seconds) {}
+        explicit seconds(double seconds) : _seconds(seconds) {}
     private:
-        float _seconds;
+        double _seconds;
         friend class Time;
     };
     struct milliseconds {

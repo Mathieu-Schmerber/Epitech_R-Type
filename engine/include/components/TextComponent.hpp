@@ -28,7 +28,7 @@ public:
 
     [[nodiscard]] std::unique_ptr<Engine::AText> &getText() {return this->_text;}
     void setText(std::unique_ptr<Engine::AText> text) { this->_text = std::move(text);}
-    void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<float> position, float angle) {
+    void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<double> position, double angle) {
         if (_hasToBeDraw)
             _text->draw(window, position, angle);
     }

@@ -135,7 +135,7 @@ namespace Engine {
             horizontal
         };
         scrollD direction = vertical;
-        float movement = 0;
+        double movement = 0;
     };
 }
 
