@@ -22,11 +22,8 @@ void Engine::AnimationSystem::update()
         sprite = e->getComponent<SpriteComponent>();
         animation = e->getComponent<AnimationComponent>();
         if (animation->hasAnimations() && Engine::Timer::hasElapsed(animation->getLastRefresh(), animation->getFrameTime())) {
-            std::cout << animation->getNextFrame() << std::endl;
-            std::cout << animation->isLooping() << std::endl;
             sprite->getSprite()->setRect(animation->getNextFrame());
             animation->refresh();
         }
     }
-
 }
