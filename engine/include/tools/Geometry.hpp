@@ -101,11 +101,23 @@ namespace Engine {
         template<typename T>
         static void normalizeVector(Engine::Point<T> &vector)
         {
-            T magnitude = abs(vector.x) + abs(vector.y);
+            T magnitude = getVectorMagnitude(vector);
 
             if (magnitude == 0)
                 return;
             vector = Point<T>{vector.x / magnitude, vector.y / magnitude};
+        }
+
+        template<typename T>
+        [[nodiscard]] static double getVectorMagnitude(const Engine::Point<T> &vector)
+        {
+            return (sqrt(pow(vector.x, 2) + pow(vector.y, 2)));
+        }
+
+        template<typename T>
+        [[nodiscard]] static double getDistance(const Engine::Point<T> &a, const Engine::Point<T> &b)
+        {
+            return sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
         }
 
         template<typename T>

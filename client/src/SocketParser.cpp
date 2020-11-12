@@ -2,7 +2,6 @@
 // Created by mathi on 06/11/2020.
 //
 
-#include <stdlib.h>
 #include "SocketParser.hpp"
 #include "entities/LobbyCard.hpp"
 #include "components/NetworkComponent.hpp"
@@ -19,9 +18,17 @@ SocketParser::SocketParser()
 
 Engine::Point<int> SocketParser::lerp(Engine::Point<int> a, Engine::Point<int> b, double time)
 {
-    if (time <= 0.5)
-        return {(int)(a.x * (1 - time * 0.5) + b.x * time * 0.5), (int)(a.y * (1 - time * 0.5) + b.y * time * 0.5)};
+    double factor = 1;
+
+    if (time <= factor)
+        return {(int)(a.x * (1 - time * factor) + b.x * time * factor), (int)(a.y * (1 - time * factor) + b.y * time * factor)};
     return b;
+}
+
+bool SocketParser::shouldTeleport(Engine::Point<int> a, Engine::Point<int> b, Engine::Point<int> size)
+{
+    return (sqrt(pow(b.x - a.x, 2)) >= (double)(size.x / 2.0) ||
+            sqrt(pow(b.y - a.y, 2)) >= (double)(size.y / 2.0));
 }
 
 std::vector<int> SocketParser::parseUdpInputs(int clientId, const std::vector<Engine::Inputs> &pressed, const std::vector<Engine::Inputs> &released)
@@ -55,14 +62,14 @@ std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector
     return std::shared_ptr<Engine::Entity>(entity);
 }
 
-void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in)
+void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in) const
 {
     auto *sprite = entity->getComponent<Engine::SpriteComponent>();
     auto inititalPos = entity->getComponent<Engine::TransformComponent>()->getPos();
     auto smooth = SocketParser::lerp(inititalPos, {in.at(1), in.at(2)}, this->_deltatime);
 
-    if (in.size() < 9)
-        return;
+    if (SocketParser::shouldTeleport(inititalPos, {in.at(1), in.at(2)}, {in.at(6), in.at(8)}))
+        smooth = Engine::Point<int>{in.at(1), in.at(2)};
     entity->getComponent<Engine::TransformComponent>()->setPos(smooth);
     entity->getComponent<Engine::TransformComponent>()->setRotation(in.at(3));
     sprite->getSprite()->setRect({in.at(5), in.at(6), in.at(7), in.at(8)});

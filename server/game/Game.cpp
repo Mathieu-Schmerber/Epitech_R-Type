@@ -35,7 +35,16 @@ void Game::initGameEntities()
 {
     std::shared_ptr<Engine::Entity> player = std::make_shared<Player>(0, Engine::Point<int>{50, 50});
 
+    auto parallaxA = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png");
+    auto parallaxB = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png");
+    parallaxA->setRect({{0, 0}, {3840, 1080}});
+    parallaxB->setRect({{0, 0}, {3840, 1080}});
+    std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<int>{0, 0}, Engine::Point<int>{-3840, 0}, Engine::Point<double>{-20, 0}, std::move(parallaxA));
+    std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<int>{3840, 0}, Engine::Point<int>{0, 0}, Engine::Point<double>{-20, 0}, std::move(parallaxB));
+
     this->spawn(player, true);
+    this->spawn(slideA, true);
+    this->spawn(slideB, true);
 }
 
 void Game::initGameSystems()

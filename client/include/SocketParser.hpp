@@ -23,6 +23,7 @@ private:
     bool _serverUpdate;
 
     [[nodiscard]] static Engine::Point<int> lerp(Engine::Point<int> a, Engine::Point<int> b, double time);
+    [[nodiscard]] static bool shouldTeleport(Engine::Point<int> a, Engine::Point<int> b, Engine::Point<int> size);
 
 public:
     SocketParser();
@@ -32,7 +33,7 @@ public:
                                                          const std::vector<Engine::Inputs> &released);
 
     [[nodiscard]] std::shared_ptr<Engine::Entity> unparseUdpEntity(const std::vector<int> &in);
-    void updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in);
+    void updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in) const;
 
     [[nodiscard]] static std::shared_ptr<Engine::Entity> unparseTcpLobby(const std::vector<int> &in);
     static void updateLobbyFromTcp(std::shared_ptr<Engine::Entity> &lobby, const std::vector<int> &in);
