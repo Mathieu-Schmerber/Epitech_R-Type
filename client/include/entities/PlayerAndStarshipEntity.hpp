@@ -27,7 +27,7 @@ class PlayerAndStarshipEntity : public Engine::Entity {
         this->addComponent<Engine::TransformComponent>();
         auto starship = std::make_unique<SpriteSFML>(starshipTexture);
         starship->setScale({static_cast<float>(STARSHIP_SCALE_X), static_cast<float>(STARSHIP_SCALE_Y)});
-        starship->setRect({Engine::Box<int>({STARSHIP_WIDTH * 4, 0}, {STARSHIP_WIDTH, STARSHIP_HEIGHT})});
+        starship->setRect({Engine::Box<float>({STARSHIP_WIDTH * 4, 0}, {STARSHIP_WIDTH, STARSHIP_HEIGHT})});
         starship->setOrigin(Engine::Point<float>{-200, 0});
         this->addComponent<Engine::SpriteComponent>(2, std::move(starship));
 

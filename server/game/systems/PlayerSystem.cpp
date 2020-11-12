@@ -18,7 +18,7 @@ PlayerSystem::PlayerSystem(std::shared_ptr<Game> &game) : _game(game), Engine::S
     this->_projectileTexture = std::make_shared<DataTexture>("../../client/assets/images/projectiles/projectile_1_72x18_18x18.png");
 }
 
-void PlayerSystem::handleMoveAnimations(std::shared_ptr<Engine::Entity> &player, Engine::Vector<double> dir)
+void PlayerSystem::handleMoveAnimations(std::shared_ptr<Engine::Entity> &player, Engine::Vector<float> dir)
 {
     if (dir.y > 0)
         player->getComponent<Engine::AnimationComponent>()->setAnimation(Player::PlayerState::DOWN, false);
@@ -30,9 +30,9 @@ void PlayerSystem::handleMoveAnimations(std::shared_ptr<Engine::Entity> &player,
 
 void PlayerSystem::handleMovements(std::shared_ptr<Engine::Entity> &player)
 {
-    const double speed = 20;
+    const float speed = 2;
     auto pressed = player->getComponent<Engine::ControllerComponent>()->getPressed();
-    Engine::Vector<double> dir = {0, 0};
+    Engine::Vector<float> dir = {0, 0};
 
     dir.x -= (Engine::Utils::isInVector(pressed, Engine::Inputs::Left));
     dir.x += (Engine::Utils::isInVector(pressed, Engine::Inputs::Right));
@@ -58,7 +58,7 @@ void PlayerSystem::handleWeapon(std::shared_ptr<Engine::Entity> &player)
     if (Engine::Utils::isInVector(pressed, Engine::Inputs::Space) && weapon->canShoot()) {
         weapon->refreshShoots();
         std::shared_ptr<Engine::Entity> projectile = std::make_shared<Projectile>(
-                transform->getPos(), Engine::Point<int>{18, 18}, Engine::Vector<double>{40, 0},
+                transform->getPos(), Engine::Point<float>{18, 18}, Engine::Vector<float>{40, 0},
                 weapon->getCurrentDamages(), 2,this->_projectileTexture);
         this->_game->spawn(projectile, true);
     }

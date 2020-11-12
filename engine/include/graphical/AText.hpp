@@ -20,7 +20,7 @@ namespace Engine {
 
     class AText {
     public:
-        virtual void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) = 0;
+        virtual void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<float> position, float angle) = 0;
 
         virtual void setFont(std::shared_ptr<Engine::AFont> &font);
         virtual void setScale(Engine::Size<float> scale) = 0;

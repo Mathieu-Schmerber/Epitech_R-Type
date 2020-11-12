@@ -25,16 +25,16 @@ Engine::Scale<float> SpriteSFML::getScale() const
     return {_sprite.getScale().x, _sprite.getScale().y};
 }
 
-void SpriteSFML::setRect(Engine::Box<int> rect)
+void SpriteSFML::setRect(Engine::Box<float> rect)
 {
     _sprite.setTextureRect(sf::IntRect(rect.x1, rect.y1, rect.size.x, rect.size.y));
 }
 
-Engine::Box<int> SpriteSFML::getRect() const
+Engine::Box<float> SpriteSFML::getRect() const
 {
     auto rect = _sprite.getTextureRect();
 
-    return {rect.left, rect.top, rect.width, rect.height};
+    return {static_cast<float>(rect.left), static_cast<float>(rect.top), static_cast<float>(rect.width), static_cast<float>(rect.height)};
 }
 
 void SpriteSFML::setPosition(Engine::Point<float> position)
@@ -57,7 +57,7 @@ Engine::Point<float> SpriteSFML::getOrigin() const
     return {_sprite.getOrigin().x, _sprite.getOrigin().y};
 }
 
-void SpriteSFML::draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle)
+void SpriteSFML::draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<float> position, float angle)
 {
     std::shared_ptr<WindowSFML> windowSFML = std::dynamic_pointer_cast<WindowSFML>(window);
 
@@ -76,7 +76,7 @@ float SpriteSFML::getRotation()
     return _sprite.getRotation();
 }
 
-Engine::Size<int> SpriteSFML::getSize() const
+Engine::Size<float> SpriteSFML::getSize() const
 {
-    return {static_cast<int>(_sprite.getGlobalBounds().width), static_cast<int>(_sprite.getGlobalBounds().height)};
+    return {_sprite.getGlobalBounds().width, _sprite.getGlobalBounds().height};
 }

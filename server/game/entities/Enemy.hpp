@@ -20,7 +20,7 @@
 
 class Enemy : public Engine::Entity {
 public:
-    explicit Enemy(std::unique_ptr<Engine::ASprite> sprite, const Engine::Point<int> &pos = {0, 0}) : Engine::Entity()
+    explicit Enemy(std::unique_ptr<Engine::ASprite> sprite, const Engine::Point<float> &pos = {0, 0}) : Engine::Entity()
     {
         this->addComponent<Engine::TransformComponent>(pos);
         this->addComponent<Engine::VelocityComponent>();

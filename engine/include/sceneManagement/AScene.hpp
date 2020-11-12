@@ -31,7 +31,7 @@ namespace Engine {
         virtual void onFocus() {};
         virtual void onExit() {};
 
-        void updateDeltatime(double delta);
+        void updateDeltatime(float delta);
         [[nodiscard]] int getId() const;
         void spawnEntity(std::shared_ptr<Entity> &entity);
         void despawnEntity(std::shared_ptr<Entity> &entity);

@@ -5,13 +5,14 @@
 #ifndef RTYPE_GEOMETRY_HPP
 #define RTYPE_GEOMETRY_HPP
 
+#include <cmath>
 #include <utility>
 #include <cmath>
 #include <ostream>
 
 namespace Engine {
 
-    static const double PI = 3.141592653589793238463;
+    static const float PI = 3.141592653589793238463;
 
     template<typename T>
     struct Point {
@@ -27,8 +28,13 @@ namespace Engine {
             return rhs != *this;
         }
 
-        Point<T> operator * (double c) const {
+        Point<T> operator * (float c) const {
             return Point<T>(x * c, y * c);
+        }
+
+        template<typename U>
+        explicit operator Point<U>() const {
+            return {static_cast<U>(x), static_cast<U>(y)};
         }
 
     };
@@ -85,15 +91,15 @@ namespace Engine {
     class Geometry {
     public:
 
-        [[nodiscard]] static double degreeToRadiant(double degree) {return degree * (PI / 180);}
+        [[nodiscard]] static float degreeToRadiant(float degree) {return degree * (PI / 180);}
 
         template<typename T>
-        [[nodiscard]] static Point<T> rotateVector(Engine::Point<T> vector, double degree)
+        [[nodiscard]] static Point<T> rotateVector(Engine::Point<T> vector, float degree)
         {
-            double angle = degreeToRadiant(degree);
+            float angle = degreeToRadiant(degree);
             Point<T> res = {
-                    vector.x * cos(angle) - vector.y * sin(angle),
-                    vector.x * sin(angle) + vector.y * cos(angle)};
+                    vector.x * std::cos(angle) - vector.y * std::sin(angle),
+                    vector.x * std::sin(angle) + vector.y * std::cos(angle)};
 
             return res;
         }
@@ -109,13 +115,13 @@ namespace Engine {
         }
 
         template<typename T>
-        [[nodiscard]] static double getVectorMagnitude(const Engine::Point<T> &vector)
+        [[nodiscard]] static float getVectorMagnitude(const Engine::Point<T> &vector)
         {
             return (sqrt(pow(vector.x, 2) + pow(vector.y, 2)));
         }
 
         template<typename T>
-        [[nodiscard]] static double getDistance(const Engine::Point<T> &a, const Engine::Point<T> &b)
+        [[nodiscard]] static float getDistance(const Engine::Point<T> &a, const Engine::Point<T> &b)
         {
             return sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
         }

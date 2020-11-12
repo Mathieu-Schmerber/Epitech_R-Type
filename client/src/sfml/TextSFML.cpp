@@ -8,7 +8,7 @@
 
 #include "sfml/TextSFML.hpp"
 
-void TextSFML::draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle)
+void TextSFML::draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<float> position, float angle)
 {
     std::shared_ptr<WindowSFML> windowSFML = std::dynamic_pointer_cast<WindowSFML>(window);
 

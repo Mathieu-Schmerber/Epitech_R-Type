@@ -22,8 +22,8 @@ void Engine::PhysicSystem::update()
         if (transform->getPos().x != colliderA->getHitBox().x1 || transform->getPos().y != (int)colliderA->getHitBox().x2) {
             auto original = colliderA->getBaseHitBox();
             auto current = colliderA->getHitBox();
-            colliderA->setBaseHitBox({{(double)transform->getPos().x, (double)transform->getPos().y}, original.size});
-            colliderA->setHitBox({{(double)transform->getPos().x, (double)transform->getPos().y}, current.size});
+            colliderA->setBaseHitBox({{(float)transform->getPos().x, (float)transform->getPos().y}, original.size});
+            colliderA->setHitBox({{(float)transform->getPos().x, (float)transform->getPos().y}, current.size});
         }
         for (auto &b : this->_entities) {
             auto colliderB = b->getComponent<ColliderComponent>();

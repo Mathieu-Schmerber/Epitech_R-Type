@@ -17,16 +17,16 @@ namespace Engine {
     {
     private:
         std::chrono::high_resolution_clock::time_point _last;
-        std::map<int, std::vector<Box<int>>> _animations;
+        std::map<int, std::vector<Box<float>>> _animations;
         size_t _frame;
-        double _frameTime;
+        float _frameTime;
         int _current;
         bool _looping;
 
     public:
         explicit AnimationComponent() : _animations({}), _frame(0), _current(0), _frameTime(0), _looping(false),
                                         _last(std::chrono::high_resolution_clock::now()), Engine::Component() {}
-        explicit AnimationComponent(double animationTime, const std::map<int, std::vector<Box<int>>> &anim = {}, bool looping = false)
+        explicit AnimationComponent(float animationTime, const std::map<int, std::vector<Box<float>>> &anim = {}, bool looping = false)
                                     : _animations(anim), _frame(0), _frameTime(animationTime), _looping(looping),
                                     _last(std::chrono::high_resolution_clock::now()), Engine::Component() {
             if (!anim.empty())
@@ -36,7 +36,7 @@ namespace Engine {
 
         [[nodiscard]] bool hasAnimations() const {return !(this->_animations.empty());}
 
-        [[nodiscard]] double getFrameTime() const {return this->_frameTime;}
+        [[nodiscard]] float getFrameTime() const {return this->_frameTime;}
 
         [[nodiscard]]  std::chrono::high_resolution_clock::time_point getLastRefresh() {return this->_last;};
 
@@ -44,9 +44,9 @@ namespace Engine {
 
         void refresh() {this->_last = std::chrono::high_resolution_clock::now();}
 
-        void setFrameTime(double frameTime) {this->_frameTime = frameTime;}
+        void setFrameTime(float frameTime) {this->_frameTime = frameTime;}
 
-        void addAnimation(int name, const std::vector<Box<int>> &frames) {
+        void addAnimation(int name, const std::vector<Box<float>> &frames) {
             if (Utils::isInMap(this->_animations, name))
                 std::cerr << "\033[33mAnimation WARNING : adding an already existing animation name, will overwrite its content (" << name <<")\033[0m" << std::endl;
             this->_animations[name] = frames;
@@ -61,8 +61,8 @@ namespace Engine {
             }
         }
 
-        Box<int> getNextFrame() {
-            Box<int> res(0, 0, 0, 0);
+        Box<float> getNextFrame() {
+            Box<float> res(0, 0, 0, 0);
 
             if (Utils::isInMap(this->_animations, this->_current) && !this->_animations[_current].empty()) {
                 this->_frame++;
