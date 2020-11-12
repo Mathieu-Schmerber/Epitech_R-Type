@@ -22,13 +22,12 @@ EnemySystem::EnemySystem(std::shared_ptr<Game> &game) : _game(game), Engine::Sys
 
 void EnemySystem::handleMovements(std::shared_ptr<Engine::Entity> &enemy)
 {
-    const float speed = 0.5;
+    const float speed = 0.2;
     Engine::Vector<float> dir = {0, 0};
 
     dir.x += 1;
     dir.y += 1;
     dir = {dir.x * speed, dir.y * speed};
-    std::cout << "updt speed" << std::endl;
     enemy->getComponent<Engine::VelocityComponent>()->setSpeed(dir);
 }
 
