@@ -67,8 +67,6 @@ set(ENGINE_SOURCES
 		engine/src/systems/WindowResizeSystem.cpp
 		engine/src/systems/TextSystem.cpp
 		engine/src/systems/ButtonSystem.cpp
-		engine/include/tools/AssetPool.cpp
-		engine/include/tools/AssetPool.hpp
 		engine/src/graphical/ASoundBuffer.cpp
 		engine/src/systems/ButtonSystem.cpp
 		engine/src/tools/AssetPool.cpp)
@@ -142,8 +140,6 @@ set(ENGINE_INCLUDES
 		engine/include/systems/MoveSystem.hpp
 		engine/include/systems/TextSystem.hpp
 		engine/include/systems/ButtonSystem.hpp
-		engine/include/tools/AssetPool.cpp
-		engine/include/tools/AssetPool.hpp
 		engine/include/systems/MoveSystem.hpp
         engine/include/graphical/AText.hpp
         engine/include/graphical/AFont.hpp
@@ -292,10 +288,8 @@ set(SERVER_INCLUDES
 		server/game/systems/AutomaticWeaponSystem.hpp
 		server/game/components/AutomaticWeaponComponent.hpp
 		server/game/Game.hpp
-		server/game/IEnemy.hpp
 		server/game/DLLoader.hpp
 		server/game/systems/PlayerSystem.hpp
-		server/game/components/WeaponComponent.hpp
 		server/game/components/ProjectileComponent.hpp
 		server/game/entities/Projectile.hpp
 		server/game/systems/ProjectileSystem.hpp)
