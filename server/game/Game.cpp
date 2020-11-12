@@ -2,9 +2,8 @@
 // Created by mathi on 06/11/2020.
 //
 
-#include "Game.hpp"
-
 #include <memory>
+#include "Game.hpp"
 #include "tools/Geometry.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/ParallaxSystem.hpp"

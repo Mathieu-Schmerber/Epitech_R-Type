@@ -34,7 +34,6 @@ set(ENGINE_SOURCES
 		engine/src/systems/AnimationSystem.cpp
 		engine/src/sceneManagement/AEntityGroup.cpp
 		engine/src/Timer.cpp
-		engine/src/systems/AnimationSystem.cpp
 		engine/src/graphical/AMusic.cpp
 		engine/src/systems/MusicSystem.cpp
 		engine/src/graphical/ATexture.cpp
@@ -48,7 +47,23 @@ set(ENGINE_SOURCES
 		engine/src/networking/UDP/UdpSocketOutput.cpp
 		engine/src/systems/WindowResizeSystem.cpp
 		engine/src/systems/TextSystem.cpp
-		)
+        engine/src/networking/AServer.cpp
+        engine/src/sceneManagement/SceneManager.cpp
+        engine/src/sceneManagement/AScene.cpp
+        engine/src/graphical/ASprite.cpp
+        engine/src/graphical/AEvents.cpp
+        engine/src/graphical/ASound.cpp
+        engine/src/graphical/AGraphical.cpp
+        engine/src/graphical/AWindow.cpp
+        engine/src/systems/DrawSystem.cpp
+        engine/src/systems/DrawSystem.cpp
+        engine/src/systems/MouseSystem.cpp
+        engine/src/systems/InputSystem.cpp
+        engine/src/systems/PhysicSystem.cpp
+        engine/src/Timer.cpp
+        engine/src/graphical/AMusic.cpp
+        engine/src/graphical/ASoundBuffer.cpp
+		engine/src/graphical/ASoundBuffer.cpp)
 
 set(ENGINE_INCLUDES
 		engine/include/ecs/Entity.hpp
@@ -116,7 +131,13 @@ set(ENGINE_INCLUDES
 		engine/include/systems/MoveSystem.hpp
 		engine/include/systems/WindowResizeSystem.hpp
 		engine/include/systems/MoveSystem.hpp
-		engine/include/systems/TextSystem.hpp)
+		engine/include/systems/TextSystem.hpp
+        engine/include/enumerations/ButtonState.hpp
+        engine/include/graphical/AText.hpp
+        engine/include/graphical/AFont.hpp
+        engine/include/tools/Color.hpp
+        engine/include/components/TextComponent.hpp
+        engine/include/graphical/ASoundBuffer.hpp)
 
 set(CLIENT_SOURCES
 		client/src/main.cpp
@@ -139,7 +160,23 @@ set(CLIENT_SOURCES
 		client/src/systems/ClientNetworkSystem.cpp
 		client/src/sfml/SpriteSfml.cpp
 		client/src/scenes/InGame.cpp
-		client/src/scenes/InGame.cpp)
+		client/src/scenes/InGame.cpp
+        client/src/main.cpp
+        client/src/Core.cpp
+        client/src/scenes/MainMenu.cpp
+        client/src/sfml/WindowSFML.cpp
+        client/src/sfml/SoundSFML.cpp
+        client/src/sfml/EventsSFML.cpp
+        client/src/sfml/GraphicalSFML.cpp
+        client/src/scenes/Settings.cpp
+        client/src/sfml/MusicSFML.cpp
+        client/src/sfml/TextureSFML.cpp
+        client/src/sfml/TextureSFML.cpp
+        client/src/scenes/HowToPlay.cpp
+        client/src/sfml/TextSFML.cpp
+        client/src/sfml/FontSFML.cpp
+        client/src/sfml/SoundBufferSFML.cpp
+        )
 
 set(CLIENT_INCLUDES
 		client/include/Core.hpp
@@ -169,7 +206,18 @@ set(CLIENT_INCLUDES
 		client/include/scenes/InGame.hpp
 		client/include/NetworkAccess.hpp
 		client/include/systems/ClientNetworkSystem.hpp
-		client/include/components/LobbyComponent.hpp client/include/entities/LobbyCard.hpp)
+		client/include/components/LobbyComponent.hpp
+		client/include/entities/LobbyCard.hpp
+		client/include/components/LobbyComponent.hpp
+        client/include/scenes/Settings.hpp
+        client/include/sfml/MusicSFML.hpp
+        client/include/sfml/TextureSFML.hpp
+        client/include/sfml/TextureSFML.hpp
+        client/include/scenes/HowToPlay.hpp
+        client/include/sfml/TextSFML.hpp
+        client/include/sfml/FontSFML.hpp
+		client/include/sfml/SoundBufferSFML.hpp
+		)
 
 set(SERVER_SOURCES
         server/main.cpp
@@ -201,10 +249,23 @@ set(SERVER_INCLUDES
 		server/game/dataHolders/DataSprite.hpp
 		server/game/dataHolders/DataTexture.hpp
 		server/game/entities/Player.hpp
-		server/game/systems/PlayerSystem.hpp)
+		server/game/systems/PlayerSystem.hpp
+		server/game/Game.hpp 
+		server/game/IEnemy.hpp 
+		server/game/DLLoader.hpp)
 
 add_executable(r-type_client ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${CLIENT_SOURCES} ${CLIENT_INCLUDES})
 add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURCES} ${SERVER_INCLUDES})
+
+include(GNUInstallDirs)
+add_library(enemy SHARED
+		dynamic_libs/Enemy.cpp
+		dynamic_libs/Enemy.hpp
+		)
+set_target_properties(enemy PROPERTIES SOVERSION 1)
+set_target_properties(enemy PROPERTIES PUBLIC_HEADER
+		server/game/IEnemy.hpp
+		)
 
 target_include_directories(r-type_server PRIVATE
         server/core
@@ -217,7 +278,16 @@ target_include_directories(r-type_server PRIVATE
         engine/src/networking/UDP)
 target_include_directories(r-type_client PRIVATE
         client/include
-        engine/include)
+        engine/include
+		)
+target_include_directories(enemy PUBLIC
+		dynamic_libs
+		)
+install(TARGETS enemy
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES ${CMAKE_BINARY_DIR}/enemy.pc
+		DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
 
 message("===========================================")
 message(${CONAN_LIBS})
