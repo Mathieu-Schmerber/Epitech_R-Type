@@ -18,7 +18,7 @@ AutomaticWeaponSystem::AutomaticWeaponSystem(std::shared_ptr<Game> &game) : _gam
 
 bool AutomaticWeaponSystem::hasToShoot(AutomaticWeaponComponent *weapon)
 {
-    return false; // FIXME selon le pattern
+    return true;
 }
 
 void AutomaticWeaponSystem::automaticShot(std::shared_ptr<Engine::Entity> &shooter)
@@ -29,7 +29,7 @@ void AutomaticWeaponSystem::automaticShot(std::shared_ptr<Engine::Entity> &shoot
     if (hasToShoot(weapon) && weapon->canShoot()) {
         weapon->refreshShoots();
         std::shared_ptr<Engine::Entity> projectile = std::make_shared<Projectile>(
-                transform->getPos(), Engine::Point<double>{18, 18}, Engine::Vector<double>{3, 0},
+                transform->getPos(), Engine::Point<double>{18, 18}, Engine::Vector<double>{weapon->getShotSpeed(), 0},
                 weapon->getCurrentDamages(), 2, this->_projectileTexture); // FIXME changer le collision masque
         this->_game->spawn(projectile, true);
     }
