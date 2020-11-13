@@ -308,7 +308,7 @@ set(SERVER_INCLUDES
 		server/game/components/EnemySpawnerComponent.hpp
 		server/game/systems/SpawnerSystem.hpp
 		server/game/DynamicLibManager.hpp
-		server/game/ADLLoader.hpp)
+		server/game/ADLLoader.hpp server/game/components/CollectibleComponent.hpp server/game/entities/Collectible.hpp)
 
 
 set(ENEMIES_INCLUDES

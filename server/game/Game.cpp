@@ -20,6 +20,7 @@
 #include "systems/LifetimeSystem.hpp"
 #include "systems/GroundSystem.hpp"
 #include "components/NetworkComponent.hpp"
+#include "entities/Collectible.hpp"
 
 Game::Game(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception)
 : _players(players), _reception(reception), _idIncrement(0), _running(true)
@@ -46,13 +47,15 @@ void Game::initGameEntities()
     parallaxB->setRect({{0, 0}, {3840, 1080}});
     std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{0, 0}, Engine::Point<double>{-3840, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxA));
     std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{3840, 0}, Engine::Point<double>{0, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxB));
+    std::shared_ptr<Engine::Entity> bonusTest = std::make_shared<Collectible>(Engine::Point<double>{1000, 500}, CollectibleComponent::SENTINEL);
 
     auto spawner = std::make_shared<Spawner>();
 
     this->spawn(player, true);
     this->spawn(slideA, true);
     this->spawn(slideB, true);
-    this->spawn(spawner, false);
+    this->spawn(bonusTest, true);
+    //this->spawn(spawner, false);
 }
 
 void Game::initGameSystems()
