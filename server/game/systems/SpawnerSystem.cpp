@@ -22,7 +22,8 @@ SpawnerSystem::SpawnerSystem(std::shared_ptr<Game> &game) : _game(game)
 void SpawnerSystem::handleSpawn(std::shared_ptr<Engine::Entity> &spawner)
 {
     if (spawner->getComponent<EnemySpawnerComponent>()->canSpawn()) {
-        std::shared_ptr<Enemy> e = std::shared_ptr<Enemy>(spawner->getComponent<EnemySpawnerComponent>()->getEntity(FLOATING_ROBOT));
+        auto enemies = spawner->getComponent<EnemySpawnerComponent>()->getLibs();
+        std::shared_ptr<Enemy> e = std::shared_ptr<Enemy>(spawner->getComponent<EnemySpawnerComponent>()->getEntity(enemies.at(0)));
         e->getComponent<Engine::TransformComponent>()->setPos(spawner->getComponent<Engine::TransformComponent>()->getPos());
         _game->spawn(e, true);
     }

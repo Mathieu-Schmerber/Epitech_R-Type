@@ -42,6 +42,7 @@ public:
         _dynLM.loadNewLib<Enemy>(libName);
         return _dynLM.getInstance<Enemy>(libName);
     }
+    [[nodiscard]] std::vector<std::string> getLibs() const {return _enemiesLibs;}
 };
 
 #endif //RTYPE_ENEMYSPAWNERCOMPONENT_HPP
