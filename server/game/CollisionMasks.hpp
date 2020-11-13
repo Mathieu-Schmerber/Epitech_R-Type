@@ -22,9 +22,9 @@ namespace Collision {
 
     static std::map<Mask, std::vector<Mask>> ignoranceMap = {
             {PLAYER, {PLAYER_PROJECTILE}},
-            {PLAYER_PROJECTILE, {PLAYER, BONUS}},
+            {PLAYER_PROJECTILE, {PLAYER, BONUS, ENEMY_PROJECTILE}},
             {ENEMY, {ENEMY_PROJECTILE, WALL, BONUS}},
-            {ENEMY_PROJECTILE, {ENEMY, BONUS}},
+            {ENEMY_PROJECTILE, {ENEMY, BONUS, PLAYER_PROJECTILE}},
             {BONUS, {ENEMY_PROJECTILE, ENEMY, PLAYER_PROJECTILE, WALL}}
     };
 

@@ -56,7 +56,7 @@ void Game::initGameEntities()
     this->spawn(slideA, true);
     this->spawn(slideB, true);
     this->spawn(bonusTest, true);
-    //this->spawn(spawner, false);
+    this->spawn(spawner, false);
 }
 
 void Game::initGameSystems()

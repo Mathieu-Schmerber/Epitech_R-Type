@@ -18,7 +18,8 @@ private:
 
 public:
     explicit HealthComponent() = default;
-    explicit HealthComponent(double maxHealth) : _maxHealth(maxHealth), Engine::Component() {}
+    explicit HealthComponent(double maxHealth, double currentHealth) : _maxHealth(maxHealth), _currentHealth(currentHealth), Engine::Component() {}
+    explicit HealthComponent(double maxHealth) : _maxHealth(maxHealth), _currentHealth(maxHealth), Engine::Component() {}
 
     void setMaxHealth(double maxHealth) {_maxHealth = maxHealth;}
     void setCurrentHealth(double currentHealth) {_currentHealth = currentHealth;}
