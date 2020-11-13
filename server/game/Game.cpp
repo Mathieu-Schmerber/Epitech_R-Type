@@ -3,11 +3,13 @@
 //
 
 #include <memory>
+#include "systems/SpawnerSystem.hpp"
 #include "Game.hpp"
 #include "systems/AutomaticWeaponSystem.hpp"
 #include "systems/EnemySystem.hpp"
 #include "tools/Geometry.hpp"
 #include "entities/ParallaxSlide.hpp"
+#include "entities/Spawner.hpp"
 #include "systems/ProjectileSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
@@ -44,15 +46,12 @@ void Game::initGameEntities()
     std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{0, 0}, Engine::Point<double>{-3840, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxA));
     std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{3840, 0}, Engine::Point<double>{0, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxB));
 
-    /*// FIXME test load enemy in dyn lib
-    dynLoader.open();
-    std::cout << "================== set enemy test ==================" << std::endl;
-    std::shared_ptr<Engine::Entity> enemy_test = std::shared_ptr<Engine::Entity>(dynLoader.getInstance());*/
+    auto spawner = std::make_shared<Spawner>();
 
     this->spawn(player, true);
     this->spawn(slideA, true);
     this->spawn(slideB, true);
-    //this->spawn(enemy_test, true);
+    this->spawn(spawner, false);
 }
 
 void Game::initGameSystems()
@@ -68,6 +67,7 @@ void Game::initGameSystems()
     auto ground = std::make_unique<GroundSystem>(game);
     auto enemy = std::make_unique<EnemySystem>(game);
     auto autoWeapon = std::make_unique<AutomaticWeaponSystem>(game);
+    auto spawner = std::make_unique<SpawnerSystem>(game);
 
     this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(ground));
@@ -79,9 +79,10 @@ void Game::initGameSystems()
     this->_systems.push_back(std::move(network));
     this->_systems.push_back(std::move(enemy));
     this->_systems.push_back(std::move(autoWeapon));
+    this->_systems.push_back(std::move(spawner));
 }
 
-void Game::spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork)
+void Game::spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork)
 {
     auto network = entity->getComponent<Engine::NetworkComponent>();
 

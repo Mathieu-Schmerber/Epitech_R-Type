@@ -10,16 +10,19 @@
 #define RTYPE_DLLOADER_HPP
 
 #include <string>
+#include "ADLLoader.hpp"
+#include <iostream>
 
 #ifdef __unix__
     #include <dlfcn.h>
+
 #elif defined(_WIN32) || defined(WIN32)
     #include <windows.h>
     #include <stdio.h>
 #endif
 
 template <typename T>
-class DLLoader {
+class DLLoader : public ADLLoader {
 public:
     DLLoader(const std::string &libName);
     ~DLLoader() {std::cout << "Lib destroyed" << std::endl;}
@@ -29,28 +32,28 @@ public:
     void open();
     T *getInstance() const;
     void close(T instance) const;
-    std::string getLibName() const;
 private:
     void *_lib;
-    std::string _libName;
 };
 
 template<typename T>
-DLLoader<T>::DLLoader(const std::string &libName) : _lib(nullptr), _libName(libName)
-{}
+DLLoader<T>::DLLoader(const std::string &libName) : _lib(nullptr), ADLLoader(libName)
+{
+    open();
+}
 
 template<typename T>
 void DLLoader<T>::open()
 {
     #ifdef __unix__
         _lib = dlopen(_libName.c_str(), RTLD_LAZY);
+        if (!_lib)
+            std::cerr << dlerror() << std::endl;
     #elif defined(_WIN32) || defined(WIN32)
         _lib = LoadLibrary(TEXT(_libName.c_str()));
     #endif
-    if (!_lib) {
-        //std::cerr << dlerror() << std::endl;
+    if (!_lib)
         throw std::exception();
-    }
 }
 
 template<typename T>
@@ -91,12 +94,6 @@ void DLLoader<T>::close(T instance) const
     #elif defined(_WIN32) || defined(WIN32)
     // TODO
     #endif
-}
-
-template<typename T>
-std::string DLLoader<T>::getLibName() const
-{
-    return _libName;
 }
 
 #endif //RTYPE_DLLOADER_HPP

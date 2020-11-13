@@ -256,7 +256,9 @@ set(SERVER_SOURCES
 		server/game/systems/GroundSystem.cpp
 		server/game/systems/AutomaticWeaponSystem.cpp
 		server/game/systems/EnemySystem.cpp
-		server/game/systems/ProjectileSystem.cpp)
+		server/game/systems/ProjectileSystem.cpp
+		server/game/systems/SpawnerSystem.cpp
+		)
 
 set(SERVER_INCLUDES
 		server/core/CoreServer.hpp
@@ -295,8 +297,8 @@ set(SERVER_INCLUDES
 		server/game/entities/Ground.hpp
 		server/game/CollisionMasks.hpp
 		server/game/entities/Spawner.hpp
-		server/game/components/SpawnerComponent.hpp
-		)
+		server/game/components/EnemySpawnerComponent.hpp
+		server/game/systems/SpawnerSystem.hpp server/game/DynamicLibManager.hpp server/game/ADLLoader.hpp)
 
 
 set(ENEMIES_INCLUDES
