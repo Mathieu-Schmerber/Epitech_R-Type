@@ -68,7 +68,7 @@ set(ENGINE_SOURCES
 		engine/src/systems/ButtonSystem.cpp
 		engine/src/graphical/ASoundBuffer.cpp
 		engine/src/systems/ButtonSystem.cpp
-		engine/src/tools/AssetPool.cpp)
+		engine/src/tools/AssetPool.cpp engine/src/systems/ChildrenSystem.cpp engine/include/systems/ChildrenSystem.hpp)
 
 set(ENGINE_INCLUDES
 		engine/include/ecs/Entity.hpp
@@ -148,7 +148,7 @@ set(ENGINE_INCLUDES
         engine/include/graphical/ASoundBuffer.hpp
 		engine/include/components/ButtonComponent.hpp
 		engine/include/systems/ButtonSystem.hpp
-		engine/include/tools/AssetPool.hpp)
+		engine/include/tools/AssetPool.hpp engine/src/systems/ChildrenSystem.cpp engine/include/systems/ChildrenSystem.hpp)
 
 set(CLIENT_SOURCES
 		client/src/main.cpp
@@ -256,7 +256,7 @@ set(SERVER_SOURCES
 		server/game/systems/GroundSystem.cpp
 		server/game/systems/AutomaticWeaponSystem.cpp
 		server/game/systems/EnemySystem.cpp
-		server/game/systems/ProjectileSystem.cpp)
+		server/game/systems/ProjectileSystem.cpp server/game/systems/LifetimeSystem.cpp server/game/systems/LifetimeSystem.hpp)
 
 set(SERVER_INCLUDES
 		server/core/CoreServer.hpp
@@ -296,7 +296,7 @@ set(SERVER_INCLUDES
 		server/game/CollisionMasks.hpp
 		server/game/entities/Spawner.hpp
 		server/game/components/SpawnerComponent.hpp
-		)
+		server/game/components/LifetimeComponent.hpp server/game/systems/LifetimeSystem.cpp server/game/systems/LifetimeSystem.hpp server/game/entities/Particle.hpp)
 
 
 set(ENEMIES_INCLUDES

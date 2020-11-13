@@ -22,10 +22,10 @@ private:
     double _damageMultiplier;
 
 public:
-    explicit ManualWeaponComponent() : _baseDamage(0), _damageMultiplier(0), _cooldown(0), _maxChargeTime(2000),
+    explicit ManualWeaponComponent() : _baseDamage(0), _damageMultiplier(0), _cooldown(0), _maxChargeTime(1000),
                                        _lastShoot(std::chrono::high_resolution_clock::now()), Engine::Component() {}
     explicit ManualWeaponComponent(double damage, double multiplier, double cooldown)
-    : _baseDamage(damage), _damageMultiplier(multiplier), _cooldown(cooldown), _maxChargeTime(2000), _lastShoot(std::chrono::high_resolution_clock::now())
+    : _baseDamage(damage), _damageMultiplier(multiplier), _cooldown(cooldown), _maxChargeTime(1000), _lastShoot(std::chrono::high_resolution_clock::now())
     , Engine::Component() {}
 
     [[nodiscard]] double getMaxChargeTime() const {return _maxChargeTime;}

@@ -33,11 +33,14 @@ private:
     };
     std::shared_ptr<Game> _game;
     std::map<int, std::shared_ptr<Engine::ATexture>> _projectileTextures;
+    std::shared_ptr<Engine::ATexture> _shootParticle;
 
     [[nodiscard]] static bool willExitScreen(Engine::Point<double> pos, Engine::Vector<double> dir);
     static void handleMoveAnimations(std::shared_ptr<Engine::Entity> &player, Engine::Vector<double> dir);
     static void handleMovements(std::shared_ptr<Engine::Entity> &player);
 
+    void spawnShootParticle(std::shared_ptr<Engine::Entity> &player);
+    void destroyShootParticle(std::shared_ptr<Engine::Entity> &player);
     std::shared_ptr<Engine::Entity> generateProjectile(ManualWeaponComponent *weapon);
     void handleWeapon(std::shared_ptr<Engine::Entity> &player);
 

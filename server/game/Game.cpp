@@ -6,7 +6,7 @@
 #include "Game.hpp"
 #include "systems/AutomaticWeaponSystem.hpp"
 #include "systems/EnemySystem.hpp"
-#include "tools/Geometry.hpp"
+#include "systems/ChildrenSystem.hpp"
 #include "entities/ParallaxSlide.hpp"
 #include "systems/ProjectileSystem.hpp"
 #include "systems/AnimationSystem.hpp"
@@ -15,6 +15,7 @@
 #include "systems/MoveSystem.hpp"
 #include "systems/PlayerSystem.hpp"
 #include "systems/ServerNetworkSystem.hpp"
+#include "systems/LifetimeSystem.hpp"
 #include "systems/GroundSystem.hpp"
 #include "components/NetworkComponent.hpp"
 
@@ -70,6 +71,8 @@ void Game::initGameSystems()
     //auto ground = std::make_unique<GroundSystem>(game);
     auto enemy = std::make_unique<EnemySystem>(game);
     auto autoWeapon = std::make_unique<AutomaticWeaponSystem>(game);
+    auto lifetime = std::make_unique<LifetimeSystem>(game);
+    auto children = std::make_unique<Engine::ChildrenSystem>();
 
     this->_systems.push_back(std::move(move));
     //this->_systems.push_back(std::move(ground));
@@ -78,9 +81,11 @@ void Game::initGameSystems()
     this->_systems.push_back(std::move(physic));
     this->_systems.push_back(std::move(players));
     this->_systems.push_back(std::move(projectiles));
-    this->_systems.push_back(std::move(network));
     this->_systems.push_back(std::move(enemy));
     this->_systems.push_back(std::move(autoWeapon));
+    this->_systems.push_back(std::move(lifetime));
+    this->_systems.push_back(std::move(children));
+    this->_systems.push_back(std::move(network));
 }
 
 void Game::spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork)
@@ -120,7 +125,6 @@ void Game::update()
     int serverTicks = 60;
     double time;
 
-    //std::cout << "Game entities " << this->_entities.size() << std::endl;
     if (Engine::Timer::hasElapsed(this->_timer->getLastPoint(), 1.0 / serverTicks)) {
         time = this->_timer->deltatime();
         for (auto &sys : this->_systems) {

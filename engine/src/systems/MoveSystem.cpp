@@ -5,6 +5,7 @@
 #include "systems/MoveSystem.hpp"
 #include "components/TransformComponent.hpp"
 #include "components/VelocityComponent.hpp"
+#include "components/ChildrenComponent.hpp"
 
 Engine::MoveSystem::MoveSystem()
 {
@@ -16,11 +17,19 @@ void Engine::MoveSystem::update()
 {
     VelocityComponent *velocity = nullptr;
     TransformComponent *transform = nullptr;
+    ChildrenComponent *children = nullptr;
 
     for (auto &e : this->_entities) {
         velocity = e->getComponent<VelocityComponent>();
         transform = e->getComponent<TransformComponent>();
         transform->movePos({(velocity->getSpeed().x * this->deltatime()),
                             (velocity->getSpeed().y * this->deltatime())});
+        children = e->getComponent<ChildrenComponent>();
+        if (children != nullptr) {
+            for (auto &c : children->getChildren()) {
+                c->getComponent<TransformComponent>()->movePos({(velocity->getSpeed().x * this->deltatime()),
+                                                                (velocity->getSpeed().y * this->deltatime())});
+            }
+        }
     }
 }

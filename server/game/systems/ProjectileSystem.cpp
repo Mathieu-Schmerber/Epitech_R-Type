@@ -28,7 +28,7 @@ void ProjectileSystem::update()
     auto copy = this->_entities;
 
     for (auto &e : copy) {
-        if (e->getComponent<ProjectileComponent>()->isLifetimeOver() || this->didCollide(e))
+        if (this->didCollide(e))
             _game->despawn(e);
     }
 }

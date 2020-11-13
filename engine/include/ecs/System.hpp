@@ -48,7 +48,7 @@ namespace Engine {
         {
             return this->_entities;
         }
-        virtual void update() = 0;
+        virtual void update() {};
     };
 
     template<typename T> void Engine::System::addDependency() {

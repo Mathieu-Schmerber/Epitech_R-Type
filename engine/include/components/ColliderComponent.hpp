@@ -45,6 +45,14 @@ namespace Engine {
         void setHitBox(const Engine::Box<double> &box) { this->_hitBox = box; }
         [[nodiscard]] Engine::Box<double> getHitBox() const { return this->_hitBox; }
 
+        void changeHitBoxSize(const Engine::Point<double> &size)
+        {
+            this->_hitBox.x2 = this->_hitBox.x1 + size.x;
+            this->_hitBox.y2 = this->_hitBox.x1 + size.y;
+            this->_hitBox.size = size;
+            this->_hitBox.center = {this->_hitBox.x1 - size.x, this->_hitBox.y1 - size.y};
+        }
+
         void setActive(bool active) { this->_isActive = active; }
 
         void setCollisionMask(int mask) { this->_collisionMask = mask; }

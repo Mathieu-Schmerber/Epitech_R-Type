@@ -5,6 +5,7 @@
 #include "tools/Utils.hpp"
 #include "PlayerSystem.hpp"
 #include "entities/Projectile.hpp"
+#include "entities/Particle.hpp"
 
 PlayerSystem::PlayerSystem(std::shared_ptr<Game> &game) : _game(game), Engine::System()
 {
@@ -14,9 +15,11 @@ PlayerSystem::PlayerSystem(std::shared_ptr<Game> &game) : _game(game), Engine::S
     this->addDependency<Engine::SpriteComponent>();
     this->addDependency<Engine::AnimationComponent>();
     this->addDependency<Engine::ColliderComponent>();
+    this->addDependency<Engine::ChildrenComponent>();
     this->addDependency<ManualWeaponComponent>();
     for (auto &p : this->_chargeTypes)
         this->_projectileTextures[p.first] = std::make_shared<DataTexture>(p.second.first);
+    this->_shootParticle = std::make_shared<DataTexture>("../../client/assets/images/explosions/charge_102x18_17x18.png");
 }
 
 bool PlayerSystem::willExitScreen(Engine::Point<double> pos, Engine::Vector<double> dir)
@@ -66,6 +69,39 @@ void PlayerSystem::handleCollisions(std::shared_ptr<Engine::Entity> &player)
     }
 }
 
+void PlayerSystem::spawnShootParticle(std::shared_ptr<Engine::Entity> &player)
+{
+    auto box1 = player->getComponent<Engine::ColliderComponent>()->getHitBox();
+    auto box2 = Engine::Box<double>{{0, 0}, {17, 18}};
+    auto pos = Engine::Geometry::placeForward(box1, box2);
+    pos = {pos.x + 5, pos.y};
+    auto weapon = player->getComponent<ManualWeaponComponent>();
+    auto children = player->getComponent<Engine::ChildrenComponent>();
+    std::shared_ptr<Engine::Entity> particle = std::make_shared<Particle>(pos, 900, this->_shootParticle);
+    auto animation = particle->getComponent<Engine::AnimationComponent>();
+
+    animation->addAnimation(0, {
+            {{17 * 0, 0}, {17, 18}}, {{17 * 1, 0}, {17, 18}},
+            {{17 * 2, 0}, {17, 18}}, {{17 * 3, 0}, {17, 18}},
+            {{17 * 4, 0}, {17, 18}}, {{17 * 5, 0}, {17, 18}}
+    });
+    animation->setAnimation(0, false);
+    animation->setFrameTime((weapon->getMaxChargeTime() / 1000) / this->_chargeTypes.size());
+    children->addChild(particle);
+    this->_game->spawn(particle, true);
+}
+
+void PlayerSystem::destroyShootParticle(std::shared_ptr<Engine::Entity> &player)
+{
+    auto children = player->getComponent<Engine::ChildrenComponent>();
+
+    for (auto &child : children->getChildren()) {
+        if (child->getComponent<Engine::SpriteComponent>() &&
+        child->getComponent<Engine::SpriteComponent>()->getTexture() == this->_shootParticle)
+            this->_game->despawn(child);
+    }
+}
+
 std::shared_ptr<Engine::Entity> PlayerSystem::generateProjectile(ManualWeaponComponent *weapon)
 {
     int key = 1;
@@ -87,6 +123,8 @@ std::shared_ptr<Engine::Entity> PlayerSystem::generateProjectile(ManualWeaponCom
                        this->_projectileTextures[key]);
     projectile->getComponent<Engine::AnimationComponent>()->addAnimation(0, this->_chargeTypes[key].second);
     projectile->getComponent<Engine::AnimationComponent>()->setAnimation(0, true);
+    projectile->getComponent<Engine::ColliderComponent>()->setHitBox(this->_chargeTypes[key].second[0]);
+    projectile->getComponent<Engine::ColliderComponent>()->setBaseHitBox(this->_chargeTypes[key].second[0]);
     return projectile;
 }
 
@@ -94,16 +132,19 @@ void PlayerSystem::handleWeapon(std::shared_ptr<Engine::Entity> &player)
 {
     auto pressed = player->getComponent<Engine::ControllerComponent>()->getPressed();
     auto weapon = player->getComponent<ManualWeaponComponent>();
-    auto transform = player->getComponent<Engine::TransformComponent>();
+    auto box = player->getComponent<Engine::ColliderComponent>()->getHitBox();
 
-    if (Engine::Utils::isInVector(pressed, Engine::Inputs::Space) && !weapon->isCharging())
+    if (Engine::Utils::isInVector(pressed, Engine::Inputs::Space) && !weapon->isCharging()) {
         weapon->beginCharge();
-    else if (!Engine::Utils::isInVector(pressed, Engine::Inputs::Space) && weapon->isCharging() && weapon->canShoot()) {
+        this->spawnShootParticle(player);
+    } else if (!Engine::Utils::isInVector(pressed, Engine::Inputs::Space) && weapon->isCharging() && weapon->canShoot()) {
         auto proj = this->generateProjectile(weapon);
-        proj->getComponent<Engine::TransformComponent>()->setPos(transform->getPos());
+        auto box2 = proj->getComponent<Engine::ColliderComponent>()->getHitBox();
+        proj->getComponent<Engine::TransformComponent>()->setPos(Engine::Geometry::placeForward(box, box2));
         this->_game->spawn(proj, true);
         weapon->refreshShoots();
         weapon->abortCharge();
+        this->destroyShootParticle(player);
     }
 }
 

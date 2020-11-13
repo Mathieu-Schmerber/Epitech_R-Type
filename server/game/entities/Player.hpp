@@ -9,7 +9,7 @@
 #include "ecs/Entity.hpp"
 #include "dataHolders/DataSprite.hpp"
 #include "components/SpriteComponent.hpp"
-#include "components/TransformComponent.hpp"
+#include "components/ChildrenComponent.hpp"
 #include "components/AnimationComponent.hpp"
 #include "components/VelocityComponent.hpp"
 #include "components/ControllerComponent.hpp"
@@ -34,6 +34,7 @@ public:
         auto spr = std::make_unique<DataSprite>(ships[playerNumber], Engine::Box<double>{{0, 0}, _size});
 
         this->addComponent<Engine::TransformComponent>(pos);
+        this->addComponent<Engine::ChildrenComponent>();
         this->addComponent<Engine::VelocityComponent>();
         this->addComponent<Engine::SpriteComponent>(1, std::move(spr));
         this->addComponent<Engine::ControllerComponent>();

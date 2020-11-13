@@ -128,6 +128,15 @@ namespace Engine {
         }
 
         template<typename T>
+        [[nodiscard]] static Point<T> placeForward(const Box<T> &ref, const Box<T> &a)
+        {
+            if (ref.size.y > a.size.y)
+                return {ref.x2, ref.y1 + (ref.size.y - a.size.y) / 2};
+            else
+                return {ref.x2, ref.y1 + (a.size.y - ref.size.y) / 2};
+        }
+
+        template<typename T>
         [[nodiscard]] static bool doOverlap(const Point<T> &point, const Box<T> &box) {
             return (point.x >= box.x1 && point.x <= box.x2 &&
                     point.y >= box.y1 && point.y <= box.y2);

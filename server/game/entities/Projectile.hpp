@@ -16,6 +16,7 @@
 #include "components/AnimationComponent.hpp"
 #include "components/SpriteComponent.hpp"
 #include "components/ProjectileComponent.hpp"
+#include "components/LifetimeComponent.hpp"
 #include "dataHolders/DataSprite.hpp"
 
 class Projectile : public Engine::Entity {
@@ -29,7 +30,8 @@ public:
         this->addComponent<Engine::ColliderComponent>(Collision::PLAYER, pos, size);
         this->addComponent<Engine::AnimationComponent>();
         this->addComponent<Engine::SpriteComponent>(0, std::move(spr));
-        this->addComponent<ProjectileComponent>(damage, lifetime);
+        this->addComponent<ProjectileComponent>(damage);
+        this->addComponent<LifetimeComponent>(lifetime);
     }
 };
 

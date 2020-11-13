@@ -44,6 +44,7 @@ void ServerNetworkSystem::sendGameData()
         data.insert(data.end(), section.begin(), section.end());
     }
     data.resize(UDP_BUFFER_SIZE, -1);
+    //Engine::Utils::printIntTab("sending data", data);
     for (auto &cli : this->_players)
         cli.sendToClient(data);
 }
