@@ -26,7 +26,7 @@ void pattern(std::shared_ptr<Engine::Entity> &enemy)
 {
     auto velocity = enemy->getComponent<Engine::VelocityComponent>();
 
-    velocity->setSpeed({-10, 0});
+    velocity->setAcceleration({-0.7, 0});
 }
 
 FloatingRobot::FloatingRobot(const Engine::Point<double> &pos) : Enemy(std::move(std::make_unique<DataSprite>(PATH, Engine::Box<double>{pos, {SIZE_X, SIZE_Y}})), pos)

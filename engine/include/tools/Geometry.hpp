@@ -36,7 +36,6 @@ namespace Engine {
         explicit operator Point<U>() const {
             return {static_cast<U>(x), static_cast<U>(y)};
         }
-
     };
 
     template<typename T>
@@ -169,6 +168,18 @@ std::ostream& operator<<(std::ostream& os, const Engine::Box<T>& box)
     os << "x1/x2: " << box.x1 << "/" << box.x2 << " && ";
     os << "y1/y2: " << box.y1 << "/" << box.y2;
     return os;
+}
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const Engine::Vector<T>& vector)
+{
+    os << "x1/x2: " << vector.x << "/" << vector.y;
+    return os;
+}
+
+template <typename T>
+Engine::Point<T> operator + (Engine::Vector<T> a, Engine::Vector<T> b) {
+    return Engine::Point<T>({a.x + b.x, a.y + b.y});
 }
 
 #endif //RTYPE_GEOMETRY_HPP

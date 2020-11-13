@@ -21,6 +21,7 @@ void Engine::MoveSystem::update()
 
     for (auto &e : this->_entities) {
         velocity = e->getComponent<VelocityComponent>();
+        velocity->setSpeed(velocity->getSpeed() + velocity->getAcceleration());
         transform = e->getComponent<TransformComponent>();
         transform->movePos({(velocity->getSpeed().x * this->deltatime()),
                             (velocity->getSpeed().y * this->deltatime())});
