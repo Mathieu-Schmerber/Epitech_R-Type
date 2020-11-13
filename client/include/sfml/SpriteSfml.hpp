@@ -31,19 +31,19 @@ public:
     }
 
     void setTexture(std::shared_ptr<Engine::ATexture> &texture) final;
-    void setPosition(Engine::Point<float> position);
-    [[nodiscard]] Engine::Point<float> getPosition() const override;
-    void setRotation(float angle);
-    [[nodiscard]] float getRotation();
-    void setOrigin(Engine::Point<float> origin) override;
-    [[nodiscard]] Engine::Point<float> getOrigin() const override;
-    void setScale(Engine::Scale<float> scale) override;
-    [[nodiscard]] Engine::Scale<float> getScale() const;
-    void setRect(Engine::Box<int> rect) override;
-    [[nodiscard]] Engine::Box<int> getRect() const override;
-    [[nodiscard]] Engine::Size<int> getSize() const override;
+    void setPosition(Engine::Point<double> position);
+    [[nodiscard]] Engine::Point<double> getPosition() const override;
+    void setRotation(double angle);
+    [[nodiscard]] double getRotation();
+    void setOrigin(Engine::Point<double> origin) override;
+    [[nodiscard]] Engine::Point<double> getOrigin() const override;
+    void setScale(Engine::Scale<double> scale) override;
+    [[nodiscard]] Engine::Scale<double> getScale() const;
+    void setRect(Engine::Box<double> rect) override;
+    [[nodiscard]] Engine::Box<double> getRect() const override;
+    [[nodiscard]] Engine::Size<double> getSize() const override;
 
-    void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) override;
+    void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<double> position, double angle) override;
 
 private:
     sf::Sprite _sprite;

@@ -14,19 +14,19 @@ namespace Engine {
 
     class TransformComponent : public Engine::Component {
     private:
-        Point<int> _pos;
+        Point<double> _pos;
         double _rotation;
         Point<double> _normal;
 
     public:
-        explicit TransformComponent(const Point<int> &pos = {0, 0},
+        explicit TransformComponent(const Point<double> &pos = {0.0, 0.0},
                                     double rotation = 0,
                                     const Point<double> &normal = {1, 0})
                 : _pos(pos), _rotation(rotation), _normal(normal), Component() {}
 
-        [[nodiscard]] Point<int> getPos() const { return this->_pos; }
-        void setPos(const Point<int> &pos) {this->_pos = pos;}
-        void movePos(const Vector<int> &increment) {
+        [[nodiscard]] Point<double> getPos() const { return this->_pos; }
+        void setPos(const Point<double> &pos) {this->_pos = pos;}
+        void movePos(const Vector<double> &increment) {
             this->_pos.x += increment.x;
             this->_pos.y += increment.y;
         }

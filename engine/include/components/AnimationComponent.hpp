@@ -17,17 +17,17 @@ namespace Engine {
     {
     private:
         std::chrono::high_resolution_clock::time_point _last;
-        std::map<int, std::vector<Box<int>>> _animations;
+        std::map<int, std::vector<Box<double>>> _animations;
         size_t _frame;
         double _frameTime;
         int _current;
         bool _looping;
 
     public:
-        explicit AnimationComponent() : _animations({}), _frame(0), _current(0), _frameTime(0), _looping(false),
+        explicit AnimationComponent() : _animations({}), _frame(0), _current(-1), _frameTime(0), _looping(false),
                                         _last(std::chrono::high_resolution_clock::now()), Engine::Component() {}
-        explicit AnimationComponent(double animationTime, const std::map<int, std::vector<Box<int>>> &anim = {}, bool looping = false)
-                                    : _animations(anim), _frame(0), _frameTime(animationTime), _looping(looping),
+        explicit AnimationComponent(double animationTime, const std::map<int, std::vector<Box<double>>> &anim = {}, bool looping = false)
+                                    : _animations(anim), _frame(0), _current(-1), _frameTime(animationTime), _looping(looping),
                                     _last(std::chrono::high_resolution_clock::now()), Engine::Component() {
             if (!anim.empty())
                 this->_current = anim.begin()->first;
@@ -46,7 +46,7 @@ namespace Engine {
 
         void setFrameTime(double frameTime) {this->_frameTime = frameTime;}
 
-        void addAnimation(int name, const std::vector<Box<int>> &frames) {
+        void addAnimation(int name, const std::vector<Box<double>> &frames) {
             if (Utils::isInMap(this->_animations, name))
                 std::cerr << "\033[33mAnimation WARNING : adding an already existing animation name, will overwrite its content (" << name <<")\033[0m" << std::endl;
             this->_animations[name] = frames;
@@ -61,8 +61,8 @@ namespace Engine {
             }
         }
 
-        Box<int> getNextFrame() {
-            Box<int> res(0, 0, 0, 0);
+        Box<double> getNextFrame() {
+            Box<double> res(0, 0, 0, 0);
 
             if (Utils::isInMap(this->_animations, this->_current) && !this->_animations[_current].empty()) {
                 this->_frame++;

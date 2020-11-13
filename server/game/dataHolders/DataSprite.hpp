@@ -11,38 +11,38 @@
 class DataSprite : public Engine::ASprite
 {
 private:
-    Engine::Point<float> _position;
-    float _rotation;
-    Engine::Point<float> _origin;
-    Engine::Scale<float> _scale;
-    Engine::Box<int> _rect;
+    Engine::Point<double> _position;
+    double _rotation;
+    Engine::Point<double> _origin;
+    Engine::Scale<double> _scale;
+    Engine::Box<double> _rect;
 
 public:
     DataSprite() : _position({0, 0}), _rotation(0), _scale({0, 0}), _origin({0, 0}), _rect({0, 0, 0, 0}), Engine::ASprite() {}
-    explicit DataSprite(std::shared_ptr<Engine::ATexture> &texture, Engine::Box<int> rect = {0, 0, 0, 0})
+    explicit DataSprite(std::shared_ptr<Engine::ATexture> &texture, Engine::Box<double> rect = {0, 0, 0, 0})
     : _position({0, 0}), _rotation(0), _scale({0, 0}), _origin({0, 0}), _rect(rect), Engine::ASprite() {
         setTexture(texture);
     }
-    explicit DataSprite(const std::string fileName, Engine::Box<int> rect = {0, 0, 0, 0})
+    explicit DataSprite(const std::string fileName, Engine::Box<double> rect = {0, 0, 0, 0})
     : _position({0, 0}), _rotation(0), _scale({0, 0}), _origin({0, 0}), _rect(rect), Engine::ASprite() {
         _texture = std::make_shared<DataTexture>(fileName);
         setTexture(_texture);
     }
 
     void setTexture(std::shared_ptr<Engine::ATexture> &texture) final;
-    void setPosition(Engine::Point<float> position);
-    [[nodiscard]] Engine::Point<float> getPosition() const;
-    void setRotation(float angle);
-    [[nodiscard]] float getRotation();
-    void setOrigin(Engine::Point<float> origin) override;
-    [[nodiscard]] Engine::Point<float> getOrigin() const;
-    void setScale(Engine::Scale<float> scale) override;
-    [[nodiscard]] Engine::Scale<float> getScale() const;
-    void setRect(Engine::Box<int> rect) override;
-    [[nodiscard]] Engine::Box<int> getRect() const override;
-    [[nodiscard]] Engine::Size<int> getSize() const override;
+    void setPosition(Engine::Point<double> position);
+    [[nodiscard]] Engine::Point<double> getPosition() const override;
+    void setRotation(double angle);
+    [[nodiscard]] double getRotation();
+    void setOrigin(Engine::Point<double> origin) override;
+    [[nodiscard]] Engine::Point<double> getOrigin() const override;
+    void setScale(Engine::Scale<double> scale) override;
+    [[nodiscard]] Engine::Scale<double> getScale() const;
+    void setRect(Engine::Box<double> rect) override;
+    [[nodiscard]] Engine::Box<double> getRect() const override;
+    [[nodiscard]] Engine::Size<double> getSize() const override;
 
-    void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) override;
+    void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<double> position, double angle) override;
 };
 
 

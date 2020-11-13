@@ -5,24 +5,23 @@
 ** Created by Cyprien
 */
 
-
 #include "sfml/TextSFML.hpp"
 
-void TextSFML::draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle)
+void TextSFML::draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<double> position, double angle)
 {
     std::shared_ptr<WindowSFML> windowSFML = std::dynamic_pointer_cast<WindowSFML>(window);
 
-    setPosition({static_cast<float>(position.x), static_cast<float>(position.y)});
+    setPosition({static_cast<double>(position.x), static_cast<double>(position.y)});
     setRotation(angle);
     windowSFML->getWindow()->draw(_text);
 }
 
-void TextSFML::setRotation(float angle)
+void TextSFML::setRotation(double angle)
 {
-    _text.setRotation(angle);
+    _text.setRotation(static_cast<float>(angle));
 }
 
-void TextSFML::setPosition(Engine::Point<float> position)
+void TextSFML::setPosition(Engine::Point<double> position)
 {
     _text.setPosition({static_cast<float>(position.x), static_cast<float>(position.y)});
 }
@@ -37,12 +36,12 @@ void TextSFML::setCharacterSize(unsigned int size)
     return _text.setCharacterSize(size);
 }
 
-Engine::Point<float> TextSFML::getPosition() const
+Engine::Point<double> TextSFML::getPosition() const
 {
     return {_text.getPosition().x, _text.getPosition().y};
 }
 
-float TextSFML::getRotation() const
+double TextSFML::getRotation() const
 {
     return _text.getRotation();
 }
@@ -58,14 +57,14 @@ void TextSFML::setFont(std::shared_ptr<Engine::AFont> &font)
     _text.setFont(std::dynamic_pointer_cast<FontSFML>(font)->getFont());
 }
 
-void TextSFML::setScale(Engine::Size<float> scale)
+void TextSFML::setScale(Engine::Size<double> scale)
 {
-    _text.setScale(scale.x, scale.y);
+    _text.setScale(static_cast<float>(scale.x), static_cast<float>(scale.y));
 }
 
-void TextSFML::setOrigin(Engine::Point<float> origin)
+void TextSFML::setOrigin(Engine::Point<double> origin)
 {
-    _text.setOrigin(origin.x, origin.y);
+    _text.setOrigin(static_cast<float>(origin.x), static_cast<float>(origin.y));
 }
 
 void TextSFML::setFillColor(Engine::Color color)
@@ -78,14 +77,14 @@ void TextSFML::setOutlineColor(Engine::Color color)
     _text.setOutlineColor(sf::Color({color.red, color.green, color.blue, color.alpha}));
 }
 
-void TextSFML::setLetterSpacing(float spacingFactor)
+void TextSFML::setLetterSpacing(double spacingFactor)
 {
-    _text.setLetterSpacing(spacingFactor);
+    _text.setLetterSpacing(static_cast<float>(spacingFactor));
 }
 
-void TextSFML::setLineSpacing(float spacingFactor)
+void TextSFML::setLineSpacing(double spacingFactor)
 {
-    _text.setLineSpacing(spacingFactor);
+    _text.setLineSpacing(static_cast<float>(spacingFactor));
 }
 
 std::string TextSFML::toStdString() const

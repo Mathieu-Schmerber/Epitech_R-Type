@@ -18,15 +18,15 @@ namespace Engine {
         ASprite() = default;
         ~ASprite() = default;
 
-        [[nodiscard]] virtual Engine::Point<int> getSize() const = 0;
-        [[nodiscard]] virtual Engine::Box<int> getRect() const = 0;
+        [[nodiscard]] virtual Engine::Point<double> getSize() const = 0;
+        [[nodiscard]] virtual Engine::Box<double> getRect() const = 0;
         virtual void setTexture(std::shared_ptr<Engine::ATexture> &texture);
-        virtual void setScale(Engine::Scale<float> scale) = 0;
-        virtual void setOrigin(Engine::Point<float> origin) = 0;
-        [[nodiscard]] virtual Engine::Point<float> getOrigin() const = 0;
-        [[nodiscard]] virtual Engine::Point<float> getPosition() const = 0;
-        virtual void setRect(Engine::Box<int> rect) = 0;
-        virtual void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle) = 0;
+        virtual void setScale(Engine::Scale<double> scale) = 0;
+        virtual void setOrigin(Engine::Point<double> origin) = 0;
+        [[nodiscard]] virtual Engine::Point<double> getOrigin() const = 0;
+        [[nodiscard]] virtual Engine::Point<double> getPosition() const = 0;
+        virtual void setRect(Engine::Box<double> rect) = 0;
+        virtual void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<double> position, double angle) = 0;
         [[nodiscard]] std::shared_ptr<Engine::ATexture> &getTexture() {return _texture;}
 
     protected:

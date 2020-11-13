@@ -34,7 +34,7 @@ namespace Engine {
             this->_entities.emplace_back(entity);
         }
 
-        void deleteEntity(std::shared_ptr<Engine::Entity> &entity)
+        virtual void deleteEntity(std::shared_ptr<Engine::Entity> &entity)
         {
             Utils::removeFromVector(this->_entities, entity);
         }
@@ -48,7 +48,7 @@ namespace Engine {
         {
             return this->_entities;
         }
-        virtual void update() = 0;
+        virtual void update() {};
     };
 
     template<typename T> void Engine::System::addDependency() {

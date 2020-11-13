@@ -3,11 +3,14 @@
 //
 
 #include <memory>
+#include "systems/HealthSystem.hpp"
+#include "systems/SpawnerSystem.hpp"
 #include "Game.hpp"
 #include "systems/AutomaticWeaponSystem.hpp"
 #include "systems/EnemySystem.hpp"
-#include "tools/Geometry.hpp"
+#include "systems/ChildrenSystem.hpp"
 #include "entities/ParallaxSlide.hpp"
+#include "entities/Spawner.hpp"
 #include "systems/ProjectileSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
@@ -15,8 +18,10 @@
 #include "systems/MoveSystem.hpp"
 #include "systems/PlayerSystem.hpp"
 #include "systems/ServerNetworkSystem.hpp"
+#include "systems/LifetimeSystem.hpp"
+#include "systems/GroundSystem.hpp"
 #include "components/NetworkComponent.hpp"
-#include "Game.hpp"
+#include "entities/Collectible.hpp"
 
 Game::Game(std::vector<std::shared_ptr<Client>> &players, std::unique_ptr<UdpSocketInput> &reception)
 : _players(players), _reception(reception), _idIncrement(0), _running(true)
@@ -35,24 +40,25 @@ Game::~Game()
 
 void Game::initGameEntities()
 {
-    std::shared_ptr<Engine::Entity> player = std::make_shared<Player>(0, Engine::Point<int>{50, 50});
+    std::shared_ptr<Engine::Entity> player = std::make_shared<Player>(0, Engine::Point<double>{500, 500});
 
     auto parallaxA = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png");
     auto parallaxB = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png");
     parallaxA->setRect({{0, 0}, {3840, 1080}});
     parallaxB->setRect({{0, 0}, {3840, 1080}});
-    std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<int>{0, 0}, Engine::Point<int>{-3840, 0}, Engine::Point<double>{-20, 0}, std::move(parallaxA));
-    std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<int>{3840, 0}, Engine::Point<int>{0, 0}, Engine::Point<double>{-20, 0}, std::move(parallaxB));
+    std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{0, 0}, Engine::Point<double>{-3840, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxA));
+    std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{3840, 0}, Engine::Point<double>{0, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxB));
+    std::shared_ptr<Engine::Entity> bonusTest = std::make_shared<Collectible>(Engine::Point<double>{1000, 500}, CollectibleComponent::SENTINEL);
+    std::shared_ptr<Engine::Entity> bonusTest2 = std::make_shared<Collectible>(Engine::Point<double>{800, 500}, CollectibleComponent::SENTINEL);
 
-    // FIXME test load enemy in dyn lib
-    dynLoader.open();
-    std::cout << "================== set enemy test ==================" << std::endl;
-    std::shared_ptr<Engine::Entity> enemy_test = std::shared_ptr<Engine::Entity>(dynLoader.getInstance());
+    auto spawner = std::make_shared<Spawner>();
 
     this->spawn(player, true);
     this->spawn(slideA, true);
     this->spawn(slideB, true);
-    this->spawn(enemy_test, true);
+    this->spawn(bonusTest, true);
+    this->spawn(bonusTest2, true);
+    //this->spawn(spawner, false);
 }
 
 void Game::initGameSystems()
@@ -65,21 +71,31 @@ void Game::initGameSystems()
     auto physic = std::make_unique<Engine::PhysicSystem>();
     auto players = std::make_unique<PlayerSystem>(game);
     auto projectiles = std::make_unique<ProjectileSystem>(game);
+    auto ground = std::make_unique<GroundSystem>(game);
     auto enemy = std::make_unique<EnemySystem>(game);
     auto autoWeapon = std::make_unique<AutomaticWeaponSystem>(game);
+    auto lifetime = std::make_unique<LifetimeSystem>(game);
+    auto children = std::make_unique<Engine::ChildrenSystem>();
+    auto spawner = std::make_unique<SpawnerSystem>(game);
+    auto life = std::make_unique<HealthSystem>(game);
 
     this->_systems.push_back(std::move(move));
+    this->_systems.push_back(std::move(ground));
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(physic));
     this->_systems.push_back(std::move(players));
     this->_systems.push_back(std::move(projectiles));
-    this->_systems.push_back(std::move(network));
     this->_systems.push_back(std::move(enemy));
     this->_systems.push_back(std::move(autoWeapon));
+    this->_systems.push_back(std::move(lifetime));
+    this->_systems.push_back(std::move(children));
+    this->_systems.push_back(std::move(network));
+    this->_systems.push_back(std::move(spawner));
+    this->_systems.push_back(std::move(life));
 }
 
-void Game::spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork)
+void Game::spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork)
 {
     auto network = entity->getComponent<Engine::NetworkComponent>();
 

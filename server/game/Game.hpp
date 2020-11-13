@@ -10,7 +10,7 @@
 #include "tools/Timer.hpp"
 #include "networking/UDP/UdpSocketInput.hpp"
 #include "Client.hpp"
-#include "DLLoader.hpp"
+#include "tools/DLLoader.hpp"
 
 class Game : public std::enable_shared_from_this<Game>
 {
@@ -23,8 +23,6 @@ private:
     std::vector<std::shared_ptr<Client>> _players;
     std::reference_wrapper<std::unique_ptr<UdpSocketInput>> _reception;
 
-    DLLoader<Enemy> dynLoader = std::string("../lib/libfloatingRobot.so");
-
     void initGameEntities();
     void initGameSystems();
 
@@ -32,7 +30,7 @@ public:
     Game(std::vector<std::shared_ptr<Client>> &players, std::unique_ptr<UdpSocketInput> &reception);
     ~Game();
 
-    void spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork);
+    void spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork);
     void despawn(std::shared_ptr<Engine::Entity> &entity);
     void update();
     [[nodiscard]] bool isGameRunning() const;

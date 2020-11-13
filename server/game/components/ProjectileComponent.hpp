@@ -11,22 +11,14 @@
 class ProjectileComponent : public Engine::Component
 {
 private:
-    std::chrono::high_resolution_clock::time_point _birth;
     double _damage;
-    double _lifetime;
 
 public:
-    explicit ProjectileComponent() : _damage(0), _lifetime(0), Engine::Component() {}
-    explicit ProjectileComponent(double damage, double lifetime) : _damage(damage), _lifetime(lifetime),
-    _birth(std::chrono::high_resolution_clock::now()), Engine::Component() {}
+    explicit ProjectileComponent() : _damage(0), Engine::Component() {}
+    explicit ProjectileComponent(double damage) : _damage(damage), Engine::Component() {}
 
     [[nodiscard]] double getDamage() const {return _damage;}
     void setDamage(double damage) {_damage = damage;}
-
-    [[nodiscard]] double getLifetime() const {return _lifetime;}
-    void setLifetime(double lifetime) {_lifetime = lifetime;}
-
-    [[nodiscard]] bool isLifetimeOver() const {return Engine::Timer::hasElapsed(_birth, _lifetime);}
 };
 
 #endif //RTYPE_PROJECTILECOMPONENT_HPP

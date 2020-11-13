@@ -12,7 +12,7 @@
 namespace Engine {
     class Text : public Engine::Entity {
         public:
-        explicit Text(const Point<int> &pos, std::unique_ptr<Engine::AText> text, int layer = 0) : Engine::Entity()
+        explicit Text(const Point<double> &pos, std::unique_ptr<Engine::AText> text, int layer = 0) : Engine::Entity()
         {
             this->addComponent<TransformComponent>(pos);
             this->addComponent<TextComponent>(layer, std::move(text));

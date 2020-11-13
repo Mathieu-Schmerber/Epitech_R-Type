@@ -9,59 +9,59 @@ void DataSprite::setTexture(std::shared_ptr<Engine::ATexture> &texture)
     ASprite::setTexture(texture);
 }
 
-void DataSprite::setScale(Engine::Scale<float> scale)
+void DataSprite::setScale(Engine::Scale<double> scale)
 {
     _scale = scale;
 }
 
-Engine::Scale<float> DataSprite::getScale() const
+Engine::Scale<double> DataSprite::getScale() const
 {
     return _scale;
 }
 
-void DataSprite::setRect(Engine::Box<int> rect)
+void DataSprite::setRect(Engine::Box<double> rect)
 {
     _rect = rect;
 }
 
-Engine::Box<int> DataSprite::getRect() const
+Engine::Box<double> DataSprite::getRect() const
 {
     return _rect;
 }
 
-void DataSprite::setPosition(Engine::Point<float> position)
+void DataSprite::setPosition(Engine::Point<double> position)
 {
     _position = position;
 }
 
-Engine::Point<float> DataSprite::getPosition() const
+Engine::Point<double> DataSprite::getPosition() const
 {
     return _position;
 }
 
-void DataSprite::setOrigin(Engine::Point<float> origin)
+void DataSprite::setOrigin(Engine::Point<double> origin)
 {
     _origin = origin;
 }
 
-Engine::Point<float> DataSprite::getOrigin() const
+Engine::Point<double> DataSprite::getOrigin() const
 {
     return _origin;
 }
 
-void DataSprite::draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<int> position, float angle)
+void DataSprite::draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<double> position, double angle)
 {}
 
-void DataSprite::setRotation(float angle)
+void DataSprite::setRotation(double angle)
 {
     _rotation = angle;
 }
 
-float DataSprite::getRotation()
+double DataSprite::getRotation()
 {
     return _rotation;
 }
 
-Engine::Size<int> DataSprite::getSize() const {
+Engine::Size<double> DataSprite::getSize() const {
     return {_rect.size.x, _rect.size.y};
 }

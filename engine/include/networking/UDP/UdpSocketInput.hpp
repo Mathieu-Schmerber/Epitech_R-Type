@@ -9,8 +9,10 @@
 #define RTYPE_UDPSOCKETINPUT_HPP
 
 #ifdef _WIN32
-    #define _WIN32_WINNT  0x0601
+    #define _WIN32_WINNT 0x0601
 #endif
+
+#define UDP_BUFFER_SIZE 1000
 
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>

@@ -12,6 +12,8 @@ class ProjectileSystem : public Engine::System
 {
 private:
     std::shared_ptr<Game> _game;
+
+    static bool didCollide(std::shared_ptr<Engine::Entity> &projectile);
 public:
     explicit ProjectileSystem(std::shared_ptr<Game> &game);
 

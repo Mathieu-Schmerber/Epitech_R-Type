@@ -22,17 +22,19 @@ EnemySystem::EnemySystem(std::shared_ptr<Game> &game) : _game(game), Engine::Sys
 
 void EnemySystem::handleMovements(std::shared_ptr<Engine::Entity> &enemy)
 {
-    const double speed = 10;
+    const double speed = 0.2f;
     Engine::Vector<double> dir = {0, 0};
 
-    dir.x += 1;
-    dir.y += 1;
-    dir = {dir.x * speed, dir.y * speed};
-    enemy->getComponent<Engine::VelocityComponent>()->setSpeed(dir);
+    enemy->getComponent<PatternComponent>()->move(enemy);
 }
 
 void EnemySystem::update()
 {
+    auto tmp = _entities;
+
+    for (auto &e : tmp)
+        if (e->getComponent<Engine::TransformComponent>()->getPos().x < 0)
+            _game->despawn(e);
     for (auto &e : this->_entities) {
         handleMovements(e);
     }

@@ -6,6 +6,7 @@
 #define RTYPE_COLLIDERCOMPONENT_HPP
 
 #include "ecs/Entity.hpp"
+#include "tools/Geometry.hpp"
 
 namespace Engine {
 
@@ -15,7 +16,7 @@ namespace Engine {
         bool _isActive;
         Engine::Box<double> _hitBox;
         Engine::Box<double> _baseHitBox;
-        std::vector<std::shared_ptr<Engine::Entity>> _collisions;
+        std::vector<std::shared_ptr<Engine::Entity>> _collisions = {};
 
     public:
         explicit ColliderComponent() : _collisionMask(0), _isActive(false), _hitBox(0, 0, 0, 0), _baseHitBox(0, 0, 0, 0),
@@ -25,7 +26,7 @@ namespace Engine {
                                                                                _isActive(true), _baseHitBox(box),
                                                                                Engine::Component() {}
 
-        explicit ColliderComponent(int mask, const Engine::Point<int> &pos, const Engine::Point<int> &size)
+        explicit ColliderComponent(int mask, const Engine::Point<double> &pos, const Engine::Point<double> &size)
         : _collisionMask(mask), _isActive(true), _hitBox(0, 0, 0, 0), _baseHitBox(0,0,0,0), Engine::Component()
         {
             this->_hitBox = {{(double) pos.x,  (double) pos.y},{(double) size.x, (double) size.y}};
@@ -43,6 +44,14 @@ namespace Engine {
         [[nodiscard]] Engine::Box<double> getBaseHitBox() const { return this->_baseHitBox; }
         void setHitBox(const Engine::Box<double> &box) { this->_hitBox = box; }
         [[nodiscard]] Engine::Box<double> getHitBox() const { return this->_hitBox; }
+
+        void changeHitBoxSize(const Engine::Point<double> &size)
+        {
+            this->_hitBox.x2 = this->_hitBox.x1 + size.x;
+            this->_hitBox.y2 = this->_hitBox.x1 + size.y;
+            this->_hitBox.size = size;
+            this->_hitBox.center = {this->_hitBox.x1 - size.x, this->_hitBox.y1 - size.y};
+        }
 
         void setActive(bool active) { this->_isActive = active; }
 

@@ -31,7 +31,7 @@ class Settings : public Engine::AScene
 
         void initEntities() final;
         void initSystems() final;
-        void createSelector(Engine::Point<int> position,  const std::pair<void (*)(std::shared_ptr<Engine::AScene> &), void (*)(std::shared_ptr<Engine::AScene> &)> &callback, const std::string &path, std::unique_ptr<SpriteSFML> text);
+        void createSelector(Engine::Point<double> position,  const std::pair<void (*)(std::shared_ptr<Engine::AScene> &), void (*)(std::shared_ptr<Engine::AScene> &)> &callback, const std::string &path, std::unique_ptr<SpriteSFML> text);
     public:
 
         Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events);

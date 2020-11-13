@@ -5,10 +5,6 @@
 #ifndef RTYPE_AUDPSOCKETIO_HPP
 #define RTYPE_AUDPSOCKETIO_HPP
 
-#ifdef _WIN32
-    #define _WIN32_WINNT  0x0601
-#endif
-
 #include "networking/UDP/UdpSocketInput.hpp"
 #include "networking/UDP/UdpSocketOutput.hpp"
 

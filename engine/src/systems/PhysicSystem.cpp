@@ -6,6 +6,7 @@
 #include "components/SpriteComponent.hpp"
 #include "components/ColliderComponent.hpp"
 #include "systems/PhysicSystem.hpp"
+#include "tools/Utils.hpp"
 
 Engine::PhysicSystem::PhysicSystem() : Engine::System()
 {
@@ -19,17 +20,24 @@ void Engine::PhysicSystem::update()
     for (auto &a : this->_entities) {
         auto colliderA = a->getComponent<ColliderComponent>();
         auto transform = a->getComponent<TransformComponent>();
-        if (transform->getPos().x != colliderA->getHitBox().x1 || transform->getPos().y != (int)colliderA->getHitBox().x2) {
-            auto original = colliderA->getBaseHitBox();
-            auto current = colliderA->getHitBox();
-            colliderA->setBaseHitBox({{(double)transform->getPos().x, (double)transform->getPos().y}, original.size});
-            colliderA->setHitBox({{(double)transform->getPos().x, (double)transform->getPos().y}, current.size});
-        }
+        auto original = colliderA->getBaseHitBox();
+        auto current = colliderA->getHitBox();
+        colliderA->clearCollisions();
+        colliderA->setBaseHitBox({transform->getPos(), original.size});
+        colliderA->setHitBox({transform->getPos(), current.size});
         for (auto &b : this->_entities) {
+            if (b == a)
+                continue;
             auto colliderB = b->getComponent<ColliderComponent>();
-            colliderB->clearCollisions();
-            if (Geometry::doOverlap(colliderA->getHitBox(), colliderB->getHitBox()))
-                colliderB->collide(a);
+            if (Geometry::doOverlap(colliderA->getHitBox(), colliderB->getHitBox()) &&
+            colliderA->getCollisionMask() != colliderB->getCollisionMask()) {
+                auto collisions = colliderA->getCollisions();
+                if (!Utils::isInVector(collisions, b))
+                    colliderA->collide(b);
+                collisions = colliderB->getCollisions();
+                if (!Utils::isInVector(collisions, a))
+                    colliderB->collide(a);
+            }
         }
     }
 }

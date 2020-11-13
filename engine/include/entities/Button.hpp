@@ -18,7 +18,7 @@ namespace Engine {
 
     class Button : public Engine::Entity {
     public:
-        Button(const Point<int> &pos, const Point<int> &size,
+        Button(const Point<double> &pos, const Point<double> &size,
               std::unique_ptr<Engine::ASprite> sprite,
               void (*onClick)(std::shared_ptr<Engine::AScene> &),
                std::shared_ptr<Engine::AScene> arg,

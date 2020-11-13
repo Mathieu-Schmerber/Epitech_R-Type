@@ -57,28 +57,28 @@ LobbyList::LobbyList(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<E
 void LobbyList::initEntities()
 {
     auto goBackButtonSprite = std::make_unique<SpriteSFML>(GO_BACK_BUTTON_PATH);
-    std::shared_ptr<Engine::Entity> goBackButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{GO_BACK_BUTTON_POSITION_X, GO_BACK_BUTTON_POSITION_Y}, Engine::Point<int>{GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT}, std::move(goBackButtonSprite), &goToMenuScene, std::shared_ptr<Engine::AScene>(this));
-    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
-    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<int>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
-    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    std::shared_ptr<Engine::Entity> goBackButtonEngine = std::make_shared<Engine::Button>(Engine::Point<double>{GO_BACK_BUTTON_POSITION_X, GO_BACK_BUTTON_POSITION_Y}, Engine::Point<double>{GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT}, std::move(goBackButtonSprite), &goToMenuScene, std::shared_ptr<Engine::AScene>(this));
+    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<double>({GO_BACK_BUTTON_X_IDLE, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<double>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
+    goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<double>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
 
     auto goUpButtonSprite = std::make_unique<SpriteSFML>(GO_UP_BUTTON_PATH);
-    std::shared_ptr<Engine::Entity> goUpButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{1385, 60}, Engine::Point<int>{GO_UP_BUTTON_WIDTH, GO_UP_BUTTON_HEIGHT}, std::move(goUpButtonSprite), &scrollUpLobby, std::shared_ptr<Engine::AScene>(this));
-    goUpButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({GO_UP_BUTTON_X_IDLE, GO_UP_BUTTON_Y}, {GO_UP_BUTTON_WIDTH, GO_UP_BUTTON_HEIGHT})});
-    goUpButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<int>({GO_UP_BUTTON_X_HOVER, GO_UP_BUTTON_Y}, {GO_UP_BUTTON_WIDTH, GO_UP_BUTTON_HEIGHT})});
-    goUpButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({GO_UP_BUTTON_X_CLICKED, GO_UP_BUTTON_Y}, {GO_UP_BUTTON_WIDTH, GO_UP_BUTTON_HEIGHT})});
+    std::shared_ptr<Engine::Entity> goUpButtonEngine = std::make_shared<Engine::Button>(Engine::Point<double>{1385, 60}, Engine::Point<double>{GO_UP_BUTTON_WIDTH, GO_UP_BUTTON_HEIGHT}, std::move(goUpButtonSprite), &scrollUpLobby, std::shared_ptr<Engine::AScene>(this));
+    goUpButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<double>({GO_UP_BUTTON_X_IDLE, GO_UP_BUTTON_Y}, {GO_UP_BUTTON_WIDTH, GO_UP_BUTTON_HEIGHT})});
+    goUpButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<double>({GO_UP_BUTTON_X_HOVER, GO_UP_BUTTON_Y}, {GO_UP_BUTTON_WIDTH, GO_UP_BUTTON_HEIGHT})});
+    goUpButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<double>({GO_UP_BUTTON_X_CLICKED, GO_UP_BUTTON_Y}, {GO_UP_BUTTON_WIDTH, GO_UP_BUTTON_HEIGHT})});
 
     auto goDownButtonSprite = std::make_unique<SpriteSFML>(GO_DOWN_BUTTON_PATH);
-    std::shared_ptr<Engine::Entity> goDownButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{1385, 896}, Engine::Point<int>{GO_DOWN_BUTTON_WIDTH, GO_DOWN_BUTTON_HEIGHT}, std::move(goDownButtonSprite), &scrollDownLobby, std::shared_ptr<Engine::AScene>(this));
-    goDownButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({GO_DOWN_BUTTON_X_IDLE, GO_NEXT_BUTTON_Y}, {GO_DOWN_BUTTON_WIDTH, GO_DOWN_BUTTON_HEIGHT})});
-    goDownButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<int>({GO_DOWN_BUTTON_X_HOVER, GO_NEXT_BUTTON_Y}, {GO_DOWN_BUTTON_WIDTH, GO_DOWN_BUTTON_HEIGHT})});
-    goDownButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({GO_DOWN_BUTTON_X_CLICKED, GO_NEXT_BUTTON_Y}, {GO_DOWN_BUTTON_WIDTH, GO_DOWN_BUTTON_HEIGHT})});
+    std::shared_ptr<Engine::Entity> goDownButtonEngine = std::make_shared<Engine::Button>(Engine::Point<double>{1385, 896}, Engine::Point<double>{GO_DOWN_BUTTON_WIDTH, GO_DOWN_BUTTON_HEIGHT}, std::move(goDownButtonSprite), &scrollDownLobby, std::shared_ptr<Engine::AScene>(this));
+    goDownButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<double>({GO_DOWN_BUTTON_X_IDLE, GO_NEXT_BUTTON_Y}, {GO_DOWN_BUTTON_WIDTH, GO_DOWN_BUTTON_HEIGHT})});
+    goDownButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<double>({GO_DOWN_BUTTON_X_HOVER, GO_NEXT_BUTTON_Y}, {GO_DOWN_BUTTON_WIDTH, GO_DOWN_BUTTON_HEIGHT})});
+    goDownButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<double>({GO_DOWN_BUTTON_X_CLICKED, GO_NEXT_BUTTON_Y}, {GO_DOWN_BUTTON_WIDTH, GO_DOWN_BUTTON_HEIGHT})});
 
     auto createLobbySprite = std::make_unique<SpriteSFML>(CREATE_LOBBY_BUTTON_PATH);
-    std::shared_ptr<Engine::Entity> createLobbyButtonEngine = std::make_shared<Engine::Button>(Engine::Point<int>{1700, 30}, Engine::Point<int>{CREATE_LOBBY_BUTTON_WIDTH, CREATE_LOBBY_BUTTON_HEIGHT}, std::move(createLobbySprite), &goToCreateLobbyScene, std::shared_ptr<Engine::AScene>(this));
-    createLobbyButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<int>({CREATE_LOBBY_BUTTON_X_IDLE, CREATE_LOBBY_BUTTON_Y}, {CREATE_LOBBY_BUTTON_WIDTH, CREATE_LOBBY_BUTTON_HEIGHT})});
-    createLobbyButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<int>({CREATE_LOBBY_BUTTON_X_HOVER, GO_NEXT_BUTTON_Y}, {CREATE_LOBBY_BUTTON_WIDTH, CREATE_LOBBY_BUTTON_HEIGHT})});
-    createLobbyButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<int>({CREATE_LOBBY_BUTTON_X_CLICKED, CREATE_LOBBY_BUTTON_Y}, {CREATE_LOBBY_BUTTON_WIDTH, CREATE_LOBBY_BUTTON_HEIGHT})});
+    std::shared_ptr<Engine::Entity> createLobbyButtonEngine = std::make_shared<Engine::Button>(Engine::Point<double>{1700, 30}, Engine::Point<double>{CREATE_LOBBY_BUTTON_WIDTH, CREATE_LOBBY_BUTTON_HEIGHT}, std::move(createLobbySprite), &goToCreateLobbyScene, std::shared_ptr<Engine::AScene>(this));
+    createLobbyButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<double>({CREATE_LOBBY_BUTTON_X_IDLE, CREATE_LOBBY_BUTTON_Y}, {CREATE_LOBBY_BUTTON_WIDTH, CREATE_LOBBY_BUTTON_HEIGHT})});
+    createLobbyButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<double>({CREATE_LOBBY_BUTTON_X_HOVER, GO_NEXT_BUTTON_Y}, {CREATE_LOBBY_BUTTON_WIDTH, CREATE_LOBBY_BUTTON_HEIGHT})});
+    createLobbyButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<double>({CREATE_LOBBY_BUTTON_X_CLICKED, CREATE_LOBBY_BUTTON_Y}, {CREATE_LOBBY_BUTTON_WIDTH, CREATE_LOBBY_BUTTON_HEIGHT})});
 
     this->spawnEntity(goBackButtonEngine);
     this->spawnEntity(goUpButtonEngine);

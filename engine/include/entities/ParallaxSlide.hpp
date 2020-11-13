@@ -16,7 +16,7 @@ namespace Engine {
 
     class ParallaxSlide : public Engine::Entity {
     public:
-        ParallaxSlide(const Point<int> &pos, const Point<int> &limit, const Vector<double> &speed, std::unique_ptr<ASprite> sprite, int layer = -1)
+        ParallaxSlide(const Point<double> &pos, const Point<double> &limit, const Vector<double> &speed, std::unique_ptr<ASprite> sprite, int layer = -1)
         : Engine::Entity() {
             this->addComponent<TransformComponent>(pos);
             this->addComponent<SpriteComponent>(layer, std::move(sprite));
