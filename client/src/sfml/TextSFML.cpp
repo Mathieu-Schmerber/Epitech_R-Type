@@ -18,7 +18,7 @@ void TextSFML::draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<doub
 
 void TextSFML::setRotation(double angle)
 {
-    _text.setRotation(angle);
+    _text.setRotation(static_cast<float>(angle));
 }
 
 void TextSFML::setPosition(Engine::Point<double> position)
@@ -59,12 +59,12 @@ void TextSFML::setFont(std::shared_ptr<Engine::AFont> &font)
 
 void TextSFML::setScale(Engine::Size<double> scale)
 {
-    _text.setScale(scale.x, scale.y);
+    _text.setScale(static_cast<float>(scale.x), static_cast<float>(scale.y));
 }
 
 void TextSFML::setOrigin(Engine::Point<double> origin)
 {
-    _text.setOrigin(origin.x, origin.y);
+    _text.setOrigin(static_cast<float>(origin.x), static_cast<float>(origin.y));
 }
 
 void TextSFML::setFillColor(Engine::Color color)
@@ -79,12 +79,12 @@ void TextSFML::setOutlineColor(Engine::Color color)
 
 void TextSFML::setLetterSpacing(double spacingFactor)
 {
-    _text.setLetterSpacing(spacingFactor);
+    _text.setLetterSpacing(static_cast<float>(spacingFactor));
 }
 
 void TextSFML::setLineSpacing(double spacingFactor)
 {
-    _text.setLineSpacing(spacingFactor);
+    _text.setLineSpacing(static_cast<float>(spacingFactor));
 }
 
 std::string TextSFML::toStdString() const

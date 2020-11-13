@@ -21,7 +21,7 @@
 template <typename T>
 class DLLoader {
 public:
-    DLLoader(std::string libName);
+    DLLoader(const std::string &libName);
     ~DLLoader() {std::cout << "Lib destroyed" << std::endl;}
 
     typedef T *(*fct)();
@@ -36,7 +36,7 @@ private:
 };
 
 template<typename T>
-DLLoader<T>::DLLoader(const std::string libName) : _lib(nullptr), _libName(libName)
+DLLoader<T>::DLLoader(const std::string &libName) : _lib(nullptr), _libName(libName)
 {}
 
 template<typename T>
@@ -48,7 +48,7 @@ void DLLoader<T>::open()
         _lib = LoadLibrary(TEXT(_libName.c_str()));
     #endif
     if (!_lib) {
-        std::cerr << dlerror() << std::endl;
+        //std::cerr << dlerror() << std::endl;
         throw std::exception();
     }
 }

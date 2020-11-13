@@ -17,7 +17,7 @@ void SpriteSFML::setTexture(std::shared_ptr<Engine::ATexture> &texture)
 
 void SpriteSFML::setScale(Engine::Scale<double> scale)
 {
-    _sprite.setScale(scale.x, scale.y);
+    _sprite.setScale(static_cast<float>(scale.x), static_cast<float>(scale.y));
 }
 
 Engine::Scale<double> SpriteSFML::getScale() const
@@ -27,7 +27,8 @@ Engine::Scale<double> SpriteSFML::getScale() const
 
 void SpriteSFML::setRect(Engine::Box<double> rect)
 {
-    _sprite.setTextureRect(sf::IntRect(rect.x1, rect.y1, rect.size.x, rect.size.y));
+    _sprite.setTextureRect(sf::IntRect(static_cast<int>(rect.x1), static_cast<int>(rect.y1),
+                                       static_cast<int>(rect.size.x), static_cast<int>(rect.size.y)));
 }
 
 Engine::Box<double> SpriteSFML::getRect() const
@@ -39,7 +40,7 @@ Engine::Box<double> SpriteSFML::getRect() const
 
 void SpriteSFML::setPosition(Engine::Point<double> position)
 {
-    _sprite.setPosition(position.x, position.y);
+    _sprite.setPosition(static_cast<float>(position.x), static_cast<float>(position.y));
 }
 
 Engine::Point<double> SpriteSFML::getPosition() const
@@ -49,7 +50,7 @@ Engine::Point<double> SpriteSFML::getPosition() const
 
 void SpriteSFML::setOrigin(Engine::Point<double> origin)
 {
-    _sprite.setOrigin(origin.x, origin.y);
+    _sprite.setOrigin(static_cast<float>(origin.x), static_cast<float>(origin.y));
 }
 
 Engine::Point<double> SpriteSFML::getOrigin() const
@@ -68,7 +69,7 @@ void SpriteSFML::draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<do
 
 void SpriteSFML::setRotation(double angle)
 {
-    _sprite.setRotation(angle);
+    _sprite.setRotation(static_cast<float>(angle));
 }
 
 double SpriteSFML::getRotation()

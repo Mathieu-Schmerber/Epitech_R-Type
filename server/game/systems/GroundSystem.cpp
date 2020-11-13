@@ -14,19 +14,19 @@ GroundSystem::GroundSystem(std::shared_ptr<Game> &game) : _game(game), Engine::S
     this->_lastHeight = 1;
 }
 
-void GroundSystem::spawnGrounds(int xOffset, int yOffset)
+void GroundSystem::spawnGrounds(double xOffset, double yOffset)
 {
     std::random_device rd;
     std::mt19937 rng(rd());
     std::uniform_int_distribution<int> uni(-1, 1);
     auto height = uni(rng) + this->_lastHeight;
     std::shared_ptr<Engine::Entity> gr;
-    Engine::Point<int> pos = {0, 0};
+    Engine::Point<double> pos = {0, 0};
 
     height = (height > 3 ? 2 : (height == 0 ? 1 : height));
     for (int j = 1; j < height + 1; j++) {
         pos = {xOffset, (yOffset != 0 ? yOffset - (GROUND_HEIGHT * j) : (GROUND_HEIGHT * (j - 1)))};
-        gr = std::make_shared<Ground>(pos, Engine::Point<int>{-GROUND_WIDTH, pos.y}, Engine::Vector<double>{-20, 0});
+        gr = std::make_shared<Ground>(pos, Engine::Point<double>{-GROUND_WIDTH, pos.y}, Engine::Vector<double>{-20, 0});
         this->_game->spawn(gr, true);
     }
     this->_lastHeight = height;

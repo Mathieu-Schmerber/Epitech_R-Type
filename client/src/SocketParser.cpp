@@ -99,7 +99,7 @@ void SocketParser::updateLobbyFromTcp(std::shared_ptr<Engine::Entity> &lobby, co
     auto sprites = lobby->getComponents<Engine::SpriteComponent>();
 
     for (int i = 1; i < connectedPlayers + 1; ++i)
-        sprites.at(i)->getSprite()->setRect({Engine::Box<double>({STARSHIP_WIDTH * i, 0}, {STARSHIP_WIDTH, STARSHIP_HEIGHT})});
+        sprites.at(i)->getSprite()->setRect({Engine::Box<double>({static_cast<double>(STARSHIP_WIDTH) * i, 0}, {STARSHIP_WIDTH, STARSHIP_HEIGHT})});
 }
 
 void SocketParser::refreshTimer(bool dataChanged)

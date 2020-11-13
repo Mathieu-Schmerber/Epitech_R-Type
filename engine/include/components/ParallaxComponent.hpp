@@ -20,7 +20,7 @@ namespace Engine {
 
     public:
         explicit ParallaxComponent() : _start({0, 0}), _limit({0, 0}), _isAutomatic(true), Engine::Component() {}
-        explicit ParallaxComponent(const Point<float> &start, const Point<float> &limit, bool automatic = true) : _isAutomatic(automatic), _start(start), _limit(limit),
+        explicit ParallaxComponent(const Point<double> &start, const Point<double> &limit, bool automatic = true) : _isAutomatic(automatic), _start(start), _limit(limit),
 
         Engine::Component() {}
 

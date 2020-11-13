@@ -31,14 +31,14 @@ std::vector<int> SocketParser::parseUdpEntity(const std::shared_ptr<Engine::Enti
     auto sprite = entity->getComponent<Engine::SpriteComponent>();
 
     parsed.push_back(entity->getComponent<Engine::NetworkComponent>()->getNetworkId());
-    parsed.push_back(transform->getPos().x);
-    parsed.push_back(transform->getPos().y);
+    parsed.push_back(static_cast<int>(transform->getPos().x));
+    parsed.push_back(static_cast<int>(transform->getPos().y));
     parsed.push_back(static_cast<int>(transform->getRotation()));
     parsed.push_back(static_cast<int>(pool->getIndexFromPath(sprite->getTexture()->getFilename())));
-    parsed.push_back(sprite->getSprite()->getRect().x1);
-    parsed.push_back(sprite->getSprite()->getRect().x2);
-    parsed.push_back(sprite->getSprite()->getRect().y1);
-    parsed.push_back(sprite->getSprite()->getRect().y2);
-    parsed.push_back(sprite->getLayer());
+    parsed.push_back(static_cast<int>(sprite->getSprite()->getRect().x1));
+    parsed.push_back(static_cast<int>(sprite->getSprite()->getRect().x2));
+    parsed.push_back(static_cast<int>(sprite->getSprite()->getRect().y1));
+    parsed.push_back(static_cast<int>(sprite->getSprite()->getRect().y2));
+    parsed.push_back(static_cast<int>(sprite->getLayer()));
     return parsed;
 }

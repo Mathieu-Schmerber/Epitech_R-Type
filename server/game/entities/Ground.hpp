@@ -21,10 +21,10 @@
 class Ground : public Engine::Entity
 {
 private:
-    Engine::Size<int> _size = {GROUND_WIDTH, GROUND_HEIGHT};
+    Engine::Size<double> _size = {GROUND_WIDTH, GROUND_HEIGHT};
 
 public:
-    explicit Ground(const Engine::Point<int> &pos, const Engine::Point<int> &limit, const Engine::Vector<double> &speed) : Engine::Entity()
+    explicit Ground(const Engine::Point<double> &pos, const Engine::Point<double> &limit, const Engine::Vector<double> &speed) : Engine::Entity()
     {
         auto spr = std::make_unique<DataSprite>("../../client/assets/images/platform/bottom_platform_single.png");
 

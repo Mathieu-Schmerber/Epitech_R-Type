@@ -38,7 +38,7 @@ void PlayerSystem::handleMoveAnimations(std::shared_ptr<Engine::Entity> &player,
 
 void PlayerSystem::handleMovements(std::shared_ptr<Engine::Entity> &player)
 {
-    const double speed = 2;
+    const double speed = 20;
     auto pressed = player->getComponent<Engine::ControllerComponent>()->getPressed();
     auto center = player->getComponent<Engine::ColliderComponent>()->getHitBox().center;
     Engine::Vector<double> dir = {0, 0};

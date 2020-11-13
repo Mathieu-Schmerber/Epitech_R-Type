@@ -41,18 +41,18 @@ void Game::initGameEntities()
     auto parallaxB = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png");
     parallaxA->setRect({{0, 0}, {3840, 1080}});
     parallaxB->setRect({{0, 0}, {3840, 1080}});
-    std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{0, 0}, Engine::Point<double>{-3840, 0}, Engine::Point<double>{-2, 0}, std::move(parallaxA));
-    std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{3840, 0}, Engine::Point<double>{0, 0}, Engine::Point<double>{-2, 0}, std::move(parallaxB));
+    std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{0, 0}, Engine::Point<double>{-3840, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxA));
+    std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{3840, 0}, Engine::Point<double>{0, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxB));
 
-    // FIXME test load enemy in dyn lib
+    /*// FIXME test load enemy in dyn lib
     dynLoader.open();
     std::cout << "================== set enemy test ==================" << std::endl;
-    std::shared_ptr<Engine::Entity> enemy_test = std::shared_ptr<Engine::Entity>(dynLoader.getInstance());
+    std::shared_ptr<Engine::Entity> enemy_test = std::shared_ptr<Engine::Entity>(dynLoader.getInstance());*/
 
     this->spawn(player, true);
     this->spawn(slideA, true);
     this->spawn(slideB, true);
-    this->spawn(enemy_test, true);
+    //this->spawn(enemy_test, true);
 }
 
 void Game::initGameSystems()
@@ -120,7 +120,7 @@ void Game::update()
 
     std::cout << "Game entities " << this->_entities.size() << std::endl;
     if (Engine::Timer::hasElapsed(this->_timer->getLastPoint(), 1.0 / serverTicks)) {
-        time = this->_timer->deltatime(0.1);
+        time = this->_timer->deltatime();
         for (auto &sys : this->_systems) {
             sys->setDeltatime(time);
             sys->update();
