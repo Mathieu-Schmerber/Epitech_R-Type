@@ -24,5 +24,4 @@ public:
     void update() override;
 };
 
-
 #endif //RTYPE_ENEMYSYSTEM_HPP

@@ -25,10 +25,7 @@ void EnemySystem::handleMovements(std::shared_ptr<Engine::Entity> &enemy)
     const double speed = 0.2f;
     Engine::Vector<double> dir = {0, 0};
 
-    dir.x += 1;
-    dir.y += 1;
-    dir = {dir.x * speed, dir.y * speed};
-    enemy->getComponent<Engine::VelocityComponent>()->setSpeed(dir);
+    enemy->getComponent<PatternComponent>()->move(enemy);
 }
 
 void EnemySystem::update()
