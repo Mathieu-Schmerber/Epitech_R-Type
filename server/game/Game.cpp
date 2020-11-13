@@ -52,9 +52,6 @@ void Game::initGameEntities()
     this->spawn(player, true);
     this->spawn(slideA, true);
     this->spawn(slideB, true);
-    std::shared_ptr<Engine::Entity> gr = std::make_shared<Ground>(Engine::Point<double>{600, 500}, Engine::Point<double>{-GROUND_WIDTH, 0}, Engine::Vector<double>{0, 0});
-    this->spawn(gr, true);
-    //this->spawn(enemy_test, true);
     this->spawn(spawner, false);
 }
 
@@ -68,7 +65,7 @@ void Game::initGameSystems()
     auto physic = std::make_unique<Engine::PhysicSystem>();
     auto players = std::make_unique<PlayerSystem>(game);
     auto projectiles = std::make_unique<ProjectileSystem>(game);
-    //auto ground = std::make_unique<GroundSystem>(game);
+    auto ground = std::make_unique<GroundSystem>(game);
     auto enemy = std::make_unique<EnemySystem>(game);
     auto autoWeapon = std::make_unique<AutomaticWeaponSystem>(game);
     auto lifetime = std::make_unique<LifetimeSystem>(game);
@@ -76,7 +73,7 @@ void Game::initGameSystems()
     auto spawner = std::make_unique<SpawnerSystem>(game);
 
     this->_systems.push_back(std::move(move));
-    //this->_systems.push_back(std::move(ground));
+    this->_systems.push_back(std::move(ground));
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(physic));
