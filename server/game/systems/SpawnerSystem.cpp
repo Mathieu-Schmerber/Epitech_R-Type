@@ -22,12 +22,8 @@ void SpawnerSystem::handleSpawn(std::shared_ptr<Engine::Entity> &spawner)
 {
     if (spawner->getComponent<EnemySpawnerComponent>()->canSpawn()) {
         std::shared_ptr<Enemy> e = std::shared_ptr<Enemy>(spawner->getComponent<EnemySpawnerComponent>()->getEntity(DLL_PATH));
-        std::cout << "hihi" << std::endl;
-        auto colliderB = e->getComponent<Engine::ColliderComponent>();
-        colliderB->clearCollisions();
+        e->getComponent<Engine::TransformComponent>()->setPos(spawner->getComponent<Engine::TransformComponent>()->getPos());
         _game->spawn(e, true);
-        colliderB = e->getComponent<Engine::ColliderComponent>();
-        colliderB->clearCollisions();
     }
 }
 
