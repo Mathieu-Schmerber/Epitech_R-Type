@@ -21,15 +21,21 @@ SpawnerSystem::SpawnerSystem(std::shared_ptr<Game> &game) : _game(game)
 void SpawnerSystem::handleSpawn(std::shared_ptr<Engine::Entity> &spawner)
 {
     if (spawner->getComponent<EnemySpawnerComponent>()->canSpawn()) {
-        std::shared_ptr<Enemy> e = std::shared_ptr<Enemy>(spawner->getComponent<EnemySpawnerComponent>()->getEntity(DLL_PATH));
+        std::shared_ptr<Enemy> e = std::shared_ptr<Enemy>(spawner->getComponent<EnemySpawnerComponent>()->getEntity(FLOATING_ROBOT));
         e->getComponent<Engine::TransformComponent>()->setPos(spawner->getComponent<Engine::TransformComponent>()->getPos());
         _game->spawn(e, true);
     }
+}
+
+void SpawnerSystem::handleMoves(std::shared_ptr<Engine::Entity> &spawner)
+{
+
 }
 
 void SpawnerSystem::update()
 {
     for (auto &e : _entities) {
         handleSpawn(e);
+        handleMoves(e);
     }
 }
