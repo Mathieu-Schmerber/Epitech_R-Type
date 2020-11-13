@@ -16,11 +16,14 @@ Lobby::Lobby(int id, char nbSlots, int port) : _id(id), _nbSlots(nbSlots), _game
 
 void Lobby::run()
 {
+    std::cout << "Lobby::run" << std::endl;
     std::vector<std::shared_ptr<Client>> cli;
-    cli.push_back(this->_players.front());
+    //cli.push_back(this->_players.front());
     _game = std::make_unique<Game>(cli, _udpSocketInput);
     _gameRunning = true;
+    std::cout << "Start game" << std::endl;
     _thread = std::thread([&] { while (_game->isGameRunning()) { _game->update(); } });
+    std::cout << "wtf" << std::endl;
 }
 
 void Lobby::join(const std::shared_ptr<Client> &cli)

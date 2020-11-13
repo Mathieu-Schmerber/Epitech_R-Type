@@ -34,12 +34,34 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
     }
     if (_data.at(0) < 2)
         return;
-    if (_data.at(1) == 1) {
+    if (_data.at(1) == 0) {
         //Join a lobby
         for (auto a : this->_server->getLobbyManager().getAvailableLobbies()) {
             if (a->getId() == _data.at(2))
                 a->join(std::shared_ptr<Client>(this));
         }
+    } else if (_data.at(1) == 1) {
+        //Create a Lobby
+        std::vector<int> output;
+        std::cout << "Lobby creation" << std::endl;
+        auto newLobby = this->_server->getLobbyManager().addLobby(_data.at(2));
+        std::cout << "get new Lobby" << std::endl;
+        output.push_back(7);
+        output.push_back(1);
+        output.push_back(newLobby->getId());
+        output.push_back(newLobby->getPort());
+        output.push_back((int)newLobby->getSlots());
+        output.push_back(_id);
+        output.push_back((int)newLobby->getNbPlayers());
+        std::cout << "send to clients" << std::endl;
+        for (auto &a : this->_server->getClientList()) {
+            try {
+                a->sendToClient(output);
+            } catch (std::exception &e) {
+                std::cerr << "Send to clients errors : " << e.what() << std::endl;
+            }
+        }
+        std::cout << "After send to clients" << std::endl;
     }
 }
 

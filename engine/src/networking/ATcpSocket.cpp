@@ -41,6 +41,10 @@ std::vector<int> Engine::ATcpSocket::getDataFromServer()
 
 void Engine::ATcpSocket::_handleRead(const boost::system::error_code &error, std::size_t bytes)
 {
+    std::cout << "heho j'ai recu ca : ";
+    for (auto &a : _data)
+        std::cout << a << " ";
+    std::cout << std::endl;
     _queueData.push_back(_data);
     _socket.async_read_some(boost::asio::buffer(_data, 40),
         boost::bind(&Engine::ATcpSocket::_handleRead, this,

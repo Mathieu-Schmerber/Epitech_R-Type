@@ -63,3 +63,8 @@ LobbyManager &Server::getLobbyManager()
 {
     return this->_lobbyManager;
 }
+
+std::vector<std::shared_ptr<Client>> Server::getClientList() const
+{
+    return this->_connected;
+}

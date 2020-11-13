@@ -29,6 +29,7 @@ public:
     void handle_accept(std::shared_ptr<Client> session, const boost::system::error_code& err, Server *server);
     [[noreturn]] void run();
     LobbyManager &getLobbyManager();
+    [[nodiscard]] std::vector<std::shared_ptr<Client>> getClientList() const;
     void stop();
 private:
     boost::asio::io_service _io_service;
