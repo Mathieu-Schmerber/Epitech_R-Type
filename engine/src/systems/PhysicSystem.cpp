@@ -31,7 +31,8 @@ void Engine::PhysicSystem::update()
             if (Geometry::doOverlap(colliderA->getHitBox(), colliderB->getHitBox()) &&
             colliderA->getCollisionMask() != colliderB->getCollisionMask()) {
                 colliderB->collide(a);
-                colliderA->collide(b);
+                if (!Utils::isInVector(colliderA->getCollisions(), b))
+                    colliderA->collide(b);
             }
         }
     }

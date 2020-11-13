@@ -7,6 +7,7 @@
 
 #include "ecs/System.hpp"
 #include "entities/Player.hpp"
+#include "components/CollectibleComponent.hpp"
 #include "Game.hpp"
 
 class PlayerSystem : public Engine::System
@@ -44,7 +45,8 @@ private:
     std::shared_ptr<Engine::Entity> generateProjectile(ManualWeaponComponent *weapon);
     void handleWeapon(std::shared_ptr<Engine::Entity> &player);
 
-    static void handleCollisions(std::shared_ptr<Engine::Entity> &player);
+    static void pickupCollectible(std::shared_ptr<Engine::Entity> &player, CollectibleComponent::Type type, double value);
+    void handleCollisions(std::shared_ptr<Engine::Entity> &player);
 public:
     explicit PlayerSystem(std::shared_ptr<Game> &game);
 

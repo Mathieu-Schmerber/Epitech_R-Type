@@ -25,12 +25,12 @@ private:
             {CollectibleComponent::Type::SENTINEL, "../../client/assets/images/weapons/power_up_1_100x20_25x20.png"}
     };
     std::map<CollectibleComponent::Type, std::vector<Engine::Box<double>>> _anims {
-            {CollectibleComponent::Type::UPGRADE,{
+            {CollectibleComponent::Type::UPGRADE, {
                 {{40 * 0, 0}, {40, 36}},
                 {{40 * 1, 0}, {40, 36}},
                 {{40 * 2, 0}, {40, 36}},
                 {{40 * 3, 0}, {40, 36}}}},
-            {CollectibleComponent::Type::SENTINEL,{
+            {CollectibleComponent::Type::SENTINEL, {
                 {{25 * 0, 0}, {25, 20}},
                 {{25 * 1, 0}, {25, 20}},
                 {{25 * 2, 0}, {25, 20}},

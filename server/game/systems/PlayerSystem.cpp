@@ -60,15 +60,6 @@ void PlayerSystem::handleMovements(std::shared_ptr<Engine::Entity> &player)
         player->getComponent<Engine::VelocityComponent>()->setSpeed({0, 0});
 }
 
-void PlayerSystem::handleCollisions(std::shared_ptr<Engine::Entity> &player)
-{
-    auto collisions = player->getComponent<Engine::ColliderComponent>()->getCollisions();
-
-    for (auto &c : collisions) {
-
-    }
-}
-
 void PlayerSystem::spawnShootParticle(std::shared_ptr<Engine::Entity> &player)
 {
     auto box1 = player->getComponent<Engine::ColliderComponent>()->getHitBox();
@@ -147,6 +138,32 @@ void PlayerSystem::handleWeapon(std::shared_ptr<Engine::Entity> &player)
         weapon->refreshShoots();
         weapon->abortCharge();
         this->destroyShootParticle(player);
+    }
+}
+
+void PlayerSystem::pickupCollectible(std::shared_ptr<Engine::Entity> &player, CollectibleComponent::Type type, double value)
+{
+
+}
+
+void PlayerSystem::handleCollisions(std::shared_ptr<Engine::Entity> &player)
+{
+    auto collider = player->getComponent<Engine::ColliderComponent>();
+    auto collisions = collider->getCollisions();
+    auto collided = Collision::removeIgnored(static_cast<Collision::Mask>(collider->getCollisionMask()), collisions);
+    Engine::ColliderComponent *other = nullptr;
+    auto copy = collided;
+
+    for (auto &c : copy) {
+        other = c->getComponent<Engine::ColliderComponent>();
+        switch (other->getCollisionMask()) {
+            case Collision::Mask::BONUS:
+                std::cout << "hello" << std::endl;
+                auto collectible = c->getComponent<CollectibleComponent>();
+                PlayerSystem::pickupCollectible(player, collectible->getType(), collectible->getBonusValue());
+                this->_game->despawn(c);
+                break;
+        }
     }
 }
 

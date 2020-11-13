@@ -21,7 +21,7 @@ namespace Collision {
     };
 
     static std::map<Mask, std::vector<Mask>> ignoranceMap = {
-            {PLAYER, {PLAYER_PROJECTILE, BONUS}},
+            {PLAYER, {PLAYER_PROJECTILE}},
             {PLAYER_PROJECTILE, {PLAYER, BONUS}},
             {ENEMY, {ENEMY_PROJECTILE, WALL, BONUS}},
             {ENEMY_PROJECTILE, {ENEMY, BONUS}},
@@ -48,9 +48,9 @@ namespace Collision {
 
         if (!Engine::Utils::isInMap(ignoranceMap, myMask))
             return res;
-        for (auto &e : res) {
+        for (auto &e : list) {
             collider = e->getComponent<Engine::ColliderComponent>();
-            if (collider && Engine::Utils::isInVector(ignoranceMap[myMask], static_cast<Mask>(collider->getCollisionMask())))
+            if (Engine::Utils::isInVector(ignoranceMap[myMask], static_cast<Mask>(collider->getCollisionMask())))
                 Engine::Utils::removeFromVector(res, e);
         }
         return res;
