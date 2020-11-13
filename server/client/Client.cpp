@@ -50,5 +50,5 @@ int Client::getId() const
 
 void Client::sendToClient(const std::vector<int> &in)
 {
-
+    this->get_socket().write_some(boost::asio::buffer(in));
 }

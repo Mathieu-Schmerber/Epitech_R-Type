@@ -9,9 +9,9 @@
 #include "Client.hpp"
 #include "Game.hpp"
 
-Lobby::Lobby(int id, char nbSlots) : _id(id), _nbSlots(nbSlots), _gameRunning(false)
+Lobby::Lobby(int id, char nbSlots, int port) : _id(id), _nbSlots(nbSlots), _gameRunning(false), _port(port)
 {
-    _udpSocketInput = std::make_unique<UdpSocketInput>(4243);
+    _udpSocketInput = std::make_unique<UdpSocketInput>(port);
 }
 
 void Lobby::run()
@@ -48,7 +48,12 @@ char Lobby::getSlots() const
     return this->_nbSlots;
 }
 
-char Lobby::getEmptySlots() const
+char Lobby::getNbPlayers() const
 {
-    return (char)(this->_nbSlots - (char)this->_players.size());
+    return (char)this->_players.size();
+}
+
+int Lobby::getPort() const
+{
+    return _port;
 }
