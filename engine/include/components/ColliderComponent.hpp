@@ -35,10 +35,6 @@ namespace Engine {
 
         void clearCollisions() { this->_collisions.clear(); };
 
-        int collisionsCount() {
-            std::cout << this->_collisions.size() << std::endl;
-            return this->_collisions.size();}
-
         void collide(std::shared_ptr<Entity> &entity) {
             if (this->_isActive)
                 _collisions.emplace_back(entity);

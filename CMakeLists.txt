@@ -302,7 +302,6 @@ set(SERVER_INCLUDES
 		server/game/entities/Ground.hpp
 		server/game/CollisionMasks.hpp
 		server/game/entities/Spawner.hpp
-		server/game/components/SpawnerComponent.hpp
 		server/game/components/LifetimeComponent.hpp
 		server/game/systems/LifetimeSystem.hpp
 		server/game/entities/Particle.hpp
