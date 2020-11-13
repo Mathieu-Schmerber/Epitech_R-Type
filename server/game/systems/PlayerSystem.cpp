@@ -7,6 +7,7 @@
 #include "entities/Projectile.hpp"
 #include "entities/Particle.hpp"
 #include "CollisionMasks.hpp"
+#include "entities/Sentinel.hpp"
 
 PlayerSystem::PlayerSystem(std::shared_ptr<Game> &game) : _game(game), Engine::System()
 {
@@ -142,9 +143,29 @@ void PlayerSystem::handleWeapon(std::shared_ptr<Engine::Entity> &player)
     }
 }
 
+void PlayerSystem::attachSentinel(std::shared_ptr<Engine::Entity> &player, bool top)
+{
+    std::shared_ptr<Engine::Entity> sentinel = std::make_shared<Sentinel>(Engine::Point<double>{0, 0});
+    auto box1 = player->getComponent<Engine::ColliderComponent>()->getHitBox();
+    auto box2 = sentinel->getComponent<Engine::SpriteComponent>()->getSprite()->getRect();
+    auto pos = (top ? Engine::Geometry::placeTop(box1, box2) : Engine::Geometry::placeBottom(box1, box2));
+    auto offset = Engine::Point<double>{0.0, (top ? -10.0 : 10.0)};
+
+    pos = {pos.x + offset.x, pos.y + offset.y};
+    sentinel->getComponent<Engine::TransformComponent>()->setPos(pos);
+    player->getComponent<Engine::ChildrenComponent>()->addChild(sentinel);
+    this->_game->spawn(sentinel, true);
+}
+
 void PlayerSystem::pickupCollectible(std::shared_ptr<Engine::Entity> &player, CollectibleComponent::Type type, double value)
 {
-    std::cout << "hello" << std::endl;
+    int sentinelCount = 0;
+    auto children = player->getComponent<Engine::ChildrenComponent>()->getChildren();
+
+    for (auto &child : children)
+        sentinelCount += (child->getComponent<AutomaticWeaponComponent>() != nullptr);
+    if (sentinelCount < 2)
+        this->attachSentinel(player, (sentinelCount == 0));
 }
 
 void PlayerSystem::handleCollisions(std::shared_ptr<Engine::Entity> &player)

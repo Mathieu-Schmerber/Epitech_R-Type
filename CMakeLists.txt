@@ -314,7 +314,9 @@ set(SERVER_INCLUDES
 		server/game/systems/HealthSystem.hpp
 		server/game/ADLLoader.hpp
 		server/game/components/CollectibleComponent.hpp
-		server/game/entities/Collectible.hpp)
+		server/game/entities/Collectible.hpp
+		server/game/entities/Sentinel.hpp
+		)
 
 
 set(ENEMIES_INCLUDES

@@ -45,7 +45,8 @@ private:
     std::shared_ptr<Engine::Entity> generateProjectile(ManualWeaponComponent *weapon);
     void handleWeapon(std::shared_ptr<Engine::Entity> &player);
 
-    static void pickupCollectible(std::shared_ptr<Engine::Entity> &player, CollectibleComponent::Type type, double value);
+    void attachSentinel(std::shared_ptr<Engine::Entity> &player, bool top);
+    void pickupCollectible(std::shared_ptr<Engine::Entity> &player, CollectibleComponent::Type type, double value);
     void handleCollisions(std::shared_ptr<Engine::Entity> &player);
 public:
     explicit PlayerSystem(std::shared_ptr<Game> &game);

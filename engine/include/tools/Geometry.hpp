@@ -136,6 +136,24 @@ namespace Engine {
         }
 
         template<typename T>
+        [[nodiscard]] static Point<T> placeTop(const Box<T> &ref, const Box<T> &a)
+        {
+            if (ref.size.x > a.size.x)
+                return {ref.x1 + (ref.size.x - a.size.x) / 2, ref.y1 - a.size.y};
+            else
+                return {ref.x1 + (a.size.x - ref.size.x) / 2, ref.y1 - a.size.y};
+        }
+
+        template<typename T>
+        [[nodiscard]] static Point<T> placeBottom(const Box<T> &ref, const Box<T> &a)
+        {
+            if (ref.size.x > a.size.x)
+                return {ref.x1 + (ref.size.x - a.size.x) / 2, ref.y1 + a.size.y};
+            else
+                return {ref.x1 + (a.size.x - ref.size.x) / 2, ref.y1 + a.size.y};
+        }
+
+        template<typename T>
         [[nodiscard]] static bool doOverlap(const Point<T> &point, const Box<T> &box) {
             return (point.x >= box.x1 && point.x <= box.x2 &&
                     point.y >= box.y1 && point.y <= box.y2);
