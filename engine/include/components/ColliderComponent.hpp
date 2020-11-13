@@ -16,7 +16,7 @@ namespace Engine {
         bool _isActive;
         Engine::Box<double> _hitBox;
         Engine::Box<double> _baseHitBox;
-        std::vector<std::shared_ptr<Engine::Entity>> _collisions;
+        std::vector<std::shared_ptr<Engine::Entity>> _collisions = {};
 
     public:
         explicit ColliderComponent() : _collisionMask(0), _isActive(false), _hitBox(0, 0, 0, 0), _baseHitBox(0, 0, 0, 0),
@@ -34,6 +34,10 @@ namespace Engine {
         }
 
         void clearCollisions() { this->_collisions.clear(); };
+
+        int collisionsCount() {
+            std::cout << this->_collisions.size() << std::endl;
+            return this->_collisions.size();}
 
         void collide(std::shared_ptr<Entity> &entity) {
             if (this->_isActive)

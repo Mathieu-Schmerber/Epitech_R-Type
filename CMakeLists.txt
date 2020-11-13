@@ -317,25 +317,25 @@ add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURC
 include(GNUInstallDirs)
 
 # Dynamic libs
-add_library(doubleingRobot SHARED
+add_library(floatingRobot SHARED
 		dynamic_libs/FloatingRobot.cpp
 		dynamic_libs/FloatingRobot.hpp
 
 		${ENEMIES_SOURCES}
 		)
-set_target_properties(doubleingRobot PROPERTIES SOVERSION 1)
-set_target_properties(doubleingRobot PROPERTIES
+set_target_properties(floatingRobot PROPERTIES SOVERSION 1)
+set_target_properties(floatingRobot PROPERTIES
 		PUBLIC_HEADER "${ENEMIES_INCLUDES}")
-target_include_directories(doubleingRobot PUBLIC
+target_include_directories(floatingRobot PUBLIC
 		dynamic_libs
 		engine/include
 		server/game
 		client/include
 		)
-install(TARGETS doubleingRobot
+install(TARGETS floatingRobot
 		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-install(FILES ${CMAKE_BINARY_DIR}/doubleingRobot.pc
+install(FILES ${CMAKE_BINARY_DIR}/floatingRobot.pc
 		DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
 
 ###############

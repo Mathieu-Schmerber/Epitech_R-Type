@@ -119,7 +119,7 @@ void Game::update()
     int serverTicks = 60;
     double time;
 
-    std::cout << "Game entities " << this->_entities.size() << std::endl;
+    //std::cout << "Game entities " << this->_entities.size() << std::endl;
     if (Engine::Timer::hasElapsed(this->_timer->getLastPoint(), 1.0 / serverTicks)) {
         time = this->_timer->deltatime();
         for (auto &sys : this->_systems) {
