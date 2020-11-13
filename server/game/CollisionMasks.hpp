@@ -20,10 +20,10 @@ namespace Collision {
     };
 
     static std::map<Mask, std::vector<Mask>> ignoranceMap = {
-            {PLAYER, {PLAYER_PROJECTILE, PLAYER}},
-            {PLAYER_PROJECTILE, {PLAYER_PROJECTILE, PLAYER}},
-            {ENEMY, {ENEMY, ENEMY_PROJECTILE, WALL}},
-            {ENEMY_PROJECTILE, {ENEMY, ENEMY_PROJECTILE}},
+            {PLAYER, {PLAYER_PROJECTILE}},
+            {PLAYER_PROJECTILE, {PLAYER}},
+            {ENEMY, {ENEMY_PROJECTILE, WALL}},
+            {ENEMY_PROJECTILE, {ENEMY}},
     };
 
     static bool doCollide(Mask myMask, std::vector<std::shared_ptr<Engine::Entity>> &entities) {

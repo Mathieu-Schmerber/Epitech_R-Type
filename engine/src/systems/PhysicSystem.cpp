@@ -28,7 +28,8 @@ void Engine::PhysicSystem::update()
             if (b == a)
                 continue;
             auto colliderB = b->getComponent<ColliderComponent>();
-            if (Geometry::doOverlap(colliderA->getHitBox(), colliderB->getHitBox())) {
+            if (Geometry::doOverlap(colliderA->getHitBox(), colliderB->getHitBox()) &&
+            colliderA->getCollisionMask() != colliderB->getCollisionMask()) {
                 colliderB->collide(a);
                 colliderA->collide(b);
             }
