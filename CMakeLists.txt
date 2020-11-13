@@ -151,6 +151,10 @@ set(ENGINE_INCLUDES
 		engine/include/components/ButtonComponent.hpp
 		engine/include/systems/ButtonSystem.hpp
 		engine/include/tools/AssetPool.hpp
+		engine/include/tools/DLLoader.hpp
+		engine/include/tools/ADLLoader.hpp
+		engine/include/entities/Text.hpp
+		engine/include/tools/DynamicLibManager.hpp
 		engine/include/systems/ChildrenSystem.hpp)
 
 set(CLIENT_SOURCES
@@ -232,7 +236,6 @@ set(CLIENT_INCLUDES
 		client/include/scenes/CreateLobby.hpp
 		client/include/scenes/LobbyWaiting.hpp
 		client/include/entities/LobbyWaitingEntity.hpp
-		engine/include/entities/Text.hpp
 		client/include/entities/PlayerAndStarshipEntity.hpp
 		client/include/systems/PlayerAndStarshipSystem.hpp
 		client/include/components/LobbyComponent.hpp
@@ -278,7 +281,6 @@ set(SERVER_INCLUDES
 		server/game/systems/ServerNetworkSystem.hpp
 		server/game/Game.hpp
 		server/game/entities/Enemy.hpp
-		server/game/DLLoader.hpp
 		server/game/Game.hpp
 		server/game/dataHolders/DataSprite.hpp
 		server/game/dataHolders/DataTexture.hpp
@@ -294,7 +296,6 @@ set(SERVER_INCLUDES
 		server/game/systems/AutomaticWeaponSystem.hpp
 		server/game/components/AutomaticWeaponComponent.hpp
 		server/game/Game.hpp
-		server/game/DLLoader.hpp
 		server/game/systems/PlayerSystem.hpp
 		server/game/components/ProjectileComponent.hpp
 		server/game/entities/Projectile.hpp
@@ -308,11 +309,8 @@ set(SERVER_INCLUDES
 		server/game/entities/Particle.hpp
 		server/game/components/EnemySpawnerComponent.hpp
 		server/game/systems/SpawnerSystem.hpp
-		server/game/DynamicLibManager.hpp
-		server/game/ADLLoader.hpp
 		server/game/components/HealthComponent.hpp
 		server/game/systems/HealthSystem.hpp
-		server/game/ADLLoader.hpp
 		server/game/components/CollectibleComponent.hpp
 		server/game/entities/Collectible.hpp
 		server/game/entities/Sentinel.hpp

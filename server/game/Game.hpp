@@ -10,7 +10,7 @@
 #include "tools/Timer.hpp"
 #include "networking/UDP/UdpSocketInput.hpp"
 #include "Client.hpp"
-#include "DLLoader.hpp"
+#include "tools/DLLoader.hpp"
 
 class Game : public std::enable_shared_from_this<Game>
 {

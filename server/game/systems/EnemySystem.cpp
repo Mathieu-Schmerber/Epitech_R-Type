@@ -30,6 +30,11 @@ void EnemySystem::handleMovements(std::shared_ptr<Engine::Entity> &enemy)
 
 void EnemySystem::update()
 {
+    auto tmp = _entities;
+
+    for (auto &e : tmp)
+        if (e->getComponent<Engine::TransformComponent>()->getPos().x < 0)
+            _game->despawn(e);
     for (auto &e : this->_entities) {
         handleMovements(e);
     }

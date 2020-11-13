@@ -11,10 +11,16 @@
 
 #include <chrono>
 #include <tools/Timer.hpp>
-#include <DynamicLibManager.hpp>
+#include <tools/DynamicLibManager.hpp>
 #include "entities/Enemy.hpp"
-#include "DLLoader.hpp"
+#include "tools/DLLoader.hpp"
 #include "ecs/Component.hpp"
+
+#ifdef __unix__
+#define FLOATING_ROBOT "../lib/libfloatingRobot.so"
+#elif defined(_WIN32) || defined(WIN32)
+#define FLOATING_ROBOT "./floatingRobot.dll"
+#endif
 
 class EnemySpawnerComponent : public Engine::Component
 {
@@ -22,7 +28,8 @@ private:
     std::chrono::high_resolution_clock::time_point _timeSinceLastSpawn = std::chrono::high_resolution_clock::now();
     double _spawnRate = 5;
     double _scale = 30; // 30s
-    DynamicLibManager _dynLM;
+    Engine::DynamicLibManager _dynLM;
+    std::vector<std::string> _enemiesLibs = {FLOATING_ROBOT};
 
 public:
     explicit EnemySpawnerComponent() : Engine::Component() {}
@@ -35,6 +42,7 @@ public:
         _dynLM.loadNewLib<Enemy>(libName);
         return _dynLM.getInstance<Enemy>(libName);
     }
+    [[nodiscard]] std::vector<std::string> getLibs() const {return _enemiesLibs;}
 };
 
 #endif //RTYPE_ENEMYSPAWNERCOMPONENT_HPP
