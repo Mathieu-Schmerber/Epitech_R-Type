@@ -27,7 +27,18 @@ void Engine::AServer::openSockets()
 {
     try {
         //this->_tcpSocket = std::make_unique<Engine::ATcpSocket>(_ip, _port); Already setup in the constructor
-        this->_udpSocket = std::make_unique<Engine::AUdpSocketIO>(_ip, _port, _clientPort);
+        bool error = true;
+
+        for (int a = 0; a < 100 && error; ++a) {
+            try {
+                this->_udpSocket = std::make_unique<Engine::AUdpSocketIO>(_ip, _port, _clientPort);
+                error = false;
+            } catch (std::exception &e) {
+                std::cerr << e.what() << ": trying another port" << std::endl;
+                _clientPort++;
+                error = true;
+            }
+        }
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
     }
