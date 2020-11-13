@@ -161,7 +161,8 @@ void PlayerSystem::handleCollisions(std::shared_ptr<Engine::Entity> &player)
             case Collision::Mask::BONUS:
                 std::cout << "hello" << std::endl;
                 auto collectible = c->getComponent<CollectibleComponent>();
-                PlayerSystem::pickupCollectible(player, collectible->getType(), collectible->getBonusValue());
+                if (collectible != nullptr)
+                    PlayerSystem::pickupCollectible(player, collectible->getType(), collectible->getBonusValue());
                 this->_game->despawn(c);
                 break;
         }
