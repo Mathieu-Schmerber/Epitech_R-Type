@@ -68,7 +68,9 @@ set(ENGINE_SOURCES
 		engine/src/systems/ButtonSystem.cpp
 		engine/src/graphical/ASoundBuffer.cpp
 		engine/src/systems/ButtonSystem.cpp
-		engine/src/tools/AssetPool.cpp engine/src/systems/ChildrenSystem.cpp engine/include/systems/ChildrenSystem.hpp)
+		engine/src/tools/AssetPool.cpp
+		engine/src/systems/ChildrenSystem.cpp 
+		)
 
 set(ENGINE_INCLUDES
 		engine/include/ecs/Entity.hpp
@@ -148,7 +150,8 @@ set(ENGINE_INCLUDES
         engine/include/graphical/ASoundBuffer.hpp
 		engine/include/components/ButtonComponent.hpp
 		engine/include/systems/ButtonSystem.hpp
-		engine/include/tools/AssetPool.hpp engine/src/systems/ChildrenSystem.cpp engine/include/systems/ChildrenSystem.hpp)
+		engine/include/tools/AssetPool.hpp
+		engine/include/systems/ChildrenSystem.hpp)
 
 set(CLIENT_SOURCES
 		client/src/main.cpp
@@ -256,7 +259,11 @@ set(SERVER_SOURCES
 		server/game/systems/GroundSystem.cpp
 		server/game/systems/AutomaticWeaponSystem.cpp
 		server/game/systems/EnemySystem.cpp
-		server/game/systems/ProjectileSystem.cpp server/game/systems/LifetimeSystem.cpp server/game/systems/LifetimeSystem.hpp)
+		server/game/systems/ProjectileSystem.cpp 
+		server/game/systems/LifetimeSystem.cpp
+		server/game/systems/ProjectileSystem.cpp
+		server/game/systems/SpawnerSystem.cpp
+		)
 
 set(SERVER_INCLUDES
 		server/core/CoreServer.hpp
@@ -296,7 +303,13 @@ set(SERVER_INCLUDES
 		server/game/CollisionMasks.hpp
 		server/game/entities/Spawner.hpp
 		server/game/components/SpawnerComponent.hpp
-		server/game/components/LifetimeComponent.hpp server/game/systems/LifetimeSystem.cpp server/game/systems/LifetimeSystem.hpp server/game/entities/Particle.hpp)
+		server/game/components/LifetimeComponent.hpp
+		server/game/systems/LifetimeSystem.hpp
+		server/game/entities/Particle.hpp
+		server/game/components/EnemySpawnerComponent.hpp
+		server/game/systems/SpawnerSystem.hpp
+		server/game/DynamicLibManager.hpp
+		server/game/ADLLoader.hpp)
 
 
 set(ENEMIES_INCLUDES
@@ -315,25 +328,25 @@ add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURC
 include(GNUInstallDirs)
 
 # Dynamic libs
-add_library(doubleingRobot SHARED
+add_library(floatingRobot SHARED
 		dynamic_libs/FloatingRobot.cpp
 		dynamic_libs/FloatingRobot.hpp
 
 		${ENEMIES_SOURCES}
 		)
-set_target_properties(doubleingRobot PROPERTIES SOVERSION 1)
-set_target_properties(doubleingRobot PROPERTIES
+set_target_properties(floatingRobot PROPERTIES SOVERSION 1)
+set_target_properties(floatingRobot PROPERTIES
 		PUBLIC_HEADER "${ENEMIES_INCLUDES}")
-target_include_directories(doubleingRobot PUBLIC
+target_include_directories(floatingRobot PUBLIC
 		dynamic_libs
 		engine/include
 		server/game
 		client/include
 		)
-install(TARGETS doubleingRobot
+install(TARGETS floatingRobot
 		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-install(FILES ${CMAKE_BINARY_DIR}/doubleingRobot.pc
+install(FILES ${CMAKE_BINARY_DIR}/floatingRobot.pc
 		DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
 
 ###############

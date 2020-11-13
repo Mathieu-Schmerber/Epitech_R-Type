@@ -17,14 +17,16 @@
 #include "components/VelocityComponent.hpp"
 #include "components/ControllerComponent.hpp"
 #include "components/ColliderComponent.hpp"
+#include "components/EnemySpawnerComponent.hpp"
 
 class Spawner : public Engine::Entity {
 public:
-    explicit Spawner(const Engine::Point<double> &pos = {0, 0}) : Engine::Entity()
+    explicit Spawner(const Engine::Point<double> &pos = {1700.0, 1080.0 / 2.0}, double spawnRate = 5) : Engine::Entity()
     {
         this->addComponent<Engine::TransformComponent>(pos);
         this->addComponent<Engine::VelocityComponent>();
         this->addComponent<Engine::ColliderComponent>();
+        this->addComponent<EnemySpawnerComponent>(spawnRate);
     }
 };
 

@@ -23,8 +23,6 @@ private:
     std::vector<Client> _players;
     std::reference_wrapper<std::unique_ptr<UdpSocketInput>> _reception;
 
-    DLLoader<Enemy> dynLoader = std::string("../lib/libdoubleingRobot.so");
-
     void initGameEntities();
     void initGameSystems();
 
@@ -32,7 +30,7 @@ public:
     Game(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception);
     ~Game();
 
-    void spawn(std::shared_ptr<Engine::Entity> &entity, bool addToNetwork);
+    void spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork);
     void despawn(std::shared_ptr<Engine::Entity> &entity);
     void update();
     [[nodiscard]] bool isGameRunning() const;
