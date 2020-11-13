@@ -21,7 +21,7 @@ SpawnerSystem::SpawnerSystem(std::shared_ptr<Game> &game) : _game(game)
 void SpawnerSystem::handleSpawn(std::shared_ptr<Engine::Entity> &spawner)
 {
     if (spawner->getComponent<EnemySpawnerComponent>()->canSpawn()) {
-        std::shared_ptr<Enemy> e = std::shared_ptr<Enemy>(spawner->getComponent<EnemySpawnerComponent>()->getEntity("../lib/libfloatingRobot.so"));
+        std::shared_ptr<Enemy> e = std::shared_ptr<Enemy>(spawner->getComponent<EnemySpawnerComponent>()->getEntity(DLL_PATH));
         std::cout << "hihi" << std::endl;
         auto colliderB = e->getComponent<Engine::ColliderComponent>();
         colliderB->clearCollisions();

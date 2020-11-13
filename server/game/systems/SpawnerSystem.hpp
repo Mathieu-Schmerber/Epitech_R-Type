@@ -9,6 +9,12 @@
 #ifndef RTYPE_SPAWNERSYSTEM_HPP
 #define RTYPE_SPAWNERSYSTEM_HPP
 
+#ifdef __unix__
+#define DLL_PATH "../lib/libfloatingRobot.so"
+#elif defined(_WIN32) || defined(WIN32)
+#define DLL_PATH "./floatingRobot.dll"
+#endif
+
 #include "ecs/System.hpp"
 #include "Game.hpp"
 

@@ -9,7 +9,6 @@
 #ifndef RTYPE_ADLLOADER_HPP
 #define RTYPE_ADLLOADER_HPP
 
-
 class ADLLoader {
 protected:
     std::string _libName;
