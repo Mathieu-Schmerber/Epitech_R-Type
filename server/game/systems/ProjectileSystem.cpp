@@ -17,7 +17,7 @@ bool ProjectileSystem::didCollide(std::shared_ptr<Engine::Entity> &projectile)
     auto collider = projectile->getComponent<Engine::ColliderComponent>();
     auto collided = Collision::removeIgnored(static_cast<Collision::Mask>(collider->getCollisionMask()), collider->getCollisions());
 
-    for (auto &c : collider->getCollisions()) {
+    for (auto &c : collided) {
         if (c->getComponent<HealthComponent>()) {
             c->getComponent<HealthComponent>()->loseHealth(projectile->getComponent<ProjectileComponent>()->getDamage());
         }
