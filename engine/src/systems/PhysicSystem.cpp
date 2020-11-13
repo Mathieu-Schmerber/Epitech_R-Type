@@ -31,10 +31,12 @@ void Engine::PhysicSystem::update()
             auto colliderB = b->getComponent<ColliderComponent>();
             if (Geometry::doOverlap(colliderA->getHitBox(), colliderB->getHitBox()) &&
             colliderA->getCollisionMask() != colliderB->getCollisionMask()) {
-                colliderB->collide(a);
                 auto collisions = colliderA->getCollisions();
                 if (!Utils::isInVector(collisions, b))
                     colliderA->collide(b);
+                collisions = colliderB->getCollisions();
+                if (!Utils::isInVector(collisions, a))
+                    colliderB->collide(a);
             }
         }
     }

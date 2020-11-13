@@ -144,7 +144,7 @@ void PlayerSystem::handleWeapon(std::shared_ptr<Engine::Entity> &player)
 
 void PlayerSystem::pickupCollectible(std::shared_ptr<Engine::Entity> &player, CollectibleComponent::Type type, double value)
 {
-
+    std::cout << "hello" << std::endl;
 }
 
 void PlayerSystem::handleCollisions(std::shared_ptr<Engine::Entity> &player)
@@ -159,9 +159,8 @@ void PlayerSystem::handleCollisions(std::shared_ptr<Engine::Entity> &player)
         other = c->getComponent<Engine::ColliderComponent>();
         switch (other->getCollisionMask()) {
             case Collision::Mask::BONUS:
-                std::cout << "hello" << std::endl;
                 auto collectible = c->getComponent<CollectibleComponent>();
-                if (collectible != nullptr)
+                if (collectible)
                     PlayerSystem::pickupCollectible(player, collectible->getType(), collectible->getBonusValue());
                 this->_game->despawn(c);
                 break;

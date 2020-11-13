@@ -46,6 +46,7 @@ public:
         this->addComponent<Engine::AnimationComponent>(0.2);
         this->addComponent<Engine::ColliderComponent>(Collision::BONUS, pos, _anims[type][0].size);
         this->addComponent<Engine::SpriteComponent>(10, std::move(spr));
+        this->addComponent<CollectibleComponent>(1, type);
         this->getComponent<Engine::AnimationComponent>()->addAnimation(0, _anims[type]);
         this->getComponent<Engine::AnimationComponent>()->setAnimation(0, true);
     }
