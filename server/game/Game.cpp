@@ -35,7 +35,7 @@ Game::~Game()
 
 void Game::initGameEntities()
 {
-    std::shared_ptr<Engine::Entity> player = std::make_shared<Player>(0, Engine::Point<double>{50, 50});
+    std::shared_ptr<Engine::Entity> player = std::make_shared<Player>(0, Engine::Point<double>{500, 500});
 
     auto parallaxA = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png");
     auto parallaxB = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png");
@@ -52,6 +52,8 @@ void Game::initGameEntities()
     this->spawn(player, true);
     this->spawn(slideA, true);
     this->spawn(slideB, true);
+    std::shared_ptr<Engine::Entity> gr = std::make_shared<Ground>(Engine::Point<double>{600, 500}, Engine::Point<double>{-GROUND_WIDTH, 0}, Engine::Vector<double>{0, 0});
+    this->spawn(gr, true);
     //this->spawn(enemy_test, true);
 }
 
@@ -65,12 +67,12 @@ void Game::initGameSystems()
     auto physic = std::make_unique<Engine::PhysicSystem>();
     auto players = std::make_unique<PlayerSystem>(game);
     auto projectiles = std::make_unique<ProjectileSystem>(game);
-    auto ground = std::make_unique<GroundSystem>(game);
+    //auto ground = std::make_unique<GroundSystem>(game);
     auto enemy = std::make_unique<EnemySystem>(game);
     auto autoWeapon = std::make_unique<AutomaticWeaponSystem>(game);
 
     this->_systems.push_back(std::move(move));
-    this->_systems.push_back(std::move(ground));
+    //this->_systems.push_back(std::move(ground));
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(physic));
@@ -118,7 +120,7 @@ void Game::update()
     int serverTicks = 60;
     double time;
 
-    std::cout << "Game entities " << this->_entities.size() << std::endl;
+    //std::cout << "Game entities " << this->_entities.size() << std::endl;
     if (Engine::Timer::hasElapsed(this->_timer->getLastPoint(), 1.0 / serverTicks)) {
         time = this->_timer->deltatime();
         for (auto &sys : this->_systems) {

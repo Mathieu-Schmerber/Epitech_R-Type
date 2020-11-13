@@ -32,7 +32,7 @@ public:
         this->addComponent<Engine::TransformComponent>(pos);
         this->addComponent<Engine::ParallaxComponent>(pos, limit, false);
         this->addComponent<Engine::VelocityComponent>(speed);
-        this->addComponent<Engine::ColliderComponent>(Collision::WALL, pos, _size);
+        this->addComponent<Engine::ColliderComponent>(Collision::WALL, Engine::Box<double>{pos, _size});
         this->addComponent<Engine::SpriteComponent>(1, std::move(spr));
     }
 };

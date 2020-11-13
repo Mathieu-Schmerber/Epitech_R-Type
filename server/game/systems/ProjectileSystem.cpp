@@ -4,7 +4,6 @@
 
 #include "ProjectileSystem.hpp"
 #include "components/ProjectileComponent.hpp"
-#include "components/ColliderComponent.hpp"
 #include "CollisionMasks.hpp"
 
 ProjectileSystem::ProjectileSystem(std::shared_ptr<Game> &game) : _game(game), Engine::System()
@@ -18,7 +17,7 @@ bool ProjectileSystem::didCollide(std::shared_ptr<Engine::Entity> &projectile)
     auto collider = projectile->getComponent<Engine::ColliderComponent>();
     auto collided = Collision::removeIgnored(static_cast<Collision::Mask>(collider->getCollisionMask()), collider->getCollisions());
 
-    for (auto &c : collided) {
+    for (auto &c : collider->getCollisions()) {
         //TODO: Apply damage here
     }
     return (!collided.empty());

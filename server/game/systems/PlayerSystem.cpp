@@ -58,7 +58,11 @@ void PlayerSystem::handleMovements(std::shared_ptr<Engine::Entity> &player)
 
 void PlayerSystem::handleCollisions(std::shared_ptr<Engine::Entity> &player)
 {
+    auto collisions = player->getComponent<Engine::ColliderComponent>()->getCollisions();
 
+    for (auto &c : collisions) {
+
+    }
 }
 
 void PlayerSystem::handleWeapon(std::shared_ptr<Engine::Entity> &player)
