@@ -244,7 +244,6 @@ set(CLIENT_INCLUDES
 
 set(SERVER_SOURCES
         server/main.cpp
-        server/core/CoreServer.cpp
         server/client/Client.cpp
         server/lobby/lobbyManager/LobbyManager.cpp
         server/lobby/lobby/Lobby.cpp
@@ -261,7 +260,6 @@ set(SERVER_SOURCES
 		server/game/systems/ProjectileSystem.cpp)
 
 set(SERVER_INCLUDES
-		server/core/CoreServer.hpp
 		server/client/Client.hpp
 		server/lobby/lobbyManager/LobbyManager.hpp
 		server/lobby/lobby/Lobby.hpp
