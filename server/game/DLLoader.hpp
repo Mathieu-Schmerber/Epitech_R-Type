@@ -96,4 +96,8 @@ void DLLoader<T>::close(T instance) const
     #endif
 }
 
+#if defined(_WIN32) || defined(WIN32)
+    #undef _WIN32_WINNT
+#endif
+
 #endif //RTYPE_DLLOADER_HPP
