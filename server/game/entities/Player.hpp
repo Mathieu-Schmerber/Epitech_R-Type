@@ -5,6 +5,7 @@
 #ifndef RTYPE_PLAYER_HPP
 #define RTYPE_PLAYER_HPP
 
+#include "CollisionMasks.hpp"
 #include "ecs/Entity.hpp"
 #include "dataHolders/DataSprite.hpp"
 #include "components/SpriteComponent.hpp"
@@ -36,7 +37,7 @@ public:
         this->addComponent<Engine::VelocityComponent>();
         this->addComponent<Engine::SpriteComponent>(1, std::move(spr));
         this->addComponent<Engine::ControllerComponent>();
-        this->addComponent<Engine::ColliderComponent>();
+        this->addComponent<Engine::ColliderComponent>(Collision::PLAYER, pos, _size);
         this->addComponent<Engine::AnimationComponent>(0.2, std::map<int, std::vector<Engine::Box<double>>>{
                 {IDLE, {
                             {_size.x * 2, _size.x * 3, 0, _size.y}}},

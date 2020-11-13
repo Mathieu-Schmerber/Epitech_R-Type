@@ -15,7 +15,9 @@ private:
     std::shared_ptr<Game> _game;
     std::shared_ptr<Engine::ATexture> _projectileTexture;
 
+    [[nodiscard]] static bool willExitScreen(Engine::Point<double> pos, Engine::Vector<double> dir);
     static void handleMoveAnimations(std::shared_ptr<Engine::Entity> &player, Engine::Vector<double> dir);
+
     static void handleMovements(std::shared_ptr<Engine::Entity> &player);
     void handleWeapon(std::shared_ptr<Engine::Entity> &player);
     static void handleCollisions(std::shared_ptr<Engine::Entity> &player);

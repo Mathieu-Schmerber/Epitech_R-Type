@@ -18,6 +18,14 @@ PlayerSystem::PlayerSystem(std::shared_ptr<Game> &game) : _game(game), Engine::S
     this->_projectileTexture = std::make_shared<DataTexture>("../../client/assets/images/projectiles/projectile_1_72x18_18x18.png");
 }
 
+bool PlayerSystem::willExitScreen(Engine::Point<double> pos, Engine::Vector<double> dir)
+{
+    Engine::Box<double> screen = {{0, 0}, {1920, 1080}};
+    Engine::Point<double> res = {pos.x + dir.x, pos.y + dir.y};
+
+    return !Engine::Geometry::doOverlap(res, screen);
+}
+
 void PlayerSystem::handleMoveAnimations(std::shared_ptr<Engine::Entity> &player, Engine::Vector<double> dir)
 {
     if (dir.y > 0)
@@ -30,8 +38,9 @@ void PlayerSystem::handleMoveAnimations(std::shared_ptr<Engine::Entity> &player,
 
 void PlayerSystem::handleMovements(std::shared_ptr<Engine::Entity> &player)
 {
-    const double speed = 2;
+    const double speed = 20;
     auto pressed = player->getComponent<Engine::ControllerComponent>()->getPressed();
+    auto center = player->getComponent<Engine::ColliderComponent>()->getHitBox().center;
     Engine::Vector<double> dir = {0, 0};
 
     dir.x -= (Engine::Utils::isInVector(pressed, Engine::Inputs::Left));
@@ -41,7 +50,10 @@ void PlayerSystem::handleMovements(std::shared_ptr<Engine::Entity> &player)
     Engine::Geometry::normalizeVector(dir);
     dir = {dir.x * speed, dir.y * speed};
     handleMoveAnimations(player, dir);
-    player->getComponent<Engine::VelocityComponent>()->setSpeed(dir);
+    if (!PlayerSystem::willExitScreen(center, dir))
+        player->getComponent<Engine::VelocityComponent>()->setSpeed(dir);
+    else
+        player->getComponent<Engine::VelocityComponent>()->setSpeed({0, 0});
 }
 
 void PlayerSystem::handleCollisions(std::shared_ptr<Engine::Entity> &player)

@@ -6,6 +6,7 @@
 #define RTYPE_COLLIDERCOMPONENT_HPP
 
 #include "ecs/Entity.hpp"
+#include "tools/Geometry.hpp"
 
 namespace Engine {
 

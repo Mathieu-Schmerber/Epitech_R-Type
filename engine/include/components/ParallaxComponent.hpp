@@ -16,10 +16,12 @@ namespace Engine {
     private:
         Point<double> _start;
         Point<double> _limit;
+        bool _isAutomatic;
 
     public:
-        explicit ParallaxComponent() : _start({0, 0}), _limit({0, 0}), Engine::Component() {}
-        explicit ParallaxComponent(const Point<double> &start,const Point<double> &limit) : _start(start), _limit(limit),
+        explicit ParallaxComponent() : _start({0, 0}), _limit({0, 0}), _isAutomatic(true), Engine::Component() {}
+        explicit ParallaxComponent(const Point<double> &start, const Point<double> &limit, bool automatic = true) : _isAutomatic(automatic), _start(start), _limit(limit),
+
         Engine::Component() {}
 
         [[nodiscard]] bool isLimitReached(const Point<double> &pos, const Vector<double> &direction) const {
@@ -29,6 +31,8 @@ namespace Engine {
             );
         }
 
+        [[nodiscard]] bool isAutomatic() const {return _isAutomatic;}
+		
         [[nodiscard]] Point<double> getStart() const {return this->_start;}
         [[nodiscard]] Point<double> getLimit() const {return this->_limit;}
         void setStart(const Point<double> &start) {this->_start = start;}

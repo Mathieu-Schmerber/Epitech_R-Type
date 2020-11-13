@@ -63,7 +63,6 @@ set(ENGINE_SOURCES
         engine/src/Timer.cpp
         engine/src/graphical/AMusic.cpp
         engine/src/graphical/ASoundBuffer.cpp
-        engine/include/graphical/ASoundBuffer.hpp
 		engine/src/systems/WindowResizeSystem.cpp
 		engine/src/systems/TextSystem.cpp
 		engine/src/systems/ButtonSystem.cpp
@@ -144,7 +143,6 @@ set(ENGINE_INCLUDES
         engine/include/graphical/AText.hpp
         engine/include/graphical/AFont.hpp
         engine/include/tools/Color.hpp
-        engine/src/graphical/ASoundBuffer.cpp
         engine/include/graphical/ASoundBuffer.hpp
         engine/include/components/TextComponent.hpp
         engine/include/graphical/ASoundBuffer.hpp
@@ -195,8 +193,7 @@ set(CLIENT_SOURCES
         client/src/sfml/SoundBufferSFML.cpp
 		client/src/systems/LobbySystem.cpp
 		client/src/scenes/LobbyWaiting.cpp
-		client/src/systems/PlayerAndStarshipSystem.cpp
-        client/include/sfml/SoundBufferSFML.hpp)
+		client/src/systems/PlayerAndStarshipSystem.cpp)
 
 set(CLIENT_INCLUDES
 		client/include/Core.hpp
@@ -238,7 +235,6 @@ set(CLIENT_INCLUDES
 		client/include/components/LobbyComponent.hpp
         client/include/scenes/Settings.hpp
         client/include/sfml/MusicSFML.hpp
-        client/src/sfml/SoundBufferSFML.cpp
 		client/include/sfml/SoundBufferSFML.hpp
 		client/include/systems/LobbySystem.hpp)
 
@@ -256,6 +252,8 @@ set(SERVER_SOURCES
 		server/game/dataHolders/DataSprite.cpp
 		server/game/dataHolders/DataTexture.cpp
 		server/game/systems/PlayerSystem.cpp
+		server/game/systems/ProjectileSystem.cpp
+		server/game/systems/GroundSystem.cpp
 		server/game/systems/AutomaticWeaponSystem.cpp
 		server/game/systems/EnemySystem.cpp
 		server/game/systems/ProjectileSystem.cpp)
@@ -293,6 +291,9 @@ set(SERVER_INCLUDES
 		server/game/components/ProjectileComponent.hpp
 		server/game/entities/Projectile.hpp
 		server/game/systems/ProjectileSystem.hpp
+		server/game/systems/GroundSystem.hpp
+		server/game/entities/Ground.hpp
+		server/game/CollisionMasks.hpp
 		server/game/entities/Spawner.hpp
 		server/game/components/SpawnerComponent.hpp
 		)

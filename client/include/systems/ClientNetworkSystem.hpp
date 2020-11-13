@@ -11,7 +11,7 @@
 #include "ecs/System.hpp"
 #include "SocketParser.hpp"
 
-#define UDP_BUFFER_SIZE 240
+#define UDP_BUFFER_SIZE 1000
 #define UDP_ENTITY_SIZE 10
 #define UDP_READ UDP_BUFFER / UDP_ENTITY_SIZE
 

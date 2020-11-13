@@ -15,8 +15,8 @@
 #include "systems/MoveSystem.hpp"
 #include "systems/PlayerSystem.hpp"
 #include "systems/ServerNetworkSystem.hpp"
+#include "systems/GroundSystem.hpp"
 #include "components/NetworkComponent.hpp"
-#include "Game.hpp"
 
 Game::Game(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception)
 : _players(players), _reception(reception), _idIncrement(0), _running(true)
@@ -41,18 +41,18 @@ void Game::initGameEntities()
     auto parallaxB = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png");
     parallaxA->setRect({{0, 0}, {3840, 1080}});
     parallaxB->setRect({{0, 0}, {3840, 1080}});
-    std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{0, 0}, Engine::Point<double>{-3840, 0}, Engine::Point<double>{-2, 0}, std::move(parallaxA));
-    std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{3840, 0}, Engine::Point<double>{0, 0}, Engine::Point<double>{-2, 0}, std::move(parallaxB));
+    std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{0, 0}, Engine::Point<double>{-3840, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxA));
+    std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{3840, 0}, Engine::Point<double>{0, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxB));
 
-    // FIXME test load enemy in dyn lib
+    /*// FIXME test load enemy in dyn lib
     dynLoader.open();
     std::cout << "================== set enemy test ==================" << std::endl;
-    std::shared_ptr<Engine::Entity> enemy_test = std::shared_ptr<Engine::Entity>(dynLoader.getInstance());
+    std::shared_ptr<Engine::Entity> enemy_test = std::shared_ptr<Engine::Entity>(dynLoader.getInstance());*/
 
     this->spawn(player, true);
     this->spawn(slideA, true);
     this->spawn(slideB, true);
-    this->spawn(enemy_test, true);
+    //this->spawn(enemy_test, true);
 }
 
 void Game::initGameSystems()
@@ -65,10 +65,12 @@ void Game::initGameSystems()
     auto physic = std::make_unique<Engine::PhysicSystem>();
     auto players = std::make_unique<PlayerSystem>(game);
     auto projectiles = std::make_unique<ProjectileSystem>(game);
+    auto ground = std::make_unique<GroundSystem>(game);
     auto enemy = std::make_unique<EnemySystem>(game);
     auto autoWeapon = std::make_unique<AutomaticWeaponSystem>(game);
 
     this->_systems.push_back(std::move(move));
+    this->_systems.push_back(std::move(ground));
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(physic));
@@ -116,8 +118,9 @@ void Game::update()
     int serverTicks = 60;
     double time;
 
+    std::cout << "Game entities " << this->_entities.size() << std::endl;
     if (Engine::Timer::hasElapsed(this->_timer->getLastPoint(), 1.0 / serverTicks)) {
-        time = this->_timer->deltatime(0.1);
+        time = this->_timer->deltatime();
         for (auto &sys : this->_systems) {
             sys->setDeltatime(time);
             sys->update();
