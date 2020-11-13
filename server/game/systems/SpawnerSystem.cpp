@@ -6,6 +6,7 @@
 */
 
 
+#include "entities/Ground.hpp"
 #include "components/EnemySpawnerComponent.hpp"
 #include "SpawnerSystem.hpp"
 #include "components/ColliderComponent.hpp"
@@ -27,15 +28,18 @@ void SpawnerSystem::handleSpawn(std::shared_ptr<Engine::Entity> &spawner)
     }
 }
 
-void SpawnerSystem::handleMoves(std::shared_ptr<Engine::Entity> &spawner)
+void SpawnerSystem::handleMove(std::shared_ptr<Engine::Entity> &spawner)
 {
-
+    if (spawner->getComponent<Engine::TransformComponent>()->getPos().y >= 1080 - (GROUND_HEIGHT * 4) ||
+    spawner->getComponent<Engine::TransformComponent>()->getPos().y <= (GROUND_HEIGHT * 4)) {
+        spawner->getComponent<Engine::VelocityComponent>()->setSpeed(spawner->getComponent<Engine::VelocityComponent>()->getSpeed() * Engine::Vector<double>({0, -1}));
+    }
 }
 
 void SpawnerSystem::update()
 {
     for (auto &e : _entities) {
         handleSpawn(e);
-        handleMoves(e);
+        handleMove(e);
     }
 }

@@ -182,4 +182,9 @@ Engine::Point<T> operator + (Engine::Vector<T> a, Engine::Vector<T> b) {
     return Engine::Point<T>({a.x + b.x, a.y + b.y});
 }
 
+template <typename T>
+Engine::Vector<T> operator * (Engine::Vector<T> a, Engine::Vector<T> b) {
+    return Engine::Vector<T>({a.x * b.x, a.y * b.y});
+}
+
 #endif //RTYPE_GEOMETRY_HPP

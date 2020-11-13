@@ -19,7 +19,7 @@ public:
     explicit SpawnerSystem(std::shared_ptr<Game> &game);
     void update() override;
 
-    void handleMoves(std::shared_ptr<Engine::Entity> &spawner);
+    void handleMove(std::shared_ptr<Engine::Entity> &spawner);
     void handleSpawn(std::shared_ptr<Engine::Entity> &spawner);
 };
 
