@@ -100,7 +100,7 @@ class DLLoader : public Engine::ADLLoader {
         ((*f)(instance));
         dlclose(_lib);
 #elif defined(_WIN32) || defined(WIN32)
-        // TODO
+        FreeLibrary(_lib);
 #endif
     }
 
