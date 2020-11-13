@@ -87,7 +87,7 @@ void LobbyList::initEntities()
 
 
     //TODO: remove the following temporary lines
-    std::shared_ptr<Engine::Entity> lobby = std::make_shared<LobbyCard>(4242, 0, 4, 0);
+/*    std::shared_ptr<Engine::Entity> lobby = std::make_shared<LobbyCard>(4242, 0, 4, 0);
     lobby->getComponent<Engine::TransformComponent>()->setPos({535, 60});
     this->spawnEntity(lobby);
 
@@ -117,7 +117,7 @@ void LobbyList::initEntities()
 
     std::shared_ptr<Engine::Entity> lobby7 = std::make_shared<LobbyCard>(4242, 0, 4, 0);
     lobby7->getComponent<Engine::TransformComponent>()->setPos({535, 1810});
-    this->spawnEntity(lobby7);
+    this->spawnEntity(lobby7);*/
 }
 
 void LobbyList::initSystems()

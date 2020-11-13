@@ -9,11 +9,7 @@
 #include "Client.hpp"
 
 LobbyManager::LobbyManager() : _port(4243)
-{
-    auto *nLobby = new Lobby(this->_id, 4, _port++);
-
-    this->_lobbys.push_back(nLobby);
-}
+{}
 
 Lobby *LobbyManager::addLobby(char nbSlots = 4)
 {
