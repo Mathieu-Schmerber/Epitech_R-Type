@@ -17,6 +17,7 @@
     #include <dlfcn.h>
 
 #elif defined(_WIN32) || defined(WIN32)
+    #include <winsock2.h>
     #include <windows.h>
     #include <stdio.h>
 #endif
