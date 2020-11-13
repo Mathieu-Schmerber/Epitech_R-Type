@@ -6,6 +6,7 @@
 #include "PlayerSystem.hpp"
 #include "entities/Projectile.hpp"
 #include "entities/Particle.hpp"
+#include "CollisionMasks.hpp"
 
 PlayerSystem::PlayerSystem(std::shared_ptr<Game> &game) : _game(game), Engine::System()
 {
@@ -111,7 +112,7 @@ std::shared_ptr<Engine::Entity> PlayerSystem::generateProjectile(ManualWeaponCom
     }
     projectile = std::make_shared<Projectile>(Engine::Point<double>{0, 0}, Engine::Point<double>{22, 18},
                  Engine::Vector<double>{40 / (key / 2.0), 0},weapon->getCurrentDamages() * chargeMultiplier, key + 1,
-                       this->_projectileTextures[key]);
+                       this->_projectileTextures[key], Collision::PLAYER_PROJECTILE);
     projectile->getComponent<Engine::AnimationComponent>()->setFrameTime(0.2);
     projectile->getComponent<Engine::AnimationComponent>()->addAnimation(0, this->_chargeTypes[key].second);
     projectile->getComponent<Engine::AnimationComponent>()->setAnimation(0, true);

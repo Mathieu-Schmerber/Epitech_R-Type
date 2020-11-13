@@ -263,6 +263,7 @@ set(SERVER_SOURCES
 		server/game/systems/LifetimeSystem.cpp
 		server/game/systems/ProjectileSystem.cpp
 		server/game/systems/SpawnerSystem.cpp
+		server/game/systems/HealthSystem.cpp
 		)
 
 set(SERVER_INCLUDES
@@ -308,7 +309,12 @@ set(SERVER_INCLUDES
 		server/game/components/EnemySpawnerComponent.hpp
 		server/game/systems/SpawnerSystem.hpp
 		server/game/DynamicLibManager.hpp
-		server/game/ADLLoader.hpp server/game/components/CollectibleComponent.hpp server/game/entities/Collectible.hpp)
+		server/game/ADLLoader.hpp
+		server/game/components/HealthComponent.hpp
+		server/game/systems/HealthSystem.hpp
+		server/game/ADLLoader.hpp
+		server/game/components/CollectibleComponent.hpp
+		server/game/entities/Collectible.hpp)
 
 
 set(ENEMIES_INCLUDES

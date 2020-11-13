@@ -11,11 +11,6 @@
 
 #include "entities/Enemy.hpp"
 
-#include <iostream>
-#include <utility>
-#include "components/AutomaticWeaponComponent.hpp"
-#include "components/PatternComponent.hpp"
-
 #define PATH "../../client/assets/images/enemies/ennemy_5_99x33_33x33.png"
 #define SIZE_X 33
 #define SIZE_Y 33

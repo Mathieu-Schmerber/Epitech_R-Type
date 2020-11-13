@@ -6,6 +6,7 @@
 #include "components/SpriteComponent.hpp"
 #include "components/ColliderComponent.hpp"
 #include "systems/PhysicSystem.hpp"
+#include "tools/Utils.hpp"
 
 Engine::PhysicSystem::PhysicSystem() : Engine::System()
 {
@@ -31,7 +32,8 @@ void Engine::PhysicSystem::update()
             if (Geometry::doOverlap(colliderA->getHitBox(), colliderB->getHitBox()) &&
             colliderA->getCollisionMask() != colliderB->getCollisionMask()) {
                 colliderB->collide(a);
-                if (!Utils::isInVector(colliderA->getCollisions(), b))
+                auto collisions = colliderA->getCollisions();
+                if (!Utils::isInVector(collisions, b))
                     colliderA->collide(b);
             }
         }

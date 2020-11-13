@@ -5,6 +5,7 @@
 ** Created by Cyprien
 */
 
+#include "CollisionMasks.hpp"
 #include "FloatingRobot.hpp"
 
 #if defined(_WIN32) || defined(WIN32)
@@ -41,4 +42,6 @@ FloatingRobot::FloatingRobot(const Engine::Point<double> &pos) : Enemy(std::move
                                   {_size.x * 1, _size.x * 2, 0, _size.y},
                                   {_size.x * 2, _size.x * 3, 0, _size.y}}}
         }, true);
+    this->addComponent<HealthComponent>(50);
+    this->addComponent<Engine::ColliderComponent>(Collision::ENEMY, pos, _size);
 }

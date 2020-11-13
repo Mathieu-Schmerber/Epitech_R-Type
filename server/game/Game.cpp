@@ -3,6 +3,7 @@
 //
 
 #include <memory>
+#include "systems/HealthSystem.hpp"
 #include "systems/SpawnerSystem.hpp"
 #include "Game.hpp"
 #include "systems/AutomaticWeaponSystem.hpp"
@@ -74,6 +75,7 @@ void Game::initGameSystems()
     auto lifetime = std::make_unique<LifetimeSystem>(game);
     auto children = std::make_unique<Engine::ChildrenSystem>();
     auto spawner = std::make_unique<SpawnerSystem>(game);
+    auto life = std::make_unique<HealthSystem>(game);
 
     this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(ground));
@@ -88,6 +90,7 @@ void Game::initGameSystems()
     this->_systems.push_back(std::move(children));
     this->_systems.push_back(std::move(network));
     this->_systems.push_back(std::move(spawner));
+    this->_systems.push_back(std::move(life));
 }
 
 void Game::spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork)

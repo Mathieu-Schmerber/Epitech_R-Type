@@ -8,6 +8,7 @@
 #ifndef RTYPE_IENEMY_HPP
 #define RTYPE_IENEMY_HPP
 
+#include "components/HealthComponent.hpp"
 #include "ecs/Entity.hpp"
 #include "dataHolders/DataSprite.hpp"
 #include "components/ManualWeaponComponent.hpp"
@@ -17,6 +18,11 @@
 #include "components/VelocityComponent.hpp"
 #include "components/ControllerComponent.hpp"
 #include "components/ColliderComponent.hpp"
+#include "components/AutomaticWeaponComponent.hpp"
+#include "components/PatternComponent.hpp"
+
+#include <iostream>
+#include <utility>
 
 class Enemy : public Engine::Entity {
 public:
@@ -26,7 +32,6 @@ public:
         this->addComponent<Engine::VelocityComponent>();
         this->addComponent<Engine::SpriteComponent>(1, std::move(sprite));
         this->addComponent<Engine::ControllerComponent>();
-        this->addComponent<Engine::ColliderComponent>();
     }
 
     enum enemyState {
