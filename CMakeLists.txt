@@ -322,7 +322,9 @@ set(SERVER_INCLUDES
 		server/game/entities/Sentinel.hpp
         server/game/systems/PlayerWeaponSystem.hpp
 		server/game/systems/PlayerCollisionSystem.hpp
-        server/game/GameData.hpp)
+        server/game/GameData.hpp
+		server/game/components/WaveComponent.hpp
+		server/game/dataHolders/DataText.cpp server/game/dataHolders/DataText.hpp server/game/dataHolders/DataFont.cpp server/game/dataHolders/DataFont.hpp)
 
 
 set(ENEMIES_INCLUDES
