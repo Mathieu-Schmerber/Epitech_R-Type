@@ -71,7 +71,8 @@ std::vector<std::shared_ptr<Client>> Server::getClientList() const
 
 void Server::removeClient(std::shared_ptr<Client> &cli)
 {
-    for (auto a = _connected.begin() ; a != _connected.end(); a++)
+    for (auto a = _connected.begin(); a != _connected.end(); a++)
         if (a->get()->getId() == cli->getId())
             _connected.erase(a);
+    _lobbyManager.removeClientInLobbies(cli);
 }

@@ -36,6 +36,7 @@ public:
     void despawn(std::shared_ptr<Engine::Entity> &entity);
     void update();
     [[nodiscard]] bool isGameRunning() const;
+    void removeClientInGame(const std::shared_ptr<Client> &cli);
     std::vector<std::shared_ptr<Engine::Entity>> getPlayersSpaceShips() const {return _playersSpaceShips;};
 };
 

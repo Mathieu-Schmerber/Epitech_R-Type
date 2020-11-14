@@ -30,6 +30,17 @@ void Lobby::join(const std::shared_ptr<Client> &cli)
 
 void Lobby::leave(const std::shared_ptr<Client>& cli)
 {
+    if (_players.empty())
+        return;
+    for (auto a = _players.begin(); a != _players.end(); ++a) {
+        if (cli->getId() == a->get()->getId()) {
+            this->_players.erase(a);
+            std::cout << "Player remove lobby " << _players.size() << std::endl;
+            break;
+        }
+    }
+    if (_game->isGameRunning())
+        _game->removeClientInGame(cli);
 }
 
 int Lobby::getId() const

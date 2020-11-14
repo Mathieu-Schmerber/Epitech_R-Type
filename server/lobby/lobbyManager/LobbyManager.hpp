@@ -16,6 +16,7 @@ public:
     explicit LobbyManager();
     Lobby *addLobby(char nbSlots);
     [[nodiscard]] std::vector<Lobby *> getAvailableLobbies() const;
+    void removeClientInLobbies(std::shared_ptr<Client> &cli);
     Lobby *getLobbyById(int id);
 private:
     std::vector<Lobby *> _lobbys{};

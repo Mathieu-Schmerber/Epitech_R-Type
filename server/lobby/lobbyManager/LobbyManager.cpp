@@ -36,6 +36,12 @@ std::vector<Lobby *> LobbyManager::getAvailableLobbies() const
     return output;
 }
 
+void LobbyManager::removeClientInLobbies(std::shared_ptr<Client> &cli)
+{
+    for (auto &a : _lobbys)
+        a->leave(cli);
+}
+
 Lobby *LobbyManager::getLobbyById(int id)
 {
     for (auto &a : this->_lobbys) {
