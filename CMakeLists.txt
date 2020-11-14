@@ -257,7 +257,7 @@ set(SERVER_SOURCES
         server/game/Game.cpp
 		server/game/dataHolders/DataSprite.cpp
 		server/game/dataHolders/DataTexture.cpp
-		server/game/systems/PlayerSystem.cpp
+		server/game/systems/PlayerMovementSystem.cpp
 		server/game/systems/ProjectileSystem.cpp
 		server/game/systems/GroundSystem.cpp
 		server/game/systems/AutomaticWeaponSystem.cpp
@@ -267,6 +267,8 @@ set(SERVER_SOURCES
 		server/game/systems/ProjectileSystem.cpp
 		server/game/systems/SpawnerSystem.cpp
 		server/game/systems/HealthSystem.cpp
+        server/game/systems/PlayerWeaponSystem.cpp
+		server/game/systems/PlayerCollisionSystem.cpp
 		)
 
 set(SERVER_INCLUDES
@@ -285,7 +287,7 @@ set(SERVER_INCLUDES
 		server/game/dataHolders/DataSprite.hpp
 		server/game/dataHolders/DataTexture.hpp
 		server/game/entities/Player.hpp
-		server/game/systems/PlayerSystem.hpp
+		server/game/systems/PlayerMovementSystem.hpp
 		server/game/components/ManualWeaponComponent.hpp
 		server/game/components/ProjectileComponent.hpp
 		server/game/entities/Projectile.hpp
@@ -296,7 +298,7 @@ set(SERVER_INCLUDES
 		server/game/systems/AutomaticWeaponSystem.hpp
 		server/game/components/AutomaticWeaponComponent.hpp
 		server/game/Game.hpp
-		server/game/systems/PlayerSystem.hpp
+		server/game/systems/PlayerMovementSystem.hpp
 		server/game/components/ProjectileComponent.hpp
 		server/game/entities/Projectile.hpp
 		server/game/systems/ProjectileSystem.hpp
@@ -314,6 +316,8 @@ set(SERVER_INCLUDES
 		server/game/components/CollectibleComponent.hpp
 		server/game/entities/Collectible.hpp
 		server/game/entities/Sentinel.hpp
+        server/game/systems/PlayerWeaponSystem.hpp
+		server/game/systems/PlayerCollisionSystem.hpp
 		)
 
 

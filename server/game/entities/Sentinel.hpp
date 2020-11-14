@@ -41,7 +41,8 @@ public:
         this->addComponent<Engine::TransformComponent>(pos);
         this->addComponent<Engine::AnimationComponent>(0.1);
         this->addComponent<Engine::SpriteComponent>(10, std::move(spr));
-        this->addComponent<AutomaticWeaponComponent>(5.0, 1.0, 0.5, 50.0, Collision::Mask::PLAYER_PROJECTILE, ProjectileComponent::Type::BASIC);
+        this->addComponent<AutomaticWeaponComponent>(5.0, 1.0, 0.5, Engine::Vector<double>{50.0, 0},
+                                                     Collision::Mask::PLAYER_PROJECTILE, ProjectileComponent::Type::BASIC);
         this->getComponent<Engine::AnimationComponent>()->addAnimation(0, _anims);
         this->getComponent<Engine::AnimationComponent>()->setAnimation(0, true);
     }

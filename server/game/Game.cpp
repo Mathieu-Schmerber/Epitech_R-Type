@@ -3,9 +3,9 @@
 //
 
 #include <memory>
+#include "Game.hpp"
 #include "systems/HealthSystem.hpp"
 #include "systems/SpawnerSystem.hpp"
-#include "Game.hpp"
 #include "systems/AutomaticWeaponSystem.hpp"
 #include "systems/EnemySystem.hpp"
 #include "systems/ChildrenSystem.hpp"
@@ -16,7 +16,9 @@
 #include "systems/ParallaxSystem.hpp"
 #include "systems/PhysicSystem.hpp"
 #include "systems/MoveSystem.hpp"
-#include "systems/PlayerSystem.hpp"
+#include "systems/PlayerMovementSystem.hpp"
+#include "systems/PlayerCollisionSystem.hpp"
+#include "systems/PlayerWeaponSystem.hpp"
 #include "systems/ServerNetworkSystem.hpp"
 #include "systems/LifetimeSystem.hpp"
 #include "systems/GroundSystem.hpp"
@@ -69,7 +71,9 @@ void Game::initGameSystems()
     auto network = std::make_unique<ServerNetworkSystem>(this->_players, this->_reception);
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto physic = std::make_unique<Engine::PhysicSystem>();
-    auto players = std::make_unique<PlayerSystem>(game);
+    auto playerMove = std::make_unique<PlayerMovementSystem>();
+    auto playerCollide = std::make_unique<PlayerCollisionSystem>(game);
+    auto playerWeapon = std::make_unique<PlayerWeaponSystem>(game);
     auto projectiles = std::make_unique<ProjectileSystem>(game);
     auto ground = std::make_unique<GroundSystem>(game);
     auto enemy = std::make_unique<EnemySystem>(game);
@@ -84,7 +88,9 @@ void Game::initGameSystems()
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(physic));
-    this->_systems.push_back(std::move(players));
+    this->_systems.push_back(std::move(playerMove));
+    this->_systems.push_back(std::move(playerCollide));
+    this->_systems.push_back(std::move(playerWeapon));
     this->_systems.push_back(std::move(projectiles));
     this->_systems.push_back(std::move(enemy));
     this->_systems.push_back(std::move(autoWeapon));

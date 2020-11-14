@@ -26,7 +26,7 @@ std::shared_ptr<Engine::Entity> AutomaticWeaponSystem::generateProjectile(Automa
 {
     auto type = weapon->getProjectileType();
     auto projectile = std::make_shared<Projectile>(Engine::Point<double>{0, 0}, Engine::Point<double>{22, 18},
-                                              Engine::Vector<double>{weapon->getShotSpeed(), 0}, weapon->getCurrentDamages(), 2,
+                                              weapon->getShotSpeed(), weapon->getCurrentDamages(), 2,
                                               _textures[type], weapon->getProjectileMask());
 
     projectile->getComponent<Engine::AnimationComponent>()->setFrameTime(0.2);
