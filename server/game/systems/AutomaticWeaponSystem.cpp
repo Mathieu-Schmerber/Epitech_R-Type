@@ -35,6 +35,8 @@ std::shared_ptr<Engine::Entity> AutomaticWeaponSystem::generateProjectile(Automa
     projectile->getComponent<Engine::ColliderComponent>()->setHitBox(_anims[type][0]);
     projectile->getComponent<Engine::ColliderComponent>()->setBaseHitBox(_anims[type][0]);
     projectile->getComponent<Engine::SpriteComponent>()->getSprite()->setRect(_anims[type][0]);
+    projectile->getComponent<ProjectileComponent>()->setCanBounce(weapon->canBounce());
+    projectile->getComponent<ProjectileComponent>()->setNbHit(weapon->canBounce() + 1);
     return projectile;
 }
 

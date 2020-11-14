@@ -22,6 +22,7 @@ private:
     Engine::Vector<double> _shotSpeed = {-30, 0};
 
     ProjectileComponent::Type _projectileType;
+    bool _bounce = false;
 
 public:
 
@@ -38,6 +39,8 @@ public:
     [[nodiscard]] Collision::Mask getProjectileMask() const {return _projectileMask;}
     void setProjectileMask(Collision::Mask projectileMask) {_projectileMask = projectileMask;}
     [[nodiscard]] ProjectileComponent::Type getProjectileType() const {return _projectileType;}
+    [[nodiscard]] bool canBounce() const {return _bounce;}
+    void setBounce(bool bounce) {_bounce = bounce;}
 };
 
 #endif //RTYPE_AUTOMATICWEAPONCOMPONENT_HPP

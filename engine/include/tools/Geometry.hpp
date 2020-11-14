@@ -121,9 +121,33 @@ namespace Engine {
         }
 
         template<typename T>
+        static T dotProduct(Engine::Vector<T> &a, Engine::Vector<T> &b)
+        {
+            return (a.x * a.y + b.x * b.y);
+        }
+
+        template<typename T>
+        static Engine::Vector<T> getReflection(Engine::Vector<T> &input, Engine::Vector<T> &normal)
+        {
+            return {input.x - 2 * dotProduct(input, normal) * normal.x, input.y - 2 * dotProduct(input, normal) * normal.y};
+        }
+
+        template<typename T>
         [[nodiscard]] static double getDistance(const Engine::Point<T> &a, const Engine::Point<T> &b)
         {
             return sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
+        }
+
+        template<typename T>
+        [[nodiscard]] static Vector<T> getVectorNormal(const Vector<T> &ref)
+        {
+            return normalizeVector(rotateVector(ref, 90));
+        }
+
+        template<typename T>
+        [[nodiscard]] static Vector<T> getVectorBetween(const Point<T> &a, const Point<T> &b)
+        {
+            return {b.x - a.x, b.y - a.y};
         }
 
         template<typename T>
@@ -166,6 +190,25 @@ namespace Engine {
                     box1.y1 < box2.y1 + box2.size.y &&
                     box1.size.y + box1.y1 > box2.y1);
         }
+
+        template<typename T>
+        [[nodiscard]] static Vector<T> getCollisionNormal(const Box<T> &box1, const Box<T> &box2) {
+            auto dx = (box1.x1 + box1.size.x / 2) - (box2.x1 + box2.size.x / 2);
+            auto dy = (box1.y1 + box1.size.y / 2) - (box2.y1 + box2.size.y / 2);
+            auto width = (box1.size.x + box2.size.x) / 2;
+            auto height = (box1.size.y + box2.size.y) / 2;
+            auto crossWidth = width * dy;
+            auto crossHeight = height * dx;
+            Vector<T> collision = {0, 0};
+
+            if(abs(dx) <= width && abs(dy) <= height) {
+                if (crossWidth > crossHeight)
+                    collision=(crossWidth > (-crossHeight))? Vector<T>{0, -1} : Vector<T>{1, 0};
+                else
+                    collision=(crossWidth > -(crossHeight))? Vector<T>{-1, 0} : Vector<T>{0, 1};
+            }
+            return(collision);
+        }
     };
 }
 
@@ -198,6 +241,11 @@ std::ostream& operator<<(std::ostream& os, const Engine::Vector<T>& vector)
 template <typename T>
 Engine::Point<T> operator + (Engine::Vector<T> a, Engine::Vector<T> b) {
     return Engine::Point<T>({a.x + b.x, a.y + b.y});
+}
+
+template <typename T>
+Engine::Point<T> operator - (Engine::Vector<T> a, Engine::Vector<T> b) {
+    return Engine::Point<T>({a.x - b.x, a.y - b.y});
 }
 
 template <typename T>

@@ -60,6 +60,7 @@ void Game::initGameEntities()
     std::shared_ptr<Engine::Entity> bonusTest2 = std::make_shared<Collectible>(Engine::Point<double>{800, 500}, CollectibleComponent::SENTINEL);
 
     auto spawner = std::make_shared<Spawner>();
+    auto test = std::make_shared<Ground>(Engine::Point<double>{1000, 600}, Engine::Point<double>{0, 0}, Engine::Point<double>{0, 0});
 
     this->spawn(player, true);
     this->spawn(slideA, true);
@@ -68,7 +69,8 @@ void Game::initGameEntities()
     this->spawn(groundB, true);
     this->spawn(bonusTest, true);
     this->spawn(bonusTest2, true);
-    this->spawn(spawner, false);
+    this->spawn(test, true);
+    //this->spawn(spawner, false);
 }
 
 void Game::initGameSystems()
@@ -83,7 +85,7 @@ void Game::initGameSystems()
     auto playerCollide = std::make_unique<PlayerCollisionSystem>(game);
     auto playerWeapon = std::make_unique<PlayerWeaponSystem>(game);
     auto projectiles = std::make_unique<ProjectileSystem>(game);
-    auto ground = std::make_unique<GroundSystem>(game);
+    //auto ground = std::make_unique<GroundSystem>(game);
     auto enemy = std::make_unique<EnemySystem>(game);
     auto autoWeapon = std::make_unique<AutomaticWeaponSystem>(game);
     auto lifetime = std::make_unique<LifetimeSystem>(game);
@@ -92,7 +94,7 @@ void Game::initGameSystems()
     auto life = std::make_unique<HealthSystem>(game);
 
     this->_systems.push_back(std::move(move));
-    this->_systems.push_back(std::move(ground));
+    //this->_systems.push_back(std::move(ground));
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(physic));
