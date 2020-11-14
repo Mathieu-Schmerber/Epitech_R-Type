@@ -38,10 +38,16 @@ void LobbySystem::updateFromServer()
             }
         }
     } else {
+        double lastLobbyCardPositionY = -190;
+        for (auto &e : this->_entities) {
+            if (e->getComponent<LobbyComponent>()) {
+               lastLobbyCardPositionY = e->getComponent<Engine::TransformComponent>()->getPos().y;
+            }
+        }
         auto entity = SocketParser::unparseTcpLobby(data);
 
         if (entity) {
-            entity->getComponent<Engine::TransformComponent>()->setPos({535, 100});
+            entity->getComponent<Engine::TransformComponent>()->setPos({535, lastLobbyCardPositionY + 250});
             this->_scene->spawnEntity(entity); // TODO: pass actual "data" got from server tcp
         }
     }
