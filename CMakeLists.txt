@@ -159,7 +159,7 @@ set(ENGINE_INCLUDES
 		engine/include/systems/ChildrenSystem.hpp
 		engine/include/tools/RandomETU.hpp
 		engine/include/components/TargetComponent.hpp
-		engine/include/systems/TargetSystem.hpp)
+		engine/include/systems/TargetSystem.hpp engine/include/tools/EngineExceptions.hpp)
 
 set(CLIENT_SOURCES
 		client/src/main.cpp
