@@ -33,7 +33,7 @@ set(ENGINE_SOURCES
 		engine/src/systems/ParallaxSystem.cpp
 		engine/src/systems/AnimationSystem.cpp
 		engine/src/sceneManagement/AEntityGroup.cpp
-		engine/src/Timer.cpp
+        engine/src/tools/Timer.cpp
 		engine/src/graphical/AMusic.cpp
 		engine/src/systems/MusicSystem.cpp
 		engine/src/graphical/ATexture.cpp
@@ -60,7 +60,7 @@ set(ENGINE_SOURCES
         engine/src/systems/MouseSystem.cpp
         engine/src/systems/InputSystem.cpp
         engine/src/systems/PhysicSystem.cpp
-        engine/src/Timer.cpp
+        engine/src/tools/Timer.cpp
         engine/src/graphical/AMusic.cpp
         engine/src/graphical/ASoundBuffer.cpp
 		engine/src/systems/WindowResizeSystem.cpp

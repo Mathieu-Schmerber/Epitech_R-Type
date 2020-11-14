@@ -22,6 +22,8 @@
 #define BW_ROBOT "../lib/libbwRobot.so"
 #elif defined(_WIN32) || defined(WIN32)
 #define FLOATING_ROBOT "./floatingRobot.dll"
+#define FLAPPING_ROBOT "./flappingRobot.dll"
+#define BW_ROBOT "./bwRobot.dll"
 #endif
 
 class EnemySpawnerComponent : public Engine::Component
