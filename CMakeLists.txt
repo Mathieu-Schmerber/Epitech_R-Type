@@ -155,7 +155,7 @@ set(ENGINE_INCLUDES
 		engine/include/tools/ADLLoader.hpp
 		engine/include/entities/Text.hpp
 		engine/include/tools/DynamicLibManager.hpp
-		engine/include/systems/ChildrenSystem.hpp)
+		engine/include/systems/ChildrenSystem.hpp engine/include/tools/RandomETU.hpp)
 
 set(CLIENT_SOURCES
 		client/src/main.cpp
@@ -336,7 +336,9 @@ add_executable(r-type_server ${ENGINE_SOURCES} ${ENGINE_INCLUDES} ${SERVER_SOURC
 
 include(GNUInstallDirs)
 
-# Dynamic libs
+### Dynamic libs
+
+# Floating Robot
 add_library(floatingRobot SHARED
 		dynamic_libs/FloatingRobot.cpp
 		dynamic_libs/FloatingRobot.hpp
@@ -356,6 +358,51 @@ install(TARGETS floatingRobot
 		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(FILES ${CMAKE_BINARY_DIR}/floatingRobot.pc
+		DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+
+
+# Flapping Robot
+add_library(flappingRobot SHARED
+		dynamic_libs/FlappingRobot.cpp
+		dynamic_libs/FlappingRobot.hpp
+
+		${ENEMIES_SOURCES}
+		)
+set_target_properties(flappingRobot PROPERTIES SOVERSION 1)
+set_target_properties(flappingRobot PROPERTIES
+		PUBLIC_HEADER "${ENEMIES_INCLUDES}")
+target_include_directories(flappingRobot PUBLIC
+		dynamic_libs
+		engine/include
+		server/game
+		client/include
+		)
+install(TARGETS flappingRobot
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES ${CMAKE_BINARY_DIR}/flappingRobot.pc
+		DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+
+# BW Robot
+add_library(bwRobot SHARED
+		dynamic_libs/BWRobot.cpp
+		dynamic_libs/BWRobot.hpp
+
+		${ENEMIES_SOURCES}
+		)
+set_target_properties(bwRobot PROPERTIES SOVERSION 1)
+set_target_properties(bwRobot PROPERTIES
+		PUBLIC_HEADER "${ENEMIES_INCLUDES}")
+target_include_directories(bwRobot PUBLIC
+		dynamic_libs
+		engine/include
+		server/game
+		client/include
+		)
+install(TARGETS bwRobot
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES ${CMAKE_BINARY_DIR}/bwRobot.pc
 		DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
 
 ###############

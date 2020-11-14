@@ -22,10 +22,22 @@ EnemySystem::EnemySystem(std::shared_ptr<Game> &game) : _game(game), Engine::Sys
 
 void EnemySystem::handleMovements(std::shared_ptr<Engine::Entity> &enemy)
 {
-    const double speed = 0.2f;
-    Engine::Vector<double> dir = {0, 0};
-
     enemy->getComponent<PatternComponent>()->move(enemy);
+}
+
+bool EnemySystem::didCollide(std::shared_ptr<Engine::Entity> &enemy)
+{
+    bool willBeDestroyed = false;
+    auto collider = enemy->getComponent<Engine::ColliderComponent>();
+    auto collided = Collision::removeIgnored(static_cast<Collision::Mask>(collider->getCollisionMask()), collider->getCollisions());
+
+    for (auto &c : collided) {
+        if (c->getComponent<HealthComponent>()) {
+            c->getComponent<HealthComponent>()->setCurrentHealth(0);
+            willBeDestroyed = true;
+        }
+    }
+    return willBeDestroyed;
 }
 
 void EnemySystem::update()
@@ -33,7 +45,7 @@ void EnemySystem::update()
     auto tmp = _entities;
 
     for (auto &e : tmp)
-        if (e->getComponent<Engine::TransformComponent>()->getPos().x < 0)
+        if (e->getComponent<Engine::TransformComponent>()->getPos().x < 0 || didCollide(e))
             _game->despawn(e);
     for (auto &e : this->_entities) {
         handleMovements(e);

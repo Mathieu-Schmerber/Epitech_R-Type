@@ -18,6 +18,8 @@
 
 #ifdef __unix__
 #define FLOATING_ROBOT "../lib/libfloatingRobot.so"
+#define FLAPPING_ROBOT "../lib/libflappingRobot.so"
+#define BW_ROBOT "../lib/libbwRobot.so"
 #elif defined(_WIN32) || defined(WIN32)
 #define FLOATING_ROBOT "./floatingRobot.dll"
 #endif
@@ -29,7 +31,7 @@ private:
     double _spawnRate = 5;
     double _scale = 30; // 30s
     Engine::DynamicLibManager _dynLM;
-    std::vector<std::string> _enemiesLibs = {FLOATING_ROBOT};
+    std::vector<std::string> _enemiesLibs = {FLOATING_ROBOT, FLAPPING_ROBOT, BW_ROBOT};
 
 public:
     explicit EnemySpawnerComponent() : Engine::Component() {}
