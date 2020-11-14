@@ -47,15 +47,17 @@ void AutomaticWeaponSystem::automaticShot(std::shared_ptr<Engine::Entity> &shoot
     auto weapons = shooter->getComponents<AutomaticWeaponComponent>();
     auto transform = shooter->getComponent<Engine::TransformComponent>();
     auto box1 = Engine::Box<double>{transform->getPos(), shooter->getComponent<Engine::SpriteComponent>()->getSprite()->getRect().size};
+    Engine::Box<double> box2 = {0, 0, 0, 0};
+    Engine::Point<double> pos = {0, 0};
     std::shared_ptr<Engine::Entity> proj;
 
     for (auto &weapon : weapons) {
         if (hasToShoot(weapon) && weapon->canShoot()) {
             weapon->refreshShoots();
             proj = this->generateProjectile(weapon);
-            auto box2 = Engine::Box<double>{transform->getPos(),
-                                            proj->getComponent<Engine::SpriteComponent>()->getSprite()->getRect().size};
-            proj->getComponent<Engine::TransformComponent>()->setPos(Engine::Geometry::placeForward(box1, box2)); // FIXME place backWard
+            box2 = Engine::Box<double>{transform->getPos(), proj->getComponent<Engine::SpriteComponent>()->getSprite()->getRect().size};
+            pos = (weapon->getShotSpeed().x > 0 ? Engine::Geometry::placeForward(box1, box2) : Engine::Geometry::placeBackward(box1, box2));
+            proj->getComponent<Engine::TransformComponent>()->setPos(pos); // FIXME place backWard
             if (weapon->useTargets() && shooter->getComponent<Engine::TargetComponent>())
                 targetShoot(proj->getComponent<Engine::VelocityComponent>(), shooter->getComponent<Engine::TargetComponent>(), transform->getPos(), weapon);
             this->_game->spawn(proj, true);

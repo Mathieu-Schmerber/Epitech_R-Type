@@ -25,7 +25,7 @@ void ServerNetworkSystem::receiveClientInputs()
     std::shared_ptr<Engine::Entity> affected;
     Engine::ControllerComponent *controller = nullptr;
 
-    if (!data.empty() && data.at(0) != -1 && !this->_entities.empty()) {
+    if (!data.empty() && data.at(0) != -1 && !this->_entities.empty() && this->_entities.size() > data.at(0)) {
         affected = this->_entities.at(data.at(0));
         controller = affected->getComponent<Engine::ControllerComponent>();
         if (controller) {
