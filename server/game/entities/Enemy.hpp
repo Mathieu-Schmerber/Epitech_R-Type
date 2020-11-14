@@ -20,6 +20,7 @@
 #include "components/ColliderComponent.hpp"
 #include "components/AutomaticWeaponComponent.hpp"
 #include "components/PatternComponent.hpp"
+#include "components/TargetComponent.hpp"
 
 #include <iostream>
 #include <utility>
@@ -29,13 +30,13 @@ public:
     explicit Enemy(std::unique_ptr<Engine::ASprite> sprite, const Engine::Point<double> &pos = {0, 0}) : Engine::Entity()
     {
         this->addComponent<Engine::TransformComponent>(pos);
-        this->addComponent<Engine::VelocityComponent>();
         this->addComponent<Engine::SpriteComponent>(1, std::move(sprite));
         this->addComponent<Engine::ControllerComponent>();
     }
 
     enum enemyState {
-        DEFAULT
+        DEFAULT = 0,
+        REVERSE = 1
     };
 };
 

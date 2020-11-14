@@ -10,6 +10,7 @@
 #include "components/EnemySpawnerComponent.hpp"
 #include "SpawnerSystem.hpp"
 #include "components/ColliderComponent.hpp"
+#include "tools/RandomETU.hpp"
 
 SpawnerSystem::SpawnerSystem(std::shared_ptr<Game> &game) : _game(game)
 {
@@ -23,10 +24,23 @@ void SpawnerSystem::handleSpawn(std::shared_ptr<Engine::Entity> &spawner)
 {
     if (spawner->getComponent<EnemySpawnerComponent>()->canSpawn()) {
         auto enemies = spawner->getComponent<EnemySpawnerComponent>()->getLibs();
-        std::shared_ptr<Enemy> e = std::shared_ptr<Enemy>(spawner->getComponent<EnemySpawnerComponent>()->getEntity(enemies.at(0)));
-        e->getComponent<Engine::TransformComponent>()->setPos(spawner->getComponent<Engine::TransformComponent>()->getPos());
-        _game->spawn(e, true);
+        try {
+            spawn(spawner, enemies);
+        } catch (Engine::EngineException &e) {
+            std::cerr << e << std::endl;
+            throw Engine::SystemError("SpawnerSystem: Unable to spawn new entity");
+        }
     }
+}
+
+void SpawnerSystem::spawn(const std::shared_ptr<Engine::Entity> &spawner, std::vector<std::string> &enemies)
+{
+    std::shared_ptr<Enemy> e = std::shared_ptr<Enemy>(spawner->getComponent<EnemySpawnerComponent>()->getEntity(
+            enemies.at(Engine::RandomETU::randETU(static_cast<int>(enemies.size()) - 1))));
+    e->getComponent<Engine::TransformComponent>()->setPos(spawner->getComponent<Engine::TransformComponent>()->getPos());
+    if (e->getComponent<Engine::TargetComponent>())
+        e->getComponent<Engine::TargetComponent>()->addTargets(_game->getPlayersSpaceShips());
+    _game->spawn(e, true);
 }
 
 void SpawnerSystem::handleMove(std::shared_ptr<Engine::Entity> &spawner)
@@ -40,7 +54,11 @@ void SpawnerSystem::handleMove(std::shared_ptr<Engine::Entity> &spawner)
 void SpawnerSystem::update()
 {
     for (auto &e : _entities) {
-        handleSpawn(e);
+        try {
+            handleSpawn(e);
+        } catch (Engine::EngineException &e) {
+            std::cerr << e << std::endl;
+        }
         handleMove(e);
     }
 }

@@ -14,8 +14,6 @@ class GroundSystem : public Engine::System
 private:
     std::vector<std::shared_ptr<Engine::Entity>> _grounds;
     std::shared_ptr<Game> _game;
-    std::vector<int> _graph;
-    int _lastHeight;
 
     void spawnGrounds(double xOffset, double yOffset);
 

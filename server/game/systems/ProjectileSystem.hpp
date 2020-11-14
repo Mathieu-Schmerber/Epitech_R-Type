@@ -13,6 +13,7 @@ class ProjectileSystem : public Engine::System
 private:
     std::shared_ptr<Game> _game;
 
+    static void bounce(std::shared_ptr<Engine::Entity> &projectile, std::shared_ptr<Engine::Entity> &collision);
     static bool didCollide(std::shared_ptr<Engine::Entity> &projectile);
 public:
     explicit ProjectileSystem(std::shared_ptr<Game> &game);

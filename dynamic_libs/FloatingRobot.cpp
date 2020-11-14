@@ -5,8 +5,11 @@
 ** Created by Cyprien
 */
 
+#include "entities/Ground.hpp"
 #include "CollisionMasks.hpp"
+#include "components/ProjectileComponent.hpp"
 #include "FloatingRobot.hpp"
+#include "tools/Geometry.hpp"
 
 #if defined(_WIN32) || defined(WIN32)
     #include <windows.h>
@@ -27,15 +30,20 @@ void pattern(std::shared_ptr<Engine::Entity> &enemy)
 {
     auto velocity = enemy->getComponent<Engine::VelocityComponent>();
 
-    velocity->setAcceleration({-0.7, 0});
-    if (velocity->getSpeed().x < -30)
-        velocity->setAcceleration({-0.1, 0});
+    if (velocity->getSpeed().x < -15)
+        velocity->setAcceleration({-0.03, 0});
+
+    if (enemy->getComponent<Engine::TransformComponent>()->getPos().y >= 1080 - (GROUND_HEIGHT * 4) ||
+            enemy->getComponent<Engine::TransformComponent>()->getPos().y <= (GROUND_HEIGHT * 4)) {
+        auto speed = enemy->getComponent<Engine::VelocityComponent>()->getSpeed() * Engine::Vector<double>({1, -1});
+        enemy->getComponent<Engine::VelocityComponent>()->setSpeed(speed);
+    }
 }
 
 FloatingRobot::FloatingRobot(const Engine::Point<double> &pos) : Enemy(std::move(std::make_unique<DataSprite>(PATH, Engine::Box<double>{pos, {SIZE_X, SIZE_Y}})), pos)
 {
         this->addComponent<PatternComponent>(&pattern);
-        this->addComponent<AutomaticWeaponComponent>(1, 0.5, 1, -100, Collision::Mask::ENEMY_PROJECTILE);
+        this->addComponent<AutomaticWeaponComponent>(1, 0.5, 1, Engine::Vector<double>{-100, 0}, Collision::Mask::ENEMY_PROJECTILE, ProjectileComponent::Type::BASIC);
         this->addComponent<Engine::AnimationComponent>(0.2, std::map<int, std::vector<Engine::Box<double>>>{
                 {DEFAULT, {
                                   {_size.x * 0, _size.x * 1, 0, _size.y},
@@ -44,4 +52,5 @@ FloatingRobot::FloatingRobot(const Engine::Point<double> &pos) : Enemy(std::move
         }, true);
     this->addComponent<HealthComponent>(6);
     this->addComponent<Engine::ColliderComponent>(Collision::ENEMY, pos, _size);
+    this->addComponent<Engine::VelocityComponent>(Engine::Vector<double>({0, -10}), Engine::Vector<double>({-0.7, 0}));
 }

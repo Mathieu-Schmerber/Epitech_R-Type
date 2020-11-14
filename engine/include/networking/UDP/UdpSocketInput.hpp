@@ -12,7 +12,7 @@
     #define _WIN32_WINNT 0x0601
 #endif
 
-#define UDP_BUFFER_SIZE 1000
+#define UDP_BUFFER_SIZE 2000
 
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>

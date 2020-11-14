@@ -72,4 +72,11 @@ std::basic_ostream<char> &operator<<(std::basic_ostream<char> &c, std::vector<T>
     return c;
 }
 
+template<typename T>
+std::vector<T> operator += (std::vector<T> &a, std::vector<T> &b)
+{
+    a.insert(a.end(), b.begin(), b.end());
+    return a;
+}
+
 #endif //RTYPE_UTILS_HPP

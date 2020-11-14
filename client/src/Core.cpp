@@ -3,6 +3,7 @@
 //
 
 #include <memory>
+#include <tools/EngineExceptions.hpp>
 #include "Core.hpp"
 #include "scenes/MainMenu.hpp"
 #include "scenes/Settings.hpp"
@@ -51,7 +52,11 @@ void Core::initScenes()
     this->_sceneManager->addScene(std::move(std::make_unique<CreateLobby>(this->_graph->getWindow(), this->_graph->getEvents(), this->_server)));
     this->_sceneManager->addScene(std::move(std::make_unique<LobbyWaiting>(this->_graph->getWindow(), this->_graph->getEvents(), this->_server)));
     this->setupGroups();
-    this->_sceneManager->switchScene(SceneType::MAIN_MENU);
+    try {
+        this->_sceneManager->switchScene(SceneType::MAIN_MENU);
+    } catch (Engine::EngineException& e) {
+        std::cerr << e << std::endl;
+    }
 }
 
 void Core::start()
@@ -68,7 +73,11 @@ void Core::run()
 {
     this->_sceneManager->handleSceneRequests();
     this->_sceneManager->handleTime(this->_timer->deltatime());
-    this->_sceneManager->getCurrent()->update();
+    try {
+        this->_sceneManager->getCurrent()->update();
+    } catch (Engine::EngineException &e) {
+        std::cerr << e << std::endl;
+    }
     _graph->getEvents()->update();
     _graph->getWindow()->display();
 }

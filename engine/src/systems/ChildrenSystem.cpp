@@ -8,7 +8,6 @@
 
 Engine::ChildrenSystem::ChildrenSystem() : Engine::System ()
 {
-    this->addDependency<TransformComponent>();
     this->addDependency<ChildrenComponent>();
 }
 
