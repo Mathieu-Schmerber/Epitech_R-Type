@@ -17,9 +17,9 @@ Lobby *LobbyManager::addLobby(char nbSlots = 4)
         auto *nLobby = new Lobby(this->_id++, nbSlots, _port++);
 
         this->_lobbys.push_back(nLobby);
-        nLobby->run();
         return nLobby;
-    } catch (std::bad_alloc &) {
+    } catch (std::bad_alloc &a) {
+        std::cerr << "Error Lobby alloc " << a.what() << std::endl;
         return nullptr;
     }
 }
@@ -32,6 +32,7 @@ std::vector<Lobby *> LobbyManager::getAvailableLobbies() const
         if (a && !a->isInGame())
             output.push_back(a);
     }
+    std::cout << "Return size lobbies : " << output.size() << " && " << this->_lobbys.size() << std::endl;
     return output;
 }
 

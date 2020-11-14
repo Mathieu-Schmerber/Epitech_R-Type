@@ -46,6 +46,9 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
         //Create a Lobby
         std::vector<int> output;
         auto newLobby = this->_server->getLobbyManager().addLobby(_data.at(2));
+        if (!newLobby)
+            return;
+        newLobby->join(s);
         output.push_back(7);
         output.push_back(1);
         output.push_back(newLobby->getId());
@@ -70,5 +73,6 @@ int Client::getId() const
 
 void Client::sendToClient(const std::vector<int> &in)
 {
-    this->get_socket().write_some(boost::asio::buffer(in));
+    if (this->get_socket().is_open())
+        this->get_socket().write_some(boost::asio::buffer(in));
 }
