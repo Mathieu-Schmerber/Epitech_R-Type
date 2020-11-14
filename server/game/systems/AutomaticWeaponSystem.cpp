@@ -41,17 +41,20 @@ std::shared_ptr<Engine::Entity> AutomaticWeaponSystem::generateProjectile(Automa
 
 void AutomaticWeaponSystem::automaticShot(std::shared_ptr<Engine::Entity> &shooter)
 {
-    auto weapon = shooter->getComponent<AutomaticWeaponComponent>();
+    auto weapons = shooter->getComponents<AutomaticWeaponComponent>();
     auto transform = shooter->getComponent<Engine::TransformComponent>();
     auto box1 = Engine::Box<double>{transform->getPos(), shooter->getComponent<Engine::SpriteComponent>()->getSprite()->getRect().size};
     std::shared_ptr<Engine::Entity> proj;
 
-    if (hasToShoot(weapon) && weapon->canShoot()) {
-        weapon->refreshShoots();
-        proj = this->generateProjectile(weapon);
-        auto box2 = Engine::Box<double>{transform->getPos(), proj->getComponent<Engine::SpriteComponent>()->getSprite()->getRect().size};
-        proj->getComponent<Engine::TransformComponent>()->setPos(Engine::Geometry::placeForward(box1, box2));
-        this->_game->spawn(proj, true);
+    for (auto &weapon : weapons) {
+        if (hasToShoot(weapon) && weapon->canShoot()) {
+            weapon->refreshShoots();
+            proj = this->generateProjectile(weapon);
+            auto box2 = Engine::Box<double>{transform->getPos(),
+                                            proj->getComponent<Engine::SpriteComponent>()->getSprite()->getRect().size};
+            proj->getComponent<Engine::TransformComponent>()->setPos(Engine::Geometry::placeForward(box1, box2));
+            this->_game->spawn(proj, true);
+        }
     }
 }
 
