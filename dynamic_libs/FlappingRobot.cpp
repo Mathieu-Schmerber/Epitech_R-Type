@@ -8,7 +8,7 @@
 #include "entities/Ground.hpp"
 #include "CollisionMasks.hpp"
 #include "components/ProjectileComponent.hpp"
-#include "FloatingRobot.hpp"
+#include "FlappingRobot.hpp"
 #include "tools/Geometry.hpp"
 
 #if defined(_WIN32) || defined(WIN32)
@@ -22,7 +22,7 @@ extern "C" {
     #endif
     Enemy* newInstance()
     {
-        return new FloatingRobot();
+        return new FlappingRobot();
     }
 }
 
@@ -30,17 +30,15 @@ void pattern(std::shared_ptr<Engine::Entity> &enemy)
 {
     auto velocity = enemy->getComponent<Engine::VelocityComponent>();
 
-    if (velocity->getSpeed().x < -15)
-        velocity->setAcceleration({-0.03, 0});
-
-    if (enemy->getComponent<Engine::TransformComponent>()->getPos().y >= 1080 - (GROUND_HEIGHT * 4) ||
-            enemy->getComponent<Engine::TransformComponent>()->getPos().y <= (GROUND_HEIGHT * 4)) {
-        auto speed = enemy->getComponent<Engine::VelocityComponent>()->getSpeed() * Engine::Vector<double>({1, -1});
-        enemy->getComponent<Engine::VelocityComponent>()->setSpeed(speed);
+    if (enemy->getComponent<Engine::TransformComponent>()->getPos().y >= (GROUND_HEIGHT * 5) && Engine::RandomETU::randETU<double>(0, 30) == Engine::RandomETU::randETU<double>(0, 30)) {
+        velocity->setSpeed(Engine::Vector<double>({velocity->getSpeed().x, -30}));
+    }
+    if (enemy->getComponent<Engine::TransformComponent>()->getPos().y >= (1080 - (GROUND_HEIGHT * 4))) {
+        velocity->setSpeed(Engine::Vector<double>({velocity->getSpeed().x, -30}));
     }
 }
 
-FloatingRobot::FloatingRobot(const Engine::Point<double> &pos) : Enemy(std::move(std::make_unique<DataSprite>(PATH, Engine::Box<double>{pos, {SIZE_X, SIZE_Y}})), pos)
+FlappingRobot::FlappingRobot(const Engine::Point<double> &pos) : Enemy(std::move(std::make_unique<DataSprite>(PATH, Engine::Box<double>{pos, {SIZE_X, SIZE_Y}})), pos)
 {
         this->addComponent<PatternComponent>(&pattern);
         this->addComponent<AutomaticWeaponComponent>(1, 0.5, 1, -100, Collision::Mask::ENEMY_PROJECTILE, ProjectileComponent::Type::BASIC);
@@ -50,7 +48,7 @@ FloatingRobot::FloatingRobot(const Engine::Point<double> &pos) : Enemy(std::move
                                   {_size.x * 1, _size.x * 2, 0, _size.y},
                                   {_size.x * 2, _size.x * 3, 0, _size.y}}}
         }, true);
-    this->addComponent<HealthComponent>(6);
+    this->addComponent<HealthComponent>(2);
     this->addComponent<Engine::ColliderComponent>(Collision::ENEMY, pos, _size);
-    this->addComponent<Engine::VelocityComponent>(Engine::Vector<double>({0, -10}), Engine::Vector<double>({-0.7, 0}));
+    this->addComponent<Engine::VelocityComponent>(Engine::Vector<double>({-13, -30}), Engine::Vector<double>({0, 1}));
 }

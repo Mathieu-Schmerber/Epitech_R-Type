@@ -29,7 +29,6 @@ public:
     explicit Enemy(std::unique_ptr<Engine::ASprite> sprite, const Engine::Point<double> &pos = {0, 0}) : Engine::Entity()
     {
         this->addComponent<Engine::TransformComponent>(pos);
-        this->addComponent<Engine::VelocityComponent>();
         this->addComponent<Engine::SpriteComponent>(1, std::move(sprite));
         this->addComponent<Engine::ControllerComponent>();
     }

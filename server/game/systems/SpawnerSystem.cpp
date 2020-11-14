@@ -10,6 +10,7 @@
 #include "components/EnemySpawnerComponent.hpp"
 #include "SpawnerSystem.hpp"
 #include "components/ColliderComponent.hpp"
+#include "tools/RandomETU.hpp"
 
 SpawnerSystem::SpawnerSystem(std::shared_ptr<Game> &game) : _game(game)
 {
@@ -23,7 +24,7 @@ void SpawnerSystem::handleSpawn(std::shared_ptr<Engine::Entity> &spawner)
 {
     if (spawner->getComponent<EnemySpawnerComponent>()->canSpawn()) {
         auto enemies = spawner->getComponent<EnemySpawnerComponent>()->getLibs();
-        std::shared_ptr<Enemy> e = std::shared_ptr<Enemy>(spawner->getComponent<EnemySpawnerComponent>()->getEntity(enemies.at(0)));
+        std::shared_ptr<Enemy> e = std::shared_ptr<Enemy>(spawner->getComponent<EnemySpawnerComponent>()->getEntity(enemies.at(Engine::RandomETU::randETU(static_cast<int>(enemies.size()) - 1))));
         e->getComponent<Engine::TransformComponent>()->setPos(spawner->getComponent<Engine::TransformComponent>()->getPos());
         _game->spawn(e, true);
     }
