@@ -183,7 +183,16 @@ namespace Engine {
             if (ref.size.y > a.size.y)
                 return {ref.x2, ref.y1 + (ref.size.y - a.size.y) / 2};
             else
-                return {ref.x2, ref.y1 + (a.size.y - ref.size.y) / 2};
+                return {ref.x2, ref.y1 - (a.size.y - ref.size.y) / 2};
+        }
+
+        template<typename T>
+        [[nodiscard]] static Point<T> placeBackward(const Box<T> &ref, const Box<T> &a)
+        {
+            if (ref.size.y > a.size.y)
+                return {ref.x1 - a.size.x , ref.y1 + (ref.size.y - a.size.y) / 2};
+            else
+                return {ref.x1 - a.size.x , ref.y1 - (a.size.y - ref.size.y) / 2};
         }
 
         template<typename T>
@@ -192,7 +201,7 @@ namespace Engine {
             if (ref.size.x > a.size.x)
                 return {ref.x1 + (ref.size.x - a.size.x) / 2, ref.y1 - a.size.y};
             else
-                return {ref.x1 + (a.size.x - ref.size.x) / 2, ref.y1 - a.size.y};
+                return {ref.x1 - (a.size.x - ref.size.x) / 2, ref.y1 - a.size.y};
         }
 
         template<typename T>
@@ -201,7 +210,7 @@ namespace Engine {
             if (ref.size.x > a.size.x)
                 return {ref.x1 + (ref.size.x - a.size.x) / 2, ref.y1 + a.size.y};
             else
-                return {ref.x1 + (a.size.x - ref.size.x) / 2, ref.y1 + a.size.y};
+                return {ref.x1 - (a.size.x - ref.size.x) / 2, ref.y1 + a.size.y};
         }
 
         template<typename T>
