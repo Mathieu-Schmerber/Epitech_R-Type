@@ -40,7 +40,7 @@ void InGame::initEntities()
     quitButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::IDLE, {Engine::Box<double>({QUIT_BUTTON_X_IDLE, QUIT_BUTTON_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT})});
     quitButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<double>({QUIT_BUTTON_X_HOVER, QUIT_BUTTON_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT})});
     quitButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<double>({QUIT_BUTTON_X_CLICKED, QUIT_BUTTON_Y}, {QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT})});
-    quitButtonEngine->getComponent<Engine::SpriteComponent>()->hasToBeDraw(true);
+    quitButtonEngine->getComponent<Engine::SpriteComponent>()->hasToBeDraw(false);
 
     _quitButton = quitButtonEngine;
 
