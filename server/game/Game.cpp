@@ -55,8 +55,8 @@ void Game::initGameEntities()
     parallaxD->setRect({{0, 0}, {3940, 71}});
     std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{0, 0}, Engine::Point<double>{-3840, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxA));
     std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{3840, 0}, Engine::Point<double>{0, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxB));
-    std::shared_ptr<Engine::Entity> groundA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{0, 1010}, Engine::Point<double>{-3940, 1010}, Engine::Point<double>{-20, 0}, std::move(parallaxC));
-    std::shared_ptr<Engine::Entity> groundB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{3940, 1010}, Engine::Point<double>{0, 1010}, Engine::Point<double>{-20, 0}, std::move(parallaxD));
+    std::shared_ptr<Engine::Entity> groundA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{0, 1010}, Engine::Point<double>{-3940, 1010}, Engine::Point<double>{FLOOR_SPEED, 0}, std::move(parallaxC));
+    std::shared_ptr<Engine::Entity> groundB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{3940, 1010}, Engine::Point<double>{0, 1010}, Engine::Point<double>{FLOOR_SPEED, 0}, std::move(parallaxD));
     std::shared_ptr<Engine::Entity> bonusTest = std::make_shared<Collectible>(Engine::Point<double>{1000, 500}, CollectibleComponent::SENTINEL);
     std::shared_ptr<Engine::Entity> bonusTest2 = std::make_shared<Collectible>(Engine::Point<double>{800, 500}, CollectibleComponent::SENTINEL);
 

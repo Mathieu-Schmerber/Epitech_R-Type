@@ -11,9 +11,10 @@
 #include "entities/Enemy.hpp"
 #include "tools/RandomETU.hpp"
 
-#define PATH "../../client/assets/images/enemies/ennemy_9_102x34_34x34.png"
+#define PATH "../../client/assets/images/enemies/ennemy_9_136x68_34x34_2_row.png"
 #define SIZE_X 34
 #define SIZE_Y 34
+#define ADJUSTMENT 3
 
 class BWRobot : public Enemy {
 private:

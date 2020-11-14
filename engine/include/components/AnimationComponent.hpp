@@ -74,6 +74,10 @@ namespace Engine {
             }
             return res;
         }
+
+        int getAnimation() {
+            return _current;
+        }
     };
 }
 

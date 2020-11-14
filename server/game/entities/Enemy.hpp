@@ -35,7 +35,8 @@ public:
     }
 
     enum enemyState {
-        DEFAULT
+        DEFAULT = 0,
+        REVERSE = 1
     };
 };
 

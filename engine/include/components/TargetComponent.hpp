@@ -41,9 +41,7 @@ namespace Engine {
 
         void removeTargetIfExists(std::shared_ptr<Entity> &target)
         {
-            std::cout << "remove" << std::endl;
             if (Utils::isInVector(this->_targets, target)) {
-                std::cout << "remove ok" << std::endl;
                 Utils::removeFromVector(this->_targets, target);
             }
         }
