@@ -31,7 +31,7 @@ void pattern(std::shared_ptr<Engine::Entity> &enemy)
     auto velocity = enemy->getComponent<Engine::VelocityComponent>();
     auto transform = enemy->getComponent<Engine::TransformComponent>();
 
-    transform->setPos(Engine::Point<double>({transform->getPos().x, 1000 - SIZE_Y}));
+    transform->setPos(Engine::Point<double>({transform->getPos().x, 1080 - SIZE_Y - GROUND_HEIGHT}));
 }
 
 BWRobot::BWRobot(const Engine::Point<double> &pos) : Enemy(std::move(std::make_unique<DataSprite>(PATH, Engine::Box<double>{pos, {SIZE_X, SIZE_Y}})), pos)
