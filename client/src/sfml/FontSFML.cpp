@@ -11,4 +11,10 @@
 void FontSFML::loadFromFile(std::string fileName)
 {
     _font.loadFromFile(fileName);
+    _fileName = fileName;
+}
+
+std::string FontSFML::getFileName() const
+{
+    return _fileName;
 }

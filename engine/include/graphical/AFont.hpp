@@ -17,6 +17,7 @@ namespace Engine {
     public:
         AFont() = default;
         virtual void loadFromFile(std::string file) = 0;
+        [[nodiscard]] virtual std::string getFileName() const = 0;
     };
 
 }

@@ -22,11 +22,11 @@ private:
     double _rotation = 0;
     Engine::Point<double> _origin = {0, 0};
     Engine::Point<double> _scale = {0, 0};
-    std::string _text;
+    std::string _text = "../../client/assets/textsEdt/Basic.txt";
     int _characterSize = 30;
     Engine::Color _fillColor = {0, 0, 0, 255};
     Engine::Color _outLineColor = {0, 0, 0, 255};
-    double _spacingFactor = 30;
+    double _letterSpacing = 30;
     double _lineSpacing = 10;
 
 public:
@@ -50,11 +50,13 @@ public:
     void setString(std::string text) final {_text = text;}
     void setRotation(double angle) final {_rotation = angle;}
     void setCharacterSize(unsigned int size) final {_characterSize = size;}
-    void setLetterSpacing(double spacingFactor) final {_spacingFactor = spacingFactor;}
+    void setLetterSpacing(double spacingFactor) final {_letterSpacing = spacingFactor;}
     void setLineSpacing(double spacingFactor) final {_lineSpacing = spacingFactor;}
     [[nodiscard]] Engine::Size<int> getSize() const final {return Engine::Size<int>{0, 0};}
     [[nodiscard]] double getRotation() const final {return _rotation;}
     [[nodiscard]] std::string toStdString() const final {return _text;}
+    [[nodiscard]] int getCharacterSize() const final {return _characterSize;}
+    [[nodiscard]] int getLetterSpacing() const final {return static_cast<int>(_letterSpacing);}
 
     void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<double> position, double angle) final {}
 

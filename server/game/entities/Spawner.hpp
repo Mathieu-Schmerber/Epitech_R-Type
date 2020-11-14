@@ -22,6 +22,8 @@
 #include "components/TextComponent.hpp"
 #include "components/WaveComponent.hpp"
 
+#define FONT_PATH "../../client/assets/fonts/Pixeboy.ttf"
+
 class Spawner : public Engine::Entity {
 public:
     explicit Spawner(const Engine::Point<double> &pos = {1920, 1080.0 / 2.0}, double spawnRate = 5) : Engine::Entity()
@@ -30,7 +32,7 @@ public:
         this->addComponent<Engine::VelocityComponent>(Engine::Vector<double>({0, -10}));
         this->addComponent<Engine::ColliderComponent>();
         this->addComponent<EnemySpawnerComponent>(spawnRate);
-        this->addComponent<Engine::TextComponent>(10, std::make_unique<DataText>(std::make_shared<DataFont>("FILENAME FONT"), Engine::Point<double>({0, 0})));
+        this->addComponent<Engine::TextComponent>(10, std::make_unique<DataText>(std::make_shared<DataFont>(FONT_PATH), Engine::Point<double>({0, 0})));
         this->addComponent<WaveComponent>();
     }
 };

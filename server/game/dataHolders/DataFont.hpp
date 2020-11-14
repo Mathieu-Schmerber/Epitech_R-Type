@@ -19,7 +19,7 @@ public:
     DataFont() = default;
     explicit DataFont(std::string fileName) : _fileName(std::move(fileName)), Engine::AFont() {}
 
-    [[nodiscard]] std::string getFileName() const;
+    [[nodiscard]] std::string getFileName() const final;
     void loadFromFile(std::string fileName) final;
 };
 
