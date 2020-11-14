@@ -84,40 +84,6 @@ void LobbyList::initEntities()
     this->spawnEntity(goUpButtonEngine);
     this->spawnEntity(goDownButtonEngine);
     this->spawnEntity(createLobbyButtonEngine);
-
-
-    //TODO: remove the following temporary lines
-/*    std::shared_ptr<Engine::Entity> lobby = std::make_shared<LobbyCard>(4242, 0, 4, 0);
-    lobby->getComponent<Engine::TransformComponent>()->setPos({535, 60});
-    this->spawnEntity(lobby);
-
-    std::shared_ptr<Engine::Entity> lobby1 = std::make_shared<LobbyCard>(4242, 0, 4, 0);
-    lobby1->getComponent<Engine::TransformComponent>()->setPos({535, 310});
-    this->spawnEntity(lobby1);
-
-    std::shared_ptr<Engine::Entity> lobby2 = std::make_shared<LobbyCard>(4242, 0, 4, 0);
-    lobby2->getComponent<Engine::TransformComponent>()->setPos({535, 560});
-    this->spawnEntity(lobby2);
-
-    std::shared_ptr<Engine::Entity> lobby3 = std::make_shared<LobbyCard>(4242, 0, 4, 0);
-    lobby3->getComponent<Engine::TransformComponent>()->setPos({535, 810});
-    this->spawnEntity(lobby3);
-
-    std::shared_ptr<Engine::Entity> lobby4 = std::make_shared<LobbyCard>(4242, 0, 4, 0);
-    lobby4->getComponent<Engine::TransformComponent>()->setPos({535, 1060});
-    this->spawnEntity(lobby4);
-
-    std::shared_ptr<Engine::Entity> lobby5 = std::make_shared<LobbyCard>(4242, 0, 4, 0);
-    lobby5->getComponent<Engine::TransformComponent>()->setPos({535, 1310});
-    this->spawnEntity(lobby5);
-
-    std::shared_ptr<Engine::Entity> lobby6 = std::make_shared<LobbyCard>(4242, 0, 4, 0);
-    lobby6->getComponent<Engine::TransformComponent>()->setPos({535, 1560});
-    this->spawnEntity(lobby6);
-
-    std::shared_ptr<Engine::Entity> lobby7 = std::make_shared<LobbyCard>(4242, 0, 4, 0);
-    lobby7->getComponent<Engine::TransformComponent>()->setPos({535, 1810});
-    this->spawnEntity(lobby7);*/
 }
 
 void LobbyList::initSystems()

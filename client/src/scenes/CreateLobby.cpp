@@ -33,12 +33,12 @@ void goToLobbyWaiting(std::shared_ptr<Engine::AScene> &createLobby)
     bool waitingForAnswer = true;
     //FIXME: Passer de la création de lobby à la scène d'attente dans le lobby (Create Lobby)
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::LOBBY_WAITING);
-
     std::shared_ptr<CreateLobby> scene = std::dynamic_pointer_cast<CreateLobby>(createLobby);
     std::vector<int> pouet;
+
     pouet.push_back(3);
     pouet.push_back(1);
-    pouet.push_back(4); //Nb de players (to fix)
+    pouet.push_back(4); //TODO: Nb de players (to fix)
     scene->getServer()->getTcpSocket()->sendToServer(pouet);
     while (waitingForAnswer) {
         std::vector<int> data = scene->getServer()->getTcpSocket()->getDataFromServer();

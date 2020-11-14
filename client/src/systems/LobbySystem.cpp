@@ -70,18 +70,32 @@ void LobbySystem::handleScroll()
 
 void LobbySystem::handleLobbyJoin(std::shared_ptr<Engine::Entity> &lobby)
 {
+    bool waitingForAnswer = true;
     auto &tcp = this->_server->getTcpSocket();
     auto click = lobby->getComponent<Engine::ClickableComponent>();
     unsigned short info = lobby->getComponent<LobbyComponent>()->getLobbyId(); //Et autres getter à la place de getLobbyId
+    Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::LOBBY_WAITING);
 
     if (click->isReleased()) {
         // TODO: connect to lobby, faire la connexion au lobby TCP ici
+        std::cout << "Pouet pouet fait le dindon" << std::endl;
         std::vector<int> toSend;
         toSend.push_back(3);
         toSend.push_back(0);
         toSend.push_back(info);
         tcp->sendToServer(toSend);
-        Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::LOBBY_WAITING);
+        while (waitingForAnswer) {
+            std::vector<int> data = tcp->getDataFromServer();
+            if (data.at(0) != 3 || data.at(1) != 42)
+                continue;
+            _server->openSockets(data.at(2));
+            waitingForAnswer = false;
+        }
+        toSend.clear();
+        toSend.push_back(3);
+        toSend.push_back(43);
+        toSend.push_back(_server->getPortServer());
+        tcp->sendToServer(toSend);
         this->_scene->pushRequest(request);
     }
 }
