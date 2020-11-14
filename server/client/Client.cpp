@@ -36,8 +36,11 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
 
 
 
-    std::cout << "Ip is : " << socket.remote_endpoint().address().to_string() << std::endl;
-
+    std::cout << "Receive from IP [" << socket.remote_endpoint().address().to_string() << "] : ";
+    for (auto ia : _data) {
+        std::cout << ia << " ";
+    }
+    std::cout << std::endl;
 
 
     if (_data.at(0) < 2)
@@ -54,11 +57,12 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
         if (!newLobby)
             return;
         newLobby->join(s);
+        _currentLobby = newLobby;
         std::vector<int> answerToClient;
         answerToClient.push_back(3);
         answerToClient.push_back(42);
         answerToClient.push_back(newLobby->getPort());
-        s->sendToClient(answerToClient);
+        s->sendToClientTcp(answerToClient);
         std::vector<int> toAll;
         toAll.push_back(7);
         toAll.push_back(1);
@@ -69,7 +73,7 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
         toAll.push_back((int)newLobby->getNbPlayers());
         for (auto &a : this->_server->getClientList()) {
             try {
-                a->sendToClient(toAll);
+                a->sendToClientTcp(toAll);
             } catch (std::exception &e) {
                 std::cerr << "Send to clients errors : " << e.what() << std::endl;
             }
@@ -78,6 +82,11 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
         if (_data.at(0) != 3)
             return;
         _socketOutput = std::make_shared<Engine::UdpSocketOutput>(this->get_socket().remote_endpoint().address().to_string(), _data.at(2));
+    } else if (_data.at(1) == 44) {
+        if (_data.at(0) != 2)
+            return;
+        if (_currentLobby)
+            _currentLobby->run();
     }
 }
 
@@ -87,6 +96,11 @@ int Client::getId() const
 }
 
 void Client::sendToClient(const std::vector<int> &in)
+{
+    this->_socketOutput->sendDataToServer(in);
+}
+
+void Client::sendToClientTcp(const std::vector<int> &in)
 {
     if (this->get_socket().is_open())
         this->get_socket().write_some(boost::asio::buffer(in));

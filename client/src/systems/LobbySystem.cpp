@@ -8,6 +8,7 @@
 #include "systems/LobbySystem.hpp"
 #include "entities/LobbyCard.hpp"
 #include "enumerations/Inputs.hpp"
+#include "scenes/SceneType.hpp"
 
 LobbySystem::LobbySystem(std::shared_ptr<NetworkAccess> &server, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<Engine::AScene> &scene)
 : _server(server), _events(events), _scene(scene), Engine::System()
@@ -71,9 +72,17 @@ void LobbySystem::handleLobbyJoin(std::shared_ptr<Engine::Entity> &lobby)
 {
     auto &tcp = this->_server->getTcpSocket();
     auto click = lobby->getComponent<Engine::ClickableComponent>();
+    unsigned short info = lobby->getComponent<LobbyComponent>()->getLobbyId(); //Et autres getter à la place de getLobbyId
 
     if (click->isReleased()) {
-        // TODO: connect to lobby
+        // TODO: connect to lobby, faire la connexion au lobby TCP ici
+        std::vector<int> toSend;
+        toSend.push_back(3);
+        toSend.push_back(0);
+        toSend.push_back(info);
+        tcp->sendToServer(toSend);
+        Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::LOBBY_WAITING);
+        this->_scene->pushRequest(request);
     }
 }
 

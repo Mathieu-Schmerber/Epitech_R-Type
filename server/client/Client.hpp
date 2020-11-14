@@ -13,6 +13,7 @@
 #endif
 
 #include "networking/UDP/UdpSocketOutput.hpp"
+#include "Lobby.hpp"
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 
@@ -29,6 +30,7 @@ public:
     void start();
     void handle_read(std::shared_ptr<Client>& s, const boost::system::error_code& err, size_t bytes_transferred);
     void sendToClient(const std::vector<int> &in);
+    void sendToClientTcp(const std::vector<int> &in);
     int getId() const;
 private:
     std::shared_ptr<Engine::UdpSocketOutput> _socketOutput;
@@ -36,6 +38,7 @@ private:
     std::vector<int> _data;
     tcp::socket socket;
     Server *_server;
+    Lobby *_currentLobby;
     int _id;
 };
 

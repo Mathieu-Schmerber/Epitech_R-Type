@@ -41,7 +41,7 @@ void Server::handle_accept(std::shared_ptr<Client> session, const boost::system:
             }
             std::shared_ptr<Client> newSession = _connected.at(((_connected.size() - 2) < 0 ? 0 : _connected.size() - 2));
             std::cout << "Send to session " << newSession->getId() << " " << ((_connected.size() - 2) < 0 ? 0 : _connected.size() - 2) << std::endl;
-            newSession->sendToClient(toSend);
+            newSession->sendToClientTcp(toSend);
         }
     } else {
         std::cerr << "err: " + err.message() << std::endl;
