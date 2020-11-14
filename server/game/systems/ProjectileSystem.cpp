@@ -19,7 +19,7 @@ void ProjectileSystem::bounce(std::shared_ptr<Engine::Entity> &projectile, std::
     auto box1 = projectile->getComponent<Engine::ColliderComponent>()->getHitBox();
     auto box2 = collision->getComponent<Engine::ColliderComponent>()->getHitBox();
     Engine::Point<double> normal = Engine::Geometry::getCollisionNormal(box2, box1);
-    Engine::Point<double> reflection = Engine::Geometry::getReflection(speed, normal);
+    Engine::Point<double> reflection = Engine::Geometry::reflect(speed, normal);
 
     velocity->setSpeed(reflection);
 }

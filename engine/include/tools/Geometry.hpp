@@ -32,6 +32,14 @@ namespace Engine {
             return Point<T>({x * c, y * c});
         }
 
+        Point<T> operator - (double c) const {
+            return Point<T>({x - c, y - c});
+        }
+
+        Point<T> operator + (double c) const {
+            return Point<T>({x + c, y + c});
+        }
+
         template<typename U>
         explicit operator Point<U>() const {
             return {static_cast<U>(x), static_cast<U>(y)};
@@ -146,11 +154,9 @@ namespace Engine {
         }
 
         template<typename T>
-        static Engine::Vector<T> getReflection(Engine::Vector<T> input, Engine::Vector<T> normal)
+        static Engine::Vector<T> reflect(Engine::Vector<T> input, Engine::Vector<T> normal)
         {
-            auto angle = vectorAngle(input, normal);
-
-            return rotateVector(input, angle * 2);
+            return {input.x - 2 * dotProduct(input, normal) * normal.x, input.y - 2 * dotProduct(input, normal) * normal.y};
         }
 
         template<typename T>
