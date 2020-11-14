@@ -379,6 +379,28 @@ install(TARGETS flappingRobot
 install(FILES ${CMAKE_BINARY_DIR}/flappingRobot.pc
 		DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
 
+# BW Robot
+add_library(bwRobot SHARED
+		dynamic_libs/BWRobot.cpp
+		dynamic_libs/BWRobot.hpp
+
+		${ENEMIES_SOURCES}
+		)
+set_target_properties(bwRobot PROPERTIES SOVERSION 1)
+set_target_properties(bwRobot PROPERTIES
+		PUBLIC_HEADER "${ENEMIES_INCLUDES}")
+target_include_directories(bwRobot PUBLIC
+		dynamic_libs
+		engine/include
+		server/game
+		client/include
+		)
+install(TARGETS bwRobot
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES ${CMAKE_BINARY_DIR}/bwRobot.pc
+		DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+
 ###############
 
 target_include_directories(r-type_server PRIVATE

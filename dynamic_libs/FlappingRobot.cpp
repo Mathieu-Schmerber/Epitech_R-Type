@@ -46,7 +46,12 @@ FlappingRobot::FlappingRobot(const Engine::Point<double> &pos) : Enemy(std::move
                 {DEFAULT, {
                                   {_size.x * 0, _size.x * 1, 0, _size.y},
                                   {_size.x * 1, _size.x * 2, 0, _size.y},
-                                  {_size.x * 2, _size.x * 3, 0, _size.y}}}
+                                  {_size.x * 2, _size.x * 3, 0, _size.y},
+                                  {_size.x * 3, _size.x * 4, 0, _size.y},
+                                  {_size.x * 4, _size.x * 5, 0, _size.y},
+                                  {_size.x * 5, _size.x * 6, 0, _size.y},
+                                  {_size.x * 6, _size.x * 7, 0, _size.y},
+                                  {_size.x * 7, _size.x * 8, 0, _size.y}}}
         }, true);
     this->addComponent<HealthComponent>(2);
     this->addComponent<Engine::ColliderComponent>(Collision::ENEMY, pos, _size);
