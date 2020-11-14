@@ -22,6 +22,7 @@ private:
     Engine::Vector<double> _shotSpeed = {-30, 0};
 
     ProjectileComponent::Type _projectileType;
+    bool _useTargets = true;
     bool _bounce = false;
 
 public:
@@ -41,6 +42,7 @@ public:
     [[nodiscard]] ProjectileComponent::Type getProjectileType() const {return _projectileType;}
     [[nodiscard]] bool canBounce() const {return _bounce;}
     void setBounce(bool bounce) {_bounce = bounce;}
+    [[nodiscard]] bool useTargets() const {return _useTargets;}
 };
 
 #endif //RTYPE_AUTOMATICWEAPONCOMPONENT_HPP

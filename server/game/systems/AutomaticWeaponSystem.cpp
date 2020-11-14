@@ -8,6 +8,7 @@
 #include "entities/Projectile.hpp"
 #include "components/AutomaticWeaponComponent.hpp"
 #include "AutomaticWeaponSystem.hpp"
+#include "tools/Geometry.hpp"
 
 AutomaticWeaponSystem::AutomaticWeaponSystem(std::shared_ptr<Game> &game) : _game(game)
 {
@@ -54,10 +55,20 @@ void AutomaticWeaponSystem::automaticShot(std::shared_ptr<Engine::Entity> &shoot
             proj = this->generateProjectile(weapon);
             auto box2 = Engine::Box<double>{transform->getPos(),
                                             proj->getComponent<Engine::SpriteComponent>()->getSprite()->getRect().size};
-            proj->getComponent<Engine::TransformComponent>()->setPos(Engine::Geometry::placeForward(box1, box2));
+            proj->getComponent<Engine::TransformComponent>()->setPos(Engine::Geometry::placeForward(box1, box2)); // FIXME place backWard
+            if (weapon->useTargets() && shooter->getComponent<Engine::TargetComponent>())
+                targetShoot(proj->getComponent<Engine::VelocityComponent>(), shooter->getComponent<Engine::TargetComponent>(), transform->getPos(), weapon);
             this->_game->spawn(proj, true);
         }
     }
+}
+
+void AutomaticWeaponSystem::targetShoot(Engine::VelocityComponent *velocity, Engine::TargetComponent *target, Engine::Vector<double> pos, AutomaticWeaponComponent *weapon)
+{
+    Engine::Vector<double> obj = target->getRandomTarget()->getComponent<Engine::TransformComponent>()->getPos();
+
+    auto speed = Engine::Geometry::normalizeVectorScale(Engine::Geometry::getVectorBetween(pos, obj), std::abs(weapon->getShotSpeed().x) + std::abs(weapon->getShotSpeed().x));
+    velocity->setSpeed(speed);
 }
 
 void AutomaticWeaponSystem::update()

@@ -26,6 +26,8 @@ void SpawnerSystem::handleSpawn(std::shared_ptr<Engine::Entity> &spawner)
         auto enemies = spawner->getComponent<EnemySpawnerComponent>()->getLibs();
         std::shared_ptr<Enemy> e = std::shared_ptr<Enemy>(spawner->getComponent<EnemySpawnerComponent>()->getEntity(enemies.at(Engine::RandomETU::randETU(static_cast<int>(enemies.size()) - 1))));
         e->getComponent<Engine::TransformComponent>()->setPos(spawner->getComponent<Engine::TransformComponent>()->getPos());
+        if (e->getComponent<Engine::TargetComponent>())
+            e->getComponent<Engine::TargetComponent>()->addTargets(_game->getPlayersSpaceShips());
         _game->spawn(e, true);
     }
 }

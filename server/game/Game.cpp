@@ -63,6 +63,8 @@ void Game::initGameEntities()
     auto test = std::make_shared<Ground>(Engine::Point<double>{1000, 600}, Engine::Point<double>{0, 0}, Engine::Point<double>{0, 0});
 
     this->spawn(player, true);
+    _playersSpaceShips.push_back(player);
+
     this->spawn(slideA, true);
     this->spawn(slideB, true);
     this->spawn(groundA, true);
@@ -70,7 +72,7 @@ void Game::initGameEntities()
     this->spawn(bonusTest, true);
     this->spawn(bonusTest2, true);
     this->spawn(test, true);
-    //this->spawn(spawner, false);
+    this->spawn(spawner, false);
 }
 
 void Game::initGameSystems()

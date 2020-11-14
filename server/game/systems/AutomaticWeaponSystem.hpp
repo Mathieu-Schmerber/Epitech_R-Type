@@ -41,6 +41,7 @@ private:
     std::shared_ptr<Engine::Entity> generateProjectile(AutomaticWeaponComponent *weapon);
     void automaticShot(std::shared_ptr<Engine::Entity> &shooter);
     bool hasToShoot(AutomaticWeaponComponent *weapon);
+    void targetShoot(Engine::VelocityComponent *velocity, Engine::TargetComponent *target, Engine::Vector<double> pos, AutomaticWeaponComponent *weapon);
 public:
     explicit AutomaticWeaponSystem(std::shared_ptr<Game> &game);
 

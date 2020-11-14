@@ -70,6 +70,7 @@ set(ENGINE_SOURCES
 		engine/src/systems/ButtonSystem.cpp
 		engine/src/tools/AssetPool.cpp
 		engine/src/systems/ChildrenSystem.cpp 
+		engine/src/systems/TargetSystem.cpp
 		)
 
 set(ENGINE_INCLUDES
@@ -155,7 +156,10 @@ set(ENGINE_INCLUDES
 		engine/include/tools/ADLLoader.hpp
 		engine/include/entities/Text.hpp
 		engine/include/tools/DynamicLibManager.hpp
-		engine/include/systems/ChildrenSystem.hpp engine/include/tools/RandomETU.hpp)
+		engine/include/systems/ChildrenSystem.hpp
+		engine/include/tools/RandomETU.hpp
+		engine/include/components/TargetComponent.hpp
+		engine/include/systems/TargetSystem.hpp)
 
 set(CLIENT_SOURCES
 		client/src/main.cpp
@@ -318,7 +322,7 @@ set(SERVER_INCLUDES
 		server/game/entities/Sentinel.hpp
         server/game/systems/PlayerWeaponSystem.hpp
 		server/game/systems/PlayerCollisionSystem.hpp
-		)
+        )
 
 
 set(ENEMIES_INCLUDES

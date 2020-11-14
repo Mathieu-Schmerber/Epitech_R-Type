@@ -29,7 +29,7 @@ namespace Engine {
         }
 
         Point<T> operator * (double c) const {
-            return Point<T>(x * c, y * c);
+            return Point<T>({x * c, y * c});
         }
 
         template<typename U>
@@ -105,13 +105,19 @@ namespace Engine {
         }
 
         template<typename T>
-        static void normalizeVector(Engine::Point<T> &vector)
+        static Engine::Vector<T> normalizeVector(Engine::Point<T> vector)
         {
             T magnitude = getVectorMagnitude(vector);
 
             if (magnitude == 0)
-                return;
-            vector = Point<T>{vector.x / magnitude, vector.y / magnitude};
+                return vector;
+            return Vector<T>{vector.x / magnitude, vector.y / magnitude};
+        }
+
+        template <typename T>
+        static Engine::Vector<T> normalizeVectorScale(Engine::Vector<T> vector, T scale)
+        {
+            return normalizeVector(vector) * scale;
         }
 
         template<typename T>

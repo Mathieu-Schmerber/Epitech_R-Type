@@ -20,6 +20,7 @@
 #include "components/ColliderComponent.hpp"
 #include "components/AutomaticWeaponComponent.hpp"
 #include "components/PatternComponent.hpp"
+#include "components/TargetComponent.hpp"
 
 #include <iostream>
 #include <utility>

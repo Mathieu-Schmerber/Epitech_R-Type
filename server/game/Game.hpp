@@ -22,6 +22,7 @@ private:
     std::vector<std::shared_ptr<Engine::Entity>> _entities;
     std::vector<Client> _players;
     std::reference_wrapper<std::unique_ptr<UdpSocketInput>> _reception;
+    std::vector<std::shared_ptr<Engine::Entity>> _playersSpaceShips;
 
     void initGameEntities();
     void initGameSystems();
@@ -34,6 +35,7 @@ public:
     void despawn(std::shared_ptr<Engine::Entity> &entity);
     void update();
     [[nodiscard]] bool isGameRunning() const;
+    std::vector<std::shared_ptr<Engine::Entity>> getPlayersSpaceShips() const {return _playersSpaceShips;};
 };
 
 

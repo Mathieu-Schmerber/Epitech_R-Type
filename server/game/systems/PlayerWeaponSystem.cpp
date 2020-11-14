@@ -74,7 +74,7 @@ std::shared_ptr<Engine::Entity> PlayerWeaponSystem::generateProjectile(ManualWea
         key = p.first;
     }
     projectile = std::make_shared<Projectile>(Engine::Point<double>{0, 0}, Engine::Point<double>{22, 18},
-                                              Engine::Vector<double>{40, 0},weapon->getCurrentDamages() * chargeMultiplier, key + 1,
+                                              Engine::Vector<double>{70, 0},weapon->getCurrentDamages() * chargeMultiplier, key + 1,
                                               this->_projectileTextures[key], Collision::PLAYER_PROJECTILE);
     projectile->getComponent<Engine::AnimationComponent>()->setFrameTime(0.2);
     projectile->getComponent<Engine::AnimationComponent>()->addAnimation(0, this->_chargeTypes[key].second);
