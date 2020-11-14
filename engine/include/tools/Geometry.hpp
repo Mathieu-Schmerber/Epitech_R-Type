@@ -8,7 +8,7 @@
 #include <cmath>
 #include <utility>
 #include <cmath>
-#include <ostream>
+#include <iostream>
 
 namespace Engine {
 
@@ -92,32 +92,37 @@ namespace Engine {
     public:
 
         [[nodiscard]] static double degreeToRadiant(double degree) {return degree * (PI / 180);}
+        [[nodiscard]] static double radiantToDegree(double rad) {return rad * (180 / PI);}
 
         template<typename T>
         [[nodiscard]] static Point<T> rotateVector(Engine::Point<T> vector, double degree)
         {
-            double angle = degreeToRadiant(degree);
+            double angle = degree * PI/180;
+            double ca = std::cos(angle);
+            double sa = std::sin(angle);
+
             Point<T> res = {
-                    vector.x * std::cos(angle) - vector.y * std::sin(angle),
-                    vector.x * std::sin(angle) + vector.y * std::cos(angle)};
+                    ca * vector.x - sa * vector.y,
+                    sa * vector.x + ca * vector.y};
 
             return res;
-        }
-
-        template<typename T>
-        static Engine::Vector<T> normalizeVector(Engine::Point<T> vector)
-        {
-            T magnitude = getVectorMagnitude(vector);
-
-            if (magnitude == 0)
-                return vector;
-            return Vector<T>{vector.x / magnitude, vector.y / magnitude};
         }
 
         template <typename T>
         static Engine::Vector<T> normalizeVectorScale(Engine::Vector<T> vector, T scale)
         {
             return normalizeVector(vector) * scale;
+        }
+
+        template<typename T>
+        static Engine::Vector<T> normalizeVector(Engine::Vector<T> vector)
+        {
+            T magnitude = getVectorMagnitude(vector);
+
+            if (magnitude == 0)
+                return vector;
+            vector = Vector<T>{vector.x / magnitude, vector.y / magnitude};
+            return vector;
         }
 
         template<typename T>
@@ -129,13 +134,23 @@ namespace Engine {
         template<typename T>
         static T dotProduct(Engine::Vector<T> &a, Engine::Vector<T> &b)
         {
-            return (a.x * a.y + b.x * b.y);
+            return a.x * b.x + a.y * b.y;
         }
 
         template<typename T>
-        static Engine::Vector<T> getReflection(Engine::Vector<T> &input, Engine::Vector<T> &normal)
+        static double vectorAngle(Engine::Vector<T> a, Engine::Vector<T> b)
         {
-            return {input.x - 2 * dotProduct(input, normal) * normal.x, input.y - 2 * dotProduct(input, normal) * normal.y};
+            double cosTheta = dotProduct(a, b) / (getVectorMagnitude(a) * getVectorMagnitude(b));
+
+            return radiantToDegree(acos(cosTheta));
+        }
+
+        template<typename T>
+        static Engine::Vector<T> getReflection(Engine::Vector<T> input, Engine::Vector<T> normal)
+        {
+            auto angle = vectorAngle(input, normal);
+
+            return rotateVector(input, angle * 2);
         }
 
         template<typename T>
@@ -209,9 +224,9 @@ namespace Engine {
 
             if(abs(dx) <= width && abs(dy) <= height) {
                 if (crossWidth > crossHeight)
-                    collision=(crossWidth > (-crossHeight))? Vector<T>{0, -1} : Vector<T>{1, 0};
+                    collision=(crossWidth > (-crossHeight))? Vector<T>{0, 1} : Vector<T>{-1, 0};
                 else
-                    collision=(crossWidth > -(crossHeight))? Vector<T>{-1, 0} : Vector<T>{0, 1};
+                    collision=(crossWidth > -(crossHeight))? Vector<T>{1, 0} : Vector<T>{0, -1};
             }
             return(collision);
         }
@@ -232,15 +247,15 @@ template<typename T>
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const Engine::Box<T>& box)
 {
-    os << "x1/x2: " << box.x1 << "/" << box.x2 << " && ";
-    os << "y1/y2: " << box.y1 << "/" << box.y2;
+    os << "x1;x2: " << box.x1 << ";" << box.x2 << " && ";
+    os << "y1;y2: " << box.y1 << ";" << box.y2;
     return os;
 }
 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const Engine::Vector<T>& vector)
 {
-    os << "x1/x2: " << vector.x << "/" << vector.y;
+    os << "x1;x2: " << vector.x << ";" << vector.y;
     return os;
 }
 

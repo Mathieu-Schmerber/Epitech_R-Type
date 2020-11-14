@@ -15,7 +15,7 @@ private:
     std::vector<std::shared_ptr<Engine::Entity>> _grounds;
     std::shared_ptr<Game> _game;
 
-    void spawnGrounds(double xOffset, double yOffset);
+    void spawnGrounds(double xOffset, double yOffset, int min, int max);
 
 public:
     explicit GroundSystem(std::shared_ptr<Game> &game);

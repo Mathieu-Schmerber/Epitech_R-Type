@@ -15,13 +15,12 @@ ProjectileSystem::ProjectileSystem(std::shared_ptr<Game> &game) : _game(game), E
 void ProjectileSystem::bounce(std::shared_ptr<Engine::Entity> &projectile, std::shared_ptr<Engine::Entity> &collision)
 {
     auto velocity = projectile->getComponent<Engine::VelocityComponent>();
-    Engine::Point<double> speed = Engine::Geometry::normalizeVector(velocity->getSpeed());
+    Engine::Point<double> speed = velocity->getSpeed();
     auto box1 = projectile->getComponent<Engine::ColliderComponent>()->getHitBox();
     auto box2 = collision->getComponent<Engine::ColliderComponent>()->getHitBox();
     Engine::Point<double> normal = Engine::Geometry::getCollisionNormal(box2, box1);
     Engine::Point<double> reflection = Engine::Geometry::getReflection(speed, normal);
 
-    std::cout << "reflection " << reflection << std::endl;
     velocity->setSpeed(reflection);
 }
 

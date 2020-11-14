@@ -13,9 +13,9 @@ GroundSystem::GroundSystem(std::shared_ptr<Game> &game) : _game(game), Engine::S
     this->addDependency<Engine::ColliderComponent>();
 }
 
-void GroundSystem::spawnGrounds(double xOffset, double yOffset)
+void GroundSystem::spawnGrounds(double xOffset, double yOffset, int min, int max)
 {
-    auto height = Engine::RandomETU::randETU<int, int>(1, 2);
+    auto height = Engine::RandomETU::randETU<int, int>(min, max);
     std::shared_ptr<Engine::Entity> gr;
     Engine::Point<double> pos = {0, 0};
 
@@ -35,8 +35,10 @@ void GroundSystem::update()
     bool spawned = false;
 
     if (this->_entities.empty()) {
-        for (int i = 0; i < 1920 / GROUND_WIDTH + 1; ++i)
-            this->spawnGrounds(i * GROUND_WIDTH, 0);
+        for (int i = 0; i < 10 + 1; ++i) {
+            this->spawnGrounds(i * GROUND_WIDTH, 0, 1, 2);
+            this->spawnGrounds(i * GROUND_WIDTH, 1080 - GROUND_HEIGHT, 1, 1);
+        }
     }
     for (auto &e : copy) {
         transform = e->getComponent<Engine::TransformComponent>();
@@ -47,6 +49,8 @@ void GroundSystem::update()
             this->_game->despawn(e);
         }
     }
-    if (spawned)
-        this->spawnGrounds(GROUND_WIDTH * 9, 0);
+    if (spawned) {
+        this->spawnGrounds(GROUND_WIDTH * 10, 0, 1, 2);
+        this->spawnGrounds(GROUND_WIDTH * 10, 1080 - GROUND_HEIGHT, 1, 1);
+    }
 }
