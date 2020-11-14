@@ -36,6 +36,7 @@ bool ProjectileSystem::didCollide(std::shared_ptr<Engine::Entity> &projectile)
     for (auto &c : collided) {
         if (c->getComponent<HealthComponent>() && !Engine::Utils::isInVector(list, c)) {
             c->getComponent<HealthComponent>()->loseHealth(projectile->getComponent<ProjectileComponent>()->getDamage());
+            std::cout << "player life " << c->getComponent<HealthComponent>()->getCurrentHealth() << std::endl;
             list = proj->getHit();
         } else if (!c->getComponent<HealthComponent>()) {
             willBeDestroyed = !proj->canBounce();

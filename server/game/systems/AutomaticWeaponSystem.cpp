@@ -65,6 +65,8 @@ void AutomaticWeaponSystem::automaticShot(std::shared_ptr<Engine::Entity> &shoot
 
 void AutomaticWeaponSystem::targetShoot(Engine::VelocityComponent *velocity, Engine::TargetComponent *target, Engine::Vector<double> pos, AutomaticWeaponComponent *weapon)
 {
+    if (!target->hasTargets())
+        return;
     Engine::Vector<double> obj = target->getRandomTarget()->getComponent<Engine::TransformComponent>()->getPos();
 
     auto speed = Engine::Geometry::normalizeVectorScale(Engine::Geometry::getVectorBetween(pos, obj), std::abs(weapon->getShotSpeed().x) + std::abs(weapon->getShotSpeed().x));

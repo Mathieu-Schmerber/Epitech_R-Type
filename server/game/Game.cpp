@@ -24,6 +24,7 @@
 #include "systems/GroundSystem.hpp"
 #include "components/NetworkComponent.hpp"
 #include "entities/Collectible.hpp"
+#include "systems/TargetSystem.hpp"
 
 Game::Game(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception)
 : _players(players), _reception(reception), _idIncrement(0), _running(true)
@@ -94,6 +95,7 @@ void Game::initGameSystems()
     auto children = std::make_unique<Engine::ChildrenSystem>();
     auto spawner = std::make_unique<SpawnerSystem>(game);
     auto life = std::make_unique<HealthSystem>(game);
+    auto target = std::make_unique<Engine::TargetSystem>();
 
     this->_systems.push_back(std::move(move));
     //this->_systems.push_back(std::move(ground));
@@ -111,6 +113,7 @@ void Game::initGameSystems()
     this->_systems.push_back(std::move(network));
     this->_systems.push_back(std::move(spawner));
     this->_systems.push_back(std::move(life));
+    this->_systems.push_back(std::move(target));
 }
 
 void Game::spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork)
@@ -134,10 +137,11 @@ void Game::spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork)
 void Game::despawn(std::shared_ptr<Engine::Entity> &entity)
 {
     for (auto &sys : this->_systems) {
-        if (entity->hasComponents(sys->getDependencies()))
-            sys->deleteEntity(entity);
+        sys->deleteEntity(entity); // On passe dans tous les systèmes à cause de target FIXME
     }
     Engine::Utils::removeFromVector(this->_entities, entity);
+    if (Engine::Utils::isInVector(this->_playersSpaceShips, entity))
+        Engine::Utils::removeFromVector(this->_playersSpaceShips, entity);
 }
 
 bool Game::isGameRunning() const

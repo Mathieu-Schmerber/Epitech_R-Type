@@ -41,12 +41,19 @@ namespace Engine {
 
         void removeTargetIfExists(std::shared_ptr<Entity> &target)
         {
-            if (Utils::isInVector(this->_targets, target))
+            std::cout << "remove" << std::endl;
+            if (Utils::isInVector(this->_targets, target)) {
+                std::cout << "remove ok" << std::endl;
                 Utils::removeFromVector(this->_targets, target);
+            }
         }
 
         std::vector<std::shared_ptr<Engine::Entity>> getTargets() {
             return _targets;
+        }
+
+        [[nodiscard]] bool hasTargets() {
+            return !_targets.empty();
         }
 
         std::shared_ptr<Engine::Entity> getRandomTarget() {

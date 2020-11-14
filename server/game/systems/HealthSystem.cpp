@@ -24,6 +24,7 @@ void HealthSystem::update()
     for (auto &e : tmp) {
         children = e->getComponent<Engine::ChildrenComponent>();
         if (e->getComponent<HealthComponent>()->getCurrentHealth() <= 0) {
+            std::cout << "despawn" << std::endl;
             _game->despawn(e);
             if (children) {
                 child = children->getChildren();

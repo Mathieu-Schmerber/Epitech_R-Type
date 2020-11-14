@@ -2,8 +2,8 @@
 // Created by mathi on 13/11/2020.
 //
 
-#ifndef RTYPE_CHILDRENSYSTEM_HPP
-#define RTYPE_CHILDRENSYSTEM_HPP
+#ifndef RTYPE_TARGETSYSTEM_HPP
+#define RTYPE_TARGETSYSTEM_HPP
 
 #include "ecs/System.hpp"
 
@@ -17,4 +17,4 @@ namespace Engine {
     };
 }
 
-#endif //RTYPE_CHILDRENSYSTEM_HPP
+#endif //RTYPE_TARGETSYSTEM_HPP
