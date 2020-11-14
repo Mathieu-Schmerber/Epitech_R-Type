@@ -68,3 +68,10 @@ std::vector<std::shared_ptr<Client>> Server::getClientList() const
 {
     return this->_connected;
 }
+
+void Server::removeClient(std::shared_ptr<Client> &cli)
+{
+    for (auto a = _connected.begin() ; a != _connected.end(); a++)
+        if (a->get()->getId() == cli->getId())
+            _connected.erase(a);
+}

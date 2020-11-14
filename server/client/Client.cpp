@@ -30,6 +30,8 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
         socket.async_read_some(boost::asio::buffer(_data, max_length), boost::bind(&Client::handle_read, this, shared_from_this(), boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
     } else {
         std::cout << "Client Disconnected id : " << s->getId() << std::endl;
+        s->get_socket().close();
+        this->_server->removeClient(s);
         return;
     }
     if (_data.at(0) < 2)
@@ -43,9 +45,7 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
     } else if (_data.at(1) == 1) {
         //Create a Lobby
         std::vector<int> output;
-        std::cout << "Lobby creation" << std::endl;
         auto newLobby = this->_server->getLobbyManager().addLobby(_data.at(2));
-        std::cout << "get new Lobby" << std::endl;
         output.push_back(7);
         output.push_back(1);
         output.push_back(newLobby->getId());
@@ -53,7 +53,6 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
         output.push_back((int)newLobby->getSlots());
         output.push_back(_id);
         output.push_back((int)newLobby->getNbPlayers());
-        std::cout << "send to clients" << std::endl;
         for (auto &a : this->_server->getClientList()) {
             try {
                 a->sendToClient(output);
@@ -61,7 +60,6 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
                 std::cerr << "Send to clients errors : " << e.what() << std::endl;
             }
         }
-        std::cout << "After send to clients" << std::endl;
     }
 }
 
