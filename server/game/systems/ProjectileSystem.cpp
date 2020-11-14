@@ -14,15 +14,21 @@ ProjectileSystem::ProjectileSystem(std::shared_ptr<Game> &game) : _game(game), E
 
 bool ProjectileSystem::didCollide(std::shared_ptr<Engine::Entity> &projectile)
 {
+    bool willBeDestroyed = false;
+    auto proj = projectile->getComponent<ProjectileComponent>();
+    std::vector<std::shared_ptr<Engine::Entity>> list = proj->getHit();
     auto collider = projectile->getComponent<Engine::ColliderComponent>();
     auto collided = Collision::removeIgnored(static_cast<Collision::Mask>(collider->getCollisionMask()), collider->getCollisions());
 
     for (auto &c : collided) {
-        if (c->getComponent<HealthComponent>()) {
+        if (c->getComponent<HealthComponent>() && !Engine::Utils::isInVector(list, c)) {
             c->getComponent<HealthComponent>()->loseHealth(projectile->getComponent<ProjectileComponent>()->getDamage());
-        }
+            proj->addHit(c);
+            list = proj->getHit();
+        } else if (!c->getComponent<HealthComponent>())
+            willBeDestroyed = true;
     }
-    return (!collided.empty());
+    return (proj->getHit().size() >= proj->getNbHit() || willBeDestroyed);
 }
 
 void ProjectileSystem::update()

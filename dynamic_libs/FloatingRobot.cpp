@@ -6,6 +6,7 @@
 */
 
 #include "CollisionMasks.hpp"
+#include "components/ProjectileComponent.hpp"
 #include "FloatingRobot.hpp"
 
 #if defined(_WIN32) || defined(WIN32)
@@ -35,7 +36,7 @@ void pattern(std::shared_ptr<Engine::Entity> &enemy)
 FloatingRobot::FloatingRobot(const Engine::Point<double> &pos) : Enemy(std::move(std::make_unique<DataSprite>(PATH, Engine::Box<double>{pos, {SIZE_X, SIZE_Y}})), pos)
 {
         this->addComponent<PatternComponent>(&pattern);
-        this->addComponent<AutomaticWeaponComponent>(1, 0.5, 1, -100, Collision::Mask::ENEMY_PROJECTILE);
+        this->addComponent<AutomaticWeaponComponent>(1, 0.5, 1, -100, Collision::Mask::ENEMY_PROJECTILE, ProjectileComponent::Type::BASIC);
         this->addComponent<Engine::AnimationComponent>(0.2, std::map<int, std::vector<Engine::Box<double>>>{
                 {DEFAULT, {
                                   {_size.x * 0, _size.x * 1, 0, _size.y},
