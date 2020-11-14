@@ -38,6 +38,8 @@ namespace Engine {
         [[nodiscard]] virtual double getRotation() const = 0;
         [[nodiscard]] virtual std::shared_ptr<Engine::AFont> getFont() const;
         [[nodiscard]] virtual std::string toStdString() const = 0;
+        [[nodiscard]] virtual int getCharacterSize() const = 0;
+        [[nodiscard]] virtual int getLetterSpacing() const = 0;
 
     protected:
         std::shared_ptr<Engine::AFont> _font;

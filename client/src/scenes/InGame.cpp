@@ -2,6 +2,7 @@
 // Created by mathi on 06/11/2020.
 //
 
+#include "systems/TextSystem.hpp"
 #include "systems/QuitSystemInGame.hpp"
 #include "systems/WindowResizeSystem.hpp"
 #include "systems/AnimationSystem.hpp"
@@ -56,6 +57,7 @@ void InGame::initSystems()
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
     auto network = std::make_unique<ClientNetworkSystem>(this->_server, this->_events, scene);
+    auto text = std::make_unique<Engine::TextSystem>(this->_window);
     auto quitSystem = std::make_unique<QuitSystemInGame>(this->_events, scene);
     auto window = std::make_unique<Engine::WindowResizeSystem>(this->_window);
 
@@ -66,6 +68,7 @@ void InGame::initSystems()
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(music));
     this->_systems.push_back(std::move(network));
+    this->_systems.push_back(std::move(text));
     this->_systems.push_back(std::move(window));
 }
 
