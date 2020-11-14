@@ -6,7 +6,7 @@
 */
 
 #include "Client.hpp"
-#include "TcpSocket.hpp"
+#include "TCP/TcpSocket.hpp"
 
 Client::Client(boost::asio::io_service &io_service, int id, Server *server) : socket(io_service), _id(id), _server(server)
 {
