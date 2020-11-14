@@ -35,9 +35,14 @@ namespace Engine {
             auto it = std::find_if(_libs.begin(), _libs.end(), [&](auto l) { return l->getLibName() == libName; });
 
             if (it != _libs.end()) {
-                return dynamic_cast<DLLoader<T> *>(*it)->getInstance();
+                try {
+                    return dynamic_cast<DLLoader<T> *>(*it)->getInstance();
+                } catch (EngineException &e) {
+                    std::cerr << e << std::endl;
+                    throw EngineException("DynamicLibManager", "Unable to get instance for lib " + libName);
+                }
             }
-            throw std::exception();
+            throw EngineException("DynamicLibManager", "Lib not registered");
         }
 
         bool libStocked(std::string libName)

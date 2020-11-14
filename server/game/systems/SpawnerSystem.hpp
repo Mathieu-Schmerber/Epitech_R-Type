@@ -15,12 +15,13 @@
 class SpawnerSystem : public Engine::System {
 private:
     std::shared_ptr<Game> _game;
+
+    void spawn(const std::shared_ptr<Engine::Entity> &spawner, std::vector<std::string> &enemies);
+    void handleMove(std::shared_ptr<Engine::Entity> &spawner);
+    void handleSpawn(std::shared_ptr<Engine::Entity> &spawner);
 public:
     explicit SpawnerSystem(std::shared_ptr<Game> &game);
     void update() override;
-
-    void handleMove(std::shared_ptr<Engine::Entity> &spawner);
-    void handleSpawn(std::shared_ptr<Engine::Entity> &spawner);
 };
 
 

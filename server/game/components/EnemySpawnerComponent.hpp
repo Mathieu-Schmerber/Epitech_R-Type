@@ -44,7 +44,12 @@ public:
     Enemy *getEntity(std::string libName) {
         _timeSinceLastSpawn = std::chrono::high_resolution_clock::now();
         _dynLM.loadNewLib<Enemy>(libName);
-        return _dynLM.getInstance<Enemy>(libName);
+        try {
+            return _dynLM.getInstance<Enemy>(libName);
+        } catch (Engine::EngineException &e) {
+            std::cerr << e << std::endl;
+            throw Engine::ComponentError("Unable to get new Enemy Instance");
+        }
     }
     [[nodiscard]] std::vector<std::string> getLibs() const {return _enemiesLibs;}
 };
