@@ -16,6 +16,7 @@ private:
     std::shared_ptr<Engine::AWindow> _window;
     std::shared_ptr<Engine::AEvents> _events;
     std::shared_ptr<NetworkAccess> _server;
+    std::shared_ptr<Engine::Entity> _quitButton;
 
     void initEntities() final;
     void initSystems() final;
@@ -28,8 +29,11 @@ public:
 
     void onFocus() override;
     void onExit() override;
+    std::shared_ptr<Engine::Entity> getQuitButton() const;
 
 };
+
+void backToMainMenu(std::shared_ptr<Engine::AScene> &);
 
 
 #endif //RTYPE_INGAME_HPP

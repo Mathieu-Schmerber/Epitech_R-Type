@@ -2,6 +2,7 @@
 // Created by mathi on 06/11/2020.
 //
 
+#include <components/ButtonComponent.hpp>
 #include "systems/ClientNetworkSystem.hpp"
 #include "components/NetworkComponent.hpp"
 #include "components/SpriteComponent.hpp"
@@ -56,6 +57,8 @@ void ClientNetworkSystem::receiveGameData()
         increment += UDP_ENTITY_SIZE;
     }
 }
+
+
 
 void ClientNetworkSystem::update()
 {

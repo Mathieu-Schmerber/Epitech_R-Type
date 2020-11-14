@@ -246,7 +246,7 @@ set(CLIENT_INCLUDES
         client/include/scenes/Settings.hpp
         client/include/sfml/MusicSFML.hpp
 		client/include/sfml/SoundBufferSFML.hpp
-		client/include/systems/LobbySystem.hpp)
+		client/include/systems/LobbySystem.hpp client/include/systems/QuitSystemInGame.hpp client/src/systems/QuitSystemInGame.cpp)
 
 set(SERVER_SOURCES
         server/main.cpp
