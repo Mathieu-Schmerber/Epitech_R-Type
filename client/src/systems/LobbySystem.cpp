@@ -28,17 +28,22 @@ void LobbySystem::updateFromServer()
     if (data.at(1) == 0) {
         for (auto &e : this->_entities) {
             if (e->getComponent<LobbyComponent>()->getLobbyId() == data.at(2)) {
-                if (data.at(3) == 0)
+                if (data.at(3) == 0) {
                     SocketParser::updateLobbyFromTcp(e, data);
-                //else
+                } else {
                     //remove element e
+                    //Move all the under lobbys
+                }
                 return;
             }
         }
     } else {
         auto entity = SocketParser::unparseTcpLobby(data);
-        if (entity)
+
+        if (entity) {
+            entity->getComponent<Engine::TransformComponent>()->setPos({535, 100});
             this->_scene->spawnEntity(entity); // TODO: pass actual "data" got from server tcp
+        }
     }
 }
 
