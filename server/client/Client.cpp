@@ -26,7 +26,9 @@ void Client::start()
 void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_code &err, size_t bytes_transferred)
 {
     if (!err) {
-        socket.async_read_some(boost::asio::buffer(_data, max_length), boost::bind(&Client::handle_read, this, shared_from_this(), boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
+        socket.async_read_some(boost::asio::buffer(_data, max_length),
+            boost::bind(&Client::handle_read, this, shared_from_this(), boost::asio::placeholders::error,
+                boost::asio::placeholders::bytes_transferred));
     } else {
         std::cout << "Client Disconnected id : " << s->getId() << std::endl;
         s->get_socket().close();
@@ -34,14 +36,11 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
         return;
     }
 
-
-
     std::cout << "Receive from IP [" << socket.remote_endpoint().address().to_string() << "] : ";
     for (auto ia : _data) {
         std::cout << ia << " ";
     }
     std::cout << std::endl;
-
 
     if (_data.at(0) < 2)
         return;
@@ -90,7 +89,8 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
     } else if (_data.at(1) == 43) {
         if (_data.at(0) != 3)
             return;
-        _socketOutput = std::make_shared<Engine::UdpSocketOutput>(this->get_socket().remote_endpoint().address().to_string(), _data.at(2));
+        _socketOutput = std::make_shared<Engine::UdpSocketOutput>(
+            this->get_socket().remote_endpoint().address().to_string(), _data.at(2));
     } else if (_data.at(1) == 44) {
         if (_data.at(0) != 2)
             return;

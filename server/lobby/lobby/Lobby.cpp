@@ -16,7 +16,17 @@ Lobby::Lobby(int id, char nbSlots, int port) : _id(id), _nbSlots(nbSlots), _game
 
 void Lobby::run()
 {
+    std::vector<int> toSend;
+    int i = 0;
+
     std::cout << "Start game" << std::endl;
+    for (const auto &a : _players) {
+        toSend.clear();
+        toSend.push_back(3);
+        toSend.push_back(45);
+        toSend.push_back(++i);
+        a->sendToClientTcp(toSend);
+    }
     _game = std::make_unique<Game>(_players, _udpSocketInput);
     _gameRunning = true;
     _thread = std::thread([&] { while (_game->isGameRunning()) { _game->update(); } });

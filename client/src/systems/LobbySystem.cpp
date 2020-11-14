@@ -24,7 +24,7 @@ void LobbySystem::updateFromServer()
     auto data = tcp->getDataFromServer();
     int size = data.at(0);
 
-    if (size < 6)
+    if (size < 2)
         return;
     if (data.at(1) == 0) {
         for (auto &e : this->_entities) {

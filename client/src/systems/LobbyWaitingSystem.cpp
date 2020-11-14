@@ -5,6 +5,7 @@
 #include "systems/LobbyWaitingSystem.hpp"
 #include "components/SpriteComponent.hpp"
 #include "components/TextComponent.hpp"
+#include "scenes/SceneType.hpp"
 
 LobbyWaitingSystem::LobbyWaitingSystem(std::shared_ptr<NetworkAccess> &server,
     std::shared_ptr<Engine::AEvents> &events,
@@ -16,6 +17,15 @@ LobbyWaitingSystem::LobbyWaitingSystem(std::shared_ptr<NetworkAccess> &server,
 
 void LobbyWaitingSystem::update()
 {
-    std::cout << "here emilien\n" << std::endl;
+    std::vector<int> data = _server->getTcpSocket()->getDataFromServer();
+
+    if (data.at(0) < 2)
+        return;
+    if (data.at(0) == 3 && data.at(1) == 45) {
+        Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::GAME);
+
+        this->_server->setClientId(data.at(2));
+        _scene->pushRequest(request);
+    }
 }
 
