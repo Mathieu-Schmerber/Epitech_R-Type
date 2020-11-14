@@ -2,6 +2,7 @@
 // Created by mathi on 06/11/2020.
 //
 
+#include <fstream>
 #include "SocketParser.hpp"
 #include "entities/LobbyCard.hpp"
 #include "components/NetworkComponent.hpp"
@@ -47,35 +48,97 @@ std::vector<int> SocketParser::parseUdpInputs(int clientId, const std::vector<En
     return parsed;
 }
 
-std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector<int> &in)
+std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector<int> &in) const
+{
+    if (in.at(0) == 1) {
+        return createSpriteEntity(in);
+    } else {
+        return createTextEntity(in);
+    }
+}
+
+std::shared_ptr<Engine::Entity> SocketParser::createTextEntity(const std::vector<int> &in) const
+{
+    Engine::TextComponent *text = nullptr;
+    auto entity = new Engine::Entity();
+
+    if (in.size() < 10)
+        return nullptr;
+
+    entity->addComponent<Engine::NetworkComponent>(in.at(1));
+    entity->addComponent<Engine::TransformComponent>(Engine::Point<double>{static_cast<double>(in.at(4)), static_cast<double>(in.at(5))}, in.at(6));
+    entity->addComponent<Engine::TextComponent>();
+    text = entity->getComponent<Engine::TextComponent>();
+    std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(_pool->getPathFromIndex(in.at(2)));
+    std::ifstream ifs(_pool->getPathFromIndex(in.at(3)));
+    std::string content((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
+    std::unique_ptr<Engine::AText> txt = std::make_unique<TextSFML>(content, font, in.at(7));
+    txt->setLetterSpacing(in.at(7));
+    text->setText(std::move(txt));
+    text->setLayer(in.at(9));
+
+    return std::shared_ptr<Engine::Entity>(entity);
+}
+
+std::shared_ptr<Engine::Entity> SocketParser::createSpriteEntity(const std::vector<int> &in) const
 {
     auto entity = new Engine::Entity();
     Engine::SpriteComponent *sprite = nullptr;
 
-    if (in.size() < 9)
+    if (in.size() < 10)
         return nullptr;
-    entity->addComponent<Engine::NetworkComponent>(in.at(0));
-    entity->addComponent<Engine::TransformComponent>(Engine::Point<double>{static_cast<double>(in.at(1)), static_cast<double>(in.at(2))}, in.at(3));
+    entity->addComponent<Engine::NetworkComponent>(in.at(1));
+    entity->addComponent<Engine::TransformComponent>(Engine::Point<double>{static_cast<double>(in.at(2)), static_cast<double>(in.at(3))}, in.at(4));
     entity->addComponent<Engine::SpriteComponent>();
     sprite = entity->getComponent<Engine::SpriteComponent>();
-    auto spr = std::make_unique<SpriteSFML>(this->_pool->getPathFromIndex(in.at(4)));
+    auto spr = std::make_unique<SpriteSFML>(_pool->getPathFromIndex(in.at(5)));
     sprite->setDisplay(std::move(spr));
-    sprite->getSprite()->setRect({static_cast<double>(in.at(5)), static_cast<double>(in.at(6)), static_cast<double>(in.at(7)), static_cast<double>(in.at(8))});
+    sprite->getSprite()->setRect(
+            {static_cast<double>(in.at(6)), static_cast<double>(in.at(7)), static_cast<double>(in.at(8)),
+             static_cast<double>(in.at(9))});
     return std::shared_ptr<Engine::Entity>(entity);
 }
 
 void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in) const
 {
-    auto sprite = entity->getComponent<Engine::SpriteComponent>();
-    Engine::Point<int> inititalPos = static_cast<Engine::Point<int>>(entity->getComponent<Engine::TransformComponent>()->getPos());
-    auto smooth = SocketParser::lerp(inititalPos, {in.at(1), in.at(2)}, this->_deltatime);
+    if (in.at(0) == 1) {
+        updateSpriteEntity(entity, in);
+    } else {
+        updateTextEntity(entity, in);
+    }
+}
 
-    if (SocketParser::shouldTeleport(inititalPos, {in.at(1), in.at(2)}, {in.at(6), in.at(8)}))
-        smooth = Engine::Point<int>{in.at(1), in.at(2)};
+void SocketParser::updateTextEntity(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in) const
+{
+    auto text = entity->getComponent<Engine::TextComponent>();
+
+    entity->addComponent<Engine::NetworkComponent>(in.at(1));
+    entity->getComponent<Engine::TransformComponent>()->setPos(Engine::Point<double>{static_cast<double>(in.at(4)), static_cast<double>(in.at(5))});
+    entity->getComponent<Engine::TransformComponent>()->setRotation(in.at(6));
+
+    std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(_pool->getPathFromIndex(in.at(2)));
+    std::ifstream ifs(_pool->getPathFromIndex(in.at(3)));
+    std::string content((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
+    std::unique_ptr<Engine::AText> txt = std::make_unique<TextSFML>(content, font, in.at(7));
+    txt->setLetterSpacing(in.at(7));
+    text->setText(std::move(txt));
+    text->setLayer(in.at(9));
+}
+
+void SocketParser::updateSpriteEntity(const std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in) const
+{
+    auto sprite = entity->getComponent<Engine::SpriteComponent>();
+    Engine::Point<int> initialPos = static_cast<Engine::Point<int>>(entity->getComponent<Engine::TransformComponent>()->getPos());
+    auto smooth = lerp(initialPos, {in.at(2), in.at(3)}, _deltatime);
+
+    if (shouldTeleport(initialPos, {in.at(2), in.at(3)}, {in.at(7), in.at(9)}))
+        smooth = Engine::Point<int>{in.at(2), in.at(3)};
     entity->getComponent<Engine::TransformComponent>()->setPos(static_cast<Engine::Point<double>>(smooth));
-    entity->getComponent<Engine::TransformComponent>()->setRotation(in.at(3));
-    sprite->getSprite()->setRect({static_cast<double>(in.at(5)), static_cast<double>(in.at(6)), static_cast<double>(in.at(7)), static_cast<double>(in.at(8))});
-    sprite->setLayer(in.at(9));
+    entity->getComponent<Engine::TransformComponent>()->setRotation(in.at(4));
+    sprite->getSprite()->setRect(
+            {static_cast<double>(in.at(6)), static_cast<double>(in.at(7)), static_cast<double>(in.at(8)),
+             static_cast<double>(in.at(9))});
+    sprite->setLayer(in.at(10));
 }
 
 std::shared_ptr<Engine::Entity> SocketParser::unparseTcpLobby(const std::vector<int> &in)

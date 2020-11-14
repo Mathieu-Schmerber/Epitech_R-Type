@@ -91,3 +91,13 @@ std::string TextSFML::toStdString() const
 {
     return _text.getString().toAnsiString();
 }
+
+int TextSFML::getCharacterSize() const
+{
+    return static_cast<int>(_text.getCharacterSize());
+}
+
+int TextSFML::getLetterSpacing() const
+{
+    return static_cast<int>(_text.getLetterSpacing());
+}

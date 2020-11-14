@@ -7,6 +7,16 @@
 
 /* GLOBAL */
 
+#define QUIT_BUTTON_PATH "../../client/assets/images/buttons/quit/quit_button_full_558x57.png"
+#define QUIT_BUTTON_Y 0
+#define QUIT_BUTTON_X_IDLE 0
+#define QUIT_BUTTON_X_HOVER 186
+#define QUIT_BUTTON_X_CLICKED 372
+#define QUIT_BUTTON_HEIGHT 57
+#define QUIT_BUTTON_WIDTH 186
+#define QUIT_BUTTON_POSITION_X (1920 / 2 - QUIT_BUTTON_WIDTH / 2) //TODO make a window size macro instead of hardcoded 1920 ?
+#define QUIT_BUTTON_POSITION_Y 900
+
 #define PIXEBOY_FONT_PATH "../../client/assets/fonts/Pixeboy.ttf"
 #define LOBBY_CARD_PATH "../../client/assets/images/lobby/lobby_card_850x150.png"
 #define ALL_STARSHIP_PATH "../../client/assets/images/starships/all_starship_165x17_33x17.png"

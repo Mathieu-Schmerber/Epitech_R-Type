@@ -45,6 +45,8 @@ class TextSFML : public Engine::AText {
         [[nodiscard]] Engine::Size<int> getSize() const final;
         [[nodiscard]] double getRotation() const final;
         [[nodiscard]] std::string toStdString() const final;
+        [[nodiscard]] int getCharacterSize() const final;
+        [[nodiscard]] int getLetterSpacing() const final;
 };
 
 

@@ -2,6 +2,7 @@
 // Created by mathi on 06/11/2020.
 //
 
+#include <components/ButtonComponent.hpp>
 #include "systems/ClientNetworkSystem.hpp"
 #include "components/NetworkComponent.hpp"
 #include "components/SpriteComponent.hpp"
@@ -39,7 +40,7 @@ void ClientNetworkSystem::receiveGameData()
         if (increment >= UDP_BUFFER_SIZE)
             return;
         dataSection = std::vector<int>(data.begin() + increment, data.begin() + increment + UDP_ENTITY_SIZE);
-        if (!dataSection.empty() && dataSection.at(0) == e->getComponent<Engine::NetworkComponent>()->getNetworkId()) {
+        if (!dataSection.empty() && dataSection.at(1) == e->getComponent<Engine::NetworkComponent>()->getNetworkId()) {
             this->_parser->updateEntityFromUdp(e, dataSection);
             increment += UDP_ENTITY_SIZE;
         } else if (!dataSection.empty())
@@ -56,6 +57,8 @@ void ClientNetworkSystem::receiveGameData()
         increment += UDP_ENTITY_SIZE;
     }
 }
+
+
 
 void ClientNetworkSystem::update()
 {

@@ -17,6 +17,7 @@
 #include "entities/Button.hpp"
 #include "entities/Drawable.hpp"
 #include "entities/Music.hpp"
+#include "scenes/SceneEnum.hpp"
 
 void goToLobbyListScene(std::shared_ptr<Engine::AScene> &menu)
 {

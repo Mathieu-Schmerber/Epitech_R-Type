@@ -2,6 +2,7 @@
 // Created by mathi on 06/11/2020.
 //
 
+#include "components/TextComponent.hpp"
 #include "tools/Utils.hpp"
 #include "ServerNetworkSystem.hpp"
 #include "SocketParser.hpp"
@@ -15,7 +16,6 @@ ServerNetworkSystem::ServerNetworkSystem(std::vector<std::shared_ptr<Client>> &p
 {
     this->addDependency<Engine::NetworkComponent>();
     this->addDependency<Engine::TransformComponent>();
-    this->addDependency<Engine::SpriteComponent>();
 }
 
 void ServerNetworkSystem::receiveClientInputs()
@@ -40,11 +40,12 @@ void ServerNetworkSystem::sendGameData()
     std::vector<int> data;
 
     for (auto &e : this->_entities) {
-        auto section = SocketParser::parseUdpEntity(e);
-        data.insert(data.end(), section.begin(), section.end());
+        if (e->getComponent<Engine::SpriteComponent>() || e->getComponent<Engine::TextComponent>()) {
+            auto section = SocketParser::parseUdpEntity(e);
+            data.insert(data.end(), section.begin(), section.end());
+        }
     }
     data.resize(UDP_BUFFER_SIZE, -1);
-    //Engine::Utils::printIntTab("sending data", data);
     for (auto &cli : this->_players)
         cli->sendToClient(data);
 }

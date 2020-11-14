@@ -246,7 +246,11 @@ set(CLIENT_INCLUDES
         client/include/scenes/Settings.hpp
         client/include/sfml/MusicSFML.hpp
 		client/include/sfml/SoundBufferSFML.hpp
-		client/include/systems/LobbySystem.hpp client/src/systems/LobbyWaitingSystem.cpp client/include/systems/LobbyWaitingSystem.hpp)
+		client/include/systems/LobbySystem.hpp
+		client/src/systems/LobbyWaitingSystem.cpp
+		client/include/systems/LobbyWaitingSystem.hpp
+		client/include/systems/QuitSystemInGame.hpp
+		client/src/systems/QuitSystemInGame.cpp)
 
 set(SERVER_SOURCES
         server/main.cpp
@@ -320,7 +324,9 @@ set(SERVER_INCLUDES
 		server/game/entities/Sentinel.hpp
         server/game/systems/PlayerWeaponSystem.hpp
 		server/game/systems/PlayerCollisionSystem.hpp
-        server/game/GameData.hpp)
+        server/game/GameData.hpp
+		server/game/components/WaveComponent.hpp
+		server/game/dataHolders/DataText.cpp server/game/dataHolders/DataText.hpp server/game/dataHolders/DataFont.cpp server/game/dataHolders/DataFont.hpp)
 
 
 set(ENEMIES_INCLUDES

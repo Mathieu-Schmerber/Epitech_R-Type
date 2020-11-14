@@ -46,16 +46,6 @@
 #define HOW_TO_PLAY_BUTTON_POSITION_X (1920 / 2 - HOW_TO_PLAY_BUTTON_WIDTH / 2) //TODO make a window size macro instead of hardcoded 1920 ?
 #define HOW_TO_PLAY_BUTTON_POSITION_Y 700
 
-#define QUIT_BUTTON_PATH "../../client/assets/images/buttons/quit/quit_button_full_558x57.png"
-#define QUIT_BUTTON_Y 0
-#define QUIT_BUTTON_X_IDLE 0
-#define QUIT_BUTTON_X_HOVER 186
-#define QUIT_BUTTON_X_CLICKED 372
-#define QUIT_BUTTON_HEIGHT 57
-#define QUIT_BUTTON_WIDTH 186
-#define QUIT_BUTTON_POSITION_X (1920 / 2 - QUIT_BUTTON_WIDTH / 2) //TODO make a window size macro instead of hardcoded 1920 ?
-#define QUIT_BUTTON_POSITION_Y 900
-
 class MainMenu : public Engine::AScene
 {
 private:

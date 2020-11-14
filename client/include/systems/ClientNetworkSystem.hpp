@@ -11,7 +11,7 @@
 #include "ecs/System.hpp"
 #include "SocketParser.hpp"
 
-#define UDP_ENTITY_SIZE 10
+#define UDP_ENTITY_SIZE 11
 #define UDP_READ UDP_BUFFER_SIZE / UDP_ENTITY_SIZE
 
 class ClientNetworkSystem : public Engine::System
