@@ -10,7 +10,6 @@
 
 Client::Client(boost::asio::io_service &io_service, int id, Server *server) : socket(io_service), _id(id), _server(server)
 {
-    _socketOutput = std::make_shared<Engine::UdpSocketOutput>("127.0.0.1", 4242);
     _data.resize(40);
 }
 
@@ -34,6 +33,13 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
         this->_server->removeClient(s);
         return;
     }
+
+
+
+    std::cout << "Ip is : " << socket.remote_endpoint().address().to_string() << std::endl;
+
+
+
     if (_data.at(0) < 2)
         return;
     if (_data.at(1) == 0) {
@@ -44,25 +50,34 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
         }
     } else if (_data.at(1) == 1) {
         //Create a Lobby
-        std::vector<int> output;
         auto newLobby = this->_server->getLobbyManager().addLobby(_data.at(2));
         if (!newLobby)
             return;
         newLobby->join(s);
-        output.push_back(7);
-        output.push_back(1);
-        output.push_back(newLobby->getId());
-        output.push_back(newLobby->getPort());
-        output.push_back((int)newLobby->getSlots());
-        output.push_back(_id);
-        output.push_back((int)newLobby->getNbPlayers());
+        std::vector<int> answerToClient;
+        answerToClient.push_back(3);
+        answerToClient.push_back(42);
+        answerToClient.push_back(newLobby->getPort());
+        s->sendToClient(answerToClient);
+        std::vector<int> toAll;
+        toAll.push_back(7);
+        toAll.push_back(1);
+        toAll.push_back(newLobby->getId());
+        toAll.push_back(newLobby->getPort());
+        toAll.push_back((int)newLobby->getSlots());
+        toAll.push_back(_id);
+        toAll.push_back((int)newLobby->getNbPlayers());
         for (auto &a : this->_server->getClientList()) {
             try {
-                a->sendToClient(output);
+                a->sendToClient(toAll);
             } catch (std::exception &e) {
                 std::cerr << "Send to clients errors : " << e.what() << std::endl;
             }
         }
+    } else if (_data.at(1) == 43) {
+        if (_data.at(0) != 3)
+            return;
+        _socketOutput = std::make_shared<Engine::UdpSocketOutput>(this->get_socket().remote_endpoint().address().to_string(), _data.at(2));
     }
 }
 

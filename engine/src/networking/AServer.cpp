@@ -23,15 +23,19 @@ const std::unique_ptr<Engine::AUdpSocketIO> &Engine::AServer::getUdpSocket() con
     return _udpSocket;
 }
 
-void Engine::AServer::openSockets()
+int Engine::AServer::getPortServer() const
+{
+    return _clientPort;
+}
+
+void Engine::AServer::openSockets(int portServer)
 {
     try {
-        //this->_tcpSocket = std::make_unique<Engine::ATcpSocket>(_ip, _port); Already setup in the constructor
         bool error = true;
 
         for (int a = 0; a < 100 && error; ++a) {
             try {
-                this->_udpSocket = std::make_unique<Engine::AUdpSocketIO>(_ip, _port, _clientPort);
+                this->_udpSocket = std::make_unique<Engine::AUdpSocketIO>(_ip, portServer, _clientPort);
                 error = false;
             } catch (std::exception &e) {
                 std::cerr << e.what() << ": trying another port" << std::endl;
