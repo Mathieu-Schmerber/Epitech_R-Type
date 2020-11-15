@@ -2,10 +2,12 @@
 // Created by mathi on 29/10/2020.
 //
 
+#include <components/NetworkComponent.hpp>
 #include "sceneManagement/AScene.hpp"
 #include "tools/Utils.hpp"
 
-Engine::AScene::AScene(int id) : _sceneId(id) {}
+Engine::AScene::AScene(int id) : _sceneId(id)
+{}
 
 Engine::AScene::~AScene()
 {
@@ -86,10 +88,12 @@ void Engine::AScene::update()
         sys->update();
 }
 
-void Engine::AScene::initSystems() {
+void Engine::AScene::initSystems()
+{
 
 }
 
-void Engine::AScene::initEntities() {
+void Engine::AScene::initEntities()
+{
 
 }

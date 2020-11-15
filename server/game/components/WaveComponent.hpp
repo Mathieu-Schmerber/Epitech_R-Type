@@ -15,16 +15,16 @@ class WaveComponent : public Engine::Component
 private:
     std::chrono::high_resolution_clock::time_point _lastChgmt = std::chrono::high_resolution_clock::now();
     std::map<int, std::string> _waveText = {
-            {basic, "Basic.txt"},
-            {medium, "Medium.txt"},
-            {hard, "Hard.txt"},
-            {boss, "Boss.txt"}
+            {basic, "../../client/assets/textsEdt/Basic.txt"},
+            {medium, "../../client/assets/textsEdt/Medium.txt"},
+            {hard, "../../client/assets/textsEdt/Hard.txt"},
+            {boss, "../../client/assets/textsEdt/Boss.txt"}
     };
     std::map<int, int> _waveDuration = {
-            {basic, 3},
-            {medium, 3},
-            {hard, 3},
-            {boss, 3}
+            {basic, 60},
+            {medium, 60},
+            {hard, 60},
+            {boss, 60}
     };
     int displayWaveTime = 2;
     int _currentWave = basic;
@@ -46,7 +46,7 @@ public:
         _currentWave += 1;
         _lastChgmt = std::chrono::high_resolution_clock::now();
     }
-    double getElapsedSecondSinceLastStart() {return Engine::Timer::getElapsed(_lastChgmt);}
+    double getElapsedSecondSinceLastStart() {return Engine::Timer::getElapsedSeconds(_lastChgmt);}
     [[nodiscard]] int getCurrentWave() const {return _currentWave;}
 };
 
