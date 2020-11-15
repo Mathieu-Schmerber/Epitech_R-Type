@@ -29,7 +29,7 @@ public:
     void handle_accept(std::shared_ptr<Client> session, const boost::system::error_code& err, Server *server);
     [[noreturn]] void run();
     LobbyManager &getLobbyManager();
-    std::vector<std::shared_ptr<Client>> getClientList() const;
+    [[nodiscard]] std::vector<std::shared_ptr<Client>> getClientList() const;
     void removeClient(std::shared_ptr<Client> &cli);
     void stop();
 private:
@@ -37,7 +37,6 @@ private:
     tcp::acceptor _acceptor;
     std::vector<std::shared_ptr<Client>> _connected{};
     int _id;
-    //std::thread _thread;
     LobbyManager _lobbyManager;
 };
 

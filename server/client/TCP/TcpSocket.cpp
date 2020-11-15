@@ -14,7 +14,6 @@ Server::Server(short port) : _io_service(), _acceptor(_io_service, tcp::endpoint
     std::shared_ptr<Client> session = std::make_shared<Client>(_io_service, 0, this);
     _acceptor.async_accept(session->get_socket(), boost::bind(&Server::handle_accept, this, session, boost::asio::placeholders::error, this));
     _connected.push_back(session);
-    //_thread = std::thread([&] { this->_io_service.run(); } );
 }
 
 void Server::handle_accept(std::shared_ptr<Client> session, const boost::system::error_code &err, Server *server)

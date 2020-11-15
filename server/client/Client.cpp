@@ -47,8 +47,6 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
     if (_data.at(1) == 0) {
         //Join a lobby
         for (auto a : this->_server->getLobbyManager().getAvailableLobbies()) {
-            if (a->getId() == _data.at(2))
-                a->join(std::shared_ptr<Client>(this));
             _currentLobby = this->_server->getLobbyManager().getLobbyById(_data.at(2));
             if (!_currentLobby)
                 return;
