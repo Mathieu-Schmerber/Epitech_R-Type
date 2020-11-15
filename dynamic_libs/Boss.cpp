@@ -51,15 +51,21 @@ Boss::Boss(const Engine::Point<double> &pos) : Enemy(std::move(std::make_unique<
     this->addComponent<PatternComponent>(&pattern);
     this->addComponent<AutomaticWeaponComponent>(1, 1, Engine::Vector<double>{-40, 0}, Collision::Mask::ENEMY_PROJECTILE, ProjectileComponent::Type::BASIC);
     this->addComponent<AutomaticWeaponComponent>(1, 1, Engine::Vector<double>{-10, 0}, Collision::Mask::ENEMY_PROJECTILE, ProjectileComponent::Type::BEAM);
-    this->addComponent<AutomaticWeaponComponent>(1, 1, Engine::Vector<double>{-20, 0}, Collision::Mask::ENEMY_PROJECTILE, ProjectileComponent::Type::SHURIKEN);
-    this->addComponent<AutomaticWeaponComponent>(1, 1, Engine::Vector<double>{-20, -20}, Collision::Mask::ENEMY_PROJECTILE, ProjectileComponent::Type::SHURIKEN);
-    this->addComponent<AutomaticWeaponComponent>(1, 1, Engine::Vector<double>{-20, 20}, Collision::Mask::ENEMY_PROJECTILE, ProjectileComponent::Type::SHURIKEN);
+    this->addComponent<AutomaticWeaponComponent>(1, 1, Engine::Vector<double>{-60, 0}, Collision::Mask::ENEMY_PROJECTILE, ProjectileComponent::Type::SHURIKEN);
+    getComponents<AutomaticWeaponComponent>().back()->setUseTargets(false);
+    getComponents<AutomaticWeaponComponent>().back()->setBounce(true);
+    this->addComponent<AutomaticWeaponComponent>(1, 1, Engine::Vector<double>{-40, -30}, Collision::Mask::ENEMY_PROJECTILE, ProjectileComponent::Type::SHURIKEN);
+    getComponents<AutomaticWeaponComponent>().back()->setUseTargets(false);
+    getComponents<AutomaticWeaponComponent>().back()->setBounce(true);
+    this->addComponent<AutomaticWeaponComponent>(1, 1, Engine::Vector<double>{-40, 30}, Collision::Mask::ENEMY_PROJECTILE, ProjectileComponent::Type::SHURIKEN);
+    getComponents<AutomaticWeaponComponent>().back()->setUseTargets(false);
+    getComponents<AutomaticWeaponComponent>().back()->setBounce(true);
     this->addComponent<Engine::AnimationComponent>(0.2, std::map<int, std::vector<Engine::Box<double>>>{
             {DEFAULT, {
                               {_size.x * 0, _size.x * 1, 0, _size.y},
                               {_size.x * 1, _size.x * 2, 0, _size.y}}}
     }, true);
-    this->addComponent<HealthComponent>(2);
+    this->addComponent<HealthComponent>(50);
     this->addComponent<Engine::ColliderComponent>(Collision::ENEMY, pos, _size);
     this->addComponent<Engine::VelocityComponent>(Engine::Vector<double>({-10 + FLOOR_SPEED, -5}), Engine::Vector<double>({0, 0}));
     this->addComponent<Engine::TargetComponent>();

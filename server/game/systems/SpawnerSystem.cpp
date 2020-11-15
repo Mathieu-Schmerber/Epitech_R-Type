@@ -88,7 +88,6 @@ void SpawnerSystem::handleWaves(std::shared_ptr<Engine::Entity> &spawner)
         auto newMusic = std::make_unique<DataMusic>(_musics[wave->getCurrentWave()]);
         music->setMusic(std::move(newMusic));
         music->playMe(true);
-
     }
     if (wave->timeToSwitch() && (wave->getCurrentWave() != WaveComponent::boss || !_boss || !_boss->getComponent<HealthComponent>() || _boss->getComponent<HealthComponent>()->getCurrentHealth() <= 0)) {
         wave->goNextScene();
@@ -99,9 +98,8 @@ void SpawnerSystem::handleWaves(std::shared_ptr<Engine::Entity> &spawner)
         if (wave->getCurrentWave() < 3)
             this->_game->setBackground(wave->getCurrentWave());
 
-        spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(spawner->getComponent<EnemySpawnerComponent>()->getSpawnRate() + 4);
         if (wave->getCurrentWave() != WaveComponent::victory && wave->getCurrentWave() != WaveComponent::boss)
-            spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(spawner->getComponent<EnemySpawnerComponent>()->getSpawnRate() + 4);
+            spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(spawner->getComponent<EnemySpawnerComponent>()->getSpawnRate() + 2);
         else
             spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(0);
         if (wave->getCurrentWave() == WaveComponent::boss)
