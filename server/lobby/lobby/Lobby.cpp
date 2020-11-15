@@ -31,7 +31,17 @@ void Lobby::run()
     }
     _game = std::make_unique<Game>(_players, _udpSocketInput);
     _gameRunning = true;
-    _thread = std::thread([&] { while (_game->isGameRunning()) { _game->update(); } });
+    _thread = std::thread([&] {
+        while (_game->isGameRunning()) {
+            _game->update();
+        }
+        for (const auto &a : _players) {
+            toSend.clear();
+            toSend.push_back(2);
+            toSend.push_back(48);
+            a->sendToClientTcp(toSend);
+        }
+    });
 }
 
 void Lobby::join(const std::shared_ptr<Client> &cli)
@@ -127,7 +137,7 @@ Lobby::~Lobby()
         _server->sendToAllClients(toSend);
     if (_game && _game->isGameRunning()) {
         _game->stopTheGame();
-        _thread.join();
     }
+    _thread.join();
     std::cout << "End close lobby" << std::endl;
 }
