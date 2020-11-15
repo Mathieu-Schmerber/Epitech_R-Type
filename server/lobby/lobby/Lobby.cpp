@@ -135,9 +135,8 @@ Lobby::~Lobby()
     toSend.push_back(_id);
     if (_server)
         _server->sendToAllClients(toSend);
-    if (_game && _game->isGameRunning()) {
+    if (_game && _game->isGameRunning())
         _game->stopTheGame();
-    }
     if (_thread.joinable())
         _thread.join();
     std::cout << "End close lobby" << std::endl;
