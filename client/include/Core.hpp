@@ -1,6 +1,11 @@
-//
-// Created by mathi on 29/10/2020.
-//
+/*!
+ * @file Core.hpp
+ * @brief Core client declaration
+ * @authors Matthieu.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_CORE_HPP
 #define RTYPE_CORE_HPP
@@ -25,8 +30,25 @@ private:
     void initScenes();
 
 public:
+    /*!
+    * \brief Core constructor
+    *
+    * Create the Core by setting all his member variables with determined value
+   */
     Core(std::string ip);
+	
+    /*!
+    * \brief Core default destructor
+    *
+    * Destruct the core once game is finished
+   */
+
     ~Core() = default;
+	
+    /*!
+    * \brief Start the game (client side)
+    *
+   */
     void start();
 };
 

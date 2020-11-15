@@ -1,8 +1,10 @@
-/*
-** EPITECH PROJECT, 2020
-** RType
-** File description:
-** Created by Cyprien
+/*!
+ * @file SoundBufferSFML.hpp
+ * @brief Manage SFML's sound buffer
+ * @authors Cyprien.R
+ * @version 1.0
+ * @date 14/11/2020
+ *
 */
 
 

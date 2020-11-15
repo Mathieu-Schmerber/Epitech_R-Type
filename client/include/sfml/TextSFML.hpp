@@ -1,8 +1,10 @@
-/*
-** EPITECH PROJECT, 2020
-** RType
-** File description:
-** Created by Cyprien
+/*!
+ * @file TextSFML.hpp
+ * @brief Manage SFML's text
+ * @authors Cyprien.R
+ * @version 1.0
+ * @date 14/11/2020
+ *
 */
 
 
@@ -24,6 +26,14 @@ class TextSFML : public Engine::AText {
         sf::Text _text;
 
     public:
+        /*!
+         * \brief Text SFML constructor with text, font and size
+         * \param text text to be set
+         * \param font font to be used
+         * \param characterSize character's size to be set (in pixels)
+         *
+         * Create a text depending of the above parameters
+        */
         TextSFML(const std::string &text, std::shared_ptr<Engine::AFont> &font, unsigned int characterSize) : Engine::AText() {
             setString(text);
             setFont(font);

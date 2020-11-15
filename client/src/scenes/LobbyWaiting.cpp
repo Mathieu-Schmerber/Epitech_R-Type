@@ -19,6 +19,13 @@
 #include "entities/Button.hpp"
 #include "entities/PlayerAndStarshipEntity.hpp"
 
+/*!
+ * \brief goToInGamesScene button callback
+ * \param lobbyWaiting actual scene
+ *
+ * This callback permit to go in the "InGame" scene
+*/
+
 void goToInGamesScene(std::shared_ptr<Engine::AScene> &lobbyWaiting)
 {
     std::shared_ptr<LobbyWaiting> scene = std::dynamic_pointer_cast<LobbyWaiting>(lobbyWaiting);
@@ -29,6 +36,13 @@ void goToInGamesScene(std::shared_ptr<Engine::AScene> &lobbyWaiting)
     toSend.push_back(44);
     scene->getServer()->getTcpSocket()->sendToServer(toSend);
 }
+
+/*!
+ * \brief goBackToCreateLobby button callback
+ * \param lobbyWaiting actual scene
+ *
+ * This callback permit to go in the "CreateLobby" scene
+*/
 
 void goBackToCreateLobby(std::shared_ptr<Engine::AScene> &lobbyWaiting)
 {

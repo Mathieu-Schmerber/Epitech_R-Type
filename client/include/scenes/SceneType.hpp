@@ -1,6 +1,11 @@
-//
-// Created by mathi on 30/10/2020.
-//
+/*!
+ * @file SceneType.hpp
+ * @brief SceneType enum declaration
+ * @authors Paul.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_SCENETYPE_HPP
 #define RTYPE_SCENETYPE_HPP

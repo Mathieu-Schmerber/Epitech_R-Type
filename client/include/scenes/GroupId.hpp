@@ -1,6 +1,11 @@
-//
-// Created by mathi on 03/11/2020.
-//
+/*!
+ * @file GroupId.hpp
+ * @brief Contain groupId enum declaration
+ * @authors Matthieu.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_GROUPID_HPP
 #define RTYPE_GROUPID_HPP

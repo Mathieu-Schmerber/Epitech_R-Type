@@ -1,6 +1,11 @@
-//
-// Created by mathi on 06/11/2020.
-//
+/*!
+ * @file ClientNetworkSystem.hpp
+ * @brief System to deal with client and network
+ * @authors Matthieu.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_CLIENTNETWORKSYSTEM_HPP
 #define RTYPE_CLIENTNETWORKSYSTEM_HPP
@@ -27,13 +32,24 @@ private:
     void receiveGameData();
 
 public:
+    /*!
+     * \brief ClientNetWork system constructor
+     * \param server server API to be stored as reference
+     * \param events events manager to be stored as reference
+     * \param scene actual scene as reference
+     *
+     * Create the "ClientNetwork" system
+    */
     ClientNetworkSystem(std::shared_ptr<NetworkAccess> &server,
                         std::shared_ptr<Engine::AEvents> &events,
                         std::shared_ptr<Engine::AScene> &scene);
 
+    /*!
+     * \brief update function
+     *
+     * This function is called for each scene which has the LobbyNetworkSystem in its systems
+    */
     void update() override;
-
-
 };
 
 

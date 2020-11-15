@@ -16,6 +16,13 @@
 #define INT(x) static_cast<int>(x)
 #define FLOAT(x) static_cast<double>(x)
 
+/*!
+ * \brief changeWindowEnableFullscreen button callback
+ * \param settings actual scene
+ *
+ * This callback permit to change window fullscreen property
+*/
+
 void changeWindowEnableFullscreen(std::shared_ptr<Engine::AScene> &settings)
 {
     auto settingsObject = std::dynamic_pointer_cast<Settings>(settings);
@@ -25,6 +32,13 @@ void changeWindowEnableFullscreen(std::shared_ptr<Engine::AScene> &settings)
 
     //TODO implement change of fullscreen attribute
 }
+
+/*!
+ * \brief changeWindowFramerateNext button callback
+ * \param settings actual scene
+ *
+ * TThis callback permit to change window framerate property to the next one (30, 60 or 120)
+*/
 
 void changeWindowFramerateNext(std::shared_ptr<Engine::AScene> &settings)
 {
@@ -47,6 +61,13 @@ void changeWindowFramerateNext(std::shared_ptr<Engine::AScene> &settings)
     //TODO fix parallax stopping when framerate is at 120 and find why there is a speed up when low framerate
 }
 
+/*!
+ * \brief changeWindowFrameratePrev button callback
+ * \param settings actual scene
+ *
+ * This callback permit to change window framerate property to the previous one (30, 60 or 120)
+*/
+
 void changeWindowFrameratePrev(std::shared_ptr<Engine::AScene> &settings)
 {
     auto settingsObject = std::dynamic_pointer_cast<Settings>(settings);
@@ -68,6 +89,13 @@ void changeWindowFrameratePrev(std::shared_ptr<Engine::AScene> &settings)
     //TODO fix parallax stopping when framerate is at 120 and find why there is a speed up when low framerate
 }
 
+/*!
+ * \brief changeWindowVsync button callback
+ * \param settings actual scene
+ *
+ * This callback permit to change window Vertical Sync property to true or false
+*/
+
 void changeWindowVsync(std::shared_ptr<Engine::AScene> &settings)
 {
     auto settingsObject = std::dynamic_pointer_cast<Settings>(settings);
@@ -77,8 +105,14 @@ void changeWindowVsync(std::shared_ptr<Engine::AScene> &settings)
 
     window->setVsync(!window->getVsync());
     fullscreenSelectorValue[SettingsSelectorSprite::VSYNC_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->setRect({Engine::Box<double>({FLOAT(INT(rect.x1 + ON_OFF_WIDTH) % ON_OFF_WIDTH_TOTAL), 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
-
 }
+
+/*!
+ * \brief changeAudioEnableMusic button callback
+ * \param settings actual scene
+ *
+ * This callback permit to activate or disable the music
+*/
 
 void changeAudioEnableMusic(std::shared_ptr<Engine::AScene> &settings)
 {
@@ -99,6 +133,13 @@ void changeAudioEnableMusic(std::shared_ptr<Engine::AScene> &settings)
     //TODO stop and reactivate the music properly
 }
 
+/*!
+ * \brief changeAudioEnableSoundEffects button callback
+ * \param settings actual scene
+ *
+ * This callback permit to activate or disable the sound effects
+*/
+
 void changeAudioEnableSoundEffects(std::shared_ptr<Engine::AScene> &settings)
 {
     auto settingsObject = std::dynamic_pointer_cast<Settings>(settings);
@@ -108,6 +149,13 @@ void changeAudioEnableSoundEffects(std::shared_ptr<Engine::AScene> &settings)
 
     //TODO stop and reactivate sound effects properly
 }
+
+/*!
+ * \brief goToMenuScene button callback
+ * \param settings actual scene
+ *
+ * This callback permit to go to the "MainMenu" scene
+*/
 
 void goToMenuScene(std::shared_ptr<Engine::AScene> &settings)
 {

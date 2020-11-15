@@ -18,37 +18,60 @@
 #include "entities/Music.hpp"
 #include "scenes/SceneEnum.hpp"
 
-void goToLobbyListScene(std::shared_ptr<Engine::AScene> &menu)
+/*!
+ * \brief goToLobbyListScene button callback
+ * \param mainMenu actual scene
+ *
+ * This callback permit to go in the "LobbyList" scene
+*/
+
+void goToLobbyListScene(std::shared_ptr<Engine::AScene> &mainMenu)
 {
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::LOBBY_LIST);
 
-    menu->pushRequest(request);
+    mainMenu->pushRequest(request);
 }
 
-void goToSettingsScene(std::shared_ptr<Engine::AScene> &menu)
+/*!
+ * \brief goToSettingsScene button callback
+ * \param mainMenu actual scene
+ *
+ * This callback permit to go in the "Settings" scene
+*/
+
+void goToSettingsScene(std::shared_ptr<Engine::AScene> &mainMenu)
 {
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::SETTINGS);
 
-    menu->pushRequest(request);
+    mainMenu->pushRequest(request);
 }
 
-void goToHowToPlayScene(std::shared_ptr<Engine::AScene> &menu)
+/*!
+ * \brief goToHowToPlayScene button callback
+ * \param mainMenu actual scene
+ *
+ * This callback permit to go in the "HowToPlay" scene
+*/
+
+void goToHowToPlayScene(std::shared_ptr<Engine::AScene> &mainMenu)
 {
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::HOW_TO_PLAY);
 
-    menu->pushRequest(request);
+    mainMenu->pushRequest(request);
 }
 
-void quitGame(std::shared_ptr<Engine::AScene> &menu)
+/*!
+ * \brief quitGame button callback
+ * \param mainMenu actual scene
+ *
+ * This callback permit to quit the game
+*/
+
+void quitGame(std::shared_ptr<Engine::AScene> &mainMenu)
 {
-    auto mainMenu = std::dynamic_pointer_cast<MainMenu>(menu);
+    auto mainMenuObject = std::dynamic_pointer_cast<MainMenu>(mainMenu);
 
-    mainMenu->getWindow()->close();
-}
-
-void emptyCallback(std::shared_ptr<Engine::AScene> &menu)
-{
-
+    mainMenuObject->getWindow()->close();
 }
 
 MainMenu::MainMenu(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events)

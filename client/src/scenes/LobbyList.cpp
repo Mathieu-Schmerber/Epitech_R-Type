@@ -16,12 +16,26 @@
 #include "entities/Button.hpp"
 #include "entities/Music.hpp"
 
+/*!
+ * \brief goToCreateLobbyScene button callback
+ * \param lobby actual scene
+ *
+ * This callback permit to go to the "CreateLobby" scene
+*/
+
 void goToCreateLobbyScene(std::shared_ptr<Engine::AScene> &lobby)
 {
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::CREATE_LOBBY);
 
     lobby->pushRequest(request);
 }
+
+/*!
+ * \brief scrollDownLobby button callback
+ * \param lobby actual scene
+ *
+ * This callback permit to move to the bottom all the LobbyCard in the LobbyList
+*/
 
 void scrollDownLobby(std::shared_ptr<Engine::AScene> &lobby)
 {
@@ -31,19 +45,19 @@ void scrollDownLobby(std::shared_ptr<Engine::AScene> &lobby)
     lobbySystem->scrollDownLobbies();
 }
 
+/*!
+ * \brief scrollUpLobby button callback
+ * \param lobby actual scene
+ *
+ * This callback permit to move to the top all the LobbyCard in the LobbyList
+*/
+
 void scrollUpLobby(std::shared_ptr<Engine::AScene> &lobby)
 {
     auto lobbyObject = std::dynamic_pointer_cast<LobbyList>(lobby);
     auto lobbySystem = dynamic_cast<LobbySystem *>(lobbyObject->getLobbySystem().get());
 
     lobbySystem->scrollUpLobbies();
-}
-
-void goToInGameScene(std::shared_ptr<Engine::AScene> &lobby)
-{
-    Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::GAME);
-
-    lobby->pushRequest(request);
 }
 
 LobbyList::LobbyList(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<NetworkAccess> &server)

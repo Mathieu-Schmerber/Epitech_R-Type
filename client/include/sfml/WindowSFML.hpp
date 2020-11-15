@@ -1,8 +1,10 @@
-/*
-** EPITECH PROJECT, 2020
-** RType
-** File description:
-** Created by Cyprien
+/*!
+ * @file WindowSFML.hpp
+ * @brief Manage SFML's window
+ * @authors Cyprien.R
+ * @version 1.0
+ * @date 14/11/2020
+ *
 */
 
 
@@ -17,8 +19,20 @@
 
 class WindowSFML : public Engine::AWindow {
 public:
+    /*!
+     * \brief Window SFML constructor with title and size
+     * \param title window's title to be set
+     * \param windowSize X and Y size (in pixels)
+     *
+     * Create a window with the above parameters
+    */
     WindowSFML(const std::string &title, const Engine::Size<double> windowSize) : Engine::AWindow(title, windowSize),
     _titleSFML(title.data()) {}
+    /*!
+     * \brief Window SFML default destructor
+     *
+     *
+    */
     ~WindowSFML() = default;
 
     void open() override;

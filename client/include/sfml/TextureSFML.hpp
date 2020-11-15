@@ -1,8 +1,10 @@
-/*
-** EPITECH PROJECT, 2020
-** RType
-** File description:
-** Created by Cyprien
+/*!
+ * @file TextureSFML.hpp
+ * @brief Manage SFML's texture
+ * @authors Cyprien.R
+ * @version 1.0
+ * @date 14/11/2020
+ *
 */
 
 
@@ -20,6 +22,12 @@ private:
     std::shared_ptr<sf::Texture> _texture;
 
 public:
+    /*!
+     * \brief Texture SFML constructor with filename
+     * \param filename filename to find the texture
+     *
+     * Create a texture by loading it from a file
+    */
     explicit TextureSFML(const std::string& filename) : Engine::ATexture(filename), _texture(std::make_shared<sf::Texture>()) {
         loadFromFile(filename);
     }
