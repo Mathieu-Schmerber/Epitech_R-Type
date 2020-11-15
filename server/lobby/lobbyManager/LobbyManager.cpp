@@ -7,7 +7,7 @@
 
 #include "LobbyManager.hpp"
 #include "Client.hpp"
-#include "TcpSocket.hpp"
+#include "TCP/TcpSocket.hpp"
 
 LobbyManager::LobbyManager(Server *server) : _port(4243), _server(server)
 {}
