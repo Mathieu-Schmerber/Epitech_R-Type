@@ -7,14 +7,14 @@
  *
 */
 
-#include <iostream>
-#include <Core.hpp>
-
 /*!
  * \brief Client main
  *
  * Call start function of the core and then return 0
 */
+
+#include <iostream>
+#include <Core.hpp>
 
 int main()
 {

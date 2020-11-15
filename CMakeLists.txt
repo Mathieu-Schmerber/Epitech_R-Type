@@ -235,8 +235,7 @@ set(CLIENT_INCLUDES
 		client/include/systems/LobbySystem.hpp
 		client/include/scenes/CreateLobby.hpp
 		client/include/scenes/LobbyWaiting.hpp
-		client/include/entities/LobbyWaitingEntity.hpp
-		client/include/entities/PlayerAndStarshipEntity.hpp
+        client/include/entities/PlayerAndStarshipEntity.hpp
 		client/include/systems/PlayerAndStarshipSystem.hpp
 		client/include/components/LobbyComponent.hpp
         client/include/scenes/Settings.hpp

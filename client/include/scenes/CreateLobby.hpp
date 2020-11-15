@@ -1,6 +1,11 @@
-//
-// Created by Paul on 11/10/20.
-//
+/*!
+ * @file CreateLobby.hpp
+ * @brief CreateLobby prototypes
+ * @authors Paul.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_CREATELOBBY_HPP
 #define RTYPE_CREATELOBBY_HPP
@@ -23,9 +28,17 @@ class CreateLobby : public Engine::AScene
     void initSystems() final;
 
     public:
+    /*!
+     * \brief CreateLobby scene constructor
+     * \param window window to be stored as reference
+     * \param events events manager to be stored as reference
+     * \param server server API to be stored as reference
+     *
+     * Create the "CreateLobby" scene
+    */
     CreateLobby(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<NetworkAccess> &server);
-    std::shared_ptr<Engine::Entity> getTextNbPlayerMax() const;
 
+    std::shared_ptr<Engine::Entity> getTextNbPlayerMax() const;
     std::shared_ptr<Engine::AWindow> getWindow() const;
 };
 

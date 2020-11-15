@@ -19,12 +19,26 @@
 #include "entities/Button.hpp"
 #include "entities/PlayerAndStarshipEntity.hpp"
 
+/*!
+ * \brief goToInGamesScene button callback
+ * \param lobbyWaiting actual scene
+ *
+ * This callback permit to go in the "InGame" scene
+*/
+
 void goToInGamesScene(std::shared_ptr<Engine::AScene> &lobbyWaiting)
 {
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::GAME);
 
     lobbyWaiting->pushRequest(request);
 }
+
+/*!
+ * \brief goBackToCreateLobby button callback
+ * \param lobbyWaiting actual scene
+ *
+ * This callback permit to go in the "CreateLobby" scene
+*/
 
 void goBackToCreateLobby(std::shared_ptr<Engine::AScene> &lobbyWaiting)
 {

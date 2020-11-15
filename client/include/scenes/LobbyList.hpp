@@ -1,6 +1,11 @@
-//
-// Created by mathi on 30/10/2020.
-//
+/*!
+ * @file LobbyList.hpp
+ * @brief LobbyList prototypes
+ * @authors Paul.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_LOBBYLIST_HPP
 #define RTYPE_LOBBYLIST_HPP
@@ -24,7 +29,20 @@ class LobbyList : public Engine::AScene
     void initSystems() final;
 
     public:
+    /*!
+     * \brief LobbyList scene constructor
+     * \param window window to be stored as reference
+     * \param events events manager to be stored as reference
+     * \param server server API to be stored as reference
+     *
+     * Create the "LobbyList" scene
+    */
     LobbyList(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<NetworkAccess> &server);
+    /*!
+     * \brief getLobbySystem getter
+     *
+     * Return the LobbySystem of the LobbyList scene
+    */
     const std::unique_ptr<Engine::System> &getLobbySystem() const;
 
     std::shared_ptr<Engine::AWindow> getWindow() const;
@@ -33,7 +51,6 @@ class LobbyList : public Engine::AScene
 void scrollDownLobby(std::shared_ptr<Engine::AScene> &);
 void scrollUpLobby(std::shared_ptr<Engine::AScene> &);
 void goToCreateLobbyScene(std::shared_ptr<Engine::AScene> &);
-void goToInGameScene(std::shared_ptr<Engine::AScene> &);
 void goToMenuScene(std::shared_ptr<Engine::AScene> &);
 
 #endif //RTYPE_LOBBYLIST_HPP

@@ -1,6 +1,11 @@
-//
-// Created by mathi on 02/11/2020.
-//
+/*!
+ * @file Settings.hpp
+ * @brief Settings scene declaration
+ * @authors Paul.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_SETTINGS_HPP
 #define RTYPE_SETTINGS_HPP
@@ -12,7 +17,7 @@
 #include "entities/Button.hpp"
 #include "SceneEnum.hpp"
 #include "entities/Drawable.hpp"
-#include <sfml/SpriteSfml.hpp>
+#include "sfml/SpriteSfml.hpp"
 
 enum SettingsSelectorSprite {
     FULLSCREEN_ENABLED,
@@ -34,6 +39,13 @@ class Settings : public Engine::AScene
         void createSelector(Engine::Point<double> position,  const std::pair<void (*)(std::shared_ptr<Engine::AScene> &), void (*)(std::shared_ptr<Engine::AScene> &)> &callback, const std::string &path, std::unique_ptr<SpriteSFML> text);
     public:
 
+        /*!
+         * \brief Settings scene constructor
+         * \param window window to be stored as reference
+         * \param events events manager to be stored as reference
+         *
+         * Create the "Settings" scene
+        */
         Settings(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events);
         std::shared_ptr<Engine::AWindow> getWindow() const;
         std::vector<std::shared_ptr<Engine::Entity>> getSettingsEntities() const;

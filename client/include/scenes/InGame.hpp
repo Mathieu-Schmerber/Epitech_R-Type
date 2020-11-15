@@ -1,6 +1,11 @@
-//
-// Created by mathi on 06/11/2020.
-//
+/*!
+ * @file InGame.hpp
+ * @brief InGame scene declaration
+ * @authors Matthieu.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_INGAME_HPP
 #define RTYPE_INGAME_HPP
@@ -21,6 +26,14 @@ private:
     void initSystems() final;
 
 public:
+    /*!
+     * \brief InGame scene constructor
+     * \param window window to be stored as reference
+     * \param events events manager to be stored as reference
+     * \param server server API to be stored as reference
+     *
+     * Create the "InGame" scene
+    */
     InGame(std::shared_ptr<Engine::AWindow> &window,
            std::shared_ptr<Engine::AEvents> &events,
            std::shared_ptr<NetworkAccess> &server);

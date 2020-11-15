@@ -1,6 +1,11 @@
-//
-// Created by paul on 11/6/20.
-//
+/*!
+ * @file LobbyCard.hpp
+ * @brief LobbyCard prototypes
+ * @authors Paul.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_LOBBYCARD_HPP
 #define RTYPE_LOBBYCARD_HPP
@@ -19,6 +24,16 @@
 
 class LobbyCard : public Engine::Entity {
     public:
+    /*!
+     * \brief LobbyCard constructor
+     * \param port lobby's port
+     * \param lobbyId lobby's id
+     * \param maxPlayers lobby's number max of clients
+     * \param idClientMaster lobby client master id
+     *
+     * Contain necessary lobby's information transmit to LobbyComponent inside.
+     * Moreover, display the lobby's information to the user thanks to entity workflow.
+    */
     LobbyCard(short port, int lobbyId, int maxPlayers, int idClientMaster) : Engine::Entity() {
         std::shared_ptr<Engine::ATexture> starshipTexture = std::make_shared<TextureSFML>(ALL_STARSHIP_PATH);
         std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(PIXEBOY_FONT_PATH);
