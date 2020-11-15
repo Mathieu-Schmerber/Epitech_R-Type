@@ -18,6 +18,7 @@ namespace Engine {
     public:
         ASound() = default;
         void setVolume(double volume) override;
+        [[nodiscard]] virtual bool isPlaying() const {return false;};
 
     protected:
         double _volume = 100;

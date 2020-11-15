@@ -100,12 +100,18 @@ void ClientNetworkSystem::receiveGameData()
     //}
 }
 
-
+void ClientNetworkSystem::readServerTCP()
+{
+    // TODO: read TCP socket
+    // using _server to read
+    // using _scene to switch scene
+}
 
 void ClientNetworkSystem::update()
 {
     if (this->_server->getClientId() != -1) {
         this->sendRawInputs();
         this->receiveGameData();
+        this->readServerTCP();
     }
 }

@@ -70,7 +70,7 @@ set(ENGINE_SOURCES
 		engine/src/tools/AssetPool.cpp
 		engine/src/systems/ChildrenSystem.cpp 
 		engine/src/systems/TargetSystem.cpp
-		)
+		engine/src/systems/SoundSystem.cpp engine/include/systems/SoundSystem.hpp engine/src/systems/MusicSystem.cpp engine/include/systems/MusicSystem.hpp)
 
 set(ENGINE_INCLUDES
 		engine/include/ecs/Entity.hpp
@@ -156,7 +156,7 @@ set(ENGINE_INCLUDES
 		engine/include/systems/ChildrenSystem.hpp
 		engine/include/tools/RandomETU.hpp
 		engine/include/components/TargetComponent.hpp
-		engine/include/systems/TargetSystem.hpp engine/include/tools/EngineExceptions.hpp)
+		engine/include/systems/TargetSystem.hpp engine/include/tools/EngineExceptions.hpp engine/src/systems/SoundSystem.cpp engine/include/systems/SoundSystem.hpp engine/src/systems/MusicSystem.cpp engine/include/systems/MusicSystem.hpp)
 
 set(CLIENT_SOURCES
 		client/src/main.cpp
