@@ -59,8 +59,8 @@ public:
         this->getComponent<Engine::AnimationComponent>()->setAnimation(IDLE, false);
         this->addComponent<ManualWeaponComponent>(1, 0.5, 0.1);
 
-        auto health = this->addComponent<HealthComponent>(30000);
-        health->setCurrentHealth(10000);
+        auto health = this->addComponent<HealthComponent>(3);
+        health->setCurrentHealth(1);
 
         auto sound = std::make_unique<DataSound>(SOUND);
         this->addComponent<Engine::SoundComponent>(std::move(sound));
