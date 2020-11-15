@@ -7,7 +7,7 @@
 
 #include "Client.hpp"
 #include "Game.hpp"
-#include "TcpSocket.hpp"
+#include "TCP/TcpSocket.hpp"
 #include "Lobby.hpp"
 
 Lobby::Lobby(int id, char nbSlots, int port, Server *server) : _id(id), _nbSlots(nbSlots), _gameRunning(false),
