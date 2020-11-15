@@ -50,6 +50,7 @@ public:
         auto music = std::make_unique<MusicSFML>("../../client/assets/ogg/themes/menu_theme.ogg");
         auto entity = std::make_shared<Engine::Music>(std::move(music));
 
+        entity->getComponent<Engine::MusicComponent>()->getMusic()->play(100);
         this->addEntities({entity});
     }
 

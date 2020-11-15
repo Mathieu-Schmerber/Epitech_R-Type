@@ -6,11 +6,14 @@
 #define RTYPE_MUSICSYSTEM_HPP
 
 #include "ecs/System.hpp"
+#include "graphical/AWindow.hpp"
 
 namespace Engine {
     class MusicSystem : public Engine::System {
+    private:
+        std::shared_ptr<AWindow> _window;
     public:
-        MusicSystem();
+        MusicSystem(std::shared_ptr<AWindow> &window);
 
         void deleteEntity(std::shared_ptr<Engine::Entity> &entity) override;
         void update() override;

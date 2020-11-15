@@ -29,7 +29,6 @@ InGame::InGame(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine:
 : _window(window), _events(events), _server(server), Engine::AScene(SceneType::GAME)
 {
     this->initSystems();
-    this->initEntities();
 }
 
 void InGame::initEntities()
@@ -58,8 +57,8 @@ void InGame::initSystems()
     auto text = std::make_unique<Engine::TextSystem>(this->_window);
     auto quitSystem = std::make_unique<QuitSystemInGame>(this->_events, scene);
     auto window = std::make_unique<Engine::WindowResizeSystem>(this->_window);
-    auto sound = std::make_unique<Engine::SoundSystem>();
-    auto music = std::make_unique<Engine::MusicSystem>();
+    auto music = std::make_unique<Engine::MusicSystem>(this->_window);
+    auto sound = std::make_unique<Engine::SoundSystem>(this->_window);
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
@@ -69,15 +68,13 @@ void InGame::initSystems()
     this->_systems.push_back(std::move(network));
     this->_systems.push_back(std::move(text));
     this->_systems.push_back(std::move(window));
-    //if (this->_window->hasSound())
-        this->_systems.push_back(std::move(sound));
-    //if (this->_window->hasMusic())
-        this->_systems.push_back(std::move(music));
+    this->_systems.push_back(std::move(sound));
+    this->_systems.push_back(std::move(music));
 }
 
 void InGame::onFocus()
 {
-
+    this->initEntities();
 }
 
 void InGame::onExit()

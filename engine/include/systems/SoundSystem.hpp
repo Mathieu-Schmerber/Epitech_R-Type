@@ -6,11 +6,14 @@
 #define RTYPE_SOUNDSYSTEM_HPP
 
 #include "ecs/System.hpp"
+#include "graphical/AWindow.hpp"
 
 namespace Engine {
     class SoundSystem : public Engine::System {
+    private:
+        std::shared_ptr<AWindow> _window;
     public:
-        SoundSystem();
+        SoundSystem(std::shared_ptr<AWindow> &window);
 
         void update() override;
     };

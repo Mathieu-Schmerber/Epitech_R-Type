@@ -5,7 +5,7 @@
 #include "systems/MusicSystem.hpp"
 #include "components/MusicComponent.hpp"
 
-Engine::MusicSystem::MusicSystem() : Engine::System()
+Engine::MusicSystem::MusicSystem(std::shared_ptr<AWindow> &window) : _window(window), Engine::System()
 {
     this->addDependency<MusicComponent>();
 }
@@ -23,6 +23,8 @@ void Engine::MusicSystem::update()
 {
     MusicComponent *music;
 
+    if (!_window->hasMusic())
+        return;
     for (auto &e : this->_entities) {
         music = e->getComponent<MusicComponent>();
         if (music->wantsToBePlayed() && !music->getMusic()->isPlaying()) {

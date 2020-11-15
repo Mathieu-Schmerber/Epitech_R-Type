@@ -31,15 +31,17 @@ Core::Core(const std::string &ip)
 void Core::setupGroups()
 {
     auto p = std::make_shared<ParallaxGroup>();
+    std::shared_ptr<Engine::AEntityGroup> music;
 
     this->_sceneManager->addGroup(GroupId::MENU_PARALLAX, std::dynamic_pointer_cast<Engine::AEntityGroup>(p));
-    this->_sceneManager->addGroup(GroupId::MENU_MUSIC, std::dynamic_pointer_cast<Engine::AEntityGroup>(std::make_shared<MusicGroup>()));
+    music = this->_sceneManager->addGroup(GroupId::MENU_MUSIC, std::dynamic_pointer_cast<Engine::AEntityGroup>(std::make_shared<MusicGroup>()));
     this->_sceneManager->setAccessGroup(SceneType::MAIN_MENU, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::SETTINGS, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::HOW_TO_PLAY, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::LOBBY_LIST, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::CREATE_LOBBY, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
     this->_sceneManager->setAccessGroup(SceneType::LOBBY_WAITING, {GroupId::MENU_PARALLAX, GroupId::MENU_MUSIC});
+    music->unFreeze();
 }
 
 void Core::initScenes()
