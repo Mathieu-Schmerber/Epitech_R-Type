@@ -67,28 +67,7 @@ void Game::initGameEntities()
     this->spawnPlayers();
     this->spawn(slideA, true);
     this->spawn(slideB, true);
-    //this->spawn(spawner, true);
-
-    /*auto sentinel1 = std::make_shared<Collectible>(Engine::Point<double>{600, 700}, CollectibleComponent::Type::SENTINEL);
-    auto sentinel2 = std::make_shared<Collectible>(Engine::Point<double>{700, 700}, CollectibleComponent::Type::SENTINEL);
-    auto dmg1 = std::make_shared<Collectible>(Engine::Point<double>{600, 600}, CollectibleComponent::Type::DAMAGE);
-    auto dmg2 = std::make_shared<Collectible>(Engine::Point<double>{700, 600}, CollectibleComponent::Type::DAMAGE);
-    auto dmg3 = std::make_shared<Collectible>(Engine::Point<double>{600, 500}, CollectibleComponent::Type::DAMAGE);
-    auto dmg4 = std::make_shared<Collectible>(Engine::Point<double>{700, 500}, CollectibleComponent::Type::DAMAGE);
-    auto bounce1 = std::make_shared<Collectible>(Engine::Point<double>{600, 400}, CollectibleComponent::Type::BOUNCE);
-    auto bounce2 = std::make_shared<Collectible>(Engine::Point<double>{700, 400}, CollectibleComponent::Type::BOUNCE);
-    auto missile1 = std::make_shared<Collectible>(Engine::Point<double>{600, 300}, CollectibleComponent::Type::MISSILE);
-    auto missile2 = std::make_shared<Collectible>(Engine::Point<double>{700, 300}, CollectibleComponent::Type::MISSILE);
-    this->spawn(sentinel1, true);
-    this->spawn(sentinel2, true);
-    this->spawn(dmg1, true);
-    this->spawn(dmg2, true);
-    this->spawn(dmg3, true);
-    this->spawn(dmg4, true);
-    this->spawn(bounce1, true);
-    this->spawn(bounce2, true);
-    this->spawn(missile1, true);
-    this->spawn(missile2, true);*/
+    this->spawn(spawner, true);
 }
 
 void Game::initGameSystems()
