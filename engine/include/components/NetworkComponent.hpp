@@ -7,6 +7,7 @@
 
 #include "tools/Geometry.hpp"
 #include "ecs/Component.hpp"
+#include <vector>
 
 namespace Engine {
 

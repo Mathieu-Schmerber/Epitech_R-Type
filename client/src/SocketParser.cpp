@@ -66,23 +66,29 @@ std::shared_ptr<Engine::Entity> SocketParser::createTextEntity(const std::vector
     if (in.size() < 10)
         return nullptr;
 
+    std::cout << in << std::endl;
+    //std::cout << "create text " << in.at(1) << std::endl;
     entity->addComponent<Engine::NetworkComponent>(in.at(1));
+    //std::cout << "text at " << Engine::Point<double>{static_cast<double>(in.at(4)), static_cast<double>(in.at(5))} << std::endl;
     entity->addComponent<Engine::TransformComponent>(Engine::Point<double>{static_cast<double>(in.at(4)), static_cast<double>(in.at(5))}, in.at(6));
     entity->addComponent<Engine::TextComponent>();
     text = entity->getComponent<Engine::TextComponent>();
-    std::ifstream ifs(_pool->getPathFromIndex(in.at(3)));
+    std::ifstream ifs(_pool->getPathFromIndex(in.at(2)));
     std::string content((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
 
 
     if (_fonts.find(this->_pool->getPathFromIndex(in.at(2))) == _fonts.end()) {
         _fonts[_pool->getPathFromIndex(in.at(2))] = std::make_shared<FontSFML>(_pool->getPathFromIndex(in.at(2)));
     }
+    //std::cout << "path " << in.at(3) << _pool->getPathFromIndex(in.at(3)) << std::endl;
+    //std::cout << "content " << content << std::endl;
     std::unique_ptr<Engine::AText> txt = std::make_unique<TextSFML>(content, _fonts.at(_pool->getPathFromIndex(in.at(2))), in.at(7));
     txt->setLetterSpacing(in.at(8));
     text->setText(std::move(txt));
     text->setLayer(in.at(9));
     text->getText()->setFillColor(Engine::Color({255, 255, 255, static_cast<unsigned char>(in.at(10))}));
 
+    text->getText()->setOrigin(Engine::Point<double>({static_cast<double>(text->getText()->getSize().x / 2), static_cast<double>(text->getText()->getSize().y / 2)}));
     return std::shared_ptr<Engine::Entity>(entity);
 }
 
@@ -135,6 +141,8 @@ void SocketParser::updateTextEntity(std::shared_ptr<Engine::Entity> &entity, con
 
     text->setLayer(in.at(9));
     text->getText()->setFillColor(Engine::Color({255, 255, 255, static_cast<unsigned char>(in.at(10))}));
+    text->getText()->setOrigin(Engine::Point<double>({static_cast<double>(text->getText()->getSize().x / 2), static_cast<double>(text->getText()->getSize().y / 2)}));
+//    std::cout << in << std::endl;
 }
 
 void SocketParser::updateSpriteEntity(const std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in) const

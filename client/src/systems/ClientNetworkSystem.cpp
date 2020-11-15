@@ -12,7 +12,6 @@ ClientNetworkSystem::ClientNetworkSystem(std::shared_ptr<NetworkAccess> &server,
 : _server(server), _events(events), _scene(scene)
 {
     this->addDependency<Engine::NetworkComponent>();
-    this->addDependency<Engine::SpriteComponent>();
     this->_parser = std::make_unique<SocketParser>();
     this->_lastData = std::vector<int>(UDP_BUFFER_SIZE);
 }
@@ -78,6 +77,8 @@ void ClientNetworkSystem::receiveGameData()
                 this->_scene->spawnEntity(toSpawn);
         }
     }
+
+
 
     //for (auto &e : copy) {
     //    for (auto &p : packets) {

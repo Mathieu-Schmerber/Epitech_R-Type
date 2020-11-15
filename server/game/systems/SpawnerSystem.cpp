@@ -62,24 +62,22 @@ void SpawnerSystem::handleWaves(std::shared_ptr<Engine::Entity> &spawner)
     if (_gameJustStarted) {
         _gameJustStarted = false;
         text->setHasToBeDraw(true);
-        std::cout << "Game Just Started" << std::endl;
         text->getText()->setString(wave->getTextFromWave(wave->getCurrentWave()));
         text->setHasToBeDraw(true);
     }
     if (wave->timeToSwitch()) {
         wave->goNextScene();
-        std::cout << "Switch scene" << std::endl;
+        spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(spawner->getComponent<EnemySpawnerComponent>()->getSpawnRate() + 4);
         text->getText()->setString(wave->getTextFromWave(wave->getCurrentWave()));
+        text->getText()->setFillColor(Engine::Color({0, 0, 0, 255}));
         text->setHasToBeDraw(true);
     }
-    if (wave->getElapsedSecondSinceLastStart() < wave->getDurationFromWave(wave->getCurrentWave())) {
-        //std::cout << "Reduce color" << std::endl;
-        text->getText()->setFillColor(Engine::Color({0, 0, 0,
-                                                     static_cast<unsigned char>(wave->getElapsedSecondSinceLastStart() *
-                                                                                255 / wave->getDurationFromWave(
-                                                             wave->getCurrentWave()))}));
+    auto textDuration = 2.3;
+    if (wave->getElapsedSecondSinceLastStart() < textDuration) {
+        int alpha = wave->getElapsedSecondSinceLastStart() * 255 / textDuration;
+        auto c = static_cast<unsigned char>(255 - alpha);
+        text->getText()->setFillColor(Engine::Color({0, 0, 0, c}));
     } else {
-        //std::cout << "Not draw" << std::endl;
         text->setHasToBeDraw(false);
     }
 }

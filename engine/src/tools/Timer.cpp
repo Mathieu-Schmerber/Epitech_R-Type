@@ -30,6 +30,11 @@ double Engine::Timer::getElapsed(std::chrono::high_resolution_clock::time_point 
     return res;
 }
 
+double Engine::Timer::getElapsedSeconds(std::chrono::high_resolution_clock::time_point time)
+{
+    return getElapsed(time) / 1000;
+}
+
 const std::chrono::high_resolution_clock::time_point &Engine::Timer::getLastPoint() const
 {
     return _lastPoint;

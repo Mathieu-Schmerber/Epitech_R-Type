@@ -45,8 +45,8 @@ public:
     [[nodiscard]] Engine::Point<double> getOrigin() const  {return _origin;}
     void setOrigin(const Engine::Point<double> origin) final {_origin  = origin;}
     void setScale(Engine::Size<double> scale) final {_scale = scale;}
-    void setFillColor(Engine::Color color) final {}
-    void setOutlineColor(Engine::Color color) final {}
+    void setFillColor(Engine::Color color) final {_fillColor = color;}
+    void setOutlineColor(Engine::Color color) final {_outLineColor = color;}
     void setString(std::string text) final {_text = text;}
     void setRotation(double angle) final {_rotation = angle;}
     void setCharacterSize(unsigned int size) final {_characterSize = size;}
