@@ -7,16 +7,17 @@
 
 #include "sfml/MusicSFML.hpp"
 
-void MusicSFML::loadFromFile(const std::string filename)
+void MusicSFML::loadFromFile(const std::string &filename)
 {
     if (!_music->openFromFile(filename)) {
         std::cerr << "\033[33mMusic WARNING : Invalid load of music " << filename << "\033[0m" << std::endl;
     }
 }
 
-void MusicSFML::play()
+void MusicSFML::play(int volume)
 {
-    setVolume(_volume);
+    std::cout << "PLAY " << _volume << std::endl;
+    setVolume(volume);
     _music->play();
 }
 
@@ -33,6 +34,7 @@ void MusicSFML::stop()
 void MusicSFML::setVolume(double volume)
 {
     AMusic::setVolume(volume);
+    _volume = volume;
     _music->setVolume(static_cast<float>(volume));
 }
 

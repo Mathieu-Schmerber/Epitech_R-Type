@@ -8,7 +8,7 @@
 
 #include "sfml/SoundSFML.hpp"
 
-void SoundSFML::loadFromFile(const std::string filename)
+void SoundSFML::loadFromFile(const std::string &filename)
 {
     if (_buffer.loadFromFile(filename)) {
         _sound.setBuffer(_buffer);
@@ -17,7 +17,7 @@ void SoundSFML::loadFromFile(const std::string filename)
     }
 }
 
-void SoundSFML::play()
+void SoundSFML::play(int volume)
 {
     setVolume(_volume);
     _sound.play();

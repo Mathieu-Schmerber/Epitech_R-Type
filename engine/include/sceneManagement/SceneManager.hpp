@@ -22,11 +22,11 @@ namespace Engine {
         std::map<int, std::shared_ptr<Engine::AEntityGroup>> _groups;
         int _current;
 
-        void parseRequest(const Engine::SceneRequest &request);
     public:
         explicit SceneManager() : _current(-1) {}
         ~SceneManager();
 
+        void parseRequest(const Engine::SceneRequest &request);
         void handleSceneRequests();
         void handleTime(double deltatime);
 

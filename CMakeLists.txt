@@ -35,8 +35,7 @@ set(ENGINE_SOURCES
 		engine/src/sceneManagement/AEntityGroup.cpp
         engine/src/tools/Timer.cpp
 		engine/src/graphical/AMusic.cpp
-		engine/src/systems/MusicSystem.cpp
-		engine/src/graphical/ATexture.cpp
+        engine/src/graphical/ATexture.cpp
 		engine/src/graphical/AText.cpp
 		engine/src/graphical/AFont.cpp
 		engine/src/networking/AUdpSocketIO.cpp
@@ -126,10 +125,8 @@ set(ENGINE_INCLUDES
 		engine/include/entities/Music.hpp
 		engine/include/tools/ATime.hpp
 		engine/include/tools/TimeUnits.hpp
-		engine/include/systems/MusicSystem.hpp
-		engine/include/graphical/ATexture.hpp
-		engine/include/systems/MusicSystem.hpp
-		engine/include/graphical/AText.hpp
+        engine/include/graphical/ATexture.hpp
+        engine/include/graphical/AText.hpp
 		engine/include/graphical/AFont.hpp
 		engine/include/tools/Color.hpp
 		engine/include/networking/AUdpSocketIO.hpp

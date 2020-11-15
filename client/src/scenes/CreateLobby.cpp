@@ -15,7 +15,6 @@
 #include "systems/MouseSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
 #include "systems/AnimationSystem.hpp"
-#include "systems/MusicSystem.hpp"
 #include "entities/Button.hpp"
 #include "entities/Music.hpp"
 #include "scenes/CreateLobby.hpp"
@@ -31,7 +30,7 @@ void goBackToLobbyList(std::shared_ptr<Engine::AScene> &createLobby)
 void goToLobbyWaiting(std::shared_ptr<Engine::AScene> &createLobby)
 {
     bool waitingForAnswer = true;
-    //FIXME: Passer de la création de lobby à la scène d'attente dans le lobby (Create Lobby)
+    //FIXME: Passer de la crï¿½ation de lobby ï¿½ la scï¿½ne d'attente dans le lobby (Create Lobby)
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::LOBBY_WAITING);
     std::shared_ptr<CreateLobby> scene = std::dynamic_pointer_cast<CreateLobby>(createLobby);
     std::vector<int> pouet;
@@ -135,7 +134,6 @@ void CreateLobby::initSystems()
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
     auto move = std::make_unique<Engine::MoveSystem>();
-    auto music = std::make_unique<Engine::MusicSystem>();
     auto window = std::make_unique<Engine::WindowResizeSystem>(this->_window);
 
     this->_systems.push_back(std::move(draw));
@@ -145,7 +143,6 @@ void CreateLobby::initSystems()
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(move));
-    this->_systems.push_back(std::move(music));
     this->_systems.push_back(std::move(window));
 }
 

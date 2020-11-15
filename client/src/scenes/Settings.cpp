@@ -89,7 +89,11 @@ void changeAudioEnableMusic(std::shared_ptr<Engine::AScene> &settings)
 
     fullscreenSelectorValue[SettingsSelectorSprite::MUSIC_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->setRect({Engine::Box<double>({static_cast<double>(static_cast<int>((rect.x1 + ON_OFF_WIDTH)) % ON_OFF_WIDTH_TOTAL), 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
     if (Engine::Utils::isInMap(group, static_cast<int>(GroupId::MENU_MUSIC))) {
-        group[GroupId::MENU_MUSIC]->getEntities()[0]->getComponent<Engine::MusicComponent>()->getMusic()->stop();
+        auto &music = group[GroupId::MENU_MUSIC]->getEntities()[0]->getComponent<Engine::MusicComponent>()->getMusic();
+        if (music->isStopped())
+            music->play(100);
+        else
+            music->stop();
     }
 
     //TODO stop and reactivate the music properly

@@ -17,8 +17,8 @@ class SoundSFML : public Engine::ASound {
 public:
     SoundSFML() = default;
 
-    void loadFromFile(const std::string filename) final;
-    void play() final;
+    void loadFromFile(const std::string &filename) final;
+    void play(int volume) final;
     void pause() final;
     void stop() final;
     void setVolume(double volume) final;

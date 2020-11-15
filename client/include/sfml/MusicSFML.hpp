@@ -14,7 +14,7 @@
 
 class MusicSFML : public Engine::AMusic {
 public:
-    MusicSFML(const std::string filename, bool loop=true) : Engine::AMusic() {
+    explicit MusicSFML(const std::string &filename, bool loop = true) : Engine::AMusic() {
         loadFromFile(filename);
         setLoop(loop);
     }
@@ -23,16 +23,16 @@ public:
         delete _music;
     }
 
-    void loadFromFile(const std::string filename) final;
-    void play() final;
+    void loadFromFile(const std::string &filename) final;
+    void play(int volume) final;
     void pause() final;
     void stop() final;
     void setVolume(double volume) final;
-    bool isPlaying() const;
-    bool isPaused() const;
-    bool isStopped() const;
-    void setLoop(bool loop=true);
-    bool isLooping() const;
+    [[nodiscard]] bool isPlaying() const override;
+    [[nodiscard]] bool isPaused() const override;
+    [[nodiscard]] bool isStopped() const override;
+    void setLoop(bool loop) final;
+    [[nodiscard]] bool isLooping() const override;
     void close() final {
         stop();
         delete _music;

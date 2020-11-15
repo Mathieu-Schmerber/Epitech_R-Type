@@ -13,7 +13,6 @@
 #include "scenes/SceneType.hpp"
 #include "scenes/InGame.hpp"
 #include "systems/DrawSystem.hpp"
-#include "systems/MusicSystem.hpp"
 #include "systems/ClientNetworkSystem.hpp"
 #include "entities/Music.hpp"
 #include "scenes/SceneEnum.hpp"
@@ -52,7 +51,6 @@ void InGame::initSystems()
 {
     auto scene = std::shared_ptr<Engine::AScene>(this);
     auto draw = std::make_unique<Engine::DrawSystem>(this->_window);
-    auto music = std::make_unique<Engine::MusicSystem>();
     auto btn = std::make_unique<Engine::ButtonSystem>();
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto mouse = std::make_unique<Engine::MouseSystem>(this->_events);
@@ -66,7 +64,6 @@ void InGame::initSystems()
     this->_systems.push_back(std::move(btn));
     this->_systems.push_back(std::move(quitSystem));
     this->_systems.push_back(std::move(animation));
-    this->_systems.push_back(std::move(music));
     this->_systems.push_back(std::move(network));
     this->_systems.push_back(std::move(text));
     this->_systems.push_back(std::move(window));
