@@ -46,8 +46,13 @@ void goToInGamesScene(std::shared_ptr<Engine::AScene> &lobbyWaiting)
 
 void goBackToCreateLobby(std::shared_ptr<Engine::AScene> &lobbyWaiting)
 {
+    std::shared_ptr<LobbyWaiting> scene = std::dynamic_pointer_cast<LobbyWaiting>(lobbyWaiting);
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::CREATE_LOBBY);
+    std::vector<int> toSend;
 
+    toSend.push_back(2);
+    toSend.push_back(47);
+    scene->getServer()->getTcpSocket()->sendToServer(toSend);
     lobbyWaiting->pushRequest(request);
 }
 
@@ -72,17 +77,9 @@ void LobbyWaiting::initEntities()
     playButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<double>({PLAY_BUTTON_X_HOVER, PLAY_BUTTON_Y}, {PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT})});
     playButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<double>({PLAY_BUTTON_X_CLICKED, PLAY_BUTTON_Y}, {PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT})});
 
+    _playButton = playButtonEngine;
     this->spawnEntity(goBackButtonEngine);
     this->spawnEntity(playButtonEngine);
-
-    //TODO: remove the following temporary lines
-    std::shared_ptr<Engine::Entity> playerAndStarShipCard = std::make_shared<PlayerAndStarshipEntity>("Player 1");
-    playerAndStarShipCard->getComponent<Engine::TransformComponent>()->setPos({535, 100});
-    this->spawnEntity(playerAndStarShipCard);
-
-    std::shared_ptr<Engine::Entity> playerAndStarShipCard2 = std::make_shared<PlayerAndStarshipEntity>("Player 2");
-    playerAndStarShipCard2->getComponent<Engine::TransformComponent>()->setPos({535, 300});
-    this->spawnEntity(playerAndStarShipCard2);
 }
 
 void LobbyWaiting::initSystems()

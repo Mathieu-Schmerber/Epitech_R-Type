@@ -182,7 +182,6 @@ void Game::removeClientInGame(const std::shared_ptr<Client> &cli)
         std::cout << cli->getId() << " && " << a->get()->getId() << std::endl;
         if (cli->getId() == a->get()->getId()) {
             this->_players.erase(a);
-            std::cout << "Player remove game " << _players.size() << std::endl;
             return;
         }
     }

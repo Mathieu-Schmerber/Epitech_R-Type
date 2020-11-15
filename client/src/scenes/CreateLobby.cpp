@@ -33,11 +33,15 @@ void goToLobbyWaiting(std::shared_ptr<Engine::AScene> &createLobby)
     //FIXME: Passer de la cr�ation de lobby � la sc�ne d'attente dans le lobby (Create Lobby)
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::LOBBY_WAITING);
     std::shared_ptr<CreateLobby> scene = std::dynamic_pointer_cast<CreateLobby>(createLobby);
+    auto createLobbyObject = std::dynamic_pointer_cast<CreateLobby>(createLobby);
+    auto &text = createLobbyObject->getTextNbPlayerMax()->getComponent<Engine::TextComponent>()->getText();
+    auto string = text->toStdString();
+    auto nb = std::atoi(string.substr(20, 21).c_str());
     std::vector<int> pouet;
 
     pouet.push_back(3);
     pouet.push_back(1);
-    pouet.push_back(4); //TODO: Nb de players (to fix)
+    pouet.push_back(nb);
     scene->getServer()->getTcpSocket()->sendToServer(pouet);
     while (waitingForAnswer) {
         std::vector<int> data = scene->getServer()->getTcpSocket()->getDataFromServer();

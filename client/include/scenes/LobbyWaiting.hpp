@@ -21,6 +21,7 @@ class LobbyWaiting : public Engine::AScene
     std::shared_ptr<Engine::AWindow> _window;
     std::shared_ptr<Engine::AEvents> _events;
     std::shared_ptr<NetworkAccess> _server;
+    std::shared_ptr<Engine::Entity> _playButton;
 
     void initEntities() final;
     void initSystems() final;
@@ -38,6 +39,7 @@ class LobbyWaiting : public Engine::AScene
 
     std::shared_ptr<Engine::AWindow> getWindow() const;
     std::shared_ptr<NetworkAccess> getServer() const;
+    std::shared_ptr<Engine::Entity> getPlayButton() const { return _playButton;};
 };
 
 void goBackToCreateLobby(std::shared_ptr<Engine::AScene> &);

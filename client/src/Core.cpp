@@ -18,7 +18,7 @@
 #include "scenes/CreateLobby.hpp"
 #include "scenes/LobbyWaiting.hpp"
 
-Core::Core(std::string ip)
+Core::Core(const std::string &ip)
 {
     this->_graph = std::make_unique<GraphicalSFML>();
     this->_graph->setWindow(std::make_shared<WindowSFML>(std::string("r-type"), Engine::Size<double>{1920, 1080}));

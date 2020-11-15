@@ -246,7 +246,7 @@ set(CLIENT_INCLUDES
 		client/src/systems/LobbyWaitingSystem.cpp
 		client/include/systems/LobbyWaitingSystem.hpp
 		client/include/systems/QuitSystemInGame.hpp
-		client/src/systems/QuitSystemInGame.cpp)
+		client/src/systems/QuitSystemInGame.cpp client/include/components/PlayerAndStarshipComponent.hpp)
 
 set(SERVER_SOURCES
         server/main.cpp
