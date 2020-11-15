@@ -82,7 +82,6 @@ void LobbySystem::handleLobbyJoin(std::shared_ptr<Engine::Entity> &lobby)
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::LOBBY_WAITING);
 
     if (click->isReleased()) {
-        // TODO: connect to lobby, faire la connexion au lobby TCP ici
         std::cout << "Pouet pouet fait le dindon" << std::endl;
         std::vector<int> toSend;
         toSend.push_back(3);
@@ -91,8 +90,10 @@ void LobbySystem::handleLobbyJoin(std::shared_ptr<Engine::Entity> &lobby)
         tcp->sendToServer(toSend);
         while (waitingForAnswer) {
             std::vector<int> data = tcp->getDataFromServer();
-            if (data.at(0) != 3 || data.at(1) != 42)
+            if (!(data.at(0) == 3 && data.at(1) == 42) && !(data.at(0) == 2 && data.at(1) == -42))
                 continue;
+            if (data.at(0) == 2 && data.at(1) == -42)
+                return;
             _server->openSockets(data.at(2));
             waitingForAnswer = false;
         }

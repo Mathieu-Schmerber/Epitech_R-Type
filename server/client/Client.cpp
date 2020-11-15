@@ -46,17 +46,21 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
         return;
     if (_data.at(1) == 0) {
         //Join a lobby
-        for (auto a : this->_server->getLobbyManager().getAvailableLobbies()) {
-            _currentLobby = this->_server->getLobbyManager().getLobbyById(_data.at(2));
-            if (!_currentLobby)
-                return;
-            std::vector<int> answerToClient;
-            answerToClient.push_back(3);
-            answerToClient.push_back(42);
-            answerToClient.push_back(_currentLobby->getPort());
+        _currentLobby = this->_server->getLobbyManager().getLobbyById(_data.at(2));
+        if (!_currentLobby)
+            return;
+        std::vector<int> answerToClient;
+        if (_currentLobby->getNbPlayers() == _currentLobby->getSlots()) {
+            answerToClient.push_back(2);
+            answerToClient.push_back(-42);
             s->sendToClientTcp(answerToClient);
-            _currentLobby->join(s);
+            return;
         }
+        answerToClient.push_back(3);
+        answerToClient.push_back(42);
+        answerToClient.push_back(_currentLobby->getPort());
+        s->sendToClientTcp(answerToClient);
+        _currentLobby->join(s);
     } else if (_data.at(1) == 1) {
         //Create a Lobby
         std::cout << "Create Lobby" << std::endl;
