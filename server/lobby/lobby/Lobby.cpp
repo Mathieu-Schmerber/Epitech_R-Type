@@ -26,7 +26,7 @@ void Lobby::run()
         toSend.clear();
         toSend.push_back(3);
         toSend.push_back(45);
-        toSend.push_back(++i);
+        toSend.push_back(i++);
         a->sendToClientTcp(toSend);
     }
     _game = std::make_unique<Game>(_players, _udpSocketInput);
