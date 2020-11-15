@@ -43,6 +43,7 @@ public:
         this->getComponent<Engine::TextComponent>()->getText()->setCharacterSize(50);
         this->getComponent<Engine::TextComponent>()->getText()->setLetterSpacing(10);
         this->addComponent<WaveComponent>();
+        this->addComponent<Engine::MusicComponent>();
     }
 };
 
