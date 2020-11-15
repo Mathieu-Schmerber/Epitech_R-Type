@@ -46,8 +46,8 @@ public:
         _currentWave += 1;
         _lastChgmt = std::chrono::high_resolution_clock::now();
     }
-    double getElapsedSecondSinceLastStart() {return std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - _lastChgmt).count();}
-    int getCurrentWave() {return _currentWave;}
+    double getElapsedSecondSinceLastStart() {return Engine::Timer::getElapsed(_lastChgmt);}
+    [[nodiscard]] int getCurrentWave() const {return _currentWave;}
 };
 
 #endif //RTYPE_WAVECOMPONENT_HPP

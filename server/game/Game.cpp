@@ -22,8 +22,8 @@
 #include "systems/ServerNetworkSystem.hpp"
 #include "systems/LifetimeSystem.hpp"
 #include "systems/GroundSystem.hpp"
+#include "systems/BorderLimitSystem.hpp"
 #include "components/NetworkComponent.hpp"
-#include "entities/Collectible.hpp"
 #include "systems/TargetSystem.hpp"
 
 Game::Game(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception)
@@ -82,6 +82,7 @@ void Game::initGameSystems()
     auto spawner = std::make_unique<SpawnerSystem>(game);
     auto life = std::make_unique<HealthSystem>(game);
     auto target = std::make_unique<Engine::TargetSystem>();
+    auto borderLimit = std::make_unique<BorderLimitSystem>(game);
 
     this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(ground));
@@ -100,6 +101,7 @@ void Game::initGameSystems()
     this->_systems.push_back(std::move(spawner));
     this->_systems.push_back(std::move(life));
     this->_systems.push_back(std::move(target));
+    this->_systems.push_back(std::move(borderLimit));
 }
 
 void Game::spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork)
