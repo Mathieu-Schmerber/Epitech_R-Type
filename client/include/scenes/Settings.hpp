@@ -20,7 +20,6 @@
 #include "sfml/SpriteSfml.hpp"
 
 enum SettingsSelectorSprite {
-    FULLSCREEN_ENABLED,
     FRAMERATE,
     VSYNC_ENABLED,
     MUSIC_ENABLED,
@@ -52,7 +51,6 @@ class Settings : public Engine::AScene
 };
 
 void goToMenuScene(std::shared_ptr<Engine::AScene> &);
-void changeWindowEnableFullscreen(std::shared_ptr<Engine::AScene> &);
 void changeWindowFrameratePrev(std::shared_ptr<Engine::AScene> &);
 void changeWindowFramerateNext(std::shared_ptr<Engine::AScene> &);
 void changeWindowVsync(std::shared_ptr<Engine::AScene> &);

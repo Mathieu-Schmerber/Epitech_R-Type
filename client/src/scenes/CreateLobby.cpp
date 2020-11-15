@@ -65,7 +65,7 @@ void increaseNbOfClientsCb(std::shared_ptr<Engine::AScene> &createLobby)
     auto string = text->toStdString();
     auto nb = std::atoi(string.substr(20, 21).c_str());
 
-    if (nb < 9) {
+    if (nb < 4) {
         string.back() = std::to_string(nb + 1).front();
         text->setString(string);
     }
