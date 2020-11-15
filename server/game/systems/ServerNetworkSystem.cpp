@@ -28,7 +28,6 @@ void ServerNetworkSystem::receiveClientInputs()
     if (!data.empty() && data.at(0) != -1 && !this->_entities.empty() && this->_entities.size() > data.at(0)) {
         affected = this->_entities.at(data.at(0));
         controller = affected->getComponent<Engine::ControllerComponent>();
-        std::cout << "got client id input " << data.at(0) << std::endl;
         if (controller) {
             affected->getComponent<Engine::ControllerComponent>()->setPressed(inputs.first);
             affected->getComponent<Engine::ControllerComponent>()->setReleased(inputs.second);
