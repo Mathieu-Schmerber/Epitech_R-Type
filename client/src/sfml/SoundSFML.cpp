@@ -23,6 +23,11 @@ void SoundSFML::play(int volume)
     _sound.play();
 }
 
+bool SoundSFML::isPlaying() const
+{
+    return _sound.getStatus() == sf::SoundSource::Playing;
+}
+
 void SoundSFML::pause()
 {
     _sound.pause();

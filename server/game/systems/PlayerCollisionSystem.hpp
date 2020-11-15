@@ -25,7 +25,7 @@ private:
     static bool hasPowerUp(std::shared_ptr<Engine::Entity> &sentinel, CollectibleComponent::Type type);
     void applyPowerUp(std::shared_ptr<Engine::Entity> &player, CollectibleComponent::Type type);
     void pickupCollectible(std::shared_ptr<Engine::Entity> &player, CollectibleComponent::Type type, double value);
-    void handleCollisions(std::shared_ptr<Engine::Entity> &player);
+    bool handleCollisions(std::shared_ptr<Engine::Entity> &player);
 public:
     explicit PlayerCollisionSystem(std::shared_ptr<Game> &game);
 

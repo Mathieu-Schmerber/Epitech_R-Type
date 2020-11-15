@@ -7,6 +7,7 @@
 #include "components/NetworkComponent.hpp"
 #include "components/SpriteComponent.hpp"
 #include "SocketParser.hpp"
+#include "scenes/SceneType.hpp"
 
 ClientNetworkSystem::ClientNetworkSystem(std::shared_ptr<NetworkAccess> &server, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<Engine::AScene> &scene)
 : _server(server), _events(events), _scene(scene)
@@ -100,12 +101,22 @@ void ClientNetworkSystem::receiveGameData()
     //}
 }
 
+void ClientNetworkSystem::readServerTCP()
+{
+    std::vector<int> data = _server->getTcpSocket()->getDataFromServer();
 
+    if (data.at(0) == 2 && data.at(1) == 48) {
+        Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::MAIN_MENU);
+
+        _scene->pushRequest(request);
+    }
+}
 
 void ClientNetworkSystem::update()
 {
     if (this->_server->getClientId() != -1) {
         this->sendRawInputs();
         this->receiveGameData();
+        this->readServerTCP();
     }
 }

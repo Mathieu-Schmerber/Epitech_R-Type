@@ -3,6 +3,7 @@
 //
 
 #include "networking/AServer.hpp"
+#include "tools/EngineExceptions.hpp"
 
 Engine::AServer::AServer(const std::string &ip, short serverPort, short clientPort) : _ip(ip), _port(serverPort), _clientPort(clientPort)
 {
@@ -11,7 +12,7 @@ Engine::AServer::AServer(const std::string &ip, short serverPort, short clientPo
         this->_tcpSocket = std::make_unique<Engine::ATcpSocket>(_ip, _port);
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
-        throw std::exception(); //TODO: Throw an other custom exception
+        throw Engine::ConnectError("Unable to connect to " + _ip + ":" + std::to_string(_port));
     }
 }
 

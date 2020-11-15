@@ -28,6 +28,7 @@ public:
     void pause() final;
     void stop() final;
     void setVolume(double volume) final;
+    bool isPlaying() const final;
 
 private:
     sf::SoundBuffer _buffer;

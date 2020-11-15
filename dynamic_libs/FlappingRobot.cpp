@@ -30,10 +30,10 @@ void pattern(std::shared_ptr<Engine::Entity> &enemy)
 {
     auto velocity = enemy->getComponent<Engine::VelocityComponent>();
 
-    if (enemy->getComponent<Engine::TransformComponent>()->getPos().y >= (GROUND_HEIGHT * 5) && Engine::RandomETU::randETU<double>(0, 30) == Engine::RandomETU::randETU<double>(0, 30)) {
+    if (enemy->getComponent<Engine::TransformComponent>()->getPos().y >= (GROUND_HEIGHT * 4) && Engine::RandomETU::randETU<double>(0, 30) == Engine::RandomETU::randETU<double>(0, 30)) {
         velocity->setSpeed(Engine::Vector<double>({velocity->getSpeed().x, -30}));
     }
-    if (enemy->getComponent<Engine::TransformComponent>()->getPos().y >= (1080 - (GROUND_HEIGHT * 4))) {
+    if (enemy->getComponent<Engine::TransformComponent>()->getPos().y >= 1080 - SIZE_Y - GROUND_HEIGHT) {
         velocity->setSpeed(Engine::Vector<double>({velocity->getSpeed().x, -30}));
     }
 }

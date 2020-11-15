@@ -27,7 +27,7 @@ void SpawnerSystem::handleSpawn(std::shared_ptr<Engine::Entity> &spawner)
     if (spawner->getComponent<EnemySpawnerComponent>()->canSpawn()) {
         auto enemies = spawner->getComponent<EnemySpawnerComponent>()->getLibs();
         try {
-            spawn(spawner, enemies);
+            spawnRandom(spawner, enemies);
         } catch (Engine::EngineException &e) {
             std::cerr << e << std::endl;
             throw Engine::SystemError("SpawnerSystem: Unable to spawn new entity");
@@ -35,10 +35,19 @@ void SpawnerSystem::handleSpawn(std::shared_ptr<Engine::Entity> &spawner)
     }
 }
 
-void SpawnerSystem::spawn(const std::shared_ptr<Engine::Entity> &spawner, std::vector<std::string> &enemies)
+void SpawnerSystem::spawnRandom(const std::shared_ptr<Engine::Entity> &spawner, std::vector<std::string> &enemies)
 {
     std::shared_ptr<Enemy> e = std::shared_ptr<Enemy>(spawner->getComponent<EnemySpawnerComponent>()->getEntity(
             enemies.at(Engine::RandomETU::randETU(static_cast<int>(enemies.size()) - 1))));
+    e->getComponent<Engine::TransformComponent>()->setPos(spawner->getComponent<Engine::TransformComponent>()->getPos());
+    if (e->getComponent<Engine::TargetComponent>())
+        e->getComponent<Engine::TargetComponent>()->addTargets(_game->getPlayersSpaceShips());
+    _game->spawn(e, true);
+}
+
+void SpawnerSystem::spawnEnemy(const std::shared_ptr<Engine::Entity> &spawner, std::string enemy)
+{
+    std::shared_ptr<Enemy> e = std::shared_ptr<Enemy>(spawner->getComponent<EnemySpawnerComponent>()->getEntity(enemy));
     e->getComponent<Engine::TransformComponent>()->setPos(spawner->getComponent<Engine::TransformComponent>()->getPos());
     if (e->getComponent<Engine::TargetComponent>())
         e->getComponent<Engine::TargetComponent>()->addTargets(_game->getPlayersSpaceShips());
@@ -67,7 +76,10 @@ void SpawnerSystem::handleWaves(std::shared_ptr<Engine::Entity> &spawner)
     }
     if (wave->timeToSwitch()) {
         wave->goNextScene();
-        spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(spawner->getComponent<EnemySpawnerComponent>()->getSpawnRate() + 4);
+        if (wave->getCurrentWave() != WaveComponent::victory)
+            spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(spawner->getComponent<EnemySpawnerComponent>()->getSpawnRate() + 4);
+        else
+            spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(0);
         text->getText()->setString(wave->getTextFromWave(wave->getCurrentWave()));
         text->getText()->setFillColor(Engine::Color({0, 0, 0, 255}));
         text->setHasToBeDraw(true);
@@ -79,6 +91,16 @@ void SpawnerSystem::handleWaves(std::shared_ptr<Engine::Entity> &spawner)
         text->getText()->setFillColor(Engine::Color({0, 0, 0, c}));
     } else {
         text->setHasToBeDraw(false);
+    }
+    if (wave->getCurrentWave() == WaveComponent::boss && wave->getElapsedSecondSinceLastStart() < wave->getDurationFromWave(WaveComponent::boss)) {
+        if (Engine::RandomETU::randETU(60) == Engine::RandomETU::randETU(60))
+        spawnEnemy(spawner, FLAPPING_ROBOT);
+    }
+    if (wave->getCurrentWave() == WaveComponent::victory)  {
+        std::cout << wave->getElapsedSecondSinceLastStart() << " " << wave->getDurationFromWave(WaveComponent::victory) << std::endl;
+    }
+    if (wave->getCurrentWave() == WaveComponent::victory && wave->getElapsedSecondSinceLastStart() > wave->getDurationFromWave(WaveComponent::victory)) {
+        _game->stopTheGame();
     }
 }
 
