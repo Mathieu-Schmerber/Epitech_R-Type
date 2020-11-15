@@ -409,6 +409,29 @@ install(TARGETS bwRobot
 install(FILES ${CMAKE_BINARY_DIR}/bwRobot.pc
 		DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
 
+
+# Boss
+add_library(boss SHARED
+		dynamic_libs/Boss.cpp
+		dynamic_libs/Boss.hpp
+
+		${ENEMIES_SOURCES}
+		)
+set_target_properties(boss PROPERTIES SOVERSION 1)
+set_target_properties(boss PROPERTIES
+		PUBLIC_HEADER "${ENEMIES_INCLUDES}")
+target_include_directories(boss PUBLIC
+		dynamic_libs
+		engine/include
+		server/game
+		client/include
+		)
+install(TARGETS boss
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES ${CMAKE_BINARY_DIR}/boss.pc
+		DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+
 ###############
 
 target_include_directories(r-type_server PRIVATE

@@ -22,10 +22,10 @@ private:
             {victory, "../../client/assets/textsEdt/Victory.txt"}
     };
     std::map<int, int> _waveDuration = {
-            {basic, 10},
-            {medium, 10},
-            {hard, 10},
-            {boss, 10},
+            {basic, 60},
+            {medium, 60},
+            {hard, 60},
+            {boss, 0},
             {victory, 4}
     };
     int displayWaveTime = 2;

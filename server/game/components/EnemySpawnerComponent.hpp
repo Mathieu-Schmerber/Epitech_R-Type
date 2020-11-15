@@ -20,10 +20,12 @@
 #define FLOATING_ROBOT "../lib/libfloatingRobot.so"
 #define FLAPPING_ROBOT "../lib/libflappingRobot.so"
 #define BW_ROBOT "../lib/libbwRobot.so"
+#define BOSS "../lib/libboss.so"
 #elif defined(_WIN32) || defined(WIN32)
 #define FLOATING_ROBOT "./floatingRobot.dll"
 #define FLAPPING_ROBOT "./flappingRobot.dll"
 #define BW_ROBOT "./bwRobot.dll"
+#define BOSS "./boss.dll"
 #endif
 
 class EnemySpawnerComponent : public Engine::Component

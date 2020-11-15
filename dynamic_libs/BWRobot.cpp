@@ -58,7 +58,7 @@ BWRobot::BWRobot(const Engine::Point<double> &pos) : Enemy(std::move(std::make_u
                               {_size.x * 1, _size.x * 2, _size.y, _size.y * 3},
                               {_size.x * 2, _size.x * 3, _size.y, _size.y * 4}}}
     }, true);
-    this->addComponent<HealthComponent>(2);
+    this->addComponent<HealthComponent>(10);
     this->addComponent<Engine::ColliderComponent>(Collision::ENEMY, pos, _size);
     this->addComponent<Engine::VelocityComponent>(Engine::Vector<double>({-5 + FLOOR_SPEED, 0}), Engine::Vector<double>({0, 0}));
     this->addComponent<Engine::TargetComponent>();

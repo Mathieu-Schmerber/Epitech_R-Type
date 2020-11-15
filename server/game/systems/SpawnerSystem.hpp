@@ -23,11 +23,13 @@ private:
     void handleMove(std::shared_ptr<Engine::Entity> &spawner);
     void handleSpawn(std::shared_ptr<Engine::Entity> &spawner);
     void handleWaves(std::shared_ptr<Engine::Entity> &spawner);
+    std::shared_ptr<Engine::Entity> _boss = nullptr;
 public:
     explicit SpawnerSystem(std::shared_ptr<Game> &game);
     void update() override;
 
-    void spawnEnemy(const std::shared_ptr<Engine::Entity> &spawner, std::string enemy);
+    void spawnEnemy(const std::shared_ptr<Engine::Entity> &spawner, std::string enemy, bool boss);
+
 };
 
 
