@@ -47,7 +47,7 @@ void pattern(std::shared_ptr<Engine::Entity> &enemy)
 BWRobot::BWRobot(const Engine::Point<double> &pos) : Enemy(std::move(std::make_unique<DataSprite>(PATH, Engine::Box<double>{pos, {SIZE_X, SIZE_Y}})), pos)
 {
     this->addComponent<PatternComponent>(&pattern);
-    this->addComponent<AutomaticWeaponComponent>(1, 1, Engine::Vector<double>{-40, 0}, Collision::Mask::ENEMY_PROJECTILE, ProjectileComponent::Type::BASIC);
+    this->addComponent<AutomaticWeaponComponent>(1, 2, Engine::Vector<double>{-40, 0}, Collision::Mask::ENEMY_PROJECTILE, ProjectileComponent::Type::BASIC);
     this->addComponent<Engine::AnimationComponent>(0.2, std::map<int, std::vector<Engine::Box<double>>>{
             {DEFAULT, {
                               {_size.x * 0, _size.x * 1, 0, _size.y},
@@ -58,7 +58,7 @@ BWRobot::BWRobot(const Engine::Point<double> &pos) : Enemy(std::move(std::make_u
                               {_size.x * 1, _size.x * 2, _size.y, _size.y * 3},
                               {_size.x * 2, _size.x * 3, _size.y, _size.y * 4}}}
     }, true);
-    this->addComponent<HealthComponent>(10);
+    this->addComponent<HealthComponent>(8);
     this->addComponent<Engine::ColliderComponent>(Collision::ENEMY, pos, _size);
     this->addComponent<Engine::VelocityComponent>(Engine::Vector<double>({-5 + FLOOR_SPEED, 0}), Engine::Vector<double>({0, 0}));
     this->addComponent<Engine::TargetComponent>();
