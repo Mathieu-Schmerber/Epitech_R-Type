@@ -14,12 +14,16 @@
 
 class PlayerAndStarshipComponent : public Engine::Component {
     public:
+        int _id;
     /*!
      * \brief LobbyComponent constructor
      *
      * Basic PlayerAndStarship
     */
-    explicit PlayerAndStarshipComponent() :  Engine::Component() {}
+    explicit PlayerAndStarshipComponent(int id) :  _id(id), Engine::Component() {}
+    [[nodiscard]] int getId() const {return _id;};
+    void setId(int id) {_id = id;};
+
 };
 
 #endif //RTYPE_PLAYERANDSTARSHIPCOMPONENT_HPP

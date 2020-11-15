@@ -35,7 +35,7 @@ public:
     *
     * Create the Core by setting all his member variables with determined value
    */
-    Core(std::string ip);
+    explicit Core(const std::string &ip);
 	
     /*!
     * \brief Core default destructor
