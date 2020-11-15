@@ -82,7 +82,9 @@ void InGame::onFocus()
 
 void InGame::onExit()
 {
-    this->_entities.clear();
+    auto copy = this->_entities;
+    for (auto &e : copy)
+        this->despawnEntity(e);
 }
 
 std::shared_ptr<Engine::Entity> InGame::getQuitButton() const

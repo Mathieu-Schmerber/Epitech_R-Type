@@ -10,6 +10,15 @@ Engine::MusicSystem::MusicSystem() : Engine::System()
     this->addDependency<MusicComponent>();
 }
 
+void Engine::MusicSystem::deleteEntity(std::shared_ptr<Engine::Entity> &entity)
+{
+    auto music = entity->getComponent<Engine::MusicComponent>();
+
+    if (music)
+        music->getMusic()->stop();
+    Engine::Utils::removeFromVector(this->_entities, entity);
+}
+
 void Engine::MusicSystem::update()
 {
     MusicComponent *music;
