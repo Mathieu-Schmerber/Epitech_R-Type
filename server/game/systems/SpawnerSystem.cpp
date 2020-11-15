@@ -52,12 +52,15 @@ void SpawnerSystem::spawnRandom(const std::shared_ptr<Engine::Entity> &spawner, 
     _game->spawn(e, true);
 }
 
-void SpawnerSystem::spawnEnemy(const std::shared_ptr<Engine::Entity> &spawner, std::string enemy)
+void SpawnerSystem::spawnEnemy(const std::shared_ptr<Engine::Entity> &spawner, std::string enemy, bool boss)
 {
     std::shared_ptr<Enemy> e = std::shared_ptr<Enemy>(spawner->getComponent<EnemySpawnerComponent>()->getEntity(enemy));
     e->getComponent<Engine::TransformComponent>()->setPos(spawner->getComponent<Engine::TransformComponent>()->getPos());
     if (e->getComponent<Engine::TargetComponent>())
         e->getComponent<Engine::TargetComponent>()->addTargets(_game->getPlayersSpaceShips());
+    if (boss)
+        _boss = e;
+
     _game->spawn(e, true);
 }
 
@@ -87,7 +90,7 @@ void SpawnerSystem::handleWaves(std::shared_ptr<Engine::Entity> &spawner)
         music->playMe(true);
 
     }
-    if (wave->timeToSwitch()) {
+    if (wave->timeToSwitch() && (wave->getCurrentWave() != WaveComponent::boss || !_boss || !_boss->getComponent<HealthComponent>() || _boss->getComponent<HealthComponent>()->getCurrentHealth() <= 0)) {
         wave->goNextScene();
 
         auto newMusic = std::make_unique<DataMusic>(_musics[wave->getCurrentWave()]);
@@ -95,32 +98,27 @@ void SpawnerSystem::handleWaves(std::shared_ptr<Engine::Entity> &spawner)
         music->playMe(true);
 
         spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(spawner->getComponent<EnemySpawnerComponent>()->getSpawnRate() + 4);
-        if (wave->getCurrentWave() != WaveComponent::victory)
+        if (wave->getCurrentWave() != WaveComponent::victory && wave->getCurrentWave() != WaveComponent::boss)
             spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(spawner->getComponent<EnemySpawnerComponent>()->getSpawnRate() + 4);
         else
             spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(0);
+        if (wave->getCurrentWave() == WaveComponent::boss)
+            spawnEnemy(spawner, BOSS, true);
         text->getText()->setString(wave->getTextFromWave(wave->getCurrentWave()));
         text->getText()->setFillColor(Engine::Color({0, 0, 0, 255}));
         text->setHasToBeDraw(true);
     }
     auto textDuration = 2.3;
+    if (wave->getCurrentWave() == WaveComponent::victory)
+        textDuration = 1000000;
     if (wave->getElapsedSecondSinceLastStart() < textDuration) {
         int alpha = static_cast<int>(wave->getElapsedSecondSinceLastStart() * 255 / textDuration);
         auto c = static_cast<unsigned char>(255 - alpha);
         text->getText()->setFillColor(Engine::Color({0, 0, 0, c}));
-    } else {
+    } else
         text->setHasToBeDraw(false);
-    }
-    if (wave->getCurrentWave() == WaveComponent::boss && wave->getElapsedSecondSinceLastStart() < wave->getDurationFromWave(WaveComponent::boss)) {
-        if (Engine::RandomETU::randETU(60) == Engine::RandomETU::randETU(60))
-        spawnEnemy(spawner, FLAPPING_ROBOT);
-    }
-    if (wave->getCurrentWave() == WaveComponent::victory)  {
-        std::cout << wave->getElapsedSecondSinceLastStart() << " " << wave->getDurationFromWave(WaveComponent::victory) << std::endl;
-    }
-    if (wave->getCurrentWave() == WaveComponent::victory && wave->getElapsedSecondSinceLastStart() > wave->getDurationFromWave(WaveComponent::victory)) {
+    if (wave->getCurrentWave() == WaveComponent::victory && wave->getElapsedSecondSinceLastStart() > wave->getDurationFromWave(WaveComponent::victory))
         _game->stopTheGame();
-    }
 }
 
 void SpawnerSystem::update()

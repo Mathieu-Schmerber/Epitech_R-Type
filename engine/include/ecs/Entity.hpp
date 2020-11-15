@@ -75,6 +75,5 @@ namespace Engine {
         return res;
     }
 
-
 }
 #endif //RTYPE_ENTITY_HPP

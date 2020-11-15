@@ -177,7 +177,6 @@ void PlayerCollisionSystem::update()
             continue;
         }
         auto sentinels = PlayerCollisionSystem::getSentinels(e);
-        std::cout << "health: " << e->getComponent<HealthComponent>()->getCurrentHealth() << std::endl;
         if (e->getComponent<HealthComponent>()->getCurrentHealth() < sentinels.size() + 1.0 &&
             e->getComponent<HealthComponent>()->getCurrentHealth() > 0) {
             size = sentinels.size() + 1 - static_cast<int>(e->getComponent<HealthComponent>()->getCurrentHealth());
