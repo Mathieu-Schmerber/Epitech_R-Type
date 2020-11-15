@@ -11,7 +11,7 @@
 #ifndef RTYPE_TEXTSFML_HPP
 #define RTYPE_TEXTSFML_HPP
 
-#include <SFML/Graphics/Text.hpp>
+#include "SFML/Graphics/Text.hpp"
 #include "graphical/AText.hpp"
 #include "graphical/AFont.hpp"
 #include "graphical/AWindow.hpp"

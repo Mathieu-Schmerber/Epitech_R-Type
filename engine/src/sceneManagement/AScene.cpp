@@ -2,7 +2,7 @@
 // Created by mathi on 29/10/2020.
 //
 
-#include <components/NetworkComponent.hpp>
+#include "components/NetworkComponent.hpp"
 #include "sceneManagement/AScene.hpp"
 #include "tools/Utils.hpp"
 

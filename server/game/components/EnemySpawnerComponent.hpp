@@ -10,8 +10,8 @@
 #define RTYPE_ENEMYSPAWNERCOMPONENT_HPP
 
 #include <chrono>
-#include <tools/Timer.hpp>
-#include <tools/DynamicLibManager.hpp>
+#include "tools/Timer.hpp"
+#include "tools/DynamicLibManager.hpp"
 #include "entities/Enemy.hpp"
 #include "tools/DLLoader.hpp"
 #include "ecs/Component.hpp"

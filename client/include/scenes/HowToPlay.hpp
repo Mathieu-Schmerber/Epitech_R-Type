@@ -21,7 +21,8 @@ enum HowToPlayContext {
     PRELUDE,
     WEAPONS,
     HEALTH,
-    BONUS
+    BONUS,
+    SENTINEL
 };
 
 class HowToPlay : public Engine::AScene
@@ -33,6 +34,7 @@ class HowToPlay : public Engine::AScene
     int _enginesDrawableHowToPlayScreenIndex = 0;
     std::vector<std::shared_ptr<Engine::Entity>> _enginesDrawableHowToPlayBonus;
     std::shared_ptr<Engine::Entity> _enginesPowerUp;
+    std::shared_ptr<Engine::Entity> _engineSentinel;
 
     void initEntities() final;
     void initSystems() final;
@@ -51,6 +53,7 @@ class HowToPlay : public Engine::AScene
     int getEnginesDrawableIndex() const;
     std::vector<std::shared_ptr<Engine::Entity>> getEnginesDrawableBonus() const;
     std::shared_ptr<Engine::Entity> getPowerUpEngine() const;
+    std::shared_ptr<Engine::Entity> getSentinelEngine() const;
     std::shared_ptr<Engine::AWindow> getWindow() const;
     void setEnginesDrawableIndex(unsigned char index);
 };

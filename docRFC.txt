@@ -17,8 +17,8 @@ Table of Contents
    4.   How to execute . . . . . . . . . . . . . . . . . . . . . . . 2
    4a.   r-type_server . . . . . . . . . . . . . . . . . . . . . . . 2
    4b.   r-type_client . . . . . . . . . . . . . . . . . . . . . . . 2
-   5.   The server . . . . . . . . . . . . . . . . . . . . . . . . . 3
-   6.   The client . . . . . . . . . . . . . . . . . . . . . . . . . 3
+   5.   TCP  . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+   6.   UDP  . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
    7.   Authors  . . . . . . . . . . . . . . . . . . . . . . . . . . 3
 
 
@@ -97,14 +97,135 @@ Epitech 2023                 C++ project                         [Page 2]
 RFC 2223                    R-type project                  November 2020
 
 
-5. The server
+5. TCP
 
-   [...]
+   The TCP protocol MUST works with std::vector<int>, in all the TCP
+   protocol, the first int in the vector MUST be the size of the message.
 
-6. The client
+   A new lobby is created (Server -> Client)
 
-   [...]
+      The first int MUST be 6 (Message size)
+      The second int MUST be 0 (Update lobby on client)
+      The third int MUST be the lobby Id (set by the Server)
+      The fourth int MUST be 0 (Don't delete the lobby) or 1 (Delete the lobby)
+      The fifth int MUST be the number of slots (between 1 and 4)
+      The sixth int MUST be 0 (Game is not running) or 1 (Game is running)
 
+   Update a lobby (Server -> Client)
+
+      The first int MUST be 7 (Message size)
+      The second int MUST be 1 (Create a new lobby in Client)
+      The third int MUST be the lobby Id (set by the Server)
+      The fourth int MUST be the UDP port of the Lobby in the Server
+      The fifth int MUST be the number of slots (between 1 and 4)
+      The sixth int MUST be the Client Id which create the Lobby
+      The seventh int MUST be the number of connected players (between 1 and 4)
+
+   Join a lobby (Client -> Server)
+
+      The first int MUST be 3 (Message size)
+      The second int MUST be 0 (Join a lobby)
+      The third int MUST be the lobby Id (set by the Server)
+
+   Create a lobby (Client -> Server)
+
+      The first int MUST be 4 (Message size)
+      The second int MUST be 1 (Create a lobby)
+      The third int MUST be the number of slots (between 1 and 4)
+      The fourth int MUST be the UDP port open on the client
+
+   Init UDP connexion
+
+      Get UDP port from the Server (Server -> Client)
+
+         The first int MUST be 3 (Message size)
+         The second int MUST be 42 (Give the server UDP port)
+         The second int MUST be the server UDP port
+
+      After this message, the server MUST wait the answer from the Client.
+
+      Get UDP port from the Client (Client -> Server)
+
+         The first int MUST be 3 (Message size)
+         The second int MUST be 43 (Give the client UDP port)
+         The third int MUST be the client UDP port
+
+   Start the game (Server -> Client)
+
+      The server launches the game.
+
+      The first int MUST be 2 (Message size)
+      The second int MUST be 45 (Start the game)
+
+   Close a lobby (Server -> Client)
+
+      The server closes a lobby
+
+      The first int MUST be 3 (Message size)
+      The second int MUST be 46 (Close a lobby)
+      The third int MUST be the lobby closed ID
+
+   The client leave the lobby (Client -> Server)
+
+      The first int MUST be 2 (Message size)
+      The second int MUST be 47 (The client leave the lobby)
+
+   The game is finished on the Server (Server -> Client)
+
+      The first int MUST be 2 (Message size)
+      The second int MUST be 48 (The game is finished on the server)
+
+   A user join the lobby (Server -> Client)
+
+      The first int MUST be 4 (Message size)
+      The second int MUST be 49 (A user join the lobby)
+      The third int MUST be the Id of the client who join the lobby
+      The fourth int MUST be the Id of the client master of the lobby
+
+   A user quit the lobby (Server -> Client)
+
+      The first int MUST be 4 (Message size)
+      The second int MUST be 50 (A user quit the lobby)
+      The third int MUST be the Id of the client who quit the lobby
+      The fourth int MUST be the Id of the client master of the lobby
+
+   The lobby cannot be joined (Server -> Client)
+
+      The first int MUST be 2 (Message size)
+      The second int MUST be -42 (The lobby cannot be joined)
+
+6. UDP
+
+   The UDP protocol is separated in two different parts, the Client data and the
+   server data.
+
+   Client to Server
+
+      The inputs of the client are sent to the server in the following way :
+
+      The first int MUST be the player ID in the game (between 0 and 3)
+      The second int MUST be the number of input pressed (which defined the number
+      of input to read).
+      The x int defined by the second MUST be the input pressed by the Client
+      The third + x int MUST be the number of input released by the Client (which
+      defined the number of input to read).
+      The y int defined by the third + x MUST be the input released by the Client
+
+   Server to Client
+
+      The output with the positions, the music, the enemies to display... MUST be send
+      to the Client in the following way :
+
+      The first int MUST be the type of the message send
+
+         If the type is 1 :
+
+         The 1st int MUST be the EntityNetworkId
+         The 2nd int MUST be the position X of the Entity
+         The 3rd int MUST be the position Y of the Entity
+         The 4th int MUST be the rotation of the Entity
+         The 5th int MUST be the poolIndex of the Entity
+         The 6th int MUST be the rect X
 
 
 Epitech 2023                 C++ project                         [Page 3]
@@ -117,6 +238,6 @@ RFC 2223                    R-type project                  November 2020
    This project has realized in Novemher 2020 by :
    - Mathieu Schmerber
    - Paul Surrans
-   - Cyprien Ricques
+   - Cyprien Ricque
    - Emilien Delevoye
    Epitech Lille - Promo 2023 students

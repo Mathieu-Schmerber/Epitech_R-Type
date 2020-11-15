@@ -100,6 +100,8 @@
 #define POWER_UP_WIDTH 24
 #define POWER_UP_HEIGHT 20
 
+#define SENTINEL_PATH "../../client/assets/images/weapons/sentinel_16x14x12_20x16x6_23x31x4.png"
+
 /* SETTINGS */
 
 #define FRAMERATE_VALUE_PATH "../../client/assets/texts/framerate_number_text_405x51_135x51.png"

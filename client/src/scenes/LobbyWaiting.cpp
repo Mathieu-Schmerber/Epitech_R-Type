@@ -2,9 +2,9 @@
 // Created by paul on 11/10/20.
 //
 
-#include <entities/LobbyCard.hpp>
-#include <systems/TextSystem.hpp>
-#include <systems/LobbyWaitingSystem.hpp>
+#include "entities/LobbyCard.hpp"
+#include "systems/TextSystem.hpp"
+#include "systems/LobbyWaitingSystem.hpp"
 #include "scenes/SceneType.hpp"
 #include "scenes/LobbyWaiting.hpp"
 #include "systems/DrawSystem.hpp"

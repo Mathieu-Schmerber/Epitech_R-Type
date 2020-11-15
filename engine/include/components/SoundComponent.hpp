@@ -9,7 +9,7 @@
 #ifndef RTYPE_SOUNDCOMPONENT_HPP
 #define RTYPE_SOUNDCOMPONENT_HPP
 
-#include <graphical/ASound.hpp>
+#include "graphical/ASound.hpp"
 #include "ecs/Component.hpp"
 #include <memory>
 

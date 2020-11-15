@@ -12,7 +12,7 @@
 #define RTYPE_FONTSFML_HPP
 
 #include "graphical/AFont.hpp"
-#include <SFML/Graphics/Font.hpp>
+#include "SFML/Graphics/Font.hpp"
 
 class FontSFML : public Engine::AFont {
 private:
