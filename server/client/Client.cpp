@@ -59,6 +59,7 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
         }
     } else if (_data.at(1) == 1) {
         //Create a Lobby
+        std::cout << "Create Lobby" << std::endl;
         auto newLobby = this->_server->getLobbyManager().addLobby(_data.at(2));
         if (!newLobby)
             return;
@@ -89,11 +90,12 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
             return;
         _socketOutput = std::make_shared<Engine::UdpSocketOutput>(
             this->get_socket().remote_endpoint().address().to_string(), _data.at(2));
-    } else if (_data.at(1) == 44) {
-        if (_data.at(0) != 2)
-            return;
+    } else if (_data.at(1) == 44 && _data.at(0) == 2) {
         if (_currentLobby)
             _currentLobby->run();
+    } else if (_data.at(1) == 47 && _data.at(0) == 2) {
+        if (_currentLobby)
+            _currentLobby->leave(s);
     }
 }
 

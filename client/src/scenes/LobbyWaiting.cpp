@@ -46,8 +46,13 @@ void goToInGamesScene(std::shared_ptr<Engine::AScene> &lobbyWaiting)
 
 void goBackToCreateLobby(std::shared_ptr<Engine::AScene> &lobbyWaiting)
 {
+    std::shared_ptr<LobbyWaiting> scene = std::dynamic_pointer_cast<LobbyWaiting>(lobbyWaiting);
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::CREATE_LOBBY);
+    std::vector<int> toSend;
 
+    toSend.push_back(2);
+    toSend.push_back(47);
+    scene->getServer()->getTcpSocket()->sendToServer(toSend);
     lobbyWaiting->pushRequest(request);
 }
 
