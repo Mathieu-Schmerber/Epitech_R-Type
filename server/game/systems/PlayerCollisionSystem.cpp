@@ -42,8 +42,8 @@ void PlayerCollisionSystem::attachSentinel(std::shared_ptr<Engine::Entity> &play
     auto box2 = sentinel->getComponent<Engine::SpriteComponent>()->getSprite()->getRect();
     auto pos = (top ? Engine::Geometry::placeTop(box1, box2) : Engine::Geometry::placeBottom(box1, box2));
     auto offset = Engine::Point<double>{0.0, (top ? -10.0 : 10.0)};
-    player->getComponent<HealthComponent>()->gainHealth(1);
 
+    player->getComponent<HealthComponent>()->gainHealth(1);
     pos = {pos.x + offset.x, pos.y + offset.y};
     sentinel->getComponent<Engine::TransformComponent>()->setPos(pos);
     player->getComponent<Engine::ChildrenComponent>()->addChild(sentinel);
@@ -160,13 +160,19 @@ void PlayerCollisionSystem::handleCollisions(std::shared_ptr<Engine::Entity> &pl
 
 void PlayerCollisionSystem::update()
 {
+    size_t size;
+
     for (auto &e : this->_entities) {
         this->handleCollisions(e);
         auto sentinels = PlayerCollisionSystem::getSentinels(e);
-        if (e->getComponent<HealthComponent>()->getCurrentHealth() - 1 < sentinels.size() &&
+        std::cout << "health: " << e->getComponent<HealthComponent>()->getCurrentHealth() << std::endl;
+        if (e->getComponent<HealthComponent>()->getCurrentHealth() < sentinels.size() + 1.0 &&
             e->getComponent<HealthComponent>()->getCurrentHealth() > 0) {
-            for (size_t i = static_cast<int>(e->getComponent<HealthComponent>()->getCurrentHealth()) - 1; i < sentinels.size(); ++i)
+            size = sentinels.size() + 1 - static_cast<int>(e->getComponent<HealthComponent>()->getCurrentHealth());
+            for (size_t i = 0; i < size; ++i) {
                 this->_game->despawn(sentinels[0]);
+                sentinels = PlayerCollisionSystem::getSentinels(e);
+            }
         }
     }
 }

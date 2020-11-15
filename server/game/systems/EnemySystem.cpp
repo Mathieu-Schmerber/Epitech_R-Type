@@ -42,7 +42,7 @@ bool EnemySystem::didCollide(std::shared_ptr<Engine::Entity> &enemy)
 
 void EnemySystem::deleteEntity(std::shared_ptr<Engine::Entity> &entity)
 {
-    const double bonusSpawnRate = 35.0;
+    const double bonusSpawnRate = 100.0;
     auto rdm = Engine::RandomETU::randETU<double>(0, 100);
     bool spawnBonus = (rdm <= bonusSpawnRate);
     std::shared_ptr<Engine::Entity> bonus;

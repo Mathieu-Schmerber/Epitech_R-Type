@@ -53,8 +53,9 @@ public:
                             {_size.x * 4, _size.x * 5, 0, _size.y}}}
         });
         this->getComponent<Engine::AnimationComponent>()->setAnimation(IDLE, false);
-        this->addComponent<ManualWeaponComponent>(1, 0.5, 0.2);
-        this->addComponent<HealthComponent>(1);
+        this->addComponent<ManualWeaponComponent>(1, 0.5, 0.1);
+        auto health = this->addComponent<HealthComponent>(3);
+        health->setCurrentHealth(1);
     }
 };
 
