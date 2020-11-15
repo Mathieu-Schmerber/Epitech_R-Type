@@ -19,6 +19,8 @@
 #include "components/HealthComponent.hpp"
 #include "components/SoundComponent.hpp"
 
+#define SOUND "../../client/assets/ogg/sound_effect/shoots/shoot_12.ogg"
+
 class Player : public Engine::Entity
 {
 private:
@@ -56,12 +58,11 @@ public:
         });
         this->getComponent<Engine::AnimationComponent>()->setAnimation(IDLE, false);
         this->addComponent<ManualWeaponComponent>(1, 0.5, 0.1);
-        this->addComponent<Engine::SoundComponent>();
 
         auto health = this->addComponent<HealthComponent>(10000);
         health->setCurrentHealth(10000);
 
-        auto sound = std::make_unique<DataSound>("../../client/assets/ogg/sound_effect/shoots/shoot_12.ogg");
+        auto sound = std::make_unique<DataSound>(SOUND);
         this->addComponent<Engine::SoundComponent>(std::move(sound));
     }
 };
