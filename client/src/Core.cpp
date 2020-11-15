@@ -18,12 +18,12 @@
 #include "scenes/CreateLobby.hpp"
 #include "scenes/LobbyWaiting.hpp"
 
-Core::Core()
+Core::Core(std::string ip)
 {
     this->_graph = std::make_unique<GraphicalSFML>();
     this->_graph->setWindow(std::make_shared<WindowSFML>(std::string("r-type"), Engine::Size<double>{1920, 1080}));
     this->_graph->setEvents(std::make_shared<EventsSFML>(_graph->getWindow()));
-    this->_server = std::make_shared<NetworkAccess>("127.0.0.1", 4242, 4200); //TODO: Fix IP with server ip
+    this->_server = std::make_shared<NetworkAccess>(ip, 4242, 4200); //TODO: Fix IP with server ip
     this->_timer = std::make_unique<Engine::Timer>();
     this->_sceneManager = std::make_unique<Engine::SceneManager>();
 }
