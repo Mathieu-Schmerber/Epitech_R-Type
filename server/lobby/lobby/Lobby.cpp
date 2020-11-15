@@ -21,7 +21,6 @@ void Lobby::run()
     std::vector<int> toSend;
     int i = 0;
 
-    std::cout << "Start game" << std::endl;
     for (const auto &a : _players) {
         toSend.clear();
         toSend.push_back(3);
@@ -47,7 +46,6 @@ void Lobby::run()
 void Lobby::join(const std::shared_ptr<Client> &cli)
 {
     std::vector<int> toSend;
-    std::cout << "Client " << cli->getId() << " join lobby " << _id << std::endl;
     if (!_players.empty()) {
         for (auto &a : _players) {
             toSend.clear();
@@ -128,7 +126,6 @@ int Lobby::getPort() const
 
 Lobby::~Lobby()
 {
-    std::cout << "Close lobby" << std::endl;
     std::vector<int> toSend;
 
     toSend.push_back(3);
@@ -140,7 +137,6 @@ Lobby::~Lobby()
         _game->stopTheGame();
     if (_thread.joinable())
         _thread.join();
-    std::cout << "End close lobby" << std::endl;
 }
 
 bool Lobby::getToRemove() const

@@ -32,7 +32,7 @@ namespace Engine {
         explicit DLLoader(const std::string &libName);
 
         ~DLLoader() override
-        { std::cout << "Lib destroyed" << std::endl; }
+        {}
 
         typedef T *(*fct)();
 
@@ -93,7 +93,6 @@ namespace Engine {
     template<typename T>
     void DLLoader<T>::close(T instance) const
     {
-        std::cout << "lib closed" << std::endl;
         if (!_lib)
             return;
         #ifdef __unix__

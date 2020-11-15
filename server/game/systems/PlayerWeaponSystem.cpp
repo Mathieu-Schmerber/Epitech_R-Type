@@ -93,7 +93,6 @@ void PlayerWeaponSystem::handleWeapon(std::shared_ptr<Engine::Entity> &player)
     auto weapon = player->getComponent<ManualWeaponComponent>();
     auto box = player->getComponent<Engine::ColliderComponent>()->getHitBox();
 
-    std::cout << player->getComponent<Engine::SoundComponent>()->getSound()->getFile() << std::endl;
     if (Engine::Utils::isInVector(pressed, Engine::Inputs::Space) && !weapon->isCharging()) {
         weapon->beginCharge();
         this->spawnShootParticle(player);

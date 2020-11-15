@@ -78,11 +78,10 @@ void LobbySystem::handleLobbyJoin(std::shared_ptr<Engine::Entity> &lobby)
     bool waitingForAnswer = true;
     auto &tcp = this->_server->getTcpSocket();
     auto click = lobby->getComponent<Engine::ClickableComponent>();
-    unsigned short info = lobby->getComponent<LobbyComponent>()->getLobbyId(); //Et autres getter à la place de getLobbyId
+    unsigned short info = lobby->getComponent<LobbyComponent>()->getLobbyId(); //Et autres getter ï¿½ la place de getLobbyId
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::LOBBY_WAITING);
 
     if (click->isReleased()) {
-        std::cout << "Pouet pouet fait le dindon" << std::endl;
         std::vector<int> toSend;
         toSend.push_back(3);
         toSend.push_back(0);

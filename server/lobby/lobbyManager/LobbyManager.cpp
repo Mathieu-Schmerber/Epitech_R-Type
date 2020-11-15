@@ -42,7 +42,6 @@ std::vector<Lobby *> LobbyManager::getAvailableLobbies() const
         if (a && !a->isInGame())
             output.push_back(a);
     }
-    std::cout << "Return size lobbies : " << output.size() << " && " << this->_lobbys.size() << std::endl;
     return output;
 }
 

@@ -36,12 +36,6 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
         return;
     }
 
-    std::cout << "Receive from IP [" << socket.remote_endpoint().address().to_string() << "] : ";
-    for (auto ia : _data) {
-        std::cout << ia << " ";
-    }
-    std::cout << std::endl;
-
     if (_data.at(0) < 2)
         return;
     if (_data.at(1) == 0) {
@@ -63,7 +57,6 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
         _currentLobby->join(s);
     } else if (_data.at(1) == 1) {
         //Create a Lobby
-        std::cout << "Create Lobby" << std::endl;
         auto newLobby = this->_server->getLobbyManager().addLobby(_data.at(2));
         if (!newLobby)
             return;

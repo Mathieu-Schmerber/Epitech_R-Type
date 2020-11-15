@@ -31,7 +31,7 @@ public:
     explicit TextureSFML(const std::string& filename) : Engine::ATexture(filename), _texture(std::make_shared<sf::Texture>()) {
         loadFromFile(filename);
     }
-    virtual ~TextureSFML() { std::cout << "destroy TextureSFML" << std::endl; }
+    virtual ~TextureSFML() {}
     void loadFromFile(std::string filename) final;
     std::shared_ptr<sf::Texture> &getTexture();
 

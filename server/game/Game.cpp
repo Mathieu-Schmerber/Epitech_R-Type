@@ -10,7 +10,6 @@
 #include "systems/EnemySystem.hpp"
 #include "systems/ChildrenSystem.hpp"
 #include "entities/ParallaxSlide.hpp"
-#include "entities/Spawner.hpp"
 #include "systems/ProjectileSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
@@ -25,7 +24,6 @@
 #include "systems/BorderLimitSystem.hpp"
 #include "components/NetworkComponent.hpp"
 #include "systems/TargetSystem.hpp"
-#include "entities/Collectible.hpp"
 
 Game::Game(std::vector<std::shared_ptr<Client>> &players, std::unique_ptr<UdpSocketInput> &reception)
 : _players(players), _reception(reception), _idIncrement(0), _running(true)
@@ -46,7 +44,6 @@ void Game::spawnPlayers()
 {
     std::shared_ptr<Engine::Entity> player;
 
-    std::cout << "[GAME] >> Player number: " << this->_players.size() << std::endl;
     for (int i = 0; i < this->_players.size(); ++i) {
         player = std::make_shared<Player>(i, Engine::Point<double>{500, 500.0 + (50.0 * i)});
         this->spawn(player, true);
@@ -168,7 +165,7 @@ void Game::update()
             sys->setDeltatime(time);
             sys->update();
         }
-        if (_players.empty()) {
+        if (_players.empty() || !this->_running) {
             _running = false;
             return;
         }
@@ -179,7 +176,6 @@ void Game::update()
 void Game::removeClientInGame(const std::shared_ptr<Client> &cli)
 {
     for (auto a = _players.begin(); a != _players.end(); ++a) {
-        std::cout << cli->getId() << " && " << a->get()->getId() << std::endl;
         if (cli->getId() == a->get()->getId()) {
             this->_players.erase(a);
             return;

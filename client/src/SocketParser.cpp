@@ -68,7 +68,6 @@ std::shared_ptr<Engine::Entity> SocketParser::createTextEntity(const std::vector
     if (in.size() < 10)
         return nullptr;
 
-    std::cout << in << std::endl;
     entity->addComponent<Engine::NetworkComponent>(in.at(1));
     entity->addComponent<Engine::TransformComponent>(Engine::Point<double>{static_cast<double>(in.at(4)), static_cast<double>(in.at(5))}, in.at(6));
     entity->addComponent<Engine::TextComponent>();

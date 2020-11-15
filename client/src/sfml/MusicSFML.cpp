@@ -16,7 +16,6 @@ void MusicSFML::loadFromFile(const std::string &filename)
 
 void MusicSFML::play(int volume)
 {
-    std::cout << "PLAY " << _volume << std::endl;
     setVolume(volume);
     _music->play();
 }

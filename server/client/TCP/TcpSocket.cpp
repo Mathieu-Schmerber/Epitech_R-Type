@@ -34,12 +34,7 @@ void Server::handle_accept(std::shared_ptr<Client> session, const boost::system:
             toSend.push_back(a->getSlots());
             toSend.push_back(0); //Master client Id
             toSend.push_back(a->getNbPlayers());
-            std::cout << "Size : " << _connected.size() << std::endl;
-            for (const auto & pouet : _connected) {
-                std::cout << pouet->getId() << std::endl;
-            }
             std::shared_ptr<Client> newSession = _connected.at(((_connected.size() - 2) < 0 ? 0 : _connected.size() - 2));
-            std::cout << "Send to session " << newSession->getId() << " " << ((_connected.size() - 2) < 0 ? 0 : _connected.size() - 2) << std::endl;
             newSession->sendToClientTcp(toSend);
         }
     } else {
