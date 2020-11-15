@@ -12,7 +12,7 @@
 #include "components/SpriteComponent.hpp"
 
 ServerNetworkSystem::ServerNetworkSystem(std::vector<std::shared_ptr<Client>> &players, std::unique_ptr<UdpSocketInput> &reception)
-        : _players(players), _reception(reception), Engine::System()
+: _players(players), _reception(reception), Engine::System()
 {
     this->addDependency<Engine::NetworkComponent>();
     this->addDependency<Engine::TransformComponent>();

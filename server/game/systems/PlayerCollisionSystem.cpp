@@ -16,6 +16,7 @@ PlayerCollisionSystem::PlayerCollisionSystem(std::shared_ptr<Game> &game) : _gam
     this->addDependency<Engine::AnimationComponent>();
     this->addDependency<Engine::ColliderComponent>();
     this->addDependency<Engine::ChildrenComponent>();
+    this->addDependency<HealthComponent>();
     this->addDependency<ManualWeaponComponent>();
 }
 
@@ -41,6 +42,7 @@ void PlayerCollisionSystem::attachSentinel(std::shared_ptr<Engine::Entity> &play
     auto box2 = sentinel->getComponent<Engine::SpriteComponent>()->getSprite()->getRect();
     auto pos = (top ? Engine::Geometry::placeTop(box1, box2) : Engine::Geometry::placeBottom(box1, box2));
     auto offset = Engine::Point<double>{0.0, (top ? -10.0 : 10.0)};
+    player->getComponent<HealthComponent>()->gainHealth(1);
 
     pos = {pos.x + offset.x, pos.y + offset.y};
     sentinel->getComponent<Engine::TransformComponent>()->setPos(pos);
@@ -99,7 +101,7 @@ void PlayerCollisionSystem::powerBounce(std::shared_ptr<Engine::Entity> &player,
 
 void PlayerCollisionSystem::powerMissile(std::shared_ptr<Engine::Entity> &player, std::shared_ptr<Engine::Entity> &sentinel)
 {
-    auto added = sentinel->addComponent<AutomaticWeaponComponent>(1, 3,Engine::Vector<double>{20.0, 0},
+    auto added = sentinel->addComponent<AutomaticWeaponComponent>(1, 2,Engine::Vector<double>{20.0, 0},
                                                                   Collision::Mask::PLAYER_PROJECTILE, ProjectileComponent::Type::MISSILE);
     added->setUseTargets(true);
 }
@@ -158,6 +160,13 @@ void PlayerCollisionSystem::handleCollisions(std::shared_ptr<Engine::Entity> &pl
 
 void PlayerCollisionSystem::update()
 {
-    for (auto &e : this->_entities)
+    for (auto &e : this->_entities) {
         this->handleCollisions(e);
+        auto sentinels = PlayerCollisionSystem::getSentinels(e);
+        if (e->getComponent<HealthComponent>()->getCurrentHealth() - 1 < sentinels.size() &&
+            e->getComponent<HealthComponent>()->getCurrentHealth() > 0) {
+            for (size_t i = static_cast<int>(e->getComponent<HealthComponent>()->getCurrentHealth()) - 1; i < sentinels.size(); ++i)
+                this->_game->despawn(sentinels[0]);
+        }
+    }
 }

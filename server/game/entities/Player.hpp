@@ -55,8 +55,7 @@ public:
         });
         this->getComponent<Engine::AnimationComponent>()->setAnimation(IDLE, false);
         this->addComponent<ManualWeaponComponent>(1, 0.5, 0.2);
-        //this->addComponent<HealthComponent>(8); // TODO: testing purpose
-        this->addComponent<HealthComponent>(800000);
+        this->addComponent<HealthComponent>(10000);
     }
 };
 
