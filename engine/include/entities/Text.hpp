@@ -10,6 +10,10 @@
 #include "ecs/Entity.hpp"
 
 namespace Engine {
+
+    /*!
+     * @brief Describes a Text Entity
+     */
     class Text : public Engine::Entity {
         public:
         explicit Text(const Point<double> &pos, std::unique_ptr<Engine::AText> text, int layer = 0) : Engine::Entity()

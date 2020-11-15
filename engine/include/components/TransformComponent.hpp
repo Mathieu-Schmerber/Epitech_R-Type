@@ -12,6 +12,9 @@
 
 namespace Engine {
 
+    /*!
+     * @brief This component stores an entity position and rotation
+     */
     class TransformComponent : public Engine::Component {
     private:
         Point<double> _pos;

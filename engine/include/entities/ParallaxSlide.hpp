@@ -14,6 +14,9 @@
 
 namespace Engine {
 
+    /*!
+     * @brief Describes a Parallax Entity
+     */
     class ParallaxSlide : public Engine::Entity {
     public:
         ParallaxSlide(const Point<double> &pos, const Point<double> &limit, const Vector<double> &speed, std::unique_ptr<ASprite> sprite, int layer = -1)

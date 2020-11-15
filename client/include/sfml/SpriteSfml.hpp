@@ -12,10 +12,10 @@
 #define RTYPE_SPRITESFML_HPP
 
 #include <string>
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Texture.hpp>
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Transformable.hpp>
+#include "SFML/Graphics/Sprite.hpp"
+#include "SFML/Graphics/Texture.hpp"
+#include "SFML/Graphics/Sprite.hpp"
+#include "SFML/Graphics/Transformable.hpp"
 #include "tools/Geometry.hpp"
 #include "graphical/ASprite.hpp"
 #include "sfml/TextureSFML.hpp"

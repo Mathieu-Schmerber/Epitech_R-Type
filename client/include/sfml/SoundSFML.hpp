@@ -11,8 +11,8 @@
 #ifndef RTYPE_SOUNDSFML_HPP
 #define RTYPE_SOUNDSFML_HPP
 
-#include <graphical/ASound.hpp>
-#include <SFML/Audio.hpp>
+#include "graphical/ASound.hpp"
+#include "SFML/Audio.hpp"
 #include <iostream>
 
 class SoundSFML : public Engine::ASound {

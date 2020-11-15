@@ -13,6 +13,9 @@
 
 namespace Engine {
 
+    /*!
+     * @brief This component stores all the data needed to animate a sprite.
+     */
     class AnimationComponent : public Engine::Component
     {
     private:
@@ -24,15 +27,23 @@ namespace Engine {
         bool _looping;
 
     public:
+        /*!
+         * @brief Default constructor.
+         */
         explicit AnimationComponent() : _animations({}), _frame(0), _current(-1), _frameTime(0), _looping(false),
-                                        _last(std::chrono::high_resolution_clock::now()), Engine::Component() {}
+                                        _last(std::chrono::high_resolution_clock::now()), Engine::Component()
+                                        {}
+        /*!
+         * @param animationTime Time per frame
+         * @param anim Map of frames
+         * @param looping Does the animation loop
+         */
         explicit AnimationComponent(double animationTime, const std::map<int, std::vector<Box<double>>> &anim = {}, bool looping = false)
                                     : _animations(anim), _frame(0), _current(-1), _frameTime(animationTime), _looping(looping),
                                     _last(std::chrono::high_resolution_clock::now()), Engine::Component() {
             if (!anim.empty())
                 this->_current = anim.begin()->first;
         }
-
 
         [[nodiscard]] bool hasAnimations() const {return !(this->_animations.empty());}
 
@@ -42,16 +53,29 @@ namespace Engine {
 
         [[nodiscard]] bool isLooping() const {return this->_looping;}
 
+        /*!
+         * @brief Refresh animation timer.
+         */
         void refresh() {this->_last = std::chrono::high_resolution_clock::now();}
 
         void setFrameTime(double frameTime) {this->_frameTime = frameTime;}
 
+        /*!
+         * @brief Add an animation.
+         * @param name Name of the animation
+         * @param frames List of animation's frames
+         */
         void addAnimation(int name, const std::vector<Box<double>> &frames) {
             if (Utils::isInMap(this->_animations, name))
                 std::cerr << "\033[33mAnimation WARNING : adding an already existing animation name, will overwrite its content (" << name <<")\033[0m" << std::endl;
             this->_animations[name] = frames;
         }
 
+        /*!
+         * @brief Plays an animation.
+         * @param name Name of the animation
+         * @param loop Does the animation loop
+         */
         void setAnimation(int name, bool loop = true) {
             if (Utils::isInMap(this->_animations, name) && this->_current != name) {
                 this->refresh();
@@ -75,7 +99,7 @@ namespace Engine {
             return res;
         }
 
-        int getAnimation() {
+        [[nodiscard]] int getAnimation() const {
             return _current;
         }
     };

@@ -9,6 +9,8 @@
 #ifndef RTYPE_COLOR_HPP
 #define RTYPE_COLOR_HPP
 
+#include <ostream>
+
 namespace Engine {
 
     struct Color {

@@ -2,8 +2,8 @@
 // Created by paul on 11/14/20.
 //
 
-#include <components/TransformComponent.hpp>
-#include <entities/PlayerAndStarshipEntity.hpp>
+#include "components/TransformComponent.hpp"
+#include "entities/PlayerAndStarshipEntity.hpp"
 #include "systems/LobbyWaitingSystem.hpp"
 #include "components/SpriteComponent.hpp"
 #include "components/TextComponent.hpp"

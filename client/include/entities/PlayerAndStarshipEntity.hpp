@@ -10,7 +10,7 @@
 #ifndef RTYPE_PLAYERANDSTARSHIPENTITY_HPP
 #define RTYPE_PLAYERANDSTARSHIPENTITY_HPP
 
-#include <components/PlayerAndStarshipComponent.hpp>
+#include "components/PlayerAndStarshipComponent.hpp"
 #include "ecs/Entity.hpp"
 #include "tools/Geometry.hpp"
 #include "components/TransformComponent.hpp"

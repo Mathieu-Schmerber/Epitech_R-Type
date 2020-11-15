@@ -10,6 +10,9 @@
 
 namespace Engine {
 
+    /*!
+     * @brief This component stores all the data needed to move an Engine::Entity around
+     */
     class VelocityComponent : public Engine::Component {
     private:
         Vector<double> _speed;

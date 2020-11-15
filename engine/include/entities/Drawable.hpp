@@ -11,6 +11,9 @@
 
 namespace Engine {
 
+    /*!
+     * @brief Describes a Drawable Entity
+     */
     class Drawable : public Engine::Entity {
         public:
             explicit Drawable(const Point<double> &pos, std::unique_ptr<Engine::ASprite> spr, int layer = 0) : Engine::Entity()

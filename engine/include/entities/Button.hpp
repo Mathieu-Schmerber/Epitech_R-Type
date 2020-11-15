@@ -16,6 +16,9 @@
 
 namespace Engine {
 
+    /*!
+     * @brief Describes a Button Entity
+     */
     class Button : public Engine::Entity {
     public:
         Button(const Point<double> &pos, const Point<double> &size,
