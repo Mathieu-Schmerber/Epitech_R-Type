@@ -13,8 +13,11 @@ or install it with **pip**:
 >$ pip install conan
 
 Then you need 3 remotes:
+
     - conan-center (installed with conan): https://bintray.com/conan/conan-center
+    
     - epitech: https://bintray.com/epitech/public-conan
+    
     - bincrafters: : https://bintray.com/bincrafters/public-conan 
     
 
