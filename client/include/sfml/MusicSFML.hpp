@@ -1,8 +1,10 @@
-/*
-** EPITECH PROJECT, 2020
-** RType
-** File description:
-** Created by Cyprien
+/*!
+ * @file MusicSFML.hpp
+ * @brief Manage SFML's music
+ * @authors Cyprien.R
+ * @version 1.0
+ * @date 14/11/2020
+ *
 */
 
 
@@ -14,7 +16,13 @@
 
 class MusicSFML : public Engine::AMusic {
 public:
-    MusicSFML(const std::string filename, bool loop=true) : Engine::AMusic() {
+    /*!
+     * \brief MusicSFML constructor
+     * \param filename music filename
+     * \param loop set if the music has to be played as loop
+     *
+    */
+    explicit MusicSFML(const std::string &filename, bool loop=true) : Engine::AMusic() {
         loadFromFile(filename);
         setLoop(loop);
     }
@@ -23,16 +31,16 @@ public:
         delete _music;
     }
 
-    void loadFromFile(const std::string filename) final;
+    void loadFromFile(const std::string &filename) final;
     void play() final;
     void pause() final;
     void stop() final;
     void setVolume(double volume) final;
-    bool isPlaying() const;
-    bool isPaused() const;
-    bool isStopped() const;
-    void setLoop(bool loop=true);
-    bool isLooping() const;
+    [[nodiscard]] bool isPlaying() const final;
+    [[nodiscard]] bool isPaused() const final;
+    [[nodiscard]] bool isStopped() const final;
+    void setLoop(bool loop) final;
+    [[nodiscard]] bool isLooping() const final;
     void close() final {
         stop();
         delete _music;

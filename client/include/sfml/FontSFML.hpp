@@ -1,8 +1,10 @@
-/*
-** EPITECH PROJECT, 2020
-** RType
-** File description:
-** Created by Cyprien
+/*!
+ * @file FontSFML.hpp
+ * @brief Manage SFML's font
+ * @authors Cyprien.R
+ * @version 1.0
+ * @date 14/11/2020
+ *
 */
 
 
@@ -17,7 +19,18 @@ private:
     sf::Font _font;
 
 public:
+    /*!
+     * \brief EventsSFML copy constructor
+     *
+     * Security call to delete c++ function when the use try to copy the font
+    */
     FontSFML() = delete;
+    /*!
+     * \brief EventsSFML constructor
+     * \param filename name of the file which contain the font
+     *
+     * Create the font as an sf::Font
+    */
     explicit FontSFML(std::string fileName) : Engine::AFont() {
         loadFromFile(std::move(fileName));
     }

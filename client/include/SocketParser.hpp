@@ -1,6 +1,12 @@
-//
-// Created by mathi on 06/11/2020.
-//
+/*!
+ * @file SocketParser.hpp
+ * @brief SocketParser declaration
+ * @authors Matthieu.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+ * The class if useful to parse socket communication
+*/
 
 #ifndef RTYPE_SOCKETPARSER_HPP
 #define RTYPE_SOCKETPARSER_HPP
@@ -26,6 +32,11 @@ private:
     [[nodiscard]] static bool shouldTeleport(Engine::Point<int> a, Engine::Point<int> b, Engine::Point<int> size);
 
 public:
+    /*!
+    * \brief SocketParser constructor
+    *
+    * Set default value to SockerParser member variables
+   */
     SocketParser();
 
     [[nodiscard]] static std::vector<int> parseUdpInputs(int clientId,

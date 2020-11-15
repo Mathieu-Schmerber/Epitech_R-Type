@@ -1,8 +1,10 @@
-/*
-** EPITECH PROJECT, 2020
-** RType
-** File description:
-** Created by Cyprien
+/*!
+ * @file SpriteSfml.hpp
+ * @brief Manage SFML's sprite
+ * @authors Cyprien.R
+ * @version 1.0
+ * @date 14/11/2020
+ *
 */
 
 
@@ -20,11 +22,26 @@
 
 class SpriteSFML : public Engine::ASprite {
 public:
+    /*!
+    * \brief Sprite SFML default constructor
+    *
+   */
     SpriteSFML() = default;
-
+    /*!
+     * \brief Sprite SFML constructor with texture
+     * \param texture a texture as shared_ptr which can be used to set the sprite's texture
+     *
+     * Create a sprite depending on an existing texture
+    */
     explicit SpriteSFML(std::shared_ptr<Engine::ATexture> &texture) : Engine::ASprite() {
         setTexture(texture);
     }
+    /*!
+    * \brief Sprite SFML constructor with filename
+    * \param fileName filename which be used to find, create and set the sprite's texture
+    *
+    * Create a sprite depending on an file (de facto, a texture will be created first)
+   */
     explicit SpriteSFML(const std::string &fileName) : Engine::ASprite() {
         _texture = std::make_shared<TextureSFML>(fileName);
         setTexture(_texture);

@@ -7,7 +7,7 @@
 
 #include "sfml/MusicSFML.hpp"
 
-void MusicSFML::loadFromFile(const std::string filename)
+void MusicSFML::loadFromFile(const std::string &filename)
 {
     if (!_music->openFromFile(filename)) {
         std::cerr << "\033[33mMusic WARNING : Invalid load of music " << filename << "\033[0m" << std::endl;

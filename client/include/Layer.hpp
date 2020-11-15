@@ -1,6 +1,11 @@
-//
-// Created by mathi on 03/11/2020.
-//
+/*!
+ * @file Layer.hpp
+ * @brief Layer enum declaration
+ * @authors Matthieu.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_LAYER_HPP
 #define RTYPE_LAYER_HPP

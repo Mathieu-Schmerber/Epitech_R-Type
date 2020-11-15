@@ -1,8 +1,10 @@
-/*
-** EPITECH PROJECT, 2020
-** RType
-** File description:
-** Created by Cyprien
+/*!
+ * @file EventsSFML.hpp
+ * @brief Manage SFML's events
+ * @authors Cyprien.R
+ * @version 1.0
+ * @date 14/11/2020
+ *
 */
 
 
@@ -18,9 +20,20 @@
 
 class EventsSFML : public Engine::AEvents {
 public:
+    /*!
+     * \brief EventsSFML constructor
+     * \param window window to be stored as reference
+     *
+     * Create the EventsSFML module
+    */
     EventsSFML(std::shared_ptr<Engine::AWindow> &window) : Engine::AEvents(), _window(std::dynamic_pointer_cast<WindowSFML>(window)),
     _mouseRvLink(Engine::Utils::reverseMap(_mouseLink)) {}
-    void update();
+    /*!
+     * \brief update
+     *
+     * Update the _event private variable with the pressed, released, clicked [...] events
+    */
+    void update() override;
 
     bool isButtonPressed(Engine::Mouse button) override;
     Engine::Point<int> getMousePosDesktopRelative() override;

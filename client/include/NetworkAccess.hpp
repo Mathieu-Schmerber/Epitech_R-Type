@@ -1,6 +1,11 @@
-//
-// Created by mathi on 06/11/2020.
-//
+/*!
+ * @file NetworkAccess.hpp
+ * @brief NetworkAccess module declaration
+ * @authors Matthieu.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_NETWORKACCESS_HPP
 #define RTYPE_NETWORKACCESS_HPP
@@ -13,6 +18,13 @@ private:
     short _clientId;
 
 public:
+    /*!
+    * \brief NetworkAcces constructor
+    * \param ip ip to be set
+    * \param serverPort serverPort to be set
+    * \param clientPort clientPort to be set
+    *
+   */
     NetworkAccess(const std::string &ip, short serverPort, short clientPort)
     : _clientId(-1), Engine::AServer(ip, serverPort, clientPort) {}
 
