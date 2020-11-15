@@ -162,7 +162,7 @@ void Game::despawn(std::shared_ptr<Engine::Entity> &entity)
 
 bool Game::isGameRunning() const
 {
-    return (this->_playersSpaceShips.empty());
+    return this->_running;
 }
 
 void Game::update()
@@ -181,6 +181,7 @@ void Game::update()
             std::cout << "End of the game" << std::endl;
         }
     }
+    this->_running = !(this->_playersSpaceShips.empty());
 }
 
 void Game::removeClientInGame(const std::shared_ptr<Client> &cli)
