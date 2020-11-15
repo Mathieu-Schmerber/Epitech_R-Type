@@ -26,5 +26,15 @@ void LobbyWaitingSystem::update()
         this->_server->setClientId(data.at(2));
         _scene->pushRequest(request);
     }
+    if (data.at(0) == 4 && data.at(1) == 49) {
+        //New user to lobby
+        int idNewPlayer = data.at(2);
+        int idClientMaster = data.at(3);
+    }
+    if (data.at(0) == 4 && data.at(1) == 50) {
+        //User quit the lobby
+        int idQuitPlayer = data.at(2);
+        int idClientMaster = data.at(3);
+    }
 }
 
