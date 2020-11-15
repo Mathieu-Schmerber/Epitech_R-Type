@@ -33,7 +33,7 @@
 
 class Spawner : public Engine::Entity {
 public:
-    explicit Spawner(const Engine::Point<double> &pos = {1920, 1080.0 / 2.0}, double spawnRate = 5) : Engine::Entity()
+    explicit Spawner(const Engine::Point<double> &pos = {1920, 1080.0 / 2.0}, double spawnRate = 6) : Engine::Entity()
     {
         this->addComponent<Engine::TransformComponent>(pos);
         this->addComponent<Engine::VelocityComponent>(Engine::Vector<double>({0, -10}));

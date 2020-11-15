@@ -97,9 +97,8 @@ void SpawnerSystem::handleWaves(std::shared_ptr<Engine::Entity> &spawner)
         music->setMusic(std::move(newMusic));
         music->playMe(true);
 
-        spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(spawner->getComponent<EnemySpawnerComponent>()->getSpawnRate() + 4);
         if (wave->getCurrentWave() != WaveComponent::victory && wave->getCurrentWave() != WaveComponent::boss)
-            spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(spawner->getComponent<EnemySpawnerComponent>()->getSpawnRate() + 4);
+            spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(spawner->getComponent<EnemySpawnerComponent>()->getSpawnRate() + 2);
         else
             spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(0);
         if (wave->getCurrentWave() == WaveComponent::boss)

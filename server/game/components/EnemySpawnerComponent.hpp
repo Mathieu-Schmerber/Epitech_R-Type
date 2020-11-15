@@ -42,7 +42,7 @@ public:
     explicit EnemySpawnerComponent(double spawnRate) : _spawnRate(spawnRate), Engine::Component() {}
 
     void setSpawnRate(double spawnRate) {_spawnRate = spawnRate;}
-    double getSpawnRate() {return _spawnRate;}
+    [[nodiscard]] double getSpawnRate() const {return _spawnRate;}
     [[nodiscard]] bool canSpawn() const {return Engine::Timer::hasElapsed(_timeSinceLastSpawn, _scale / _spawnRate);}
     Enemy *getEntity(std::string libName) {
         _timeSinceLastSpawn = std::chrono::high_resolution_clock::now();
