@@ -76,7 +76,7 @@ You can find a detailed RFC documentation in the file 'docRFC.txt'
 
 ## Authors
 
-This project has realized in Novemher 2020 by :
+This project has been realized in November 2020 by :
 * Mathieu Schmerber
 * Paul Surrans
 * Cyprien Ricques
