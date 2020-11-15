@@ -153,9 +153,8 @@ void Game::spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork)
 
 void Game::despawn(std::shared_ptr<Engine::Entity> &entity)
 {
-    for (auto &sys : this->_systems) {
+    for (auto &sys : this->_systems)
         sys->deleteEntity(entity); // On passe dans tous les systèmes à cause de target FIXME
-    }
     Engine::Utils::removeFromVector(this->_entities, entity);
     if (Engine::Utils::isInVector(this->_playersSpaceShips, entity))
         Engine::Utils::removeFromVector(this->_playersSpaceShips, entity);
@@ -163,7 +162,7 @@ void Game::despawn(std::shared_ptr<Engine::Entity> &entity)
 
 bool Game::isGameRunning() const
 {
-    return _running;
+    return (this->_playersSpaceShips.empty());
 }
 
 void Game::update()

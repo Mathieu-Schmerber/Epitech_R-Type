@@ -54,7 +54,7 @@ public:
         std::unique_ptr<Engine::ASprite> spr = std::make_unique<DataSprite>(_collectibles[type], _anims[type][0]);
 
         this->addComponent<Engine::TransformComponent>(pos);
-        this->addComponent<Engine::VelocityComponent>(Engine::Point<double>{0, 0}); // TODO: x = -15
+        this->addComponent<Engine::VelocityComponent>(Engine::Point<double>{-15, 0});
         this->addComponent<Engine::AnimationComponent>(0.2);
         this->addComponent<Engine::ColliderComponent>(Collision::BONUS, pos, _anims[type][0].size);
         this->addComponent<Engine::SpriteComponent>(10, std::move(spr));
