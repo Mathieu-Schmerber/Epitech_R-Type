@@ -9,6 +9,7 @@
 #include "components/TransformComponent.hpp"
 #include "components/VelocityComponent.hpp"
 #include "components/TextComponent.hpp"
+#include "tools/Utils.hpp"
 
 std::pair<std::vector<Engine::Inputs>, std::vector<Engine::Inputs>>
 SocketParser::unparseUdpInputs(const std::vector<int> &in)
@@ -45,12 +46,13 @@ std::vector<int> SocketParser::parseUdpText(const std::shared_ptr<Engine::Entity
     parsed.push_back(static_cast<int>(pool->getIndexFromPath(text->getText()->getFont()->getFileName())));
     parsed.push_back(static_cast<int>(pool->getIndexFromPath(text->getText()->toStdString())));
     parsed.push_back(static_cast<int>(text->getText()->getPosition().x));
-    parsed.push_back(static_cast<int>(text->getText()->getPosition().x));
+    parsed.push_back(static_cast<int>(text->getText()->getPosition().y));
     parsed.push_back(static_cast<int>(transform->getRotation()));
     parsed.push_back(static_cast<int>(text->getText()->getCharacterSize()));
     parsed.push_back(static_cast<int>(text->getText()->getLetterSpacing()));
     parsed.push_back(static_cast<int>(text->getLayer()));
-    parsed.push_back(static_cast<int>(-1));
+    parsed.push_back(static_cast<int>(text->getText()->getFillColor().alpha));
+
     return parsed;
 }
 

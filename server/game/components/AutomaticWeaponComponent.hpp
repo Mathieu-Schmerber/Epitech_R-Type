@@ -27,13 +27,16 @@ private:
 
 public:
 
-    explicit AutomaticWeaponComponent() : _baseDamage(0), _damageMultiplier(0), _cooldown(0), _projectileMask(Collision::Mask::ENEMY_PROJECTILE),
+    explicit AutomaticWeaponComponent() : _baseDamage(0), _damageMultiplier(1), _cooldown(0), _projectileMask(Collision::Mask::ENEMY_PROJECTILE),
                                           _projectileType(ProjectileComponent::Type::BASIC), _lastShoot(std::chrono::high_resolution_clock::now()), Engine::Component() {}
-    explicit AutomaticWeaponComponent(double damage, double multiplier, double cooldown, Engine::Vector<double> shotSpeed, Collision::Mask mask, ProjectileComponent::Type type)
-    : _baseDamage(damage), _damageMultiplier(multiplier), _cooldown(cooldown), _lastShoot(std::chrono::high_resolution_clock::now()), _projectileMask(mask),
+    explicit AutomaticWeaponComponent(double damage, double cooldown, Engine::Vector<double> shotSpeed, Collision::Mask mask, ProjectileComponent::Type type)
+    : _baseDamage(damage), _damageMultiplier(1), _cooldown(cooldown), _lastShoot(std::chrono::high_resolution_clock::now()), _projectileMask(mask),
     _projectileType(type), _shotSpeed(shotSpeed), Engine::Component() {}
 
-    [[nodiscard]] double getCurrentDamages() const {return (this->_baseDamage + (_baseDamage * _damageMultiplier));}
+    [[nodiscard]] double getBaseDamages() const {return (this->_baseDamage);}
+    [[nodiscard]] double getMultiplier() const {return (this->_damageMultiplier);}
+    [[nodiscard]] double getCurrentDamages() const {return (this->_baseDamage * _damageMultiplier);}
+    void setDamageMultiplier(double damageMultiplier) {_damageMultiplier = damageMultiplier;}
     [[nodiscard]] bool canShoot() const {return Engine::Timer::hasElapsed(_lastShoot, _cooldown);}
     void refreshShoots() {_lastShoot = std::chrono::high_resolution_clock::now();}
     [[nodiscard]] Engine::Vector<double> getShotSpeed() const {return _shotSpeed;}
@@ -43,6 +46,7 @@ public:
     [[nodiscard]] bool canBounce() const {return _bounce;}
     void setBounce(bool bounce) {_bounce = bounce;}
     [[nodiscard]] bool useTargets() const {return _useTargets;}
+    void setUseTargets(bool useTargets) {_useTargets = useTargets;}
 };
 
 #endif //RTYPE_AUTOMATICWEAPONCOMPONENT_HPP

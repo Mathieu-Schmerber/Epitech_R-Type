@@ -276,7 +276,7 @@ set(SERVER_SOURCES
 		server/game/systems/HealthSystem.cpp
         server/game/systems/PlayerWeaponSystem.cpp
 		server/game/systems/PlayerCollisionSystem.cpp
-		)
+		server/game/systems/BorderLimitSystem.cpp server/game/systems/BorderLimitSystem.hpp)
 
 set(SERVER_INCLUDES
 		server/client/Client.hpp
@@ -326,7 +326,7 @@ set(SERVER_INCLUDES
 		server/game/systems/PlayerCollisionSystem.hpp
         server/game/GameData.hpp
 		server/game/components/WaveComponent.hpp
-		server/game/dataHolders/DataText.cpp server/game/dataHolders/DataText.hpp server/game/dataHolders/DataFont.cpp server/game/dataHolders/DataFont.hpp)
+		server/game/dataHolders/DataText.cpp server/game/dataHolders/DataText.hpp server/game/dataHolders/DataFont.cpp server/game/dataHolders/DataFont.hpp server/game/systems/BorderLimitSystem.cpp server/game/systems/BorderLimitSystem.hpp)
 
 
 set(ENEMIES_INCLUDES

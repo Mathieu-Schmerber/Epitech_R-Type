@@ -22,6 +22,8 @@ public:
     void handleMovements(std::shared_ptr<Engine::Entity> &enemy);
     bool didCollide(std::shared_ptr<Engine::Entity> &enemy);
 
+    void deleteEntity(std::shared_ptr<Engine::Entity> &entity) override;
+
     void update() override;
 };
 

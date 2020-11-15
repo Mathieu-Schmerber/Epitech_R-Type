@@ -5,7 +5,6 @@
 ** Created by Cyprien
 */
 
-
 #ifndef RTYPE_UTILS_HPP
 #define RTYPE_UTILS_HPP
 
@@ -15,6 +14,7 @@
 #include <memory>
 #include <string>
 #include <iostream>
+#include <functional>
 
 namespace Engine {
     class Utils {
@@ -28,6 +28,18 @@ namespace Engine {
 
         template<typename T>
         [[nodiscard]] static bool isInVector(std::vector<T> &vector, T item)
+        {
+            return (std::find_if(vector.begin(), vector.end(), [item](T x){return x == item;}) != vector.end());
+        }
+
+        template<typename T>
+        [[nodiscard]] static T getInVector(std::vector<T> &vector, T item)
+        {
+            return *(std::find_if(vector.begin(), vector.end(), [item](T x){return x == item;}));
+        }
+
+        template<typename T>
+        [[nodiscard]] static bool isInVectorCpy(std::vector<T> vector, T item)
         {
             return (std::find_if(vector.begin(), vector.end(), [item](T x){return x == item;}) != vector.end());
         }
@@ -61,6 +73,26 @@ namespace Engine {
                 std::cout << i << " ";
             std::cout << std::endl;
         }
+
+        template <typename T>
+        static bool isInVector(std::vector<T> vector, std::function<bool (T)>(condition))
+        {
+            return (std::find_if(vector.begin(), vector.end(), condition) != vector.end());
+        }
+
+        template<typename T>
+        static void removeFromVector(std::vector<T> &vector, std::function<bool (T)>(condition))
+        {
+            if (isInVector(vector, condition))
+                vector.erase(std::remove_if(vector.begin(), vector.end(), condition));
+        }
+
+        template <typename T>
+        static T getInVector(std::vector<T> vector, std::function<bool (T)>(condition))
+        {
+            return *(std::find_if(vector.begin(), vector.end(), condition));
+        }
+
     };
 }
 

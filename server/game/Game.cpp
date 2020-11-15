@@ -22,8 +22,8 @@
 #include "systems/ServerNetworkSystem.hpp"
 #include "systems/LifetimeSystem.hpp"
 #include "systems/GroundSystem.hpp"
+#include "systems/BorderLimitSystem.hpp"
 #include "components/NetworkComponent.hpp"
-#include "entities/Collectible.hpp"
 #include "systems/TargetSystem.hpp"
 
 Game::Game(std::vector<std::shared_ptr<Client>> &players, std::unique_ptr<UdpSocketInput> &reception)
@@ -51,8 +51,6 @@ void Game::initGameEntities()
     parallaxB->setRect({{0, 0}, {3840, 1080}});
     std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{0, 0}, Engine::Point<double>{-3840, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxA));
     std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{3840, 0}, Engine::Point<double>{0, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxB));
-    std::shared_ptr<Engine::Entity> bonusTest = std::make_shared<Collectible>(Engine::Point<double>{1000, 500}, CollectibleComponent::SENTINEL);
-    std::shared_ptr<Engine::Entity> bonusTest2 = std::make_shared<Collectible>(Engine::Point<double>{800, 500}, CollectibleComponent::SENTINEL);
 
     auto spawner = std::make_shared<Spawner>();
 
@@ -61,8 +59,6 @@ void Game::initGameEntities()
 
     this->spawn(slideA, true);
     this->spawn(slideB, true);
-    this->spawn(bonusTest, true);
-    this->spawn(bonusTest2, true);
     this->spawn(spawner, true);
 }
 
@@ -86,6 +82,7 @@ void Game::initGameSystems()
     auto spawner = std::make_unique<SpawnerSystem>(game);
     auto life = std::make_unique<HealthSystem>(game);
     auto target = std::make_unique<Engine::TargetSystem>();
+    auto borderLimit = std::make_unique<BorderLimitSystem>(game);
 
     this->_systems.push_back(std::move(move));
     this->_systems.push_back(std::move(ground));
@@ -104,6 +101,7 @@ void Game::initGameSystems()
     this->_systems.push_back(std::move(spawner));
     this->_systems.push_back(std::move(life));
     this->_systems.push_back(std::move(target));
+    this->_systems.push_back(std::move(borderLimit));
 }
 
 void Game::spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork)

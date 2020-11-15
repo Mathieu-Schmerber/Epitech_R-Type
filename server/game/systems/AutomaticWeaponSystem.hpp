@@ -18,7 +18,8 @@ private:
     std::map<ProjectileComponent::Type, std::shared_ptr<Engine::ATexture>> _textures = {
             {ProjectileComponent::Type::BASIC, std::make_shared<DataTexture>("../../client/assets/images/projectiles/projectile_1_72x18_18x18.png")},
             {ProjectileComponent::Type::SHURIKEN, std::make_shared<DataTexture>("../../client/assets/images/projectiles/projectile_2_102x34_34x34.png")},
-            {ProjectileComponent::Type::BEAM, std::make_shared<DataTexture>("../../client/assets/images/projectiles/projectile_3_200x18_50x18.png")}
+            {ProjectileComponent::Type::BEAM, std::make_shared<DataTexture>("../../client/assets/images/projectiles/projectile_3_200x18_50x18.png")},
+            {ProjectileComponent::Type::MISSILE, std::make_shared<DataTexture>("../../client/assets/images/projectiles/projectile_4_24x8_24x8.png")}
     };
     std::map<ProjectileComponent::Type, std::vector<Engine::Box<double>>> _anims = {
             {ProjectileComponent::Type::BASIC, {
@@ -33,6 +34,8 @@ private:
                 {{50 * 0, 0}, {50, 18}},
                 {{50 * 1, 0}, {50, 18}},
                 {{50 * 2, 0}, {50, 18}}}},
+            {ProjectileComponent::Type::MISSILE, {
+                {{24 * 0, 0}, {24, 8}}}}
     };
 
     std::shared_ptr<Game> _game;

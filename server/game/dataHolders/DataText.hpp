@@ -45,8 +45,8 @@ public:
     [[nodiscard]] Engine::Point<double> getOrigin() const  {return _origin;}
     void setOrigin(const Engine::Point<double> origin) final {_origin  = origin;}
     void setScale(Engine::Size<double> scale) final {_scale = scale;}
-    void setFillColor(Engine::Color color) final {}
-    void setOutlineColor(Engine::Color color) final {}
+    void setFillColor(Engine::Color color) final {_fillColor = color;}
+    void setOutlineColor(Engine::Color color) final {_outLineColor = color;}
     void setString(std::string text) final {_text = text;}
     void setRotation(double angle) final {_rotation = angle;}
     void setCharacterSize(unsigned int size) final {_characterSize = size;}
@@ -57,6 +57,7 @@ public:
     [[nodiscard]] std::string toStdString() const final {return _text;}
     [[nodiscard]] int getCharacterSize() const final {return _characterSize;}
     [[nodiscard]] int getLetterSpacing() const final {return static_cast<int>(_letterSpacing);}
+    [[nodiscard]] Engine::Color getFillColor() const final {return _fillColor;}
 
     void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<double> position, double angle) final {}
 

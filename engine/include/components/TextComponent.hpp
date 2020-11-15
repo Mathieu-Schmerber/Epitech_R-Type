@@ -34,6 +34,7 @@ public:
     }
     void setLayer(int layer) {this->_layer = layer;}
     [[nodiscard]] int getLayer() const {return this->_layer;}
+    void setHasToBeDraw(bool hasToBeDraw) {_hasToBeDraw = hasToBeDraw;}
 };
 
 }

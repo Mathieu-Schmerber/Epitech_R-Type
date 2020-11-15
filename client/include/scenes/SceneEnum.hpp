@@ -90,7 +90,7 @@
 #define BONUS_3_WIDTH 40
 #define BONUS_3_HEIGHT 36
 
-#define POWER_UP_PATH "../../client/assets/images/weapons/power_up_1_100x20_25x20.png"
+#define POWER_UP_PATH "../../client/assets/images/weapons/power_up_1_100x20_24x20.png"
 #define POWER_UP_WIDTH 24
 #define POWER_UP_HEIGHT 20
 
