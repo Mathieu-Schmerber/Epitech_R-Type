@@ -12,6 +12,7 @@ namespace Engine {
     public:
         MusicSystem();
 
+        void deleteEntity(std::shared_ptr<Engine::Entity> &entity) override;
         void update() override;
     };
 }
