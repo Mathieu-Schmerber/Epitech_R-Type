@@ -101,7 +101,7 @@ void PlayerCollisionSystem::powerBounce(std::shared_ptr<Engine::Entity> &player,
 
 void PlayerCollisionSystem::powerMissile(std::shared_ptr<Engine::Entity> &player, std::shared_ptr<Engine::Entity> &sentinel)
 {
-    auto added = sentinel->addComponent<AutomaticWeaponComponent>(1, 3,Engine::Vector<double>{20.0, 0},
+    auto added = sentinel->addComponent<AutomaticWeaponComponent>(1, 2,Engine::Vector<double>{20.0, 0},
                                                                   Collision::Mask::PLAYER_PROJECTILE, ProjectileComponent::Type::MISSILE);
     added->setUseTargets(true);
 }
