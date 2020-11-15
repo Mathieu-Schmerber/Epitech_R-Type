@@ -137,33 +137,45 @@ void PlayerCollisionSystem::pickupCollectible(std::shared_ptr<Engine::Entity> &p
             PlayerCollisionSystem::applyPowerUp(player, type);
 }
 
-void PlayerCollisionSystem::handleCollisions(std::shared_ptr<Engine::Entity> &player)
+bool PlayerCollisionSystem::handleCollisions(std::shared_ptr<Engine::Entity> &player)
 {
     auto collider = player->getComponent<Engine::ColliderComponent>();
     auto collisions = collider->getCollisions();
     auto collided = Collision::removeIgnored(static_cast<Collision::Mask>(collider->getCollisionMask()), collisions);
     Engine::ColliderComponent *other = nullptr;
     auto copy = collided;
+    CollectibleComponent *collectible = nullptr;
 
     for (auto &c : copy) {
         other = c->getComponent<Engine::ColliderComponent>();
         switch (other->getCollisionMask()) {
             case Collision::Mask::BONUS:
-                auto collectible = c->getComponent<CollectibleComponent>();
+                collectible = c->getComponent<CollectibleComponent>();
                 if (collectible)
                     PlayerCollisionSystem::pickupCollectible(player, collectible->getType(), collectible->getBonusValue());
                 this->_game->despawn(c);
                 break;
+            case Collision::Mask::ENEMY:
+                return true;
+                break;
+            case Collision::Mask::WALL:
+                return true;
+                break;
         }
     }
+    return false;
 }
 
 void PlayerCollisionSystem::update()
 {
     size_t size;
+    auto cpy = _entities;
 
-    for (auto &e : this->_entities) {
-        this->handleCollisions(e);
+    for (auto &e : cpy) {
+        if (this->handleCollisions(e)) {
+            _game->despawn(e);
+            continue;
+        }
         auto sentinels = PlayerCollisionSystem::getSentinels(e);
         std::cout << "health: " << e->getComponent<HealthComponent>()->getCurrentHealth() << std::endl;
         if (e->getComponent<HealthComponent>()->getCurrentHealth() < sentinels.size() + 1.0 &&
