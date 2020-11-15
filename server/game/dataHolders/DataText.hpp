@@ -57,6 +57,7 @@ public:
     [[nodiscard]] std::string toStdString() const final {return _text;}
     [[nodiscard]] int getCharacterSize() const final {return _characterSize;}
     [[nodiscard]] int getLetterSpacing() const final {return static_cast<int>(_letterSpacing);}
+    [[nodiscard]] Engine::Color getFillColor() const final {return _fillColor;}
 
     void draw(std::shared_ptr<Engine::AWindow> &window, Engine::Point<double> position, double angle) final {}
 
