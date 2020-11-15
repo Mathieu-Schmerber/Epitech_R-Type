@@ -42,22 +42,29 @@ Game::~Game()
     this->_players.clear();
 }
 
+void Game::spawnPlayers()
+{
+    std::shared_ptr<Engine::Entity> player;
+
+    std::cout << "[GAME] >> Player number: " << this->_players.size() << std::endl;
+    for (int i = 0; i < this->_players.size(); ++i) {
+        player = std::make_shared<Player>(i, Engine::Point<double>{500, 500.0 + (50.0 * i)});
+        this->spawn(player, true);
+        _playersSpaceShips.push_back(player);
+    }
+}
+
 void Game::initGameEntities()
 {
-    std::shared_ptr<Engine::Entity> player = std::make_shared<Player>(0, Engine::Point<double>{500, 500});
-
     auto parallaxA = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png");
     auto parallaxB = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png");
     parallaxA->setRect({{0, 0}, {3840, 1080}});
     parallaxB->setRect({{0, 0}, {3840, 1080}});
     std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{0, 0}, Engine::Point<double>{-3840, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxA));
     std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{3840, 0}, Engine::Point<double>{0, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxB));
-
     auto spawner = std::make_shared<Spawner>();
 
-    this->spawn(player, true);
-    _playersSpaceShips.push_back(player);
-
+    this->spawnPlayers();
     this->spawn(slideA, true);
     this->spawn(slideB, true);
     this->spawn(spawner, true);

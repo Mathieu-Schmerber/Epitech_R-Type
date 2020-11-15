@@ -25,6 +25,7 @@ private:
     std::reference_wrapper<std::unique_ptr<UdpSocketInput>> _reception;
     std::vector<std::shared_ptr<Engine::Entity>> _playersSpaceShips;
 
+    void spawnPlayers();
     void initGameEntities();
     void initGameSystems();
 
