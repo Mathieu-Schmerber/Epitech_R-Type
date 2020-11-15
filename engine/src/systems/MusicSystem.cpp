@@ -16,7 +16,12 @@ void Engine::MusicSystem::update()
 
     for (auto &e : this->_entities) {
         music = e->getComponent<MusicComponent>();
-        if (music->wantsToBePlayed() && !music->getMusic()->isPlaying())
+        if (music->wantsToBePlayed() && !music->getMusic()->isPlaying()) {
             music->getMusic()->play(100);
+            music->playMe(false);
+        } else if (music->wantsToBeStoped() && !music->getMusic()->isStopped()) {
+            music->getMusic()->stop();
+            music->stopMe(false);
+        }
     }
 }

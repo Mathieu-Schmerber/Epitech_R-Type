@@ -1,7 +1,7 @@
 /*!
  * @file SocketParser.hpp
  * @brief SocketParser declaration
- * @authors Matthieu.S
+ * @authors Mathieu.S
  * @version 1.0
  * @date 14/11/2020
  *

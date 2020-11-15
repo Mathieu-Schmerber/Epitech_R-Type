@@ -30,7 +30,7 @@ std::string Engine::AssetPool::getPathFromIndex(size_t index) const
 {
     if (index < this->_assets.size())
         return this->_assets.at(index);
-    return nullptr;
+    return "null";
 }
 
 void Engine::AssetPool::getAssetsRecursively(const std::string &root) {

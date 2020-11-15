@@ -20,6 +20,13 @@ SpawnerSystem::SpawnerSystem(std::shared_ptr<Game> &game) : _game(game)
     this->addDependency<Engine::VelocityComponent>();
     this->addDependency<Engine::ColliderComponent>();
     this->addDependency<EnemySpawnerComponent>();
+    this->_musics = {
+            STAGE_1,
+            STAGE_2,
+            STAGE_3,
+            STAGE_4,
+            WIN,
+    };
 }
 
 void SpawnerSystem::handleSpawn(std::shared_ptr<Engine::Entity> &spawner)
@@ -58,15 +65,26 @@ void SpawnerSystem::handleWaves(std::shared_ptr<Engine::Entity> &spawner)
     auto wave = spawner->getComponent<WaveComponent>();
     auto transform = spawner->getComponent<Engine::TransformComponent>();
     auto text = spawner->getComponent<Engine::TextComponent>();
+    auto music = spawner->getComponent<Engine::MusicComponent>();
 
     if (_gameJustStarted) {
         _gameJustStarted = false;
         text->setHasToBeDraw(true);
         text->getText()->setString(wave->getTextFromWave(wave->getCurrentWave()));
         text->setHasToBeDraw(true);
+
+        auto newMusic = std::make_unique<DataMusic>(_musics[wave->getCurrentWave()]);
+        music->setMusic(std::move(newMusic));
+        music->playMe(true);
+
     }
     if (wave->timeToSwitch()) {
         wave->goNextScene();
+
+        auto newMusic = std::make_unique<DataMusic>(_musics[wave->getCurrentWave()]);
+        music->setMusic(std::move(newMusic));
+        music->playMe(true);
+
         spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(spawner->getComponent<EnemySpawnerComponent>()->getSpawnRate() + 4);
         text->getText()->setString(wave->getTextFromWave(wave->getCurrentWave()));
         text->getText()->setFillColor(Engine::Color({0, 0, 0, 255}));

@@ -19,20 +19,17 @@ namespace Engine {
     class AGraphical {
     public:
         AGraphical() = default;
-        AGraphical(std::unique_ptr<Engine::AWindow> window, std::unique_ptr<Engine::ASound> sound, std::unique_ptr<Engine::AEvents> events) :
-        _window(std::move(window)), _sound(std::move(sound)), _events(std::move(events)) {};
+        AGraphical(std::unique_ptr<Engine::AWindow> window, std::unique_ptr<Engine::AEvents> events) :
+        _window(std::move(window)), _events(std::move(events)) {};
 
         virtual void setWindow(std::shared_ptr<Engine::AWindow> window);
-        virtual void setSound(std::shared_ptr<Engine::ASound> sound);
         virtual void setEvents(std::shared_ptr<Engine::AEvents> events);
 
         std::shared_ptr<Engine::AWindow> &getWindow() {return _window;};
-        std::shared_ptr<Engine::ASound> &getSound() {return _sound;};
         std::shared_ptr<Engine::AEvents> &getEvents() {return _events;};
 
     protected:
         std::shared_ptr<Engine::AWindow> _window = nullptr;
-        std::shared_ptr<Engine::ASound> _sound = nullptr;
         std::shared_ptr<Engine::AEvents> _events = nullptr;
     };
 

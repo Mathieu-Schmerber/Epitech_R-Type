@@ -6,6 +6,8 @@
 #include "systems/QuitSystemInGame.hpp"
 #include "systems/WindowResizeSystem.hpp"
 #include "systems/AnimationSystem.hpp"
+#include "systems/SoundSystem.hpp"
+#include "systems/MusicSystem.hpp"
 #include "systems/MouseSystem.hpp"
 #include "systems/ButtonSystem.hpp"
 #include "sfml/SpriteSfml.hpp"
@@ -14,9 +16,7 @@
 #include "scenes/InGame.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/ClientNetworkSystem.hpp"
-#include "entities/Music.hpp"
 #include "scenes/SceneEnum.hpp"
-#include "components/SpriteComponent.hpp"
 
 void backToMainMenu(std::shared_ptr<Engine::AScene> &inGame)
 {
@@ -58,6 +58,8 @@ void InGame::initSystems()
     auto text = std::make_unique<Engine::TextSystem>(this->_window);
     auto quitSystem = std::make_unique<QuitSystemInGame>(this->_events, scene);
     auto window = std::make_unique<Engine::WindowResizeSystem>(this->_window);
+    auto sound = std::make_unique<Engine::SoundSystem>();
+    auto music = std::make_unique<Engine::MusicSystem>();
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(mouse));
@@ -67,6 +69,10 @@ void InGame::initSystems()
     this->_systems.push_back(std::move(network));
     this->_systems.push_back(std::move(text));
     this->_systems.push_back(std::move(window));
+    if (this->_window->hasSound())
+        this->_systems.push_back(std::move(sound));
+    if (this->_window->hasMusic())
+        this->_systems.push_back(std::move(music));
 }
 
 void InGame::onFocus()

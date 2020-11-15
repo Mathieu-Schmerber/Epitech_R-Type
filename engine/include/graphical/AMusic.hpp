@@ -24,9 +24,11 @@ namespace Engine {
         virtual void setLoop(bool loop) {};
         [[nodiscard]] virtual bool isLooping() const {return false;};
         virtual void close() = 0;
+        [[nodiscard]] std::string getFile() const {return this->_file;}
 
     protected:
         double _volume = 0;
+        std::string _file;
     };
 }
 

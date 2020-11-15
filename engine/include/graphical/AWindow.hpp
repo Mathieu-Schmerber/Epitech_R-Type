@@ -18,6 +18,8 @@ namespace Engine {
         std::string _title;
         bool _vSyncEnabled = true;
         int _frameRate = 30;
+        bool _sound = false;
+        bool _music = false;
 
     public:
         AWindow(const std::string &title, const Size<double> &windowSize);
@@ -36,7 +38,10 @@ namespace Engine {
         [[nodiscard]] virtual int getFrameRate() const;
         [[nodiscard]] virtual bool getVsync() const;
         [[nodiscard]] std::string getTitle() const;
-
+        [[nodiscard]] bool hasSound() const;
+        void setSound(bool sound);
+        [[nodiscard]] bool hasMusic() const;
+        void setMusic(bool music);
     };
 }
 

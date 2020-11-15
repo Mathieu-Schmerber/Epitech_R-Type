@@ -1,7 +1,7 @@
 /*!
  * @file ClientNetworkSystem.hpp
  * @brief System to deal with client and network
- * @authors Matthieu.S
+ * @authors Mathieu.S
  * @version 1.0
  * @date 14/11/2020
  *
@@ -16,7 +16,7 @@
 #include "ecs/System.hpp"
 #include "SocketParser.hpp"
 
-#define UDP_ENTITY_SIZE 11
+#define UDP_ENTITY_SIZE 14
 #define UDP_READ UDP_BUFFER_SIZE / UDP_ENTITY_SIZE
 
 class ClientNetworkSystem : public Engine::System

@@ -31,8 +31,8 @@ public:
      * \param events a AEvents shared_ptr
      *
     */
-    GraphicalSFML(std::unique_ptr<Engine::AWindow> window, std::unique_ptr<Engine::ASound> sound, std::unique_ptr<Engine::AEvents> events) :
-    Engine::AGraphical(std::move(window), std::move(sound), std::move(events)) {};
+    GraphicalSFML(std::unique_ptr<Engine::AWindow> window, std::unique_ptr<Engine::AEvents> events) :
+    Engine::AGraphical(std::move(window), std::move(events)) {};
 };
 
 

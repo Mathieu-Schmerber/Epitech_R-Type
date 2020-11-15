@@ -26,6 +26,7 @@ public:
     explicit MusicSFML(const std::string &filename, bool loop=true) : Engine::AMusic() {
         loadFromFile(filename);
         setLoop(loop);
+        _file = filename;
     }
     ~MusicSFML() {
         stop();

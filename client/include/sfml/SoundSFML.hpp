@@ -21,7 +21,10 @@ public:
      * \brief SoundSFML default constructor
      *
     */
-    SoundSFML() = default;
+    explicit SoundSFML(const std::string &filename) {
+        this->loadFromFile(filename);
+        _file = filename;
+    }
 
     void loadFromFile(const std::string &filename) final;
     void play(int volume) final;

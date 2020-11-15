@@ -10,10 +10,13 @@
 #define RTYPE_SPAWNERSYSTEM_HPP
 
 #include "ecs/System.hpp"
+#include "dataHolders/DataMusic.hpp"
+#include "entities/Spawner.hpp"
 #include "Game.hpp"
 
 class SpawnerSystem : public Engine::System {
 private:
+    std::vector<std::string> _musics;
     std::shared_ptr<Game> _game;
     bool _gameJustStarted = true;
     void spawn(const std::shared_ptr<Engine::Entity> &spawner, std::vector<std::string> &enemies);

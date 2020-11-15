@@ -36,3 +36,19 @@ bool Engine::AWindow::getVsync() const
 {
     return _vSyncEnabled;
 }
+
+bool Engine::AWindow::hasSound() const {
+    return _sound;
+}
+
+void Engine::AWindow::setSound(bool sound) {
+    _sound = sound;
+}
+
+bool Engine::AWindow::hasMusic() const {
+    return _music;
+}
+
+void Engine::AWindow::setMusic(bool music) {
+    _music = music;
+}

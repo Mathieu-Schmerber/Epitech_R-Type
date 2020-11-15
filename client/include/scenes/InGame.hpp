@@ -1,7 +1,7 @@
 /*!
  * @file InGame.hpp
  * @brief InGame scene declaration
- * @authors Matthieu.S
+ * @authors Mathieu.S
  * @version 1.0
  * @date 14/11/2020
  *

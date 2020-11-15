@@ -120,14 +120,18 @@ void changeAudioEnableMusic(std::shared_ptr<Engine::AScene> &settings)
     auto fullscreenSelectorValue = settingsObject->getSettingsEntities();
     auto rect = fullscreenSelectorValue[SettingsSelectorSprite::MUSIC_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->getRect();
     auto group = settingsObject->getGroupAccess();
+    auto window = settingsObject->getWindow();
 
     fullscreenSelectorValue[SettingsSelectorSprite::MUSIC_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->setRect({Engine::Box<double>({static_cast<double>(static_cast<int>((rect.x1 + ON_OFF_WIDTH)) % ON_OFF_WIDTH_TOTAL), 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
     if (Engine::Utils::isInMap(group, static_cast<int>(GroupId::MENU_MUSIC))) {
         auto &music = group[GroupId::MENU_MUSIC]->getEntities()[0]->getComponent<Engine::MusicComponent>()->getMusic();
-        if (music->isStopped())
+        if (music->isStopped()) {
             music->play(100);
-        else
+            window->setMusic(true);
+        } else {
             music->stop();
+            window->setMusic(false);
+        }
     }
 
     //TODO stop and reactivate the music properly
@@ -145,9 +149,10 @@ void changeAudioEnableSoundEffects(std::shared_ptr<Engine::AScene> &settings)
     auto settingsObject = std::dynamic_pointer_cast<Settings>(settings);
     auto fullscreenSelectorValue = settingsObject->getSettingsEntities();
     auto rect = fullscreenSelectorValue[SettingsSelectorSprite::SOUND_EFFECTS_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->getRect();
-    fullscreenSelectorValue[SettingsSelectorSprite::SOUND_EFFECTS_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->setRect({Engine::Box<double>({FLOAT(INT(rect.x1 + ON_OFF_WIDTH) % ON_OFF_WIDTH_TOTAL), 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
+    auto window = settingsObject->getWindow();
 
-    //TODO stop and reactivate sound effects properly
+    fullscreenSelectorValue[SettingsSelectorSprite::SOUND_EFFECTS_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->setRect({Engine::Box<double>({FLOAT(INT(rect.x1 + ON_OFF_WIDTH) % ON_OFF_WIDTH_TOTAL), 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
+    window->setSound(!window->hasSound());
 }
 
 /*!

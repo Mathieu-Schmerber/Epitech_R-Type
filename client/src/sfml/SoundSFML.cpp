@@ -10,6 +10,7 @@
 
 void SoundSFML::loadFromFile(const std::string &filename)
 {
+    _file = filename;
     if (_buffer.loadFromFile(filename)) {
         _sound.setBuffer(_buffer);
     } else {

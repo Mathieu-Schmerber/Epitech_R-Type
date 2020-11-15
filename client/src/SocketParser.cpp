@@ -4,8 +4,12 @@
 
 #include <fstream>
 #include "SocketParser.hpp"
+#include "sfml/MusicSFML.hpp"
+#include "sfml/SoundSFML.hpp"
 #include "entities/LobbyCard.hpp"
 #include "components/NetworkComponent.hpp"
+#include "components/SoundComponent.hpp"
+#include "components/MusicComponent.hpp"
 
 SocketParser::SocketParser()
 {
@@ -51,7 +55,6 @@ std::vector<int> SocketParser::parseUdpInputs(int clientId, const std::vector<En
 std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector<int> &in)
 {
     if (in.at(0) == 1) {
-        //std::cout << "create sprite" << std::endl;
         return createSpriteEntity(in);
     } else {
         return createTextEntity(in);
@@ -67,9 +70,7 @@ std::shared_ptr<Engine::Entity> SocketParser::createTextEntity(const std::vector
         return nullptr;
 
     std::cout << in << std::endl;
-    //std::cout << "create text " << in.at(1) << std::endl;
     entity->addComponent<Engine::NetworkComponent>(in.at(1));
-    //std::cout << "text at " << Engine::Point<double>{static_cast<double>(in.at(4)), static_cast<double>(in.at(5))} << std::endl;
     entity->addComponent<Engine::TransformComponent>(Engine::Point<double>{static_cast<double>(in.at(4)), static_cast<double>(in.at(5))}, in.at(6));
     entity->addComponent<Engine::TextComponent>();
     text = entity->getComponent<Engine::TextComponent>();
@@ -80,15 +81,21 @@ std::shared_ptr<Engine::Entity> SocketParser::createTextEntity(const std::vector
     if (_fonts.find(this->_pool->getPathFromIndex(in.at(2))) == _fonts.end()) {
         _fonts[_pool->getPathFromIndex(in.at(2))] = std::make_shared<FontSFML>(_pool->getPathFromIndex(in.at(2)));
     }
-    //std::cout << "path " << in.at(3) << _pool->getPathFromIndex(in.at(3)) << std::endl;
-    //std::cout << "content " << content << std::endl;
     std::unique_ptr<Engine::AText> txt = std::make_unique<TextSFML>(content, _fonts.at(_pool->getPathFromIndex(in.at(2))), in.at(7));
     txt->setLetterSpacing(in.at(8));
     text->setText(std::move(txt));
     text->setLayer(in.at(9));
     text->getText()->setFillColor(Engine::Color({255, 255, 255, static_cast<unsigned char>(in.at(10))}));
-
     text->getText()->setOrigin(Engine::Point<double>({static_cast<double>(text->getText()->getSize().x / 2), static_cast<double>(text->getText()->getSize().y / 2)}));
+    if (in.at(11) != -1) {
+        if (in.at(11) == 1) {
+            auto music = std::make_unique<MusicSFML>(_pool->getPathFromIndex(in.at(12)));
+            entity->addComponent<Engine::MusicComponent>(std::move(music))->playMe(in.at(13));
+        } else if (in.at(11) == 0) {
+            auto sound = std::make_unique<SoundSFML>(_pool->getPathFromIndex(in.at(12)));
+            entity->addComponent<Engine::SoundComponent>(std::move(sound))->playMe(in.at(13));
+        }
+    }
     return std::shared_ptr<Engine::Entity>(entity);
 }
 
@@ -110,16 +117,23 @@ std::shared_ptr<Engine::Entity> SocketParser::createSpriteEntity(const std::vect
     sprite->getSprite()->setRect(
             {static_cast<double>(in.at(6)), static_cast<double>(in.at(7)), static_cast<double>(in.at(8)),
              static_cast<double>(in.at(9))});
+    if (in.at(11) != -1) {
+        if (in.at(11) == 1) {
+            auto music = std::make_unique<MusicSFML>(_pool->getPathFromIndex(in.at(12)));
+            entity->addComponent<Engine::MusicComponent>(std::move(music))->playMe(in.at(13));
+        } else if (in.at(11) == 0) {
+            auto sound = std::make_unique<SoundSFML>(_pool->getPathFromIndex(in.at(12)));
+            entity->addComponent<Engine::SoundComponent>(std::move(sound))->playMe(in.at(13));
+        }
+    }
     return std::shared_ptr<Engine::Entity>(entity);
 }
 
 void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> entity, const std::vector<int> &in) const
 {
     if (in.at(0) == 1) {
-        //std::cout << "update sprite entity" << std::endl;
         updateSpriteEntity(entity, in);
     } else {
-        //std::cout << "update text entity" << std::endl;
         updateTextEntity(entity, in);
     }
 }
@@ -131,10 +145,14 @@ void SocketParser::updateTextEntity(std::shared_ptr<Engine::Entity> &entity, con
     entity->getComponent<Engine::TransformComponent>()->setPos(Engine::Point<double>{static_cast<double>(in.at(4)), static_cast<double>(in.at(5))});
     entity->getComponent<Engine::TransformComponent>()->setRotation(in.at(6));
 
-    std::ifstream ifs(_pool->getPathFromIndex(in.at(3)));
-    std::string content((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
+    std::string file = _pool->getPathFromIndex(in.at(3));
+    std::ifstream ifs(file);
+    std::string content;
+    if (ifs.fail() || file.substr(file.find_last_of('.') + 1) != "txt" || file == "null")
+        content = "";
+    else
+        content = std::string((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
 
-    //std::cout << "content update " << content << std::endl;
     text->getText()->setString(content);
     text->getText()->setCharacterSize(in.at(7));
     text->getText()->setLetterSpacing(in.at(8));
@@ -142,7 +160,21 @@ void SocketParser::updateTextEntity(std::shared_ptr<Engine::Entity> &entity, con
     text->setLayer(in.at(9));
     text->getText()->setFillColor(Engine::Color({255, 255, 255, static_cast<unsigned char>(in.at(10))}));
     text->getText()->setOrigin(Engine::Point<double>({static_cast<double>(text->getText()->getSize().x / 2), static_cast<double>(text->getText()->getSize().y / 2)}));
-//    std::cout << in << std::endl;
+    if (in.at(11) != -1) {
+        if (in.at(11) == 1) {
+            entity->getComponent<Engine::MusicComponent>()->playMe(in.at(13));
+            if (_pool->getPathFromIndex(in.at(12)) != entity->getComponent<Engine::MusicComponent>()->getMusic()->getFile()) {
+                auto music = std::make_unique<MusicSFML>(_pool->getPathFromIndex(in.at(12)));
+                entity->getComponent<Engine::MusicComponent>()->setMusic(std::move(music));
+            }
+        } else if (in.at(11) == 0) {
+            entity->getComponent<Engine::SoundComponent>()->playMe(in.at(13));
+            if (_pool->getPathFromIndex(in.at(12)) != entity->getComponent<Engine::SoundComponent>()->getSound()->getFile()) {
+                auto sound = std::make_unique<SoundSFML>(_pool->getPathFromIndex(in.at(12)));
+                entity->getComponent<Engine::SoundComponent>()->setSound(std::move(sound));
+            }
+        }
+    }
 }
 
 void SocketParser::updateSpriteEntity(const std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in) const
@@ -159,6 +191,21 @@ void SocketParser::updateSpriteEntity(const std::shared_ptr<Engine::Entity> &ent
             {static_cast<double>(in.at(6)), static_cast<double>(in.at(7)), static_cast<double>(in.at(8)),
              static_cast<double>(in.at(9))});
     sprite->setLayer(in.at(10));
+    if (in.at(11) != -1) {
+        if (in.at(11) == 1) {
+            entity->getComponent<Engine::MusicComponent>()->playMe(in.at(13));
+            if (_pool->getPathFromIndex(in.at(12)) != entity->getComponent<Engine::MusicComponent>()->getMusic()->getFile()) {
+                auto music = std::make_unique<MusicSFML>(_pool->getPathFromIndex(in.at(12)));
+                entity->getComponent<Engine::MusicComponent>()->setMusic(std::move(music));
+            }
+        } else if (in.at(11) == 0) {
+            entity->getComponent<Engine::SoundComponent>()->playMe(in.at(13));
+            if (_pool->getPathFromIndex(in.at(12)) != entity->getComponent<Engine::SoundComponent>()->getSound()->getFile()) {
+                auto sound = std::make_unique<SoundSFML>(_pool->getPathFromIndex(in.at(12)));
+                entity->getComponent<Engine::SoundComponent>()->setSound(std::move(sound));
+            }
+        }
+    }
 }
 
 std::shared_ptr<Engine::Entity> SocketParser::unparseTcpLobby(const std::vector<int> &in)

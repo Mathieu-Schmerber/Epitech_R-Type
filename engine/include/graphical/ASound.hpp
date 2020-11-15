@@ -19,9 +19,11 @@ namespace Engine {
         ASound() = default;
         void setVolume(double volume) override;
         [[nodiscard]] virtual bool isPlaying() const {return false;};
+        [[nodiscard]] std::string getFile() const {return this->_file;}
 
     protected:
         double _volume = 100;
+        std::string _file;
     };
 
 }

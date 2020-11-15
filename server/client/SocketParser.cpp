@@ -5,6 +5,8 @@
 #include "SocketParser.hpp"
 #include "tools/AssetPool.hpp"
 #include "components/NetworkComponent.hpp"
+#include "components/MusicComponent.hpp"
+#include "components/SoundComponent.hpp"
 #include "components/SpriteComponent.hpp"
 #include "components/TransformComponent.hpp"
 #include "components/VelocityComponent.hpp"
@@ -40,6 +42,8 @@ std::vector<int> SocketParser::parseUdpText(const std::shared_ptr<Engine::Entity
     static auto pool = new Engine::AssetPool("../../client/assets");
     auto transform = entity->getComponent<Engine::TransformComponent>();
     auto text = entity->getComponent<Engine::TextComponent>();
+    auto music = entity->getComponent<Engine::MusicComponent>();
+    auto sound = entity->getComponent<Engine::SoundComponent>();
 
     parsed.push_back(Text);
     parsed.push_back(entity->getComponent<Engine::NetworkComponent>()->getNetworkId());
@@ -52,7 +56,15 @@ std::vector<int> SocketParser::parseUdpText(const std::shared_ptr<Engine::Entity
     parsed.push_back(static_cast<int>(text->getText()->getLetterSpacing()));
     parsed.push_back(static_cast<int>(text->getLayer()));
     parsed.push_back(static_cast<int>(text->getText()->getFillColor().alpha));
-
+    if (music == nullptr && sound == nullptr) {
+        parsed.push_back(-1);
+        parsed.push_back(-1);
+        parsed.push_back(-1);
+    } else {
+        parsed.push_back(music != nullptr);
+        parsed.push_back(static_cast<int>(pool->getIndexFromPath((music ? music->getMusic()->getFile() : sound->getSound()->getFile()))));
+        parsed.push_back((music ? music->wantsToBePlayed() : sound->wantsToBePlayed()));
+    }
     return parsed;
 }
 
@@ -62,6 +74,8 @@ std::vector<int> SocketParser::parseUdpSprite(const std::shared_ptr<Engine::Enti
     static auto pool = new Engine::AssetPool("../../client/assets");
     auto transform = entity->getComponent<Engine::TransformComponent>();
     auto sprite = entity->getComponent<Engine::SpriteComponent>();
+    auto music = entity->getComponent<Engine::MusicComponent>();
+    auto sound = entity->getComponent<Engine::SoundComponent>();
 
     parsed.push_back(Sprite);
     parsed.push_back(entity->getComponent<Engine::NetworkComponent>()->getNetworkId());
@@ -74,5 +88,14 @@ std::vector<int> SocketParser::parseUdpSprite(const std::shared_ptr<Engine::Enti
     parsed.push_back(static_cast<int>(sprite->getSprite()->getRect().y1));
     parsed.push_back(static_cast<int>(sprite->getSprite()->getRect().y2));
     parsed.push_back(static_cast<int>(sprite->getLayer()));
+    if (music == nullptr && sound == nullptr) {
+        parsed.push_back(-1);
+        parsed.push_back(-1);
+        parsed.push_back(-1);
+    } else {
+        parsed.push_back(music != nullptr);
+        parsed.push_back(static_cast<int>(pool->getIndexFromPath((music ? music->getMusic()->getFile() : sound->getSound()->getFile()))));
+        parsed.push_back((music ? music->wantsToBePlayed() : sound->wantsToBePlayed()));
+    }
     return parsed;
 }
