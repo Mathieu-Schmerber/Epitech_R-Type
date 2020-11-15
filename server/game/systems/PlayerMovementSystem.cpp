@@ -5,6 +5,7 @@
 #include "tools/Utils.hpp"
 #include "PlayerMovementSystem.hpp"
 #include "CollisionMasks.hpp"
+#include "systems/GroundSystem.hpp"
 
 PlayerMovementSystem::PlayerMovementSystem() : Engine::System()
 {
@@ -20,7 +21,7 @@ PlayerMovementSystem::PlayerMovementSystem() : Engine::System()
 
 bool PlayerMovementSystem::willExitScreen(Engine::Point<double> pos, Engine::Vector<double> dir)
 {
-    Engine::Box<double> screen = {{0, 0}, {1920, 1080}};
+    Engine::Box<double> screen = {{0, 0}, {1920, 1080 - (GROUND_HEIGHT + 10)}};
     Engine::Point<double> res = {pos.x + dir.x, pos.y + dir.y};
 
     return !Engine::Geometry::doOverlap(res, screen);
