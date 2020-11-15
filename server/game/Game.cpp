@@ -56,8 +56,8 @@ void Game::spawnPlayers()
 
 void Game::initGameEntities()
 {
-    auto parallaxA = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png");
-    auto parallaxB = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_2_3840_1080.png");
+    auto parallaxA = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_1_3920x1080.png");
+    auto parallaxB = std::make_unique<DataSprite>("../../client/assets/images/parallax/parallax_1_3920x1080.png");
     parallaxA->setRect({{0, 0}, {3840, 1080}});
     parallaxB->setRect({{0, 0}, {3840, 1080}});
     std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{0, 0}, Engine::Point<double>{-3840, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxA));
@@ -68,6 +68,8 @@ void Game::initGameEntities()
     this->spawn(slideA, true);
     this->spawn(slideB, true);
     this->spawn(spawner, true);
+    this->_backgrounds.push_back(slideA);
+    this->_backgrounds.push_back(slideB);
 }
 
 void Game::initGameSystems()
@@ -110,6 +112,17 @@ void Game::initGameSystems()
     this->_systems.push_back(std::move(target));
     this->_systems.push_back(std::move(borderLimit));
     this->_systems.push_back(std::move(network));
+}
+
+void Game::setBackground(int nb)
+{
+    std::vector<Engine::Box<double>> _anims = {
+            {{0, 0}, {3840, 1080}},
+            {{3840, 0}, {3840, 1080}},
+            {{7680, 0}, {3840, 1080}},
+    };
+    for (auto &b : this->_backgrounds)
+        b->getComponent<Engine::SpriteComponent>()->getSprite()->setRect(_anims[nb]);
 }
 
 void Game::spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork)
@@ -157,7 +170,7 @@ void Game::update()
         }
         if (_players.empty()) {
             _running = false;
-            std::cout << "End of the game" << std::endl;
+            return;
         }
     }
     this->_running = !(this->_playersSpaceShips.empty());

@@ -8,6 +8,7 @@
 #include "CollisionMasks.hpp"
 #include "ecs/Entity.hpp"
 #include "dataHolders/DataSprite.hpp"
+#include "dataHolders/DataSound.hpp"
 #include "components/SpriteComponent.hpp"
 #include "components/ChildrenComponent.hpp"
 #include "components/AnimationComponent.hpp"
@@ -16,6 +17,7 @@
 #include "components/ColliderComponent.hpp"
 #include "components/ManualWeaponComponent.hpp"
 #include "components/HealthComponent.hpp"
+#include "components/SoundComponent.hpp"
 
 class Player : public Engine::Entity
 {
@@ -54,8 +56,13 @@ public:
         });
         this->getComponent<Engine::AnimationComponent>()->setAnimation(IDLE, false);
         this->addComponent<ManualWeaponComponent>(1, 0.5, 0.1);
-        auto health = this->addComponent<HealthComponent>(100);
-        health->setCurrentHealth(100);
+        this->addComponent<Engine::SoundComponent>();
+
+        auto health = this->addComponent<HealthComponent>(10000);
+        health->setCurrentHealth(10000);
+
+        auto sound = std::make_unique<DataSound>("../../client/assets/ogg/sound_effect/shoots/shoot_12.ogg");
+        this->addComponent<Engine::SoundComponent>(std::move(sound));
     }
 };
 

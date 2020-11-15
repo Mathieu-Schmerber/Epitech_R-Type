@@ -96,6 +96,8 @@ void SpawnerSystem::handleWaves(std::shared_ptr<Engine::Entity> &spawner)
         auto newMusic = std::make_unique<DataMusic>(_musics[wave->getCurrentWave()]);
         music->setMusic(std::move(newMusic));
         music->playMe(true);
+        if (wave->getCurrentWave() < 3)
+            this->_game->setBackground(wave->getCurrentWave());
 
         spawner->getComponent<EnemySpawnerComponent>()->setSpawnRate(spawner->getComponent<EnemySpawnerComponent>()->getSpawnRate() + 4);
         if (wave->getCurrentWave() != WaveComponent::victory && wave->getCurrentWave() != WaveComponent::boss)

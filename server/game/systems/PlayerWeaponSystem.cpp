@@ -18,6 +18,7 @@ PlayerWeaponSystem::PlayerWeaponSystem(std::shared_ptr<Game> &game) : _game(game
     this->addDependency<Engine::AnimationComponent>();
     this->addDependency<Engine::ColliderComponent>();
     this->addDependency<Engine::ChildrenComponent>();
+    this->addDependency<Engine::SoundComponent>();
     this->addDependency<ManualWeaponComponent>();
     for (auto &p : this->_chargeTypes)
         this->_projectileTextures[p.first] = std::make_shared<DataTexture>(p.second.first);
@@ -92,9 +93,11 @@ void PlayerWeaponSystem::handleWeapon(std::shared_ptr<Engine::Entity> &player)
     auto weapon = player->getComponent<ManualWeaponComponent>();
     auto box = player->getComponent<Engine::ColliderComponent>()->getHitBox();
 
+    std::cout << player->getComponent<Engine::SoundComponent>()->getSound()->getFile() << std::endl;
     if (Engine::Utils::isInVector(pressed, Engine::Inputs::Space) && !weapon->isCharging()) {
         weapon->beginCharge();
         this->spawnShootParticle(player);
+        player->getComponent<Engine::SoundComponent>()->playMe(false);
     } else if (!Engine::Utils::isInVector(pressed, Engine::Inputs::Space) && weapon->isCharging() && weapon->canShoot()) {
         auto proj = this->generateProjectile(weapon);
         auto box2 = proj->getComponent<Engine::ColliderComponent>()->getHitBox();
@@ -103,7 +106,9 @@ void PlayerWeaponSystem::handleWeapon(std::shared_ptr<Engine::Entity> &player)
         weapon->refreshShoots();
         weapon->abortCharge();
         this->destroyShootParticle(player);
-    }
+        player->getComponent<Engine::SoundComponent>()->playMe(true);
+    } else
+        player->getComponent<Engine::SoundComponent>()->playMe(false);
 }
 
 void PlayerWeaponSystem::update()

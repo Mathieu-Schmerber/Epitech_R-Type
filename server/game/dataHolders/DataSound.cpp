@@ -9,7 +9,7 @@ DataSound::DataSound(const std::string &filename) : Engine::ASound() {
     this->loadFromFile(filename);
 }
 
-void DataSound::loadFromFile(const std::string &filename) {}
+void DataSound::loadFromFile(const std::string &filename) {this->_file = filename;}
 
 void DataSound::play(int volume) {}
 

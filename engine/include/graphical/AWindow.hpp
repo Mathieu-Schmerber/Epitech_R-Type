@@ -18,8 +18,8 @@ namespace Engine {
         std::string _title;
         bool _vSyncEnabled = true;
         int _frameRate = 30;
-        bool _sound = false;
-        bool _music = false;
+        bool _sound = true;
+        bool _music = true;
 
     public:
         AWindow(const std::string &title, const Size<double> &windowSize);

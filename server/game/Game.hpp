@@ -25,6 +25,7 @@ private:
     std::vector<std::shared_ptr<Client>> _players;
     std::reference_wrapper<std::unique_ptr<UdpSocketInput>> _reception;
     std::vector<std::shared_ptr<Engine::Entity>> _playersSpaceShips;
+    std::vector<std::shared_ptr<Engine::Entity>> _backgrounds;
 
     void spawnPlayers();
     void initGameEntities();
@@ -34,6 +35,7 @@ public:
     Game(std::vector<std::shared_ptr<Client>> &players, std::unique_ptr<UdpSocketInput> &reception);
     ~Game();
 
+    void setBackground(int nb);
     void spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork);
     void despawn(std::shared_ptr<Engine::Entity> &entity);
     void stopTheGame();

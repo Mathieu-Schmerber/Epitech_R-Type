@@ -9,7 +9,6 @@
 #include "entities/LobbyCard.hpp"
 #include "components/NetworkComponent.hpp"
 #include "components/SoundComponent.hpp"
-#include "components/MusicComponent.hpp"
 
 SocketParser::SocketParser()
 {
@@ -34,8 +33,8 @@ bool SocketParser::shouldTeleport(Engine::Point<int> a, Engine::Point<int> b, En
 {
     double tolerance = 60;
 
-    return (abs(sqrt(pow(b.x - a.x, 2)) - tolerance) >= (double)(size.x * 0.5) ||
-            abs(sqrt(pow(b.y - a.y, 2)) - tolerance) >= (double)(size.y * 0.5));
+    return (abs(sqrt(pow(b.x - a.x, 2)) - tolerance) >= (double)(size.x * 0.8) ||
+            abs(sqrt(pow(b.y - a.y, 2)) - tolerance) >= (double)(size.y * 0.8));
 }
 
 std::vector<int> SocketParser::parseUdpInputs(int clientId, const std::vector<Engine::Inputs> &pressed, const std::vector<Engine::Inputs> &released)
@@ -76,7 +75,6 @@ std::shared_ptr<Engine::Entity> SocketParser::createTextEntity(const std::vector
     text = entity->getComponent<Engine::TextComponent>();
     std::ifstream ifs(_pool->getPathFromIndex(in.at(2)));
     std::string content((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
-
 
     if (_fonts.find(this->_pool->getPathFromIndex(in.at(2))) == _fonts.end()) {
         _fonts[_pool->getPathFromIndex(in.at(2))] = std::make_shared<FontSFML>(_pool->getPathFromIndex(in.at(2)));
@@ -165,12 +163,14 @@ void SocketParser::updateTextEntity(std::shared_ptr<Engine::Entity> &entity, con
             entity->getComponent<Engine::MusicComponent>()->playMe(in.at(13));
             if (_pool->getPathFromIndex(in.at(12)) != entity->getComponent<Engine::MusicComponent>()->getMusic()->getFile()) {
                 auto music = std::make_unique<MusicSFML>(_pool->getPathFromIndex(in.at(12)));
+                entity->getComponent<Engine::MusicComponent>()->getMusic()->stop();
                 entity->getComponent<Engine::MusicComponent>()->setMusic(std::move(music));
             }
         } else if (in.at(11) == 0) {
             entity->getComponent<Engine::SoundComponent>()->playMe(in.at(13));
             if (_pool->getPathFromIndex(in.at(12)) != entity->getComponent<Engine::SoundComponent>()->getSound()->getFile()) {
                 auto sound = std::make_unique<SoundSFML>(_pool->getPathFromIndex(in.at(12)));
+                entity->getComponent<Engine::SoundComponent>()->getSound()->stop();
                 entity->getComponent<Engine::SoundComponent>()->setSound(std::move(sound));
             }
         }
@@ -196,12 +196,14 @@ void SocketParser::updateSpriteEntity(const std::shared_ptr<Engine::Entity> &ent
             entity->getComponent<Engine::MusicComponent>()->playMe(in.at(13));
             if (_pool->getPathFromIndex(in.at(12)) != entity->getComponent<Engine::MusicComponent>()->getMusic()->getFile()) {
                 auto music = std::make_unique<MusicSFML>(_pool->getPathFromIndex(in.at(12)));
+                entity->getComponent<Engine::MusicComponent>()->getMusic()->stop();
                 entity->getComponent<Engine::MusicComponent>()->setMusic(std::move(music));
             }
         } else if (in.at(11) == 0) {
             entity->getComponent<Engine::SoundComponent>()->playMe(in.at(13));
             if (_pool->getPathFromIndex(in.at(12)) != entity->getComponent<Engine::SoundComponent>()->getSound()->getFile()) {
                 auto sound = std::make_unique<SoundSFML>(_pool->getPathFromIndex(in.at(12)));
+                entity->getComponent<Engine::SoundComponent>()->getSound()->stop();
                 entity->getComponent<Engine::SoundComponent>()->setSound(std::move(sound));
             }
         }

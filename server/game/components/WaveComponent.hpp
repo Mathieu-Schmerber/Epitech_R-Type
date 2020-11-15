@@ -26,7 +26,7 @@ private:
             {medium, 60},
             {hard, 60},
             {boss, 0},
-            {victory, 4}
+            {victory, 7}
     };
     int displayWaveTime = 2;
     int _currentWave = basic;

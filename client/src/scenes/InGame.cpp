@@ -69,9 +69,9 @@ void InGame::initSystems()
     this->_systems.push_back(std::move(network));
     this->_systems.push_back(std::move(text));
     this->_systems.push_back(std::move(window));
-    if (this->_window->hasSound())
+    //if (this->_window->hasSound())
         this->_systems.push_back(std::move(sound));
-    if (this->_window->hasMusic())
+    //if (this->_window->hasMusic())
         this->_systems.push_back(std::move(music));
 }
 
