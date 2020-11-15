@@ -6,7 +6,7 @@
 #define RTYPE_GAME_HPP
 
 #include <mutex>
-#include <entities/Enemy.hpp>
+#include "entities/Enemy.hpp"
 #include "ecs/System.hpp"
 #include "tools/Timer.hpp"
 #include "networking/UDP/UdpSocketInput.hpp"

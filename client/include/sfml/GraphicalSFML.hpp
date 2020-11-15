@@ -11,10 +11,10 @@
 #ifndef RTYPE_GRAPHICALSFML_HPP
 #define RTYPE_GRAPHICALSFML_HPP
 
-#include <graphical/AGraphical.hpp>
-#include <graphical/AWindow.hpp>
-#include <graphical/ASound.hpp>
-#include <graphical/AEvents.hpp>
+#include "graphical/AGraphical.hpp"
+#include "graphical/AWindow.hpp"
+#include "graphical/ASound.hpp"
+#include "graphical/AEvents.hpp"
 #include <memory>
 
 class GraphicalSFML : public Engine::AGraphical {

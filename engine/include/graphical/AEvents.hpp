@@ -9,11 +9,11 @@
 #ifndef RTYPE_AEVENTS_HPP
 #define RTYPE_AEVENTS_HPP
 
+#include <iostream>
 #include <algorithm>
 #include "graphical/AWindow.hpp"
 #include "enumerations/Inputs.hpp"
-#include <iostream>
-#include <tools/Geometry.hpp>
+#include "tools/Geometry.hpp"
 
 namespace Engine {
 

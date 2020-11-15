@@ -2,8 +2,8 @@
 // Created by mathi on 30/10/2020.
 //
 
-#include <sfml/SpriteSfml.hpp>
 #include <memory>
+#include "sfml/SpriteSfml.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/MouseSystem.hpp"
 #include "systems/ButtonSystem.hpp"

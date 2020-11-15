@@ -13,7 +13,7 @@
 
 #include "graphical/AEvents.hpp"
 #include "sfml/WindowSFML.hpp"
-#include <SFML/Window/Event.hpp>
+#include "SFML/Window/Event.hpp"
 #include "tools/Utils.hpp"
 #include <map>
 

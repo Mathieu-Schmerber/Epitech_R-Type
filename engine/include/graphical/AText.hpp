@@ -9,12 +9,13 @@
 #ifndef RTYPE_ATEXT_HPP
 #define RTYPE_ATEXT_HPP
 
-#include <iostream>
+
 #include "tools/Color.hpp"
 #include "AFont.hpp"
-#include <memory>
-#include <tools/Geometry.hpp>
+#include "tools/Geometry.hpp"
 #include "AWindow.hpp"
+#include <iostream>
+#include <memory>
 
 namespace Engine {
 

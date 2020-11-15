@@ -9,7 +9,7 @@
 #ifndef RTYPE_AUDIOCOMPONENT_HPP
 #define RTYPE_AUDIOCOMPONENT_HPP
 
-#include <graphical/IAudio.hpp>
+#include "graphical/IAudio.hpp"
 #include "ecs/Component.hpp"
 #include <memory>
 
