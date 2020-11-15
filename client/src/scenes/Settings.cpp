@@ -17,21 +17,6 @@
 #define FLOAT(x) static_cast<double>(x)
 
 /*!
- * \brief changeWindowEnableFullscreen button callback
- * \param settings actual scene
- *
- * This callback permit to change window fullscreen property
-*/
-
-void changeWindowEnableFullscreen(std::shared_ptr<Engine::AScene> &settings)
-{
-    auto settingsObject = std::dynamic_pointer_cast<Settings>(settings);
-    auto fullscreenSelectorValue = settingsObject->getSettingsEntities();
-    auto rect = fullscreenSelectorValue[SettingsSelectorSprite::FULLSCREEN_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->getRect();
-    fullscreenSelectorValue[SettingsSelectorSprite::FULLSCREEN_ENABLED]->getComponent<Engine::SpriteComponent>()->getSprite()->setRect({Engine::Box<double>({FLOAT(INT(rect.x1 + ON_OFF_WIDTH) % ON_OFF_WIDTH_TOTAL), 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
-}
-
-/*!
  * \brief changeWindowFramerateNext button callback
  * \param settings actual scene
  *
@@ -199,8 +184,6 @@ void Settings::initEntities()
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::HOVER, {Engine::Box<double>({GO_BACK_BUTTON_X_HOVER, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
     goBackButtonEngine->getComponent<Engine::AnimationComponent>()->addAnimation(Engine::ButtonComponent::ButtonState::CLICKED, {Engine::Box<double>({GO_BACK_BUTTON_X_CLICKED, GO_BACK_BUTTON_Y}, {GO_BACK_BUTTON_WIDTH, GO_BACK_BUTTON_HEIGHT})});
 
-    auto enableFullscreenText = std::make_unique<SpriteSFML>(FULLSCREEN_TEXT_PATH);
-    std::shared_ptr<Engine::Entity> enableFullscreenEngine = std::make_shared<Engine::Drawable>(Engine::Point<double>{FULLSCREEN_TEXT_POSITION_X, FULLSCREEN_TEXT_POSITION_Y}, std::move(enableFullscreenText));
 
     auto framerateText = std::make_unique<SpriteSFML>(FRAMERATE_TEXT_PATH);
     std::shared_ptr<Engine::Entity> framerateEngine = std::make_shared<Engine::Drawable>(Engine::Point<double>{FRAMERATE_TEXT_POSITION_X, FRAMERATE_TEXT_POSITION_Y}, std::move(framerateText));
@@ -213,16 +196,12 @@ void Settings::initEntities()
     auto soundEffectsText = std::make_unique<SpriteSFML>(SOUND_EFFECTS_TEXT_PATH);
     std::shared_ptr<Engine::Entity> soundEffectsEngine = std::make_shared<Engine::Drawable>(Engine::Point<double>{SOUND_EFFECTS_TEXT_POSITION_X, SOUND_EFFECTS_TEXT_POSITION_Y}, std::move(soundEffectsText));
 
-    this->spawnEntity(enableFullscreenEngine);
     this->spawnEntity(framerateEngine);
     this->spawnEntity(vsyncEngine);
     this->spawnEntity(musicEngine);
     this->spawnEntity(soundEffectsEngine);
     this->spawnEntity(goBackButtonEngine);
 
-    auto onOffFTextWindowEnableFullscreen = std::make_unique<SpriteSFML>(ON_OFF_PATH);
-    onOffFTextWindowEnableFullscreen ->setRect({Engine::Box<double>({0, 0}, {ON_OFF_WIDTH, ON_OFF_HEIGHT})});
-    createSelector({static_cast<double>(LEFT_BUTTON_FULLSCREEN_POSITION_X),static_cast<double>(RIGHT_BUTTON_FULLSCREEN_POSITION_Y)}, {changeWindowEnableFullscreen, changeWindowEnableFullscreen}, ON_OFF_PATH, std::move(onOffFTextWindowEnableFullscreen ));
     auto framerateTextNumber = std::make_unique<SpriteSFML>(FRAMERATE_VALUE_PATH);
     framerateTextNumber->setRect({Engine::Box<double>({0, 0}, {FRAMERATE_VALUE_WIDTH, FRAMERATE_VALUE_HEIGHT})});
     createSelector({static_cast<double>(LEFT_BUTTON_FRAMERATE_POSITION_X),static_cast<double>(RIGHT_BUTTON_FRAMERATE_POSITION_Y)}, {changeWindowFrameratePrev, changeWindowFramerateNext}, FRAMERATE_VALUE_PATH, std::move(framerateTextNumber));
