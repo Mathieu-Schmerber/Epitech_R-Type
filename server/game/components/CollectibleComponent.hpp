@@ -10,9 +10,9 @@
 class CollectibleComponent : public Engine::Component {
 
 public:
-    enum Type {SENTINEL, UPGRADE};
+    enum Type {SENTINEL = 0, DAMAGE = 1, BOUNCE = 2, MISSILE = 3};
 
-    explicit CollectibleComponent() : _bonusValue(0), _type(UPGRADE), Engine::Component() {}
+    explicit CollectibleComponent() : _bonusValue(0), _type(DAMAGE), Engine::Component() {}
     explicit CollectibleComponent(double bonusValue, Type type) : _bonusValue(bonusValue), _type(type), Engine::Component() {}
 
     [[nodiscard]] double getBonusValue() const {return _bonusValue;}

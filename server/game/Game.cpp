@@ -51,8 +51,6 @@ void Game::initGameEntities()
     parallaxB->setRect({{0, 0}, {3840, 1080}});
     std::shared_ptr<Engine::Entity> slideA = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{0, 0}, Engine::Point<double>{-3840, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxA));
     std::shared_ptr<Engine::Entity> slideB = std::make_shared<Engine::ParallaxSlide>(Engine::Point<double>{3840, 0}, Engine::Point<double>{0, 0}, Engine::Point<double>{-15, 0}, std::move(parallaxB));
-    std::shared_ptr<Engine::Entity> bonusTest = std::make_shared<Collectible>(Engine::Point<double>{1000, 500}, CollectibleComponent::SENTINEL);
-    std::shared_ptr<Engine::Entity> bonusTest2 = std::make_shared<Collectible>(Engine::Point<double>{800, 500}, CollectibleComponent::SENTINEL);
 
     auto spawner = std::make_shared<Spawner>();
 
@@ -61,8 +59,6 @@ void Game::initGameEntities()
 
     this->spawn(slideA, true);
     this->spawn(slideB, true);
-    this->spawn(bonusTest, true);
-    this->spawn(bonusTest2, true);
     this->spawn(spawner, true);
 }
 

@@ -5,8 +5,8 @@
 ** Created by Cyprien
 */
 
-
 #include "components/PatternComponent.hpp"
+#include "entities/Collectible.hpp"
 #include "EnemySystem.hpp"
 
 EnemySystem::EnemySystem(std::shared_ptr<Game> &game) : _game(game), Engine::System()
@@ -38,6 +38,23 @@ bool EnemySystem::didCollide(std::shared_ptr<Engine::Entity> &enemy)
         }
     }
     return willBeDestroyed;
+}
+
+void EnemySystem::deleteEntity(std::shared_ptr<Engine::Entity> &entity)
+{
+    const double bonusSpawnRate = 20.0;
+    auto rdm = Engine::RandomETU::randETU<double>(0, 100);
+    bool spawnBonus = (rdm <= bonusSpawnRate);
+    std::shared_ptr<Engine::Entity> bonus;
+
+    if (Engine::Utils::isInVector(this->_entities, entity)) {
+        if (spawnBonus) {
+            bonus = std::make_shared<Collectible>(entity->getComponent<Engine::TransformComponent>()->getPos(),
+                                                  static_cast<CollectibleComponent::Type>(Engine::RandomETU::randETU<int>(0, 3)));
+            this->_game->spawn(bonus, true);
+        }
+        Engine::Utils::removeFromVector(this->_entities, entity);
+    }
 }
 
 void EnemySystem::update()
