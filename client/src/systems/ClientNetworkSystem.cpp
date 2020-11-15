@@ -78,8 +78,6 @@ void ClientNetworkSystem::receiveGameData()
         }
     }
 
-
-
     //for (auto &e : copy) {
     //    for (auto &p : packets) {
     //        Engine::Utils::isInVector(packets, x3);
