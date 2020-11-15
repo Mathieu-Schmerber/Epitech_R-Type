@@ -36,18 +36,52 @@ void Lobby::run()
 
 void Lobby::join(const std::shared_ptr<Client> &cli)
 {
+    std::vector<int> toSend;
     std::cout << "Client " << cli->getId() << " join lobby " << _id << std::endl;
+    if (!_players.empty()) {
+        for (auto &a : _players) {
+            toSend.clear();
+            toSend.push_back(4);
+            toSend.push_back(49);
+            toSend.push_back(a->getId());
+            toSend.push_back(_players.at(0)->getId());
+            cli->sendToClientTcp(toSend);
+            toSend.clear();
+            toSend.push_back(4);
+            toSend.push_back(49);
+            toSend.push_back(cli->getId());
+            a->sendToClientTcp(toSend);
+        }
+    }
     _players.push_back(cli);
+    toSend.clear();
+    toSend.push_back(4);
+    toSend.push_back(49);
+    toSend.push_back(cli->getId());
+    toSend.push_back(_players.at(0)->getId());
+    cli->sendToClientTcp(toSend);
 }
 
 void Lobby::leave(const std::shared_ptr<Client>& cli)
 {
+    std::vector<int> toSend;
+
     if (_players.empty())
         return;
     for (auto a = _players.begin(); a != _players.end(); ++a) {
         if (cli->getId() == a->get()->getId()) {
             this->_players.erase(a);
             break;
+        }
+    }
+    if (!_players.empty()) {
+        for (auto &a : _players) {
+            toSend.clear();
+            toSend.push_back(4);
+            toSend.push_back(50);
+            toSend.push_back(cli->getId());
+            toSend.push_back(_players.at(0)->getId());
+            a->sendToClientTcp(toSend);
         }
     }
     if (_game && _game->isGameRunning())
