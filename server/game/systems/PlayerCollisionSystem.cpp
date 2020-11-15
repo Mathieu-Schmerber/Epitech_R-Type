@@ -53,7 +53,7 @@ bool PlayerCollisionSystem::hasPowerUp(std::shared_ptr<Engine::Entity> &sentinel
     for (auto &weapon : sentinel->getComponents<AutomaticWeaponComponent>()) {
         switch (type) {
             case CollectibleComponent::Type::DAMAGE:
-                if (weapon->getMultiplier() == 2)
+                if (weapon->getMultiplier() == 3)
                     return true;
                 break;
             case CollectibleComponent::Type::MISSILE:
@@ -78,7 +78,7 @@ void PlayerCollisionSystem::powerDamage(std::shared_ptr<Engine::Entity> &player,
     Engine::Box<double> box2 = {0, 0, 0, 0};
     double top = (sentinel->getComponent<Engine::TransformComponent>()->getPos().y > player->getComponent<Engine::TransformComponent>()->getPos().y ? 1 : -1);
 
-    if (weapon->getMultiplier() == 2)
+    if (weapon->getMultiplier() == 3)
         return;
     weapon->setDamageMultiplier(weapon->getMultiplier() + 1);
     sentinel->getComponent<Engine::AnimationComponent>()->setAnimation(static_cast<int>(weapon->getMultiplier() - 1), true);
