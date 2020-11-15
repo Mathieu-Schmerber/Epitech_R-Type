@@ -11,7 +11,7 @@
 class ProjectileComponent : public Engine::Component
 {
 public:
-    enum Type {BASIC, BEAM, SHURIKEN};
+    enum Type {BASIC, BEAM, SHURIKEN, MISSILE};
 
     explicit ProjectileComponent() : _damage(0), _nbHit(0), _canBounce(false), Engine::Component() {}
     explicit ProjectileComponent(double damage) : _damage(damage), _nbHit(1), _canBounce(true), Engine::Component() {}

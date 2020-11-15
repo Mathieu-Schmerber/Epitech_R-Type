@@ -15,7 +15,13 @@ class PlayerCollisionSystem : public Engine::System
 private:
     std::shared_ptr<Game> _game;
 
+    void powerDamage(std::shared_ptr<Engine::Entity> &player, std::shared_ptr<Engine::Entity> &sentinel);
+    void powerBounce(std::shared_ptr<Engine::Entity> &player, std::shared_ptr<Engine::Entity> &sentinel);
+    void powerMissile(std::shared_ptr<Engine::Entity> &player, std::shared_ptr<Engine::Entity> &sentinel);
+
     void attachSentinel(std::shared_ptr<Engine::Entity> &player, bool top);
+    static bool hasPowerUp(std::shared_ptr<Engine::Entity> &sentinel, CollectibleComponent::Type type);
+    void applyPowerUp(std::shared_ptr<Engine::Entity> &player, CollectibleComponent::Type type);
     void pickupCollectible(std::shared_ptr<Engine::Entity> &player, CollectibleComponent::Type type, double value);
     void handleCollisions(std::shared_ptr<Engine::Entity> &player);
 public:

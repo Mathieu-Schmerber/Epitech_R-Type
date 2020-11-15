@@ -32,15 +32,89 @@ void PlayerCollisionSystem::attachSentinel(std::shared_ptr<Engine::Entity> &play
     this->_game->spawn(sentinel, true);
 }
 
+bool PlayerCollisionSystem::hasPowerUp(std::shared_ptr<Engine::Entity> &sentinel, CollectibleComponent::Type type)
+{
+    for (auto &weapon : sentinel->getComponents<AutomaticWeaponComponent>()) {
+        switch (type) {
+            case CollectibleComponent::Type::DAMAGE:
+                if (weapon->getCurrentDamages() != weapon->getBaseDamages())
+                    return true;
+                break;
+            case CollectibleComponent::Type::MISSILE:
+                if (weapon->useTargets())
+                    return true;
+                break;
+            case CollectibleComponent::Type::BOUNCE:
+                if (weapon->canBounce())
+                    return true;
+                break;
+            default:
+                return false;
+        }
+    }
+    return false;
+}
+
+void PlayerCollisionSystem::powerDamage(std::shared_ptr<Engine::Entity> &player, std::shared_ptr<Engine::Entity> &sentinel)
+{
+    auto weapon = sentinel->getComponent<AutomaticWeaponComponent>();
+    auto box1 = player->getComponent<Engine::ColliderComponent>()->getHitBox();
+    Engine::Box<double> box2 = {0, 0, 0, 0};
+    double top = (sentinel->getComponent<Engine::TransformComponent>()->getPos().y > player->getComponent<Engine::TransformComponent>()->getPos().y ? 1 : -1);
+
+    weapon->setDamageMultiplier(2);
+    sentinel->getComponent<Engine::AnimationComponent>()->setAnimation(static_cast<int>(weapon->getMultiplier() - 1), true);
+    box2 = sentinel->getComponent<Engine::AnimationComponent>()->getNextFrame();
+    if (top == -1)
+        sentinel->getComponent<Engine::TransformComponent>()->setPos(Engine::Geometry::placeTop(box1, box2));
+    else
+        sentinel->getComponent<Engine::TransformComponent>()->setPos(Engine::Geometry::placeBottom(box1, box2));
+}
+
+void PlayerCollisionSystem::powerBounce(std::shared_ptr<Engine::Entity> &player, std::shared_ptr<Engine::Entity> &sentinel)
+{
+    double top = (sentinel->getComponent<Engine::TransformComponent>()->getPos().y > player->getComponent<Engine::TransformComponent>()->getPos().y ? 1 : -1);
+    auto added = sentinel->addComponent<AutomaticWeaponComponent>(1, 1, Engine::Vector<double>{40.0, 45 * top},
+                                                               Collision::Mask::PLAYER_PROJECTILE, ProjectileComponent::Type::SHURIKEN);
+    added->setBounce(true);
+}
+
+void PlayerCollisionSystem::powerMissile(std::shared_ptr<Engine::Entity> &player, std::shared_ptr<Engine::Entity> &sentinel)
+{
+    auto added = sentinel->addComponent<AutomaticWeaponComponent>(1, 3,Engine::Vector<double>{20.0, 0},
+                                                                  Collision::Mask::PLAYER_PROJECTILE, ProjectileComponent::Type::MISSILE);
+    added->setUseTargets(true);
+}
+
+void PlayerCollisionSystem::applyPowerUp(std::shared_ptr<Engine::Entity> &player, CollectibleComponent::Type type)
+{
+    auto children = player->getComponent<Engine::ChildrenComponent>()->getChildren();
+    void (PlayerCollisionSystem::*f[])(std::shared_ptr<Engine::Entity> &, std::shared_ptr<Engine::Entity> &) = {
+            &PlayerCollisionSystem::powerDamage,
+            &PlayerCollisionSystem::powerBounce,
+            &PlayerCollisionSystem::powerMissile
+    };
+
+    for (auto &child : children) {
+        if (child->getComponent<AutomaticWeaponComponent>() && !PlayerCollisionSystem::hasPowerUp(child, type)) {
+            (this->*f[type - 1])(player, child);
+            return;
+        }
+    }
+}
+
 void PlayerCollisionSystem::pickupCollectible(std::shared_ptr<Engine::Entity> &player, CollectibleComponent::Type type, double value)
 {
     int sentinelCount = 0;
     auto children = player->getComponent<Engine::ChildrenComponent>()->getChildren();
 
-    for (auto &child : children)
-        sentinelCount += (child->getComponent<AutomaticWeaponComponent>() != nullptr);
-    if (sentinelCount < 2)
-        this->attachSentinel(player, (sentinelCount == 0));
+    if (type == CollectibleComponent::Type::SENTINEL) {
+        for (auto &child : children)
+            sentinelCount += (child->getComponent<AutomaticWeaponComponent>() != nullptr);
+        if (sentinelCount < 2)
+            this->attachSentinel(player, (sentinelCount == 0));
+    } else
+            PlayerCollisionSystem::applyPowerUp(player, type);
 }
 
 void PlayerCollisionSystem::handleCollisions(std::shared_ptr<Engine::Entity> &player)

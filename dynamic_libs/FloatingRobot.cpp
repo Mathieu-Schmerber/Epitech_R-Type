@@ -43,7 +43,7 @@ void pattern(std::shared_ptr<Engine::Entity> &enemy)
 FloatingRobot::FloatingRobot(const Engine::Point<double> &pos) : Enemy(std::move(std::make_unique<DataSprite>(PATH, Engine::Box<double>{pos, {SIZE_X, SIZE_Y}})), pos)
 {
         this->addComponent<PatternComponent>(&pattern);
-        this->addComponent<AutomaticWeaponComponent>(1, 0.5, 1, Engine::Vector<double>{-100, 0}, Collision::Mask::ENEMY_PROJECTILE, ProjectileComponent::Type::BASIC);
+        this->addComponent<AutomaticWeaponComponent>(1, 1, Engine::Vector<double>{-100, 0}, Collision::Mask::ENEMY_PROJECTILE, ProjectileComponent::Type::BASIC);
         this->addComponent<Engine::AnimationComponent>(0.2, std::map<int, std::vector<Engine::Box<double>>>{
                 {DEFAULT, {
                                   {_size.x * 0, _size.x * 1, 0, _size.y},
