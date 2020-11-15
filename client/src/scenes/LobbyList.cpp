@@ -12,10 +12,16 @@
 #include "systems/MouseSystem.hpp"
 #include "systems/ParallaxSystem.hpp"
 #include "systems/AnimationSystem.hpp"
-#include "systems/MusicSystem.hpp"
 #include "scenes/LobbyList.hpp"
 #include "entities/Button.hpp"
 #include "entities/Music.hpp"
+
+/*!
+ * \brief goToCreateLobbyScene button callback
+ * \param lobby actual scene
+ *
+ * This callback permit to go to the "CreateLobby" scene
+*/
 
 void goToCreateLobbyScene(std::shared_ptr<Engine::AScene> &lobby)
 {
@@ -23,6 +29,13 @@ void goToCreateLobbyScene(std::shared_ptr<Engine::AScene> &lobby)
 
     lobby->pushRequest(request);
 }
+
+/*!
+ * \brief scrollDownLobby button callback
+ * \param lobby actual scene
+ *
+ * This callback permit to move to the bottom all the LobbyCard in the LobbyList
+*/
 
 void scrollDownLobby(std::shared_ptr<Engine::AScene> &lobby)
 {
@@ -32,19 +45,19 @@ void scrollDownLobby(std::shared_ptr<Engine::AScene> &lobby)
     lobbySystem->scrollDownLobbies();
 }
 
+/*!
+ * \brief scrollUpLobby button callback
+ * \param lobby actual scene
+ *
+ * This callback permit to move to the top all the LobbyCard in the LobbyList
+*/
+
 void scrollUpLobby(std::shared_ptr<Engine::AScene> &lobby)
 {
     auto lobbyObject = std::dynamic_pointer_cast<LobbyList>(lobby);
     auto lobbySystem = dynamic_cast<LobbySystem *>(lobbyObject->getLobbySystem().get());
 
     lobbySystem->scrollUpLobbies();
-}
-
-void goToInGameScene(std::shared_ptr<Engine::AScene> &lobby)
-{
-    Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::GAME);
-
-    lobby->pushRequest(request);
 }
 
 LobbyList::LobbyList(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<NetworkAccess> &server)
@@ -96,7 +109,6 @@ void LobbyList::initSystems()
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
     auto move = std::make_unique<Engine::MoveSystem>();
-    auto music = std::make_unique<Engine::MusicSystem>();
     auto window = std::make_unique<Engine::WindowResizeSystem>(this->_window);
     auto lobby = std::make_unique<LobbySystem>(this->_server, this->_events, scene);
 
@@ -107,7 +119,6 @@ void LobbyList::initSystems()
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(move));
-    this->_systems.push_back(std::move(music));
     this->_systems.push_back(std::move(window));
     this->_systems.push_back(std::move(lobby));
     //lobby MUST BE THE LAST COMPONENT to get lobby System (see getSystem method)

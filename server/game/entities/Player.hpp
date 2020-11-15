@@ -51,11 +51,10 @@ public:
                             {_size.x * 2, _size.x * 3, 0, _size.y},
                             {_size.x * 3, _size.x * 4, 0, _size.y},
                             {_size.x * 4, _size.x * 5, 0, _size.y}}}
-
         });
         this->getComponent<Engine::AnimationComponent>()->setAnimation(IDLE, false);
         this->addComponent<ManualWeaponComponent>(1, 0.5, 0.2);
-        this->addComponent<HealthComponent>(10000);
+        this->addComponent<HealthComponent>(1);
     }
 };
 

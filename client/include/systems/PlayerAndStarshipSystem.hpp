@@ -1,6 +1,11 @@
-//
-// Created by paul on 11/10/20.
-//
+/*!
+ * @file PlayerAndStarshipSystem.hpp
+ * @brief System to deal with lobbies
+ * @authors Paul.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_PLAYERANDSTARSHIPSYSTEM_HPP
 #define RTYPE_PLAYERANDSTARSHIPSYSTEM_HPP
@@ -20,10 +25,23 @@ class PlayerAndStarshipSystem : public Engine::System {
     void handleLobbyJoin(std::shared_ptr<Engine::Entity> &);
 
     public:
+    /*!
+     * \brief PlayerAndStarship system constructor
+     * \param server server API to be stored as reference
+     * \param events events manager to be stored as reference
+     * \param scene actual scene as reference
+     *
+     * Create the "PlayerAndStarship" system
+    */
     PlayerAndStarshipSystem(std::shared_ptr<NetworkAccess> &server,
         std::shared_ptr<Engine::AEvents> &events,
         std::shared_ptr<Engine::AScene> &scene);
 
+    /*!
+     * \brief update function
+     *
+     * This function is called for each scene which has the PlayerAndStarship in its systems
+    */
     void update() override;
 };
 

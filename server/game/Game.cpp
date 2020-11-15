@@ -67,9 +67,9 @@ void Game::initGameEntities()
     this->spawnPlayers();
     this->spawn(slideA, true);
     this->spawn(slideB, true);
-    this->spawn(spawner, true);
+    //this->spawn(spawner, true);
 
-    auto sentinel1 = std::make_shared<Collectible>(Engine::Point<double>{600, 700}, CollectibleComponent::Type::SENTINEL);
+    /*auto sentinel1 = std::make_shared<Collectible>(Engine::Point<double>{600, 700}, CollectibleComponent::Type::SENTINEL);
     auto sentinel2 = std::make_shared<Collectible>(Engine::Point<double>{700, 700}, CollectibleComponent::Type::SENTINEL);
     auto dmg1 = std::make_shared<Collectible>(Engine::Point<double>{600, 600}, CollectibleComponent::Type::DAMAGE);
     auto dmg2 = std::make_shared<Collectible>(Engine::Point<double>{700, 600}, CollectibleComponent::Type::DAMAGE);
@@ -88,7 +88,7 @@ void Game::initGameEntities()
     this->spawn(bounce1, true);
     this->spawn(bounce2, true);
     this->spawn(missile1, true);
-    this->spawn(missile2, true);
+    this->spawn(missile2, true);*/
 }
 
 void Game::initGameSystems()
@@ -153,9 +153,8 @@ void Game::spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork)
 
 void Game::despawn(std::shared_ptr<Engine::Entity> &entity)
 {
-    for (auto &sys : this->_systems) {
+    for (auto &sys : this->_systems)
         sys->deleteEntity(entity); // On passe dans tous les systèmes à cause de target FIXME
-    }
     Engine::Utils::removeFromVector(this->_entities, entity);
     if (Engine::Utils::isInVector(this->_playersSpaceShips, entity))
         Engine::Utils::removeFromVector(this->_playersSpaceShips, entity);
@@ -163,7 +162,7 @@ void Game::despawn(std::shared_ptr<Engine::Entity> &entity)
 
 bool Game::isGameRunning() const
 {
-    return _running;
+    return this->_running;
 }
 
 void Game::update()
@@ -182,6 +181,7 @@ void Game::update()
             std::cout << "End of the game" << std::endl;
         }
     }
+    this->_running = !(this->_playersSpaceShips.empty());
 }
 
 void Game::removeClientInGame(const std::shared_ptr<Client> &cli)

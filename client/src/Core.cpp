@@ -53,7 +53,7 @@ void Core::initScenes()
     this->_sceneManager->addScene(std::move(std::make_unique<LobbyWaiting>(this->_graph->getWindow(), this->_graph->getEvents(), this->_server)));
     this->setupGroups();
     try {
-        this->_sceneManager->switchScene(SceneType::MAIN_MENU);
+        this->_sceneManager->switchScene(MAIN_MENU);
     } catch (Engine::EngineException& e) {
         std::cerr << e << std::endl;
     }

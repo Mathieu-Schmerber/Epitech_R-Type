@@ -1,6 +1,11 @@
-//
-// Created by mathi on 09/11/2020.
-//
+/*!
+ * @file LobbySystem.hpp
+ * @brief System to deal with lobbies
+ * @authors Paul.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_LOBBYSYSTEM_HPP
 #define RTYPE_LOBBYSYSTEM_HPP
@@ -21,13 +26,35 @@ class LobbySystem : public Engine::System {
         void handleLobbyJoin(std::shared_ptr<Engine::Entity> &lobby);
 
     public:
+        /*!
+         * \brief Lobby system constructor
+         * \param server server API to be stored as reference
+         * \param events events manager to be stored as reference
+         * \param scene actual scene as reference
+         *
+         * Create the "Lobby" system
+        */
         LobbySystem(std::shared_ptr<NetworkAccess> &server,
                     std::shared_ptr<Engine::AEvents> &events,
                     std::shared_ptr<Engine::AScene> &scene);
+        /*!
+         * \brief scrollDownLobbies method
+         *
+         * This method is called when the user want to scroll down the lobbies in the LobbyList scene
+        */
         void scrollDownLobbies();
+        /*!
+         * \brief scrollUpLobbies method
+         *
+         * This method is called when the user want to scroll up the lobbies in the LobbyList scene
+        */
         void scrollUpLobbies();
-
-    void update() override;
+        /*!
+         * \brief update function
+         *
+         * This function is called for each scene which has the LobbySystem in its systems
+        */
+        void update() override;
 };
 
 

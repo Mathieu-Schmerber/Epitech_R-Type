@@ -1,6 +1,11 @@
-//
-// Created by paul on 11/10/20.
-//
+/*!
+ * @file PlayerAndStarshipEntity.hpp
+ * @brief PlayerAndStarshipEntity prototypes
+ * @authors Paul.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_PLAYERANDSTARSHIPENTITY_HPP
 #define RTYPE_PLAYERANDSTARSHIPENTITY_HPP
@@ -19,8 +24,13 @@
 
 class PlayerAndStarshipEntity : public Engine::Entity {
     public:
+    /*!
+     * \brief PlayerAndStarshipEntity constructor
+     * \param playerName player's text set by default to "player X"
+     *
+     * Generate a text and a starship sprite to the screen.
+    */
     explicit PlayerAndStarshipEntity(const std::string &playerName) : Engine::Entity() {
-
         std::shared_ptr<Engine::ATexture> starshipTexture = std::make_shared<TextureSFML>(ALL_STARSHIP_PATH);
         std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(PIXEBOY_FONT_PATH);
 

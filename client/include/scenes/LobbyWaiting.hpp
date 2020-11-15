@@ -1,6 +1,11 @@
-//
-// Created by paul on 11/10/20.
-//
+/*!
+ * @file LobbyWaiting.hpp
+ * @brief LobbyWaiting prototypes
+ * @authors Paul.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_LOBBYWAITING_HPP
 #define RTYPE_LOBBYWAITING_HPP
@@ -21,6 +26,14 @@ class LobbyWaiting : public Engine::AScene
     void initSystems() final;
 
     public:
+    /*!
+     * \brief LobbyWaiting scene constructor
+     * \param window window to be stored as reference
+     * \param events events manager to be stored as reference
+     * \param server server API to be stored as reference
+     *
+     * Create the "LobbyWaiting" scene
+    */
     LobbyWaiting(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<NetworkAccess> &server);
 
     std::shared_ptr<Engine::AWindow> getWindow() const;

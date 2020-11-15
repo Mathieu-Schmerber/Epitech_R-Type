@@ -1,6 +1,12 @@
-//
-// Created by paul on 11/4/20.
-//
+/*!
+ * @file SceneEnum.hpp
+ * @brief Some useful Macro
+ * @authors Paul.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+ * This file contain a lot of global and scene's scoped useful macro
+*/
 
 #ifndef RTYPE_SCENEENUM_HPP
 #define RTYPE_SCENEENUM_HPP

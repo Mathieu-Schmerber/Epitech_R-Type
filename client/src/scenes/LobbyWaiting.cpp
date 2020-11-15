@@ -13,12 +13,18 @@
 #include "systems/ParallaxSystem.hpp"
 #include "systems/MoveSystem.hpp"
 #include "systems/AnimationSystem.hpp"
-#include "systems/MusicSystem.hpp"
 #include "systems/WindowResizeSystem.hpp"
 #include "systems/PlayerAndStarshipSystem.hpp"
 #include "components/AnimationComponent.hpp"
 #include "entities/Button.hpp"
 #include "entities/PlayerAndStarshipEntity.hpp"
+
+/*!
+ * \brief goToInGamesScene button callback
+ * \param lobbyWaiting actual scene
+ *
+ * This callback permit to go in the "InGame" scene
+*/
 
 void goToInGamesScene(std::shared_ptr<Engine::AScene> &lobbyWaiting)
 {
@@ -30,6 +36,13 @@ void goToInGamesScene(std::shared_ptr<Engine::AScene> &lobbyWaiting)
     toSend.push_back(44);
     scene->getServer()->getTcpSocket()->sendToServer(toSend);
 }
+
+/*!
+ * \brief goBackToCreateLobby button callback
+ * \param lobbyWaiting actual scene
+ *
+ * This callback permit to go in the "CreateLobby" scene
+*/
 
 void goBackToCreateLobby(std::shared_ptr<Engine::AScene> &lobbyWaiting)
 {
@@ -82,7 +95,6 @@ void LobbyWaiting::initSystems()
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
     auto move = std::make_unique<Engine::MoveSystem>();
-    auto music = std::make_unique<Engine::MusicSystem>();
     auto window = std::make_unique<Engine::WindowResizeSystem>(this->_window);
     auto playerAndStarshipSystem = std::make_unique<PlayerAndStarshipSystem>(this->_server, this->_events, scene);
     auto sceneSystem = std::make_unique<LobbyWaitingSystem>(this->_server, this->_events, scene);
@@ -94,7 +106,6 @@ void LobbyWaiting::initSystems()
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(move));
-    this->_systems.push_back(std::move(music));
     this->_systems.push_back(std::move(window));
     this->_systems.push_back(std::move(playerAndStarshipSystem));
     this->_systems.push_back(std::move(sceneSystem));

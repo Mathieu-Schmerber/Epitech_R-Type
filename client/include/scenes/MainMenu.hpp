@@ -1,6 +1,11 @@
-//
-// Created by mathi on 30/10/2020.
-//
+/*!
+ * @file MainMenu.hpp
+ * @brief MainMenu prototypes
+ * @authors Paul.S
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_MAINMENU_HPP
 #define RTYPE_MAINMENU_HPP
@@ -56,15 +61,21 @@ private:
     void initSystems() final;
 
 public:
+    /*!
+     * \brief MainMenu scene constructor
+     * \param window window to be stored as reference
+     * \param events events manager to be stored as reference
+     *
+     * Create the "MainMenu" scene
+    */
     MainMenu(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events);
     ~MainMenu() = default;
     std::shared_ptr<Engine::AWindow> getWindow() const;
 };
 
-void emptyCallback(std::shared_ptr<Engine::AScene>  &menu);
-void goToSettingsScene(std::shared_ptr<Engine::AScene>  &menu);
-void goToHowToPlayScene(std::shared_ptr<Engine::AScene>  &menu);
-void quitGame(std::shared_ptr<Engine::AScene>  &menu);
-void goToLobbyScene(std::shared_ptr<Engine::AScene> &menu);
+void goToLobbyListScene(std::shared_ptr<Engine::AScene> &);
+void goToSettingsScene(std::shared_ptr<Engine::AScene>  &);
+void goToHowToPlayScene(std::shared_ptr<Engine::AScene>  &);
+void quitGame(std::shared_ptr<Engine::AScene>  &);
 
 #endif //RTYPE_MAINMENU_HPP

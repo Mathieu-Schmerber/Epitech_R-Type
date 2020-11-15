@@ -17,8 +17,8 @@ namespace Engine {
     class IAudio {
     public:
         IAudio() = default;
-        virtual void loadFromFile(const std::string filename) = 0;
-        virtual void play() = 0;
+        virtual void loadFromFile(const std::string &filename) = 0;
+        virtual void play(int volume) = 0;
         virtual void pause() = 0;
         virtual void stop() = 0;
         virtual void setVolume(double volume) = 0;

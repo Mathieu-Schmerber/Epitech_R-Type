@@ -10,7 +10,6 @@
 #include "systems/ParallaxSystem.hpp"
 #include "systems/MoveSystem.hpp"
 #include "systems/AnimationSystem.hpp"
-#include "systems/MusicSystem.hpp"
 #include "systems/WindowResizeSystem.hpp"
 #include "scenes/HowToPlay.hpp"
 #include "entities/ParallaxSlide.hpp"
@@ -18,12 +17,26 @@
 #include "sfml/MusicSFML.hpp"
 #include "entities/Button.hpp"
 
+/*!
+ * \brief fromHowToPlayMenu button callback
+ * \param howToPlay actual scene
+ *
+ * This callback permit the user to come back to the Menu when he is in the HowToPlay scene
+*/
+
 void fromHowToPlayToMenu(std::shared_ptr<Engine::AScene> &howToPlay)
 {
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::MAIN_MENU);
 
     howToPlay->pushRequest(request);
 }
+
+/*!
+ * \brief goToNextHowToPlayScreen button callback
+ * \param howToPlay actual scene
+ *
+ * This callback permit the user to change the actual screen of HowToPlay scene
+*/
 
 void goToNextHowToPlayScreen(std::shared_ptr<Engine::AScene> &howToPlay)
 {
@@ -203,7 +216,6 @@ void HowToPlay::initSystems()
     auto animation = std::make_unique<Engine::AnimationSystem>();
     auto parallax = std::make_unique<Engine::ParallaxSystem>();
     auto move = std::make_unique<Engine::MoveSystem>();
-    auto music = std::make_unique<Engine::MusicSystem>();
     auto window = std::make_unique<Engine::WindowResizeSystem>(this->_window);
 
     this->_systems.push_back(std::move(draw));
@@ -212,7 +224,6 @@ void HowToPlay::initSystems()
     this->_systems.push_back(std::move(animation));
     this->_systems.push_back(std::move(parallax));
     this->_systems.push_back(std::move(move));
-    this->_systems.push_back(std::move(music));
     this->_systems.push_back(std::move(window));
 }
 
