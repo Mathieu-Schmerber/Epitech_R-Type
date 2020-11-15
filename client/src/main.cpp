@@ -14,6 +14,7 @@
 */
 
 #include <iostream>
+#include "tools/EngineExceptions.hpp"
 #include "Core.hpp"
 
 int main(int ac, char **av)
@@ -22,8 +23,16 @@ int main(int ac, char **av)
         std::cerr << "./r-type_client ip_server" << std::endl;
         return (84);
     }
-    auto core = std::make_unique<Core>(std::string(av[1]));
-
-    core->start();
+    std::unique_ptr<Core> core = nullptr;
+    try {
+        core = std::make_unique<Core>(std::string(av[1]));
+    } catch (Engine::EngineException &e) {
+        std::cerr << e << std::endl;
+        return (84);
+    }
+    if (core)
+        core->start();
+    else
+        return (84);
     return 0;
 }

@@ -41,6 +41,12 @@ namespace Engine {
         {};
     };
 
+    class ConnectError : public EngineException {
+    public:
+        explicit ConnectError(std::string const &message = "An error occurred.") : EngineException("ConnectionError", message)
+        {};
+    };
+
     class DynamicLibError : public EngineException {
     public:
         explicit DynamicLibError(std::string const &message = "An error occurred.") : EngineException("DynamicLibError", message)
