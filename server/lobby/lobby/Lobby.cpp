@@ -138,6 +138,7 @@ Lobby::~Lobby()
     if (_game && _game->isGameRunning()) {
         _game->stopTheGame();
     }
-    _thread.join();
+    if (_thread.joinable())
+        _thread.join();
     std::cout << "End close lobby" << std::endl;
 }
