@@ -15,6 +15,8 @@ class PlayerCollisionSystem : public Engine::System
 private:
     std::shared_ptr<Game> _game;
 
+    std::vector<std::shared_ptr<Engine::Entity>> getSentinels(std::shared_ptr<Engine::Entity> &player) const;
+
     void powerDamage(std::shared_ptr<Engine::Entity> &player, std::shared_ptr<Engine::Entity> &sentinel);
     void powerBounce(std::shared_ptr<Engine::Entity> &player, std::shared_ptr<Engine::Entity> &sentinel);
     void powerMissile(std::shared_ptr<Engine::Entity> &player, std::shared_ptr<Engine::Entity> &sentinel);
