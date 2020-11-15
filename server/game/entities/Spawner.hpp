@@ -32,7 +32,10 @@ public:
         this->addComponent<Engine::VelocityComponent>(Engine::Vector<double>({0, -10}));
         this->addComponent<Engine::ColliderComponent>();
         this->addComponent<EnemySpawnerComponent>(spawnRate);
-        this->addComponent<Engine::TextComponent>(10, std::make_unique<DataText>(std::make_shared<DataFont>(FONT_PATH), Engine::Point<double>({0, 0})));
+        this->addComponent<Engine::TextComponent>(10, std::make_unique<DataText>(std::make_shared<DataFont>(FONT_PATH), Engine::Point<double>({1920/2, 1080/2})));
+        this->getComponent<Engine::TextComponent>()->getText()->setCharacterSize(50);
+        this->getComponent<Engine::TextComponent>()->getText()->setLetterSpacing(10);
+
         this->addComponent<WaveComponent>();
     }
 };

@@ -51,6 +51,7 @@ std::vector<int> SocketParser::parseUdpInputs(int clientId, const std::vector<En
 std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector<int> &in) const
 {
     if (in.at(0) == 1) {
+        std::cout << "create sprite" << std::endl;
         return createSpriteEntity(in);
     } else {
         return createTextEntity(in);
@@ -73,9 +74,10 @@ std::shared_ptr<Engine::Entity> SocketParser::createTextEntity(const std::vector
     std::ifstream ifs(_pool->getPathFromIndex(in.at(3)));
     std::string content((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
     std::unique_ptr<Engine::AText> txt = std::make_unique<TextSFML>(content, font, in.at(7));
-    txt->setLetterSpacing(in.at(7));
+    txt->setLetterSpacing(in.at(8));
     text->setText(std::move(txt));
     text->setLayer(in.at(9));
+    text->getText()->setFillColor(Engine::Color({255, 255, 255, static_cast<unsigned char>(in.at(10))}));
 
     return std::shared_ptr<Engine::Entity>(entity);
 }
@@ -85,8 +87,10 @@ std::shared_ptr<Engine::Entity> SocketParser::createSpriteEntity(const std::vect
     auto entity = new Engine::Entity();
     Engine::SpriteComponent *sprite = nullptr;
 
+    //std::cout << "create text ";
     if (in.size() < 10)
         return nullptr;
+    //std::cout << "entity" << std::endl;
     entity->addComponent<Engine::NetworkComponent>(in.at(1));
     entity->addComponent<Engine::TransformComponent>(Engine::Point<double>{static_cast<double>(in.at(2)), static_cast<double>(in.at(3))}, in.at(4));
     entity->addComponent<Engine::SpriteComponent>();
@@ -99,11 +103,13 @@ std::shared_ptr<Engine::Entity> SocketParser::createSpriteEntity(const std::vect
     return std::shared_ptr<Engine::Entity>(entity);
 }
 
-void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in) const
+void SocketParser::updateEntityFromUdp(std::shared_ptr<Engine::Entity> entity, const std::vector<int> &in) const
 {
     if (in.at(0) == 1) {
+        //std::cout << "update sprite entity" << std::endl;
         updateSpriteEntity(entity, in);
     } else {
+        //std::cout << "update text entity" << std::endl;
         updateTextEntity(entity, in);
     }
 }
@@ -117,12 +123,17 @@ void SocketParser::updateTextEntity(std::shared_ptr<Engine::Entity> &entity, con
     entity->getComponent<Engine::TransformComponent>()->setRotation(in.at(6));
 
     std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(_pool->getPathFromIndex(in.at(2)));
+
     std::ifstream ifs(_pool->getPathFromIndex(in.at(3)));
     std::string content((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
-    std::unique_ptr<Engine::AText> txt = std::make_unique<TextSFML>(content, font, in.at(7));
-    txt->setLetterSpacing(in.at(7));
-    text->setText(std::move(txt));
+
+    //std::cout << "content update " << content << std::endl;
+    text->getText()->setString(content);
+    text->getText()->setCharacterSize(in.at(7));
+    text->getText()->setLetterSpacing(in.at(8));
+
     text->setLayer(in.at(9));
+    text->getText()->setFillColor(Engine::Color({255, 255, 255, static_cast<unsigned char>(in.at(10))}));
 }
 
 void SocketParser::updateSpriteEntity(const std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in) const

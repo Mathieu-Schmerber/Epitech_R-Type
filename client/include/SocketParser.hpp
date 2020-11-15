@@ -33,7 +33,7 @@ public:
                                                          const std::vector<Engine::Inputs> &released);
 
     [[nodiscard]] std::shared_ptr<Engine::Entity> unparseUdpEntity(const std::vector<int> &in) const;
-    void updateEntityFromUdp(std::shared_ptr<Engine::Entity> &entity, const std::vector<int> &in) const;
+    void updateEntityFromUdp(std::shared_ptr<Engine::Entity> entity, const std::vector<int> &in) const;
 
     [[nodiscard]] static std::shared_ptr<Engine::Entity> unparseTcpLobby(const std::vector<int> &in);
     static void updateLobbyFromTcp(std::shared_ptr<Engine::Entity> &lobby, const std::vector<int> &in);

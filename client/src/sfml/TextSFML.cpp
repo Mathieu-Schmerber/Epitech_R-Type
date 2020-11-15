@@ -101,3 +101,8 @@ int TextSFML::getLetterSpacing() const
 {
     return static_cast<int>(_text.getLetterSpacing());
 }
+
+Engine::Color TextSFML::getFillColor() const
+{
+    return Engine::Color({_text.getFillColor().r, _text.getFillColor().g, _text.getFillColor().b, _text.getFillColor().a});
+}

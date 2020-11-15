@@ -50,7 +50,7 @@ std::vector<int> SocketParser::parseUdpText(const std::shared_ptr<Engine::Entity
     parsed.push_back(static_cast<int>(text->getText()->getCharacterSize()));
     parsed.push_back(static_cast<int>(text->getText()->getLetterSpacing()));
     parsed.push_back(static_cast<int>(text->getLayer()));
-    parsed.push_back(static_cast<int>(-1));
+    parsed.push_back(static_cast<int>(text->getText()->getFillColor().alpha));
     return parsed;
 }
 
