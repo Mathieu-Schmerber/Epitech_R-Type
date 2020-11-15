@@ -134,6 +134,15 @@ RFC 2223                    R-type project                  November 2020
       The third int MUST be the number of slots (between 1 and 4)
       The fourth int MUST be the UDP port open on the client
 
+
+
+
+Epitech 2023                 C++ project                         [Page 3]
+
+RFC 2223                    R-type project                  November 2020
+
+
+
    Init UDP connexion
 
       Get UDP port from the Server (Server -> Client)
@@ -170,6 +179,14 @@ RFC 2223                    R-type project                  November 2020
       The first int MUST be 2 (Message size)
       The second int MUST be 47 (The client leave the lobby)
 
+
+
+Epitech 2023                 C++ project                         [Page 4]
+
+RFC 2223                    R-type project                  November 2020
+
+
+
    The game is finished on the Server (Server -> Client)
 
       The first int MUST be 2 (Message size)
@@ -193,6 +210,14 @@ RFC 2223                    R-type project                  November 2020
 
       The first int MUST be 2 (Message size)
       The second int MUST be -42 (The lobby cannot be joined)
+
+
+
+Epitech 2023                 C++ project                         [Page 5]
+
+RFC 2223                    R-type project                  November 2020
+
+
 
 6. UDP
 
@@ -225,10 +250,39 @@ RFC 2223                    R-type project                  November 2020
          The 3rd int MUST be the position Y of the Entity
          The 4th int MUST be the rotation of the Entity
          The 5th int MUST be the poolIndex of the Entity
-         The 6th int MUST be the rect X
+         The 6th int MUST be the rect X1 of the Entity
+         The 7th int MUST be the rect X2 of the Entity
+         The 8th int MUST be the rect Y1 of the Entity
+         The 9th int MUST be the rect Y2 of the Entity
+         The 10th int SHOULD be 1 if it's a music or 0 if it's a sound
+         The 11th int MUST be the poolIndex of the Entity
+         The 12th int MUST be the state (1 for play and 0 for stop)
 
 
-Epitech 2023                 C++ project                         [Page 3]
+
+
+Epitech 2023                 C++ project                         [Page 6]
+
+RFC 2223                    R-type project                  November 2020
+
+
+
+         If the type is 2 :
+
+         The 1st int MUST be the EntityNetworkId
+         The 2nd int MUST be the fontFile of the Entity
+         The 3rd int MUST be the pos X of the Entity
+         The 4th int MUST be the pos Y of the Entity
+         The 5th int MUST be the rotation of the Entity
+         The 6th int MUST be the char size of the Entity
+         The 7th int MUST be the letterSpacing of the Entity
+         The 8th int MUST be the layer of the Entity
+         The 9th int MUST be the fillColorAlpha of the Entity
+         The 10th int SHOULD be 1 if it's a music or 0 if it's a sound
+         The 11th int MUST be the poolIndex of the Entity
+         The 12th int MUST be the state (1 for play and 0 for stop)
+
+Epitech 2023                 C++ project                         [Page 7]
 
 RFC 2223                    R-type project                  November 2020
 
