@@ -27,7 +27,7 @@ public:
     explicit Server(short port);
 
     void handle_accept(std::shared_ptr<Client> session, const boost::system::error_code& err, Server *server);
-    [[noreturn]] void run();
+    void run();
     LobbyManager &getLobbyManager();
     [[nodiscard]] std::vector<std::shared_ptr<Client>> getClientList() const;
     void removeClient(std::shared_ptr<Client> &cli);
