@@ -23,7 +23,7 @@ void LobbyWaitingSystem::update()
         return;
     if (data.at(0) == 3 && data.at(1) == 45) {
         Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::GAME);
-
+        std::cout << "received client id: " << data.at(2) << std::endl;
         this->_server->setClientId(data.at(2));
         _scene->pushRequest(request);
     }

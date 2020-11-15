@@ -21,6 +21,7 @@ void ClientNetworkSystem::sendRawInputs()
     auto &socket = this->_server->getUdpSocket();
     auto query = SocketParser::parseUdpInputs(this->_server->getClientId(), this->_events->getKeysPressed(), this->_events->getKeysReleased());
 
+    std::cout << "my client id: " << this->_server->getClientId() << std::endl;
     socket->sendDataToServer(query);
 }
 

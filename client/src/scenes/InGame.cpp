@@ -71,10 +71,7 @@ void InGame::initSystems()
 
 void InGame::onFocus()
 {
-    //TODO: remove the following temporary line
-    this->_server->setClientId(0);
-    //TODO: remove the following temporary line
-    //this->_server->openSockets();
+
 }
 
 void InGame::onExit()
