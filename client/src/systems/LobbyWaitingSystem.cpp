@@ -2,6 +2,8 @@
 // Created by paul on 11/14/20.
 //
 
+#include <components/TransformComponent.hpp>
+#include <entities/PlayerAndStarshipEntity.hpp>
 #include "systems/LobbyWaitingSystem.hpp"
 #include "components/SpriteComponent.hpp"
 #include "components/TextComponent.hpp"
@@ -17,6 +19,7 @@ LobbyWaitingSystem::LobbyWaitingSystem(std::shared_ptr<NetworkAccess> &server,
 
 void LobbyWaitingSystem::update()
 {
+    int nbOfPlayer = 0;
     std::vector<int> data = _server->getTcpSocket()->getDataFromServer();
 
     if (data.at(0) < 2)
@@ -27,6 +30,14 @@ void LobbyWaitingSystem::update()
         _scene->pushRequest(request);
     }
     if (data.at(0) == 4 && data.at(1) == 49) {
+        for (auto &e : this->_entities) {
+            if (e->getComponent<PlayerAndStarshipComponent>())
+                nbOfPlayer++;
+        }
+        std::cout << "KOAKOAKONFDAONFOJZ" << std::endl;
+        std::shared_ptr<Engine::Entity> playerAndStarShipCard = std::make_shared<PlayerAndStarshipEntity>("Player 1");
+        playerAndStarShipCard->getComponent<Engine::TransformComponent>()->setPos({535, 300});
+        this->_scene->spawnEntity(playerAndStarShipCard);
         //New user to lobby
         int idNewPlayer = data.at(2);
         int idClientMaster = data.at(3);

@@ -10,6 +10,7 @@
 #ifndef RTYPE_PLAYERANDSTARSHIPENTITY_HPP
 #define RTYPE_PLAYERANDSTARSHIPENTITY_HPP
 
+#include <components/PlayerAndStarshipComponent.hpp>
 #include "ecs/Entity.hpp"
 #include "tools/Geometry.hpp"
 #include "components/TransformComponent.hpp"
@@ -34,6 +35,7 @@ class PlayerAndStarshipEntity : public Engine::Entity {
         std::shared_ptr<Engine::ATexture> starshipTexture = std::make_shared<TextureSFML>(ALL_STARSHIP_PATH);
         std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(PIXEBOY_FONT_PATH);
 
+        this->addComponent<PlayerAndStarshipComponent>();
         this->addComponent<Engine::TransformComponent>();
         auto starship = std::make_unique<SpriteSFML>(starshipTexture);
         starship->setScale({static_cast<double>(STARSHIP_SCALE_X), static_cast<double>(STARSHIP_SCALE_Y)});
