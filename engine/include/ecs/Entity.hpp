@@ -22,7 +22,7 @@ namespace Engine {
         explicit Entity() = default;
         ~Entity() = default;
 
-        template<typename T, typename... TArgs> void addComponent(TArgs&&... args);
+        template<typename T, typename... TArgs> T *addComponent(TArgs&&... args);
         template<typename T> [[nodiscard]] T *getComponent() const;
         template<typename T> [[nodiscard]] std::vector<T *> getComponents() const;
 
@@ -44,12 +44,13 @@ namespace Engine {
 
 
     template<typename T, typename... TArgs>
-    void Engine::Entity::addComponent(TArgs &&... args)
+    T *Engine::Entity::addComponent(TArgs &&... args)
     {
         std::unique_ptr<Component> component = std::make_unique<T>(std::forward<TArgs>(args)...);
 
         component->setInfo(typeid(T).name());
         this->_components.push_back(std::move(component));
+        return static_cast<T *>(this->_components.back().get());
     }
 
     template<typename T>

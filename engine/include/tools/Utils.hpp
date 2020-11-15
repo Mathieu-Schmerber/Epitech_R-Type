@@ -5,7 +5,6 @@
 ** Created by Cyprien
 */
 
-
 #ifndef RTYPE_UTILS_HPP
 #define RTYPE_UTILS_HPP
 
@@ -15,6 +14,7 @@
 #include <memory>
 #include <string>
 #include <iostream>
+#include <functional>
 
 namespace Engine {
     class Utils {

@@ -30,9 +30,9 @@ std::vector<std::vector<int>> splitVector(std::vector<int> mainVec, int partSize
     std::vector<std::vector<int>> subVecs{};
 
     auto itr = mainVec.begin();
-    unsigned fullSize = mainVec.size();
+    size_t fullSize = mainVec.size();
 
-    for (unsigned i = 0; fullSize > partSize; ++i) {
+    for (int i = 0; fullSize > partSize; ++i) {
         fullSize -= partSize;
         subVecs.emplace_back(std::vector<int>{itr, itr + partSize});
         itr += partSize;

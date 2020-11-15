@@ -42,7 +42,7 @@ bool EnemySystem::didCollide(std::shared_ptr<Engine::Entity> &enemy)
 
 void EnemySystem::deleteEntity(std::shared_ptr<Engine::Entity> &entity)
 {
-    const double bonusSpawnRate = 20.0;
+    const double bonusSpawnRate = 35.0;
     auto rdm = Engine::RandomETU::randETU<double>(0, 100);
     bool spawnBonus = (rdm <= bonusSpawnRate);
     std::shared_ptr<Engine::Entity> bonus;
@@ -59,12 +59,6 @@ void EnemySystem::deleteEntity(std::shared_ptr<Engine::Entity> &entity)
 
 void EnemySystem::update()
 {
-    auto tmp = _entities;
-
-    for (auto &e : tmp)
-        if (e->getComponent<Engine::TransformComponent>()->getPos().x < -100 || didCollide(e))
-            _game->despawn(e);
-    for (auto &e : this->_entities) {
+    for (auto &e : this->_entities)
         handleMovements(e);
-    }
 }
