@@ -25,7 +25,7 @@ private:
     void initScenes();
 
 public:
-    Core();
+    Core(std::string ip);
     ~Core() = default;
     void start();
 };

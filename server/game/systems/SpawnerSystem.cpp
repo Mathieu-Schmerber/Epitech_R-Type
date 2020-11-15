@@ -74,7 +74,7 @@ void SpawnerSystem::handleWaves(std::shared_ptr<Engine::Entity> &spawner)
     }
     auto textDuration = 2.3;
     if (wave->getElapsedSecondSinceLastStart() < textDuration) {
-        int alpha = wave->getElapsedSecondSinceLastStart() * 255 / textDuration;
+        int alpha = static_cast<int>(wave->getElapsedSecondSinceLastStart() * 255 / textDuration);
         auto c = static_cast<unsigned char>(255 - alpha);
         text->getText()->setFillColor(Engine::Color({0, 0, 0, c}));
     } else {
