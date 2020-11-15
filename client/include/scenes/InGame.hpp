@@ -43,6 +43,7 @@ public:
     void onFocus() override;
     void onExit() override;
     std::shared_ptr<Engine::Entity> getQuitButton() const;
+    std::shared_ptr<NetworkAccess> getServer() const;
 
 };
 

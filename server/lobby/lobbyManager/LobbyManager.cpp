@@ -14,6 +14,15 @@ LobbyManager::LobbyManager(Server *server) : _port(4243), _server(server)
 
 Lobby *LobbyManager::addLobby(char nbSlots = 4)
 {
+    auto lobbyCpy = _lobbys;
+
+    for (int i = 0; i < lobbyCpy.size(); ++i) {
+        if (lobbyCpy.at(i)->getToRemove()) {
+            delete lobbyCpy.at(i);
+            _lobbys.erase(_lobbys.begin() + i);
+            i = (i > 0 ? i - 1 : 0);
+        }
+    }
     try {
         auto *nLobby = new Lobby(this->_id++, nbSlots, _port++, _server);
 

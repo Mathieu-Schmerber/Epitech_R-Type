@@ -21,8 +21,13 @@
 void backToMainMenu(std::shared_ptr<Engine::AScene> &inGame)
 {
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::MAIN_MENU);
+    std::shared_ptr<InGame> scene = std::dynamic_pointer_cast<InGame>(inGame);
+    std::vector<int> toSend;
 
-   inGame->pushRequest(request);
+    toSend.push_back(2);
+    toSend.push_back(47);
+    scene->getServer()->getTcpSocket()->sendToServer(toSend);
+    inGame->pushRequest(request);
 }
 
 InGame::InGame(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<NetworkAccess> &server)
@@ -82,4 +87,9 @@ void InGame::onExit()
 std::shared_ptr<Engine::Entity> InGame::getQuitButton() const
 {
     return _quitButton;
+}
+
+std::shared_ptr<NetworkAccess> InGame::getServer() const
+{
+    return _server;
 }
