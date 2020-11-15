@@ -50,20 +50,18 @@ void ClientNetworkSystem::receiveGameData()
     this->_parser->refreshTimer((data != this->_lastData));
     this->_lastData = data;
 
-    std::vector<int> ids(packets.size());
-    for (auto &p : packets)
+    std::vector<int> ids;
+    for (auto &p : packets) {
         ids.push_back(p.at(1));
+    }
 
-    for (auto &e : entitiesCopy)
-        if (!Engine::Utils::isInVector(ids, e->getComponent<Engine::NetworkComponent>()->getNetworkId()))
+    for (auto &e : entitiesCopy) {
+        if (!Engine::Utils::isInVector(ids, e->getComponent<Engine::NetworkComponent>()->getNetworkId())) {
             _scene->despawnEntity(e);
-    entitiesCopy = _entities;
+        }
+    }
 
-    /*
-    std::function<bool(std::vector<int>)> x3 = [dt](std::vector<int> x){
-        return Engine::Utils::isInVectorCpy(dt, x.at(1));
-    };
-    Engine::Utils::removeFromVector(packets, x3);*/
+    entitiesCopy = _entities;
 
 
     for (auto &p : packets) {
@@ -80,8 +78,6 @@ void ClientNetworkSystem::receiveGameData()
                 this->_scene->spawnEntity(toSpawn);
         }
     }
-
-
 
     //for (auto &e : copy) {
     //    for (auto &p : packets) {

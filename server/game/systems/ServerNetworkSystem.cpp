@@ -41,6 +41,14 @@ void ServerNetworkSystem::sendGameData()
 
     for (auto &e : this->_entities) {
         if (e->getComponent<Engine::SpriteComponent>() || e->getComponent<Engine::TextComponent>()) {
+            if (e->getComponent<Engine::SpriteComponent>() && e->getComponent<Engine::SpriteComponent>()->getSprite()->getTexture()->getFilename() == "../../client/assets/images/starships/blue_starship_166x17_33x17.png")
+                std::cout << "player sent ! " << e->getComponent<Engine::NetworkComponent>()->getNetworkId() << std::endl;
+            if (e->getComponent<Engine::NetworkComponent>()->getNetworkId() == 0) {
+                if (e->getComponent<Engine::TextComponent>())
+                    std::cout << "text" << std::endl;
+                else
+                    std::cout << "sprite" << e->getComponent<Engine::SpriteComponent>()->getTexture()->getFilename() << std::endl;
+            }
             auto section = SocketParser::parseUdpEntity(e);
             data.insert(data.end(), section.begin(), section.end());
         }

@@ -51,7 +51,7 @@ std::vector<int> SocketParser::parseUdpInputs(int clientId, const std::vector<En
 std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector<int> &in) const
 {
     if (in.at(0) == 1) {
-        std::cout << "create sprite" << std::endl;
+        //std::cout << "create sprite" << std::endl;
         return createSpriteEntity(in);
     } else {
         return createTextEntity(in);
@@ -118,7 +118,6 @@ void SocketParser::updateTextEntity(std::shared_ptr<Engine::Entity> &entity, con
 {
     auto text = entity->getComponent<Engine::TextComponent>();
 
-    entity->addComponent<Engine::NetworkComponent>(in.at(1));
     entity->getComponent<Engine::TransformComponent>()->setPos(Engine::Point<double>{static_cast<double>(in.at(4)), static_cast<double>(in.at(5))});
     entity->getComponent<Engine::TransformComponent>()->setRotation(in.at(6));
 
