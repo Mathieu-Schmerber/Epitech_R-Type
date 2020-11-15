@@ -88,7 +88,6 @@ void SpawnerSystem::handleWaves(std::shared_ptr<Engine::Entity> &spawner)
         auto newMusic = std::make_unique<DataMusic>(_musics[wave->getCurrentWave()]);
         music->setMusic(std::move(newMusic));
         music->playMe(true);
-
     }
     if (wave->timeToSwitch() && (wave->getCurrentWave() != WaveComponent::boss || !_boss || !_boss->getComponent<HealthComponent>() || _boss->getComponent<HealthComponent>()->getCurrentHealth() <= 0)) {
         wave->goNextScene();

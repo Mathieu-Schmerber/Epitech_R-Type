@@ -1,6 +1,11 @@
-//
-// Created by mathi on 10/11/2020.
-//
+/*!
+ * @file AutomaticWeaponComponent.hpp
+ * @brief AutomaticWeaponComponent prototypes
+ * @authors Cyprien.R
+ * @version 1.0
+ * @date 14/11/2020
+ *
+*/
 
 #ifndef RTYPE_AUTOMATICWEAPONCOMPONENT_HPP
 #define RTYPE_AUTOMATICWEAPONCOMPONENT_HPP
