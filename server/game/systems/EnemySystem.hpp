@@ -13,6 +13,8 @@
 #include "entities/Enemy.hpp"
 #include "Game.hpp"
 
+#define BONUS_RATE 70
+
 class EnemySystem : public Engine::System {
 private:
     std::shared_ptr<Game> _game;
