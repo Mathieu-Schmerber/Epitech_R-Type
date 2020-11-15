@@ -1,0 +1,122 @@
+                            R-type project
+
+Introduction to this documentation
+
+   This documentation provides information about the r-type project. This
+   documentation is useful to understand which are the dependencies and how to
+   build and run the project.
+   Moreover, we included section to describe UDP / TCP protocol for server
+   client.
+
+Table of Contents
+
+   1.   The game . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+   2.   Dependencies . . . . . . . . . . . . . . . . . . . . . . . . 2
+   2a.   Conan  . . . . . . .. . . . . . . . . . . . . . . . . . . . 2
+   3.   How to build . . . . . . . . . . . . . . . . . . . . . . . . 2
+   4.   How to execute . . . . . . . . . . . . . . . . . . . . . . . 2
+   4a.   r-type_server . . . . . . . . . . . . . . . . . . . . . . . 2
+   4b.   r-type_client . . . . . . . . . . . . . . . . . . . . . . . 2
+   5.   The server . . . . . . . . . . . . . . . . . . . . . . . . . 3
+   6.   The client . . . . . . . . . . . . . . . . . . . . . . . . . 3
+   7.   Authors  . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+
+
+
+Epitech 2023                 C++ project                         [Page 1]
+
+RFC 2223                    R-type project                  November 2020
+
+
+1.  The game
+
+   The purpose of this project is to create a one-to-four player game.
+   inspired from the famous r-type game using a client/server architecture.
+   It MUST be a client/server architecture.
+   Peer-to-peer communication is not allowed.
+
+2.  Dependencies
+
+   2a.  Conan
+
+      This project uses conan.
+      To install conan, it's RECOMMENDED to checkout :
+      https://docs.conan.io/en/1.7/installation.html.
+      Or you MAY install it with pip :
+
+      $> pip install conan
+
+      Then you MUST add the following 3 remotes:
+         - conan-center (installed with conan): https://bintray.com/conan/conan-center
+         - epitech: https://bintray.com/epitech/public-conan
+         - bincrafters: : https://bintray.com/bincrafters/public-conan
+
+      You MUST install those by running the following commands in a terminal:
+
+      $> conan remote add conan-center https://api.bintray.com/conan/conan/conan-center
+      $> conan remote add epitech https://api.bintray.com/conan/epitech/public-conan
+      $> conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+
+      You can now build the R-type project.
+
+3.  How to build
+
+   On Linux system, You MUST execute this command:
+   >$ mkdir build && cd build && conan install .. --build=missing && cmake .. -G “Unix Makefiles” && cmake --build .
+
+   On Windows system, you MUST execute this command:
+   >$ mkdir build && cd build && conan install .. --build=missing && cmake .. -G "Visual Studio 16 2019" && cmake --build .
+
+   Whether on a linux or windows system, the appropriate command will generate two binaries :
+
+   r-type_client
+   r_type_server
+
+   It will also generate you dynamic libraries which represents the enemies in the game.
+   You can find these libraries in the build/lib folder.
+
+4. How to execute
+
+   The way to launch is the same in Linux and Windows system.
+   The only difference is that on Windows, a .sln solution will be generated.
+   You MUST first start by running the server
+
+   4a. r-type_server
+
+      >$ cd build/bin && ./r-type_server
+
+   4b. r-type_client
+
+      Once the server started, you can start one or several clients with :
+      >$ cd build/bin && ./r-type_client
+
+
+
+Epitech 2023                 C++ project                         [Page 2]
+
+RFC 2223                    R-type project                  November 2020
+
+
+5. The server
+
+   [...]
+
+6. The client
+
+   [...]
+
+
+
+Epitech 2023                 C++ project                         [Page 3]
+
+RFC 2223                    R-type project                  November 2020
+
+
+7.  Authors
+
+   This project has realized in Novemher 2020 by :
+   - Mathieu Schmerber
+   - Paul Surrans
+   - Cyprien Ricques
+   - Emilien Delevoye
+   Epitech Lille - Promo 2023 students

@@ -18,11 +18,11 @@ namespace Engine {
     public:
         AMusic() = default;
         void setVolume(double volume) override;
-        virtual bool isPlaying() const = 0;
-        virtual bool isPaused() const = 0;
-        virtual bool isStopped() const = 0;
-        virtual void setLoop(bool loop=true) = 0;
-        virtual bool isLooping() const = 0;
+        [[nodiscard]] virtual bool isPlaying() const = 0;
+        [[nodiscard]] virtual bool isPaused() const = 0;
+        [[nodiscard]] virtual bool isStopped() const = 0;
+        virtual void setLoop(bool loop) = 0;
+        [[nodiscard]] virtual bool isLooping() const = 0;
         virtual void close() = 0;
 
     protected:
