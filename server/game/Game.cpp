@@ -119,11 +119,11 @@ void Game::initGameSystems()
     this->_systems.push_back(std::move(autoWeapon));
     this->_systems.push_back(std::move(lifetime));
     this->_systems.push_back(std::move(children));
-    this->_systems.push_back(std::move(network));
     this->_systems.push_back(std::move(spawner));
     this->_systems.push_back(std::move(life));
     this->_systems.push_back(std::move(target));
     this->_systems.push_back(std::move(borderLimit));
+    this->_systems.push_back(std::move(network));
 }
 
 void Game::spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork)
