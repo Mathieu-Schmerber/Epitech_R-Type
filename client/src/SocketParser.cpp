@@ -48,7 +48,7 @@ std::vector<int> SocketParser::parseUdpInputs(int clientId, const std::vector<En
     return parsed;
 }
 
-std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector<int> &in) const
+std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector<int> &in)
 {
     if (in.at(0) == 1) {
         //std::cout << "create sprite" << std::endl;
@@ -58,7 +58,7 @@ std::shared_ptr<Engine::Entity> SocketParser::unparseUdpEntity(const std::vector
     }
 }
 
-std::shared_ptr<Engine::Entity> SocketParser::createTextEntity(const std::vector<int> &in) const
+std::shared_ptr<Engine::Entity> SocketParser::createTextEntity(const std::vector<int> &in)
 {
     Engine::TextComponent *text = nullptr;
     auto entity = new Engine::Entity();
@@ -73,9 +73,10 @@ std::shared_ptr<Engine::Entity> SocketParser::createTextEntity(const std::vector
     std::ifstream ifs(_pool->getPathFromIndex(in.at(3)));
     std::string content((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
 
-    if (!Engine::Utils::isInMap(_fonts, _pool->getPathFromIndex(in.at(2))))
-        _fonts[_pool->getPathFromIndex(in.at(2))] = std::make_shared<FontSFML>(_pool->getPathFromIndex(in.at(2)));
 
+    if (_fonts.find(this->_pool->getPathFromIndex(in.at(2))) == _fonts.end()) {
+        _fonts[_pool->getPathFromIndex(in.at(2))] = std::make_shared<FontSFML>(_pool->getPathFromIndex(in.at(2)));
+    }
     std::unique_ptr<Engine::AText> txt = std::make_unique<TextSFML>(content, _fonts.at(_pool->getPathFromIndex(in.at(2))), in.at(7));
     txt->setLetterSpacing(in.at(8));
     text->setText(std::move(txt));
@@ -85,7 +86,7 @@ std::shared_ptr<Engine::Entity> SocketParser::createTextEntity(const std::vector
     return std::shared_ptr<Engine::Entity>(entity);
 }
 
-std::shared_ptr<Engine::Entity> SocketParser::createSpriteEntity(const std::vector<int> &in) const
+std::shared_ptr<Engine::Entity> SocketParser::createSpriteEntity(const std::vector<int> &in)
 {
     auto entity = new Engine::Entity();
     Engine::SpriteComponent *sprite = nullptr;
