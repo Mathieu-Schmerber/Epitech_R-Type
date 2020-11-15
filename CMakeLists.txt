@@ -246,11 +246,14 @@ set(CLIENT_INCLUDES
         client/include/scenes/Settings.hpp
         client/include/sfml/MusicSFML.hpp
 		client/include/sfml/SoundBufferSFML.hpp
-		client/include/systems/LobbySystem.hpp client/include/systems/QuitSystemInGame.hpp client/src/systems/QuitSystemInGame.cpp)
+		client/include/systems/LobbySystem.hpp
+		client/src/systems/LobbyWaitingSystem.cpp
+		client/include/systems/LobbyWaitingSystem.hpp
+		client/include/systems/QuitSystemInGame.hpp
+		client/src/systems/QuitSystemInGame.cpp)
 
 set(SERVER_SOURCES
         server/main.cpp
-        server/core/CoreServer.cpp
         server/client/Client.cpp
         server/lobby/lobbyManager/LobbyManager.cpp
         server/lobby/lobby/Lobby.cpp
@@ -276,7 +279,6 @@ set(SERVER_SOURCES
 		server/game/systems/BorderLimitSystem.cpp server/game/systems/BorderLimitSystem.hpp)
 
 set(SERVER_INCLUDES
-		server/core/CoreServer.hpp
 		server/client/Client.hpp
 		server/lobby/lobbyManager/LobbyManager.hpp
 		server/lobby/lobby/Lobby.hpp

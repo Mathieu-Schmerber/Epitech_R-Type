@@ -27,6 +27,7 @@ class CreateLobby : public Engine::AScene
     std::shared_ptr<Engine::Entity> getTextNbPlayerMax() const;
 
     std::shared_ptr<Engine::AWindow> getWindow() const;
+    std::shared_ptr<NetworkAccess> getServer() const;
 };
 
 void increaseNbOfClientsCb(std::shared_ptr<Engine::AScene> &);

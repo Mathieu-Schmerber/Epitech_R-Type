@@ -8,52 +8,41 @@
 #include "TCP/TcpSocket.hpp"
 #include "Client.hpp"
 
-Session::Session(boost::asio::io_service &io_service, int id) : socket(io_service), _id(id)
-{}
-
-tcp::socket &Session::get_socket()
-{
-    return this->socket;
-}
-
-void Session::start()
-{
-    socket.async_read_some(boost::asio::buffer(data, max_length), boost::bind(&Session::handle_read, this, shared_from_this(), boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
-}
-
-void Session::handle_read(std::shared_ptr<Session> &s, const boost::system::error_code &err, size_t bytes_transferred)
-{
-    std::cout << data << std::endl;
-    if (!err) {
-        socket.async_read_some(boost::asio::buffer(data, max_length), boost::bind(&Session::handle_read, this, shared_from_this(), boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
-    } else {
-        std::cout << "Client Disconnected id : " << s->getId() << std::endl;
-    }
-}
-
-int Session::getId() const
-{
-    return this->_id;
-}
-
-/*===========================================================*/
-
 Server::Server(short port) : _io_service(), _acceptor(_io_service, tcp::endpoint(tcp::v4(), port)), _id(1),
     _lobbyManager()
-{}
+{
+    std::shared_ptr<Client> session = std::make_shared<Client>(_io_service, 0, this);
+    _acceptor.async_accept(session->get_socket(), boost::bind(&Server::handle_accept, this, session, boost::asio::placeholders::error, this));
+    _connected.push_back(session);
+    //_thread = std::thread([&] { this->_io_service.run(); } );
+}
 
-void Server::handle_accept(std::shared_ptr<Session> session, const boost::system::error_code &err)
+void Server::handle_accept(std::shared_ptr<Client> session, const boost::system::error_code &err, Server *server)
 {
     if (!err) {
         std::cout << "New client connected" << std::endl;
         session->start();
-        session = std::make_shared<Session>(_io_service, _id++);
-        _acceptor.async_accept(session->get_socket(), boost::bind(&Server::handle_accept, this, session, boost::asio::placeholders::error));
-        auto client = new (std::nothrow)Client(session);
-        if (!client)
-            return;
-        _connected.push_back(client);
-        std::cout << "ID new client : " << client->getId() << std::endl;
+        session = std::make_shared<Client>(_io_service, _id++, server);
+        _acceptor.async_accept(session->get_socket(), boost::bind(&Server::handle_accept, this, session, boost::asio::placeholders::error, this));
+        _connected.push_back(session);
+        for (auto a : this->_lobbyManager.getAvailableLobbies()) {
+            std::vector<int> toSend;
+            toSend.clear();
+            toSend.push_back(7); //Message len
+            toSend.push_back(1); //Id for create Lobby
+            toSend.push_back(a->getId());
+            toSend.push_back(a->getPort());
+            toSend.push_back(a->getSlots());
+            toSend.push_back(0); //Master client Id
+            toSend.push_back(a->getNbPlayers());
+            std::cout << "Size : " << _connected.size() << std::endl;
+            for (const auto & pouet : _connected) {
+                std::cout << pouet->getId() << std::endl;
+            }
+            std::shared_ptr<Client> newSession = _connected.at(((_connected.size() - 2) < 0 ? 0 : _connected.size() - 2));
+            std::cout << "Send to session " << newSession->getId() << " " << ((_connected.size() - 2) < 0 ? 0 : _connected.size() - 2) << std::endl;
+            newSession->sendToClientTcp(toSend);
+        }
     } else {
         std::cerr << "err: " + err.message() << std::endl;
         session.reset();
@@ -62,22 +51,28 @@ void Server::handle_accept(std::shared_ptr<Session> session, const boost::system
 
 void Server::run()
 {
-    /*std::shared_ptr<Session> session = std::make_shared<Session>(_io_service, 0);
-    _acceptor.async_accept(session->get_socket(), boost::bind(&Server::handle_accept, this, session, boost::asio::placeholders::error));
-    this->_io_service.run();*/
-    boost::asio::io_service io_serv;
-    auto pouet = std::make_shared<Session>(io_serv, 1);
-    Client cli(pouet);
-    auto a = _lobbyManager.getLobbyById(1);
-    if (a) {
-        a->join(cli);
-        a->run();
-    }
-    while (true) {
-    }
+    this->_io_service.run();
 }
 
 void Server::stop()
 {
     this->_io_service.stop();
+}
+
+LobbyManager &Server::getLobbyManager()
+{
+    return this->_lobbyManager;
+}
+
+std::vector<std::shared_ptr<Client>> Server::getClientList() const
+{
+    return this->_connected;
+}
+
+void Server::removeClient(std::shared_ptr<Client> &cli)
+{
+    for (auto a = _connected.begin(); a != _connected.end(); a++)
+        if (a->get()->getId() == cli->getId())
+            _connected.erase(a);
+    _lobbyManager.removeClientInLobbies(cli);
 }

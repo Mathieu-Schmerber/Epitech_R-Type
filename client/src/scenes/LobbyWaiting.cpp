@@ -4,6 +4,7 @@
 
 #include <entities/LobbyCard.hpp>
 #include <systems/TextSystem.hpp>
+#include <systems/LobbyWaitingSystem.hpp>
 #include "scenes/SceneType.hpp"
 #include "scenes/LobbyWaiting.hpp"
 #include "systems/DrawSystem.hpp"
@@ -21,9 +22,13 @@
 
 void goToInGamesScene(std::shared_ptr<Engine::AScene> &lobbyWaiting)
 {
-    Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::GAME);
+    std::shared_ptr<LobbyWaiting> scene = std::dynamic_pointer_cast<LobbyWaiting>(lobbyWaiting);
+    std::vector<int> toSend;
 
-    lobbyWaiting->pushRequest(request);
+    std::cout << "Okay let's go" << std::endl;
+    toSend.push_back(2);
+    toSend.push_back(44);
+    scene->getServer()->getTcpSocket()->sendToServer(toSend);
 }
 
 void goBackToCreateLobby(std::shared_ptr<Engine::AScene> &lobbyWaiting)
@@ -80,6 +85,7 @@ void LobbyWaiting::initSystems()
     auto music = std::make_unique<Engine::MusicSystem>();
     auto window = std::make_unique<Engine::WindowResizeSystem>(this->_window);
     auto playerAndStarshipSystem = std::make_unique<PlayerAndStarshipSystem>(this->_server, this->_events, scene);
+    auto sceneSystem = std::make_unique<LobbyWaitingSystem>(this->_server, this->_events, scene);
 
     this->_systems.push_back(std::move(draw));
     this->_systems.push_back(std::move(text));
@@ -91,10 +97,16 @@ void LobbyWaiting::initSystems()
     this->_systems.push_back(std::move(music));
     this->_systems.push_back(std::move(window));
     this->_systems.push_back(std::move(playerAndStarshipSystem));
+    this->_systems.push_back(std::move(sceneSystem));
 }
 
 std::shared_ptr<Engine::AWindow> LobbyWaiting::getWindow() const
 {
     return _window;
+}
+
+std::shared_ptr<NetworkAccess> LobbyWaiting::getServer() const
+{
+    return _server;
 }
 

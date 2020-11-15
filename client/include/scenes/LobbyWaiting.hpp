@@ -24,6 +24,7 @@ class LobbyWaiting : public Engine::AScene
     LobbyWaiting(std::shared_ptr<Engine::AWindow> &window, std::shared_ptr<Engine::AEvents> &events, std::shared_ptr<NetworkAccess> &server);
 
     std::shared_ptr<Engine::AWindow> getWindow() const;
+    std::shared_ptr<NetworkAccess> getServer() const;
 };
 
 void goBackToCreateLobby(std::shared_ptr<Engine::AScene> &);

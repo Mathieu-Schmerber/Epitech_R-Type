@@ -27,7 +27,7 @@
 #include "systems/TargetSystem.hpp"
 #include "entities/Collectible.hpp"
 
-Game::Game(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception)
+Game::Game(std::vector<std::shared_ptr<Client>> &players, std::unique_ptr<UdpSocketInput> &reception)
 : _players(players), _reception(reception), _idIncrement(0), _running(true)
 {
     this->_timer = std::make_unique<Engine::Timer>();
@@ -169,6 +169,22 @@ void Game::update()
         for (auto &sys : this->_systems) {
             sys->setDeltatime(time);
             sys->update();
+        }
+        if (_players.empty()) {
+            _running = false;
+            std::cout << "End of the game" << std::endl;
+        }
+    }
+}
+
+void Game::removeClientInGame(const std::shared_ptr<Client> &cli)
+{
+    for (auto a = _players.begin(); a != _players.end(); ++a) {
+        std::cout << cli->getId() << " && " << a->get()->getId() << std::endl;
+        if (cli->getId() == a->get()->getId()) {
+            this->_players.erase(a);
+            std::cout << "Player remove game " << _players.size() << std::endl;
+            return;
         }
     }
 }

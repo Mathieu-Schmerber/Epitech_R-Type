@@ -11,14 +11,14 @@
 
 class ServerNetworkSystem : public Engine::System {
 private:
-    std::vector<Client> _players;
+    std::vector<std::shared_ptr<Client>> _players;
     std::reference_wrapper<std::unique_ptr<UdpSocketInput>> _reception;
 
     void receiveClientInputs();
     void sendGameData();
 
 public:
-    ServerNetworkSystem(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception);
+    ServerNetworkSystem(std::vector<std::shared_ptr<Client>> &players, std::unique_ptr<UdpSocketInput> &reception);
 
     void update() override;
 };

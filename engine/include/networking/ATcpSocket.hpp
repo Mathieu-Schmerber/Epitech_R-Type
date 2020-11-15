@@ -19,10 +19,15 @@ namespace Engine {
         explicit ATcpSocket(const std::string &in, int port);
         void sendToServer(std::vector<int> &toSend);
         std::vector<int> getDataFromServer();
+        ~ATcpSocket();
     private:
+        void _handleRead(const boost::system::error_code &error, std::size_t bytes);
         boost::asio::io_service _io_service;
         tcp::endpoint _endpoint;
         tcp::socket _socket;
+        std::vector<int> _data;
+        std::vector<std::vector<int>> _queueData;
+        std::thread _thread;
     };
 }
 

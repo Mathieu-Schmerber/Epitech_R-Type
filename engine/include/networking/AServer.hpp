@@ -27,8 +27,9 @@ namespace Engine {
 
         [[nodiscard]] const std::unique_ptr<ATcpSocket> &getTcpSocket() const;
         [[nodiscard]] const std::unique_ptr<AUdpSocketIO> &getUdpSocket() const;
+        [[nodiscard]] int getPortServer() const;
 
-        virtual void openSockets();
+        void openSockets(int portServer);
     };
 
 }

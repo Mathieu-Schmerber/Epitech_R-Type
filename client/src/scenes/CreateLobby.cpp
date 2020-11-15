@@ -30,8 +30,28 @@ void goBackToLobbyList(std::shared_ptr<Engine::AScene> &createLobby)
 
 void goToLobbyWaiting(std::shared_ptr<Engine::AScene> &createLobby)
 {
+    bool waitingForAnswer = true;
+    //FIXME: Passer de la création de lobby à la scène d'attente dans le lobby (Create Lobby)
     Engine::SceneRequest request(Engine::QueryType::SWITCH_SCENE, SceneType::LOBBY_WAITING);
+    std::shared_ptr<CreateLobby> scene = std::dynamic_pointer_cast<CreateLobby>(createLobby);
+    std::vector<int> pouet;
 
+    pouet.push_back(3);
+    pouet.push_back(1);
+    pouet.push_back(4); //TODO: Nb de players (to fix)
+    scene->getServer()->getTcpSocket()->sendToServer(pouet);
+    while (waitingForAnswer) {
+        std::vector<int> data = scene->getServer()->getTcpSocket()->getDataFromServer();
+        if (data.at(0) != 3 || data.at(1) != 42)
+            continue;
+        scene->getServer()->openSockets(data.at(2));
+        waitingForAnswer = false;
+    }
+    pouet.clear();
+    pouet.push_back(3);
+    pouet.push_back(43);
+    pouet.push_back(scene->getServer()->getPortServer());
+    scene->getServer()->getTcpSocket()->sendToServer(pouet);
     createLobby->pushRequest(request);
 }
 
@@ -138,4 +158,9 @@ std::shared_ptr<Engine::AWindow> CreateLobby::getWindow() const
 std::shared_ptr<Engine::Entity> CreateLobby::getTextNbPlayerMax() const
 {
     return _textNbPlayerMax;
+}
+
+std::shared_ptr<NetworkAccess> CreateLobby::getServer() const
+{
+    return _server;
 }

@@ -11,8 +11,8 @@
 #include "components/ControllerComponent.hpp"
 #include "components/SpriteComponent.hpp"
 
-ServerNetworkSystem::ServerNetworkSystem(std::vector<Client> &players, std::unique_ptr<UdpSocketInput> &reception)
-        : _players(players), _reception(reception), Engine::System()
+ServerNetworkSystem::ServerNetworkSystem(std::vector<std::shared_ptr<Client>> &players, std::unique_ptr<UdpSocketInput> &reception)
+: _players(players), _reception(reception), Engine::System()
 {
     this->addDependency<Engine::NetworkComponent>();
     this->addDependency<Engine::TransformComponent>();
@@ -47,7 +47,7 @@ void ServerNetworkSystem::sendGameData()
     }
     data.resize(UDP_BUFFER_SIZE, -1);
     for (auto &cli : this->_players)
-        cli.sendToClient(data);
+        cli->sendToClient(data);
 }
 
 void ServerNetworkSystem::update()

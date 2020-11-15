@@ -9,28 +9,48 @@
 #include "Client.hpp"
 #include "Game.hpp"
 
-Lobby::Lobby(int id, char nbSlots) : _id(id), _nbSlots(nbSlots), _gameRunning(false)
+Lobby::Lobby(int id, char nbSlots, int port) : _id(id), _nbSlots(nbSlots), _gameRunning(false), _port(port)
 {
-    _udpSocketInput = std::make_unique<UdpSocketInput>(4243);
+    _udpSocketInput = std::make_unique<UdpSocketInput>(port);
 }
 
 void Lobby::run()
 {
-    std::vector<Client> cli;
-    cli.push_back(this->_players.front());
-    _game = std::make_unique<Game>(cli, _udpSocketInput);
+    std::vector<int> toSend;
+    int i = 0;
+
+    std::cout << "Start game" << std::endl;
+    for (const auto &a : _players) {
+        toSend.clear();
+        toSend.push_back(3);
+        toSend.push_back(45);
+        toSend.push_back(++i);
+        a->sendToClientTcp(toSend);
+    }
+    _game = std::make_unique<Game>(_players, _udpSocketInput);
     _gameRunning = true;
     _thread = std::thread([&] { while (_game->isGameRunning()) { _game->update(); } });
 }
 
-void Lobby::join(Client &cli)
+void Lobby::join(const std::shared_ptr<Client> &cli)
 {
-    std::cout << "Client " << cli.getId() << " join." << std::endl;
+    std::cout << "Client " << cli->getId() << " join lobby " << _id << std::endl;
     _players.push_back(cli);
 }
 
-void Lobby::leave(Client &cli)
+void Lobby::leave(const std::shared_ptr<Client>& cli)
 {
+    if (_players.empty())
+        return;
+    for (auto a = _players.begin(); a != _players.end(); ++a) {
+        if (cli->getId() == a->get()->getId()) {
+            this->_players.erase(a);
+            std::cout << "Player remove lobby " << _players.size() << std::endl;
+            break;
+        }
+    }
+    if (_game->isGameRunning())
+        _game->removeClientInGame(cli);
 }
 
 int Lobby::getId() const
@@ -48,7 +68,12 @@ char Lobby::getSlots() const
     return this->_nbSlots;
 }
 
-char Lobby::getEmptySlots() const
+char Lobby::getNbPlayers() const
 {
-    return (char)(this->_nbSlots - (char)this->_players.size());
+    return (char)this->_players.size();
+}
+
+int Lobby::getPort() const
+{
+    return _port;
 }
