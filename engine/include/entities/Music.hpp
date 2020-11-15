@@ -14,6 +14,9 @@
 
 namespace Engine {
 
+    /*!
+     * @brief Describes a Music Entity
+     */
     class Music : public Engine::Entity {
     public:
         explicit Music(std::unique_ptr<Engine::AMusic> music) : Engine::Entity()

@@ -12,6 +12,9 @@
 
 namespace Engine {
 
+    /*!
+     * @brief Describes a System
+     */
     class System {
 
     private:
@@ -27,13 +30,23 @@ namespace Engine {
         void setDeltatime(double delta) {this->_deltatime = delta;}
         [[nodiscard]] double deltatime() const {return this->_deltatime;}
 
+        /*!
+         * @brief Add a System dependency
+         * @tparam T The Component type to add as a dependency
+         */
         template<typename T> void addDependency();
 
+        /*!
+         * @brief Adds an entity to the system
+         */
         void addEntity(std::shared_ptr<Engine::Entity> &entity)
         {
             this->_entities.emplace_back(entity);
         }
 
+        /*!
+         * @brief Delete an entity from the system
+         */
         virtual void deleteEntity(std::shared_ptr<Engine::Entity> &entity)
         {
             Utils::removeFromVector(this->_entities, entity);
@@ -48,6 +61,10 @@ namespace Engine {
         {
             return this->_entities;
         }
+
+        /*!
+         * @brief Updates the system
+         */
         virtual void update() {};
     };
 

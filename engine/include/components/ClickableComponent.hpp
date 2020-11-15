@@ -10,6 +10,9 @@
 
 namespace Engine {
 
+    /*!
+     * @brief This component stores the mouse state relative to the entity it is attached to
+     */
     class ClickableComponent : public Engine::Component {
     private:
         bool _isClicked;

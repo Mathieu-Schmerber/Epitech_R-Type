@@ -11,6 +11,9 @@
 
 namespace Engine {
 
+    /*!
+     * @brief This component stores children entities
+     */
     class ChildrenComponent : public Engine::Component {
     private:
         std::vector<std::shared_ptr<Entity>> _children;
@@ -22,6 +25,7 @@ namespace Engine {
             if (child->getComponent<TransformComponent>())
                 this->_children.emplace_back(child);
         }
+
         void removeChildIfExists(std::shared_ptr<Entity> &child)
         {
             if (Utils::isInVector(this->_children, child))

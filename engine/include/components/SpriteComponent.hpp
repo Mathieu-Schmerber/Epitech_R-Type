@@ -11,6 +11,9 @@
 
 namespace Engine {
 
+    /*!
+     * @brief This component stores all the data needed to render a sprite
+     */
     class SpriteComponent : public Engine::Component {
     private:
         std::unique_ptr<Engine::ASprite> _sprite;

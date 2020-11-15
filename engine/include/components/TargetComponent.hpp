@@ -16,6 +16,9 @@
 
 namespace Engine {
 
+    /*!
+     * @brief This component stores all the data needed to get track of a list of entity
+     */
     class TargetComponent : public Engine::Component {
     private:
         std::vector<std::shared_ptr<Engine::Entity>> _targets{};

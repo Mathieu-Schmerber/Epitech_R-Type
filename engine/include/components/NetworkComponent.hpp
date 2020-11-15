@@ -11,19 +11,18 @@
 
 namespace Engine {
 
+    /*!
+     * @brief This component stores all the data needed to identify an Engine::Entity over the internet
+     */
     class NetworkComponent : public Engine::Component {
     private:
         int _networkIdentity;
-        std::vector<double> _dataSaved;
 
     public:
-        explicit NetworkComponent(int id = 0) : _networkIdentity(id), _dataSaved({}), Component() {}
+        explicit NetworkComponent(int id = 0) : _networkIdentity(id), Component() {}
 
         void setNetworkId(int id) {this->_networkIdentity = id;}
         [[nodiscard]] int getNetworkId() const {return this->_networkIdentity;}
-
-        void saveData(const std::vector<double> &data) {this->_dataSaved = data;}
-        [[nodiscard]] std::vector<double> getData() const {return this->_dataSaved;}
     };
 
 }

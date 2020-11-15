@@ -15,6 +15,9 @@
 
 namespace Engine {
 
+    /*!
+     * @brief This component stores all the data needed to play a sound
+     */
     class SoundComponent : public Engine::Component {
     private:
         std::unique_ptr<Engine::ASound> _sound;

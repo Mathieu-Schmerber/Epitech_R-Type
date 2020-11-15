@@ -13,6 +13,9 @@
 
 namespace Engine {
 
+    /*!
+     * @brief Describes an Entity
+     */
     class Entity {
 
     protected:
@@ -20,12 +23,37 @@ namespace Engine {
 
     public:
         explicit Entity() = default;
-        ~Entity() = default;
 
+        ~Entity() {
+            this->_components.clear();
+        }
+
+        /*!
+         * @brief Add a Component to the Entity
+         * @tparam T Component type
+         * @tparam TArgs Component's constructor arguments
+         * @param args Component's constructor arguments
+         * @return The created Component
+         */
         template<typename T, typename... TArgs> T *addComponent(TArgs&&... args);
+
+        /*!
+         * @brief Gets the first Component of the specified type
+         * @tparam T The Component type
+         * @return The Component
+         */
         template<typename T> [[nodiscard]] T *getComponent() const;
+
+        /*!
+         * @brief Gets all Components of the specified type
+         * @tparam T The Component type
+         * @return The Components
+         */
         template<typename T> [[nodiscard]] std::vector<T *> getComponents() const;
 
+        /*!
+         * @brief Check if the Entity contains all of the specified Components
+         */
         bool hasComponents(std::vector<std::unique_ptr<Engine::Component>> &components)
         {
             size_t match = 0;

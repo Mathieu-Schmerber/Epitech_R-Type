@@ -12,6 +12,9 @@
 
 namespace Engine {
 
+    /*!
+     * @brief This component stores all the data needed to create a parallax effect
+     */
     class ParallaxComponent : public Engine::Component {
     private:
         Point<double> _start;
@@ -24,6 +27,12 @@ namespace Engine {
 
         Engine::Component() {}
 
+        /*!
+         * @brief Check if the parallax needs to reset its position.
+         * @param pos Current position
+         * @param direction Parallax direction
+         * @return True if the parallax needs to reset its position
+         */
         [[nodiscard]] bool isLimitReached(const Point<double> &pos, const Vector<double> &direction) const {
             return (
                     (direction.x >= 0 && pos.x >= _limit.x) && (direction.y >= 0 && pos.y >= _limit.y) ||
@@ -31,6 +40,9 @@ namespace Engine {
             );
         }
 
+        /*!
+         * @brief Does the parallax reset its position automatically
+         */
         [[nodiscard]] bool isAutomatic() const {return _isAutomatic;}
 		
         [[nodiscard]] Point<double> getStart() const {return this->_start;}

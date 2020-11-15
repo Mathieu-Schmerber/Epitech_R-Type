@@ -11,6 +11,9 @@
 
 namespace Engine {
 
+    /*!
+     * Describes a Component
+     */
     class Component {
     protected:
         std::string _info;
@@ -18,7 +21,16 @@ namespace Engine {
         Component() = default;
         ~Component() = default;
 
+        /*!
+         * @brief Sets the component type
+         * @param info the component type using typeid()
+         */
         void setInfo(const std::string &info) {this->_info = info;}
+
+        /*!
+         * @brief Gets the component type
+         * @return component type
+         */
         [[nodiscard]] std::string getInfo() const {return this->_info;}
     };
 }

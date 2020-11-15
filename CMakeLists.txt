@@ -96,7 +96,6 @@ set(ENGINE_INCLUDES
 		engine/include/components/TextComponent.hpp
 		engine/include/components/ButtonComponent.hpp
 		engine/include/components/TextComponent.hpp
-		engine/include/components/AudioComponent.hpp
 		engine/include/systems/DrawSystem.hpp
 		engine/include/graphical/ASprite.hpp
 		engine/include/graphical/AGraphical.hpp

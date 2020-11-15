@@ -10,6 +10,9 @@
 
 namespace Engine {
 
+    /*!
+     * @brief This component stores all the data needed to handle collisions
+     */
     class ColliderComponent : public Engine::Component {
     private:
         int _collisionMask;
@@ -33,8 +36,14 @@ namespace Engine {
             this->_baseHitBox = {{(double) pos.x,  (double) pos.y},{(double) size.x, (double) size.y}};
         }
 
+        /*!
+         * @brief Empty the collision list
+         */
         void clearCollisions() { this->_collisions.clear(); };
 
+        /*!
+         * @brief Add an entity to the collision list
+         */
         void collide(std::shared_ptr<Entity> &entity) {
             if (this->_isActive)
                 _collisions.emplace_back(entity);
@@ -53,6 +62,10 @@ namespace Engine {
             this->_hitBox.center = {this->_hitBox.x1 - size.x, this->_hitBox.y1 - size.y};
         }
 
+        /*!
+         * @brief Enable or disable collisions
+         * @param active state
+         */
         void setActive(bool active) { this->_isActive = active; }
 
         void setCollisionMask(int mask) { this->_collisionMask = mask; }
