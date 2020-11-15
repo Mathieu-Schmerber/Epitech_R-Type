@@ -50,12 +50,12 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
             _currentLobby = this->_server->getLobbyManager().getLobbyById(_data.at(2));
             if (!_currentLobby)
                 return;
-            _currentLobby->join(s);
             std::vector<int> answerToClient;
             answerToClient.push_back(3);
             answerToClient.push_back(42);
             answerToClient.push_back(_currentLobby->getPort());
             s->sendToClientTcp(answerToClient);
+            _currentLobby->join(s);
         }
     } else if (_data.at(1) == 1) {
         //Create a Lobby
@@ -63,7 +63,6 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
         auto newLobby = this->_server->getLobbyManager().addLobby(_data.at(2));
         if (!newLobby)
             return;
-        newLobby->join(s);
         _currentLobby = newLobby;
         std::vector<int> answerToClient;
         answerToClient.push_back(3);
@@ -85,6 +84,7 @@ void Client::handle_read(std::shared_ptr<Client> &s, const boost::system::error_
                 std::cerr << "Send to clients errors : " << e.what() << std::endl;
             }
         }
+        newLobby->join(s);
     } else if (_data.at(1) == 43) {
         if (_data.at(0) != 3)
             return;

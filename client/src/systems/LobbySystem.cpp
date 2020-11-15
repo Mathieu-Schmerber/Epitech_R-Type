@@ -43,7 +43,7 @@ void LobbySystem::updateFromServer()
                 return;
             }
         }
-    } else {
+    } else if (data.at(1) == 1) {
         double lastLobbyCardPositionY = -190;
         for (auto &e : this->_entities) {
             if (e->getComponent<LobbyComponent>()) {
