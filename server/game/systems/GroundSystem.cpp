@@ -36,7 +36,7 @@ void GroundSystem::update()
 
     if (this->_entities.empty()) {
         for (int i = 0; i < 10 + 1; ++i) {
-            this->spawnGrounds(i * GROUND_WIDTH, 0, 1, 2);
+            this->spawnGrounds(i * GROUND_WIDTH, 0, 1, 3);
             this->spawnGrounds(i * GROUND_WIDTH, 1080 - GROUND_HEIGHT, 1, 1);
         }
     }
@@ -50,7 +50,7 @@ void GroundSystem::update()
         }
     }
     if (spawned) {
-        this->spawnGrounds(GROUND_WIDTH * 10, 0, 1, 2);
+        this->spawnGrounds(GROUND_WIDTH * 10, 0, 1, 3);
         this->spawnGrounds(GROUND_WIDTH * 10, 1080 - GROUND_HEIGHT, 1, 1);
     }
 }

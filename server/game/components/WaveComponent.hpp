@@ -18,13 +18,15 @@ private:
             {basic, "../../client/assets/textsEdt/Basic.txt"},
             {medium, "../../client/assets/textsEdt/Medium.txt"},
             {hard, "../../client/assets/textsEdt/Hard.txt"},
-            {boss, "../../client/assets/textsEdt/Boss.txt"}
+            {boss, "../../client/assets/textsEdt/Boss.txt"},
+            {victory, "../../client/assets/textsEdt/Victory.txt"}
     };
     std::map<int, int> _waveDuration = {
-            {basic, 60},
-            {medium, 60},
-            {hard, 60},
-            {boss, 60}
+            {basic, 10},
+            {medium, 10},
+            {hard, 10},
+            {boss, 10},
+            {victory, 4}
     };
     int displayWaveTime = 2;
     int _currentWave = basic;
@@ -36,12 +38,13 @@ public:
         basic = 0,
         medium = 1,
         hard = 2,
-        boss = 3
+        boss = 3,
+        victory = 4,
     };
 
     std::string getTextFromWave(int wnb) {return _waveText.at(wnb);}
     int getDurationFromWave(int wnb) {return _waveDuration.at(wnb);}
-    [[nodiscard]] bool timeToSwitch() {return _currentWave < 3 && Engine::Timer::hasElapsed(_lastChgmt, getDurationFromWave(_currentWave));}
+    [[nodiscard]] bool timeToSwitch() {return _currentWave < victory && Engine::Timer::hasElapsed(_lastChgmt, getDurationFromWave(_currentWave));}
     void goNextScene() {
         _currentWave += 1;
         _lastChgmt = std::chrono::high_resolution_clock::now();

@@ -30,6 +30,7 @@ private:
 
     void sendRawInputs();
     void receiveGameData();
+    void readServerTCP();
 
 public:
     /*!

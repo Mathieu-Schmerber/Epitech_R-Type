@@ -27,17 +27,15 @@ void EnemySystem::handleMovements(std::shared_ptr<Engine::Entity> &enemy)
 
 bool EnemySystem::didCollide(std::shared_ptr<Engine::Entity> &enemy)
 {
-    bool willBeDestroyed = false;
     auto collider = enemy->getComponent<Engine::ColliderComponent>();
     auto collided = Collision::removeIgnored(static_cast<Collision::Mask>(collider->getCollisionMask()), collider->getCollisions());
 
     for (auto &c : collided) {
-        if (c->getComponent<HealthComponent>()) {
-            c->getComponent<HealthComponent>()->setCurrentHealth(0);
-            willBeDestroyed = true;
+        if (c->getComponent<Engine::ColliderComponent>()->getCollisionMask() == Collision::Mask::WALL) {
+            return true;
         }
     }
-    return willBeDestroyed;
+    return false;
 }
 
 void EnemySystem::deleteEntity(std::shared_ptr<Engine::Entity> &entity)
@@ -59,6 +57,11 @@ void EnemySystem::deleteEntity(std::shared_ptr<Engine::Entity> &entity)
 
 void EnemySystem::update()
 {
+    auto cpy = _entities;
+
+    for (auto &e : cpy)
+        if (didCollide(e))
+            _game->despawn(e);
     for (auto &e : this->_entities)
         handleMovements(e);
 }
