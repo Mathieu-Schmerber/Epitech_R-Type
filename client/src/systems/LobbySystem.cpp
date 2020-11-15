@@ -31,10 +31,15 @@ void LobbySystem::updateFromServer()
             if (e->getComponent<LobbyComponent>()->getLobbyId() == data.at(2)) {
                 if (data.at(3) == 0) {
                     SocketParser::updateLobbyFromTcp(e, data);
-                } else {
-                    //remove element e
-                    //Move all the under lobbys
                 }
+                return;
+            }
+        }
+    } else if (data.at(0) == 3 && data.at(1) == 46) {
+        for (auto e : this->_entities) {
+            auto lobbyComp = e->getComponent<LobbyComponent>();
+            if (lobbyComp && lobbyComp->getLobbyId() == data.at(2)) {
+                _scene->despawnEntity(e);
                 return;
             }
         }

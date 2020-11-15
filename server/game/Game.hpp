@@ -5,6 +5,7 @@
 #ifndef RTYPE_GAME_HPP
 #define RTYPE_GAME_HPP
 
+#include <mutex>
 #include <entities/Enemy.hpp>
 #include "ecs/System.hpp"
 #include "tools/Timer.hpp"
@@ -35,6 +36,7 @@ public:
 
     void spawn(std::shared_ptr<Engine::Entity> entity, bool addToNetwork);
     void despawn(std::shared_ptr<Engine::Entity> &entity);
+    void stopTheGame();
     void update();
     [[nodiscard]] bool isGameRunning() const;
     void removeClientInGame(const std::shared_ptr<Client> &cli);

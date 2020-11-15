@@ -9,7 +9,7 @@
 #include "Client.hpp"
 
 Server::Server(short port) : _io_service(), _acceptor(_io_service, tcp::endpoint(tcp::v4(), port)), _id(1),
-    _lobbyManager()
+    _lobbyManager(this)
 {
     std::shared_ptr<Client> session = std::make_shared<Client>(_io_service, 0, this);
     _acceptor.async_accept(session->get_socket(), boost::bind(&Server::handle_accept, this, session, boost::asio::placeholders::error, this));
@@ -74,4 +74,10 @@ void Server::removeClient(std::shared_ptr<Client> &cli)
         if (a->get()->getId() == cli->getId())
             _connected.erase(a);
     _lobbyManager.removeClientInLobbies(cli);
+}
+
+void Server::sendToAllClients(const std::vector<int>& toSend)
+{
+    for (const auto& a : _connected)
+        a->sendToClientTcp(toSend);
 }

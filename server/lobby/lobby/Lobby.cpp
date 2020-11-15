@@ -5,11 +5,13 @@
 ** Created by Emilien
 */
 
-#include "Lobby.hpp"
 #include "Client.hpp"
 #include "Game.hpp"
+#include "TcpSocket.hpp"
+#include "Lobby.hpp"
 
-Lobby::Lobby(int id, char nbSlots, int port) : _id(id), _nbSlots(nbSlots), _gameRunning(false), _port(port)
+Lobby::Lobby(int id, char nbSlots, int port, Server *server) : _id(id), _nbSlots(nbSlots), _gameRunning(false),
+ _port(port), _server(server)
 {
     _udpSocketInput = std::make_unique<UdpSocketInput>(port);
 }
@@ -24,7 +26,7 @@ void Lobby::run()
         toSend.clear();
         toSend.push_back(3);
         toSend.push_back(45);
-        toSend.push_back(++i);
+        toSend.push_back(i++);
         a->sendToClientTcp(toSend);
     }
     _game = std::make_unique<Game>(_players, _udpSocketInput);
@@ -49,8 +51,10 @@ void Lobby::leave(const std::shared_ptr<Client>& cli)
             break;
         }
     }
-    if (_game->isGameRunning())
+    if (_game && _game->isGameRunning())
         _game->removeClientInGame(cli);
+    if (_players.empty())
+        this->~Lobby();
 }
 
 int Lobby::getId() const
@@ -76,4 +80,21 @@ char Lobby::getNbPlayers() const
 int Lobby::getPort() const
 {
     return _port;
+}
+
+Lobby::~Lobby()
+{
+    std::cout << "Close lobby" << std::endl;
+    std::vector<int> toSend;
+
+    toSend.push_back(3);
+    toSend.push_back(46);
+    toSend.push_back(_id);
+    if (_server)
+        _server->sendToAllClients(toSend);
+    if (_game && _game->isGameRunning()) {
+        _game->stopTheGame();
+        _thread.join();
+    }
+    std::cout << "End close lobby" << std::endl;
 }

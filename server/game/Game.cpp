@@ -195,3 +195,8 @@ void Game::removeClientInGame(const std::shared_ptr<Client> &cli)
         }
     }
 }
+
+void Game::stopTheGame()
+{
+    this->_running = false;
+}

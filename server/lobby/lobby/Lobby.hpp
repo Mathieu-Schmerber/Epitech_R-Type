@@ -14,10 +14,12 @@
 
 class Client;
 class Game;
+class Server;
 
 class Lobby {
 public:
-    explicit Lobby(int id, char nbSlots, int port);
+    explicit Lobby(int id, char nbSlots, int port, Server *server);
+    ~Lobby();
     void run();
 
     void join(const std::shared_ptr<Client> &cli);
@@ -30,7 +32,8 @@ public:
     [[nodiscard]] int getPort() const;
 private:
     std::vector<std::shared_ptr<Client>> _players{};
-    std::thread _thread{};
+    Server *_server;
+    std::thread _thread;
     int _id;
     int _port;
     char _nbSlots;

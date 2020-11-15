@@ -13,7 +13,7 @@
 
 class LobbyManager {
 public:
-    explicit LobbyManager();
+    explicit LobbyManager(Server *);
     Lobby *addLobby(char nbSlots);
     [[nodiscard]] std::vector<Lobby *> getAvailableLobbies() const;
     void removeClientInLobbies(std::shared_ptr<Client> &cli);
@@ -22,6 +22,7 @@ private:
     std::vector<Lobby *> _lobbys{};
     int _id = 1;
     int _port;
+    Server *_server;
 };
 
 #endif //RTYPE_LOBBYMANAGER_HPP
