@@ -11,7 +11,7 @@
 #include "Lobby.hpp"
 
 Lobby::Lobby(int id, char nbSlots, int port, Server *server) : _id(id), _nbSlots(nbSlots), _gameRunning(false),
- _port(port), _server(server)
+ _port(port), _server(server), _toRemove(false)
 {
     _udpSocketInput = std::make_unique<UdpSocketInput>(port);
 }
@@ -60,6 +60,7 @@ void Lobby::join(const std::shared_ptr<Client> &cli)
             toSend.push_back(4);
             toSend.push_back(49);
             toSend.push_back(cli->getId());
+            toSend.push_back(_players.at(0)->getId());
             a->sendToClientTcp(toSend);
         }
     }
@@ -97,7 +98,7 @@ void Lobby::leave(const std::shared_ptr<Client>& cli)
     if (_game && _game->isGameRunning())
         _game->removeClientInGame(cli);
     if (_players.empty())
-        this->~Lobby();
+        _toRemove = true;
 }
 
 int Lobby::getId() const
@@ -140,4 +141,9 @@ Lobby::~Lobby()
     if (_thread.joinable())
         _thread.join();
     std::cout << "End close lobby" << std::endl;
+}
+
+bool Lobby::getToRemove() const
+{
+    return _toRemove;
 }

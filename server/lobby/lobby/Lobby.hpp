@@ -30,6 +30,7 @@ public:
     [[nodiscard]] char getSlots() const;
     [[nodiscard]] char getNbPlayers() const;
     [[nodiscard]] int getPort() const;
+    [[nodiscard]] bool getToRemove() const;
 private:
     std::vector<std::shared_ptr<Client>> _players{};
     Server *_server;
@@ -38,6 +39,7 @@ private:
     int _port;
     char _nbSlots;
     bool _gameRunning;
+    bool _toRemove;
     std::unique_ptr<Game> _game;
     std::unique_ptr<UdpSocketInput> _udpSocketInput;
 };
