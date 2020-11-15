@@ -64,7 +64,7 @@ How to use the server and what address and port it use.
 
 #### Protocol
 
-Protocol info
+See the RFC
 
 ## Use the clients
 
