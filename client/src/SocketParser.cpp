@@ -70,10 +70,13 @@ std::shared_ptr<Engine::Entity> SocketParser::createTextEntity(const std::vector
     entity->addComponent<Engine::TransformComponent>(Engine::Point<double>{static_cast<double>(in.at(4)), static_cast<double>(in.at(5))}, in.at(6));
     entity->addComponent<Engine::TextComponent>();
     text = entity->getComponent<Engine::TextComponent>();
-    std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(_pool->getPathFromIndex(in.at(2)));
     std::ifstream ifs(_pool->getPathFromIndex(in.at(3)));
     std::string content((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
-    std::unique_ptr<Engine::AText> txt = std::make_unique<TextSFML>(content, font, in.at(7));
+
+    if (!Engine::Utils::isInMap(_fonts, _pool->getPathFromIndex(in.at(2))))
+        _fonts[_pool->getPathFromIndex(in.at(2))] = std::make_shared<FontSFML>(_pool->getPathFromIndex(in.at(2)));
+
+    std::unique_ptr<Engine::AText> txt = std::make_unique<TextSFML>(content, _fonts.at(_pool->getPathFromIndex(in.at(2))), in.at(7));
     txt->setLetterSpacing(in.at(8));
     text->setText(std::move(txt));
     text->setLayer(in.at(9));
@@ -87,15 +90,15 @@ std::shared_ptr<Engine::Entity> SocketParser::createSpriteEntity(const std::vect
     auto entity = new Engine::Entity();
     Engine::SpriteComponent *sprite = nullptr;
 
-    //std::cout << "create text ";
     if (in.size() < 10)
         return nullptr;
-    //std::cout << "entity" << std::endl;
     entity->addComponent<Engine::NetworkComponent>(in.at(1));
     entity->addComponent<Engine::TransformComponent>(Engine::Point<double>{static_cast<double>(in.at(2)), static_cast<double>(in.at(3))}, in.at(4));
     entity->addComponent<Engine::SpriteComponent>();
     sprite = entity->getComponent<Engine::SpriteComponent>();
-    auto spr = std::make_unique<SpriteSFML>(_pool->getPathFromIndex(in.at(5)));
+    if (!Engine::Utils::isInMap(_textures, _pool->getPathFromIndex(in.at(5))))
+        _textures[_pool->getPathFromIndex(in.at(5))] = std::make_shared<TextureSFML>(_pool->getPathFromIndex(in.at(5)));
+    auto spr = std::make_unique<SpriteSFML>(_textures.at(_pool->getPathFromIndex(in.at(5))));
     sprite->setDisplay(std::move(spr));
     sprite->getSprite()->setRect(
             {static_cast<double>(in.at(6)), static_cast<double>(in.at(7)), static_cast<double>(in.at(8)),
@@ -120,8 +123,6 @@ void SocketParser::updateTextEntity(std::shared_ptr<Engine::Entity> &entity, con
 
     entity->getComponent<Engine::TransformComponent>()->setPos(Engine::Point<double>{static_cast<double>(in.at(4)), static_cast<double>(in.at(5))});
     entity->getComponent<Engine::TransformComponent>()->setRotation(in.at(6));
-
-    std::shared_ptr<Engine::AFont> font = std::make_shared<FontSFML>(_pool->getPathFromIndex(in.at(2)));
 
     std::ifstream ifs(_pool->getPathFromIndex(in.at(3)));
     std::string content((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));

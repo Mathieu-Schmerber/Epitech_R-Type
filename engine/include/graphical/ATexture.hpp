@@ -18,6 +18,7 @@ namespace Engine {
         std::string _filename;
     public:
         explicit ATexture(const std::string &file = "") : _filename(file) {};
+        virtual ~ATexture() { std::cout << "destroy Atexture" << std::endl;}
         virtual void loadFromFile(std::string filename) = 0;
         [[nodiscard]] std::string getFilename() const {return this->_filename;}
     };
