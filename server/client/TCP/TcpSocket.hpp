@@ -31,7 +31,9 @@ public:
     LobbyManager &getLobbyManager();
     [[nodiscard]] std::vector<std::shared_ptr<Client>> getClientList() const;
     void removeClient(std::shared_ptr<Client> &cli);
+    void sendToAllClients(const std::vector<int>& toSend);
     void stop();
+
 private:
     boost::asio::io_service _io_service;
     tcp::acceptor _acceptor;

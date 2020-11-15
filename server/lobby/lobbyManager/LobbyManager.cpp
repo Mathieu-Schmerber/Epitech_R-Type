@@ -7,14 +7,15 @@
 
 #include "LobbyManager.hpp"
 #include "Client.hpp"
+#include "TcpSocket.hpp"
 
-LobbyManager::LobbyManager() : _port(4243)
+LobbyManager::LobbyManager(Server *server) : _port(4243), _server(server)
 {}
 
 Lobby *LobbyManager::addLobby(char nbSlots = 4)
 {
     try {
-        auto *nLobby = new Lobby(this->_id++, nbSlots, _port++);
+        auto *nLobby = new Lobby(this->_id++, nbSlots, _port++, _server);
 
         this->_lobbys.push_back(nLobby);
         return nLobby;
