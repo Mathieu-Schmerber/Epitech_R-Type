@@ -2,15 +2,19 @@
 #include "Client.hpp"
 #include "tools/DLLoader.hpp"
 
-void testServer()
+void startServer()
 {
     Server server(4242);
 
     server.run();
 }
 
-int main(int ac, char **av)
+int main()
 {
-    testServer();
+    try {
+        startServer();
+    } catch (std::exception &e) {
+        std::cerr << "Fatal error " << e.what() << std::endl;
+    }
     return 0;
 }
