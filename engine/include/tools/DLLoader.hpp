@@ -103,7 +103,7 @@ namespace Engine {
         ((*f)(instance));
         dlclose(_lib);
         #elif defined(_WIN32) || defined(WIN32)
-        FreeLibrary(_lib);
+        FreeLibrary((HMODULE)_lib);
         #endif
     }
 }

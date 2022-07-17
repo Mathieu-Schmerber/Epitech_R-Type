@@ -1,9 +1,9 @@
 [requires]
-openal/1.18.2@bincrafters/stable
-sfml/2.5.1@bincrafters/stable
-boost/1.71.0@conan/stable
-zlib/1.2.11@conan/stable
-bzip2/1.0.8@conan/stable
+openal/1.21.1
+sfml/2.5.1
+boost/1.79.0
+zlib/1.2.12
+bzip2/1.0.8
 
 [generators]
 cmake

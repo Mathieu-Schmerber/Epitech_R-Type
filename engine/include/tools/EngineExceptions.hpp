@@ -71,6 +71,4 @@ namespace Engine {
     }
 }
 
-
-
 #endif //RTYPE_ENGINEEXCEPTIONS_HPP
